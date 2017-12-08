@@ -1292,8 +1292,8 @@ function nuGroupDialog(){
 	$('#label').attr('id', 'label0').attr('readonly', true).css('background-color','#DFDFDF');
 	top = nuDialogInput('Section Height', 'height', top-5, left, nuREPORT.groups[nuDIALOG.groupNumber].sections[0], 'nuUpdateSectionProperty');
 	$('#height').attr({'id' : 'height0', 'data-property' : 'height', 'data-section' : '0'});
-	top = nuDialogInput('Section Color', 'color', top-5, left, nuREPORT.groups[nuDIALOG.groupNumber].sections[0], 'nuUpdateSectionProperty');
-	$('#color').attr({'id' : 'color0', 'data-property' : 'color', 'data-section' : '0'});
+//	top = nuDialogInput('Section Color', 'color', top-5, left, nuREPORT.groups[nuDIALOG.groupNumber].sections[0], 'nuUpdateSectionProperty');
+//	$('#color').attr({'id' : 'color0', 'data-property' : 'color', 'data-section' : '0'});
 	top = nuDialogInput('Page Break', 'page_break', top-5, left, nuREPORT.groups[nuDIALOG.groupNumber].sections[0], 'nuUpdateSectionProperty', [['0','No'],['1','Yes']]);
 	$('#page_break').attr({'id' : 'page_break0', 'data-property' : 'page_break', 'data-section' : '0'});
 
@@ -1302,13 +1302,13 @@ function nuGroupDialog(){
 	if(nuREPORT.groups[nuDIALOG.groupNumber].sections.length == 2){
 
 		top = nuDialogInput('Section Name', 'label', top, left, nuREPORT.groups[nuDIALOG.groupNumber].sections[1], 'nuDoNothing');
-                $('#label').attr('id', 'label1').attr('readonly', true).css('background-color','#DFDFDF');
-                top = nuDialogInput('Section Height', 'height', top-5, left, nuREPORT.groups[nuDIALOG.groupNumber].sections[1], 'nuUpdateSectionProperty');
-                $('#height').attr({'id' : 'height1', 'data-property' : 'height', 'data-section' : '1'});
-                top = nuDialogInput('Section Color', 'color', top-5, left, nuREPORT.groups[nuDIALOG.groupNumber].sections[1], 'nuUpdateSectionProperty');
-                $('#color').attr({'id' : 'color1', 'data-property' : 'color', 'data-section' : '1'});
-                top = nuDialogInput('Page Break', 'page_break', top-5, left, nuREPORT.groups[nuDIALOG.groupNumber].sections[1], 'nuUpdateSectionProperty', [['0','No'],['1','Yes']]);
-                $('#page_break').attr({'id' : 'page_break0', 'data-property' : 'page_break', 'data-section' : '1'});
+		$('#label').attr('id', 'label1').attr('readonly', true).css('background-color','#DFDFDF');
+		top = nuDialogInput('Section Height', 'height', top-5, left, nuREPORT.groups[nuDIALOG.groupNumber].sections[1], 'nuUpdateSectionProperty');
+		$('#height').attr({'id' : 'height1', 'data-property' : 'height', 'data-section' : '1'});
+//		top = nuDialogInput('Section Color', 'color', top-5, left, nuREPORT.groups[nuDIALOG.groupNumber].sections[1], 'nuUpdateSectionProperty');
+//		$('#color').attr({'id' : 'color1', 'data-property' : 'color', 'data-section' : '1'});
+		top = nuDialogInput('Page Break', 'page_break', top-5, left, nuREPORT.groups[nuDIALOG.groupNumber].sections[1], 'nuUpdateSectionProperty', [['0','No'],['1','Yes']]);
+		$('#page_break').attr({'id' : 'page_break0', 'data-property' : 'page_break', 'data-section' : '1'});
 
 	}
 	
