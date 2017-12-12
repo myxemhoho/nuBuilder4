@@ -159,7 +159,7 @@ function nuLogout(f, iframe){
 		var fm 			= data;
 		
 		if(!nuDisplayError(fm)){
-			window.open('index.php');
+			window.open('index.php', '_self');
 		}
 		
 	}
