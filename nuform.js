@@ -1446,6 +1446,15 @@ function nuAddBreadcrumb(i){
 		.addClass('nuNotBreadcrumb')
 		.html(nuTranslate(bc.title));
 		
+		if(i == 0){
+				
+			$('#' + bcId)
+			.css('cursor', "pointer")
+			.attr('onclick', "window.open('index.php')")
+			.html(nuTranslate('Logout'));
+			
+		}
+		
 	}else{
 		
 		$('#' + bcId)
