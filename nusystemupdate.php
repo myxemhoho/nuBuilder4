@@ -214,6 +214,10 @@ function nuUpdateSystemRecords(){									//-- after zzzzsys files have been imp
 		
 	}
 
+	$sql				= "UPDATE zzzzsys_setup SET set_denied = '0'";
+	nuRunQuery($sql);
+	print "$sql<br>";
+
 	print "Done!<br><br>";
 
 	
