@@ -145,6 +145,30 @@ function nuRunReport(f, iframe){
 }
 
 
+function nuLogout(f, iframe){
+
+	nuFORM.addBreadcrumb();
+
+	var last			= nuFORM.getCurrent();
+
+	last.session_id 	= window.nuSESSION;
+	last.call_type		= 'logout';
+	
+	var successCallback = function(data,textStatus,jqXHR){
+		
+		var fm 			= data;
+		
+		if(!nuDisplayError(fm)){
+			window.open('index.php');
+		}
+		
+	}
+	
+	nuAjax(last,successCallback);
+	
+}
+
+
 
 function nuGetPHP(f, r){
 

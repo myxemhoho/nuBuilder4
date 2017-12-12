@@ -1450,7 +1450,7 @@ function nuAddBreadcrumb(i){
 				
 			$('#' + bcId)
 			.css('cursor', "pointer")
-			.attr('onclick', "window.open('index.php')")
+			.attr('onclick', "nuLogout()")
 			.html(nuTranslate('Logout'));
 			
 		}
