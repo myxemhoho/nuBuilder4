@@ -610,4 +610,15 @@ function nuGetFile(){
 }
 
 
+function nuLogout(){
+	
+	$i		= $_SESSION['SESSION_ID'];
+	$s		= "DELETE FROM zzzzsys_session WHERE zzzzsys_session_id = ? ";
+
+	nuRunQuery($s, [$i]);
+	
+}
+
+
+
 ?>
