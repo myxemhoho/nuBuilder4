@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2017 at 08:30 AM
+-- Generation Time: Dec 13, 2017 at 10:43 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -32,13 +32,6 @@ CREATE TABLE `zzzzsys_access` (
   `sal_description` varchar(200) DEFAULT NULL,
   `sal_zzzzsys_form_id` varchar(25) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `zzzzsys_access`
---
-
-INSERT INTO `zzzzsys_access` (`zzzzsys_access_id`, `sal_code`, `sal_description`, `sal_zzzzsys_form_id`) VALUES
-('5a0a099abe7f8ab', 'ADMIN', 'Admin', 'nuuserhome');
 
 -- --------------------------------------------------------
 
@@ -725,7 +718,7 @@ INSERT INTO `zzzzsys_php` (`zzzzsys_php_id`, `sph_code`, `sph_description`, `sph
 ('nuhome_BE', 'nuhome_BE', 'System PHP', 'nubuilder', '\n$a  = [''LUJSTA'',''FLOWB'',''JSTA'',''LUJS'',''JS'',''FLOW'',''PB'',''PE'',''BB'',''AB'',''BE'',''BS'',''AS'',''BD'',''AD'',''BBTA'',''ABTA'',''BETA'',''BSTA'',''ASTA'',''BDTA'',''ADTA'',''DB'',''SET'',''F'',''U'',''KEY'',''UH'',''FF'',''P'',''FMT'',''R'',''BUT'',''RR'',''FILE'', ''RP'',''FR'',''OB'',''SQL'', ''BRO'', ''BS'', ''AS'', ''BD'', ''AD'', ''TR'',''DOWN'',''HOR'', ''VER'',''UP'',''TALL'',''SHORT'',''TOP'',''BOTTOM'',''LEFT'',''RIGHT'',''THIN'',''WIDE'',''SU'',''RD''];\n$s  = nuGetJSONData(''nufirsttime'');\n	\nif(is_null($s)){\n    \n    nuSetJSONData(''nufirsttime'',''non'');\n    nuPreloadImages($a);\n    \n}\n\n', '', '', '1', ''),
 ('nuphp_AD', 'nuphp_AD', 'System PHP', 'nubuilder', '', '', '', '1', ''),
 ('nuform_BE', 'nuform_BE', 'System PHP', 'nubuilder', '', '', '', '1', ''),
-('nuupdatesystemids', 'USI', 'Update System IDs', 'nubuilder', 'nuUpdateSystemIds();', 'window', 'nublank', '0', ''),
+('nuupdatesystemids', 'USI', 'Update System IDs', 'nubuilder', 'nuUpdateSystemIds();', 'window', 'nublank', '1', ''),
 ('nu5a2f31a2ecca89f_AB', '570d9046964038e_AB', 'System PHP', '', '\n$s  = "\n        SELECT * \n        FROM zzzzsys_tab \n        JOIN zzzzsys_form ON zzzzsys_form_id = syt_zzzzsys_form_id\n        WHERE zzzzsys_tab_id = ''#LOOKUP_RECORD_ID#''\n        \n        ";\n\n$t  = nuRunQuery($s);\n$r  = db_fetch_object($t);\n\nnuSetFormValue(''sob_all_zzzzsys_form_id'', $r->syt_zzzzsys_form_id);\nnuSetFormValue(''sob_all_table'', $r->sfo_table);\n', '', '', '1', ''),
 ('nu5a2f31a2f1c7d8b_AB', '570da52f2828508_AB', '', '', '\n$s  = "\n        SELECT * \n        FROM zzzzsys_form\n        WHERE zzzzsys_form_id = ''#LOOKUP_RECORD_ID#''\n        \n        ";\n\n$t  = nuRunQuery($s);\n$r  = db_fetch_object($t);\n\nnuSetFormValue(''sob_subform_table'', $r->sfo_table);\n', '', '', '1', ''),
 ('nu5a2f31a2f3dd5c1_AB', '570dab25164b394_AB', '', '', '\n$s  = "\n        SELECT * \n        FROM zzzzsys_form\n        WHERE zzzzsys_form_id = ''#LOOKUP_RECORD_ID#''\n        \n        ";\n\n$t  = nuRunQuery($s);\n$r  = db_fetch_object($t);\n\nnuSetFormValue(''sob_lookup_table'', $r->sfo_table);\n', '', '', '1', ''),
@@ -2830,13 +2823,6 @@ CREATE TABLE `zzzzsys_user` (
   `sus_login_name` varchar(20) DEFAULT NULL,
   `sus_login_password` varchar(300) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `zzzzsys_user`
---
-
-INSERT INTO `zzzzsys_user` (`zzzzsys_user_id`, `sus_zzzzsys_access_id`, `sus_zzzzsys_user_group_id`, `sus_language`, `sus_name`, `sus_email`, `sus_login_name`, `sus_login_password`) VALUES
-('5a0a09db63938ee', '5a0a099abe7f8ab', NULL, 'Spanish', 'nuuu', 'nu', 'nu', '0288bde0c2d593f2b5766f61b826a650');
 
 -- --------------------------------------------------------
 

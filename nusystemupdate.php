@@ -214,10 +214,6 @@ function nuUpdateSystemRecords(){									//-- after zzzzsys files have been imp
 		
 	}
 
-	$sql				= "UPDATE zzzzsys_setup SET set_denied = '0'";
-	nuRunQuery($sql);
-	print "$sql<br>";
-
 	print "Done!<br><br>";
 
 	
@@ -364,7 +360,11 @@ function nuAppendToSystemTables(){
 		$s		= "DROP TABLE sys_zzzzsys_run_list";
 		nuRunQuery($s);
 		print "$s<br>";
-		
+
+		$s		= "UPDATE zzzzsys_setup SET set_denied = '1'";
+		nuRunQuery($s);
+		print "$s<br>";
+			
 	}catch (Throwable $e) {
 		nuInstallException($e);
 	}catch (Exception $e) {
