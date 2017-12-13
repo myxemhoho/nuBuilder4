@@ -801,7 +801,7 @@ CREATE TABLE `zzzzsys_select` (
   `sse_sql` mediumtext NOT NULL,
   `sse_resize` int(11) NOT NULL,
   `sse_system` varchar(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -817,7 +817,7 @@ CREATE TABLE `zzzzsys_select_clause` (
   `ssc_clause` varchar(500) NOT NULL,
   `ssc_sort` varchar(10) NOT NULL,
   `ssc_order` varchar(500) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
