@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2017 at 02:33 AM
+-- Generation Time: Dec 13, 2017 at 08:30 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -1929,7 +1929,7 @@ INSERT INTO `zzzzsys_translate` (`zzzzsys_translate_id`, `trl_language`, `trl_en
 ('5a0e37c65ca1e0e', 'Hindi', 'Time Zone', 'समय क्षेत्र'),
 ('5a0e37d16df4f99', 'Greek', 'Time Zone', 'Ζώνη ώρας'),
 ('5a0e3812ddaa7db', 'Greek', 'Thinnest', 'Λεπτές'),
-('5a0e3835cc83fee', 'Hindi', 'Thinnest', 'सबसे पतला'),
+('5a0e3835cc83fee', 'Hidni', 'Thinnest', 'सबसे पतला'),
 ('5a0e384723bef27', 'Hindi', 'Text Align', 'पाठ संरेखित'),
 ('5a0e3854427b1e3', 'Greek', 'Text Align', 'Στοίχιση κειμένου'),
 ('5a0e38664019739', 'Hindi', 'Tallest', 'सबसे ऊंची'),
@@ -1988,7 +1988,7 @@ INSERT INTO `zzzzsys_translate` (`zzzzsys_translate_id`, `trl_language`, `trl_en
 ('5a0e3eae71a943b', 'Greek', 'Resize', 'Αλλαγή μεγέθους'),
 ('5a0e3f299034cb2', 'Hindi', 'Reports', 'रिपोर्ट'),
 ('5a0e3f329063e66', 'Greek', 'Reports', 'Αναφορές'),
-('5a0e3f5bbf8c6ca', 'Hindi', 'Report Properties', 'रिपोर्ट गुण'),
+('5a0e3f5bbf8c6ca', 'Hidni', 'Report Properties', 'रिपोर्ट गुण'),
 ('5a0e3f659f99126', 'Greek', 'Report Properties', 'Ιδιότητες αναφοράς'),
 ('5a0e3f7bc4a74cd', 'Hindi', 'Report Header', 'रिपोर्ट हैडर'),
 ('5a0e3f84c9b3b2b', 'Greek', 'Report Header', 'Αναφορά κεφαλίδας'),
@@ -2804,7 +2804,15 @@ INSERT INTO `zzzzsys_translate` (`zzzzsys_translate_id`, `trl_language`, `trl_en
 ('5a1e452e9de7f2a', 'Vietnamese', 'Form Object List', 'Danh sách đối tượng dạng'),
 ('5a1e454438d7828', 'Arabic', 'Form', 'شكل'),
 ('5a1e454f9b09531', 'Russian', 'Form', 'форма'),
-('5a1e4558e88e027', 'Vietnamese', 'Form', 'Hình thức');
+('5a1e4558e88e027', 'Vietnamese', 'Form', 'Hình thức'),
+('5a305c43f1b4d2c', 'Vietnamese', 'Logout', 'Đăng xuất'),
+('5a305c48a79f6d4', 'Russian', 'Logout', 'Выйти'),
+('5a305c4dd8f8a2f', 'Arabic', 'Logout', 'الخروج'),
+('5a305c52be0d888', 'German', 'Logout', 'Ausloggen'),
+('5a305c581000f56', 'Greek', 'Logout', 'Αποσυνδέση'),
+('5a305c5cee1e4f1', 'Hindi', 'Logout', 'लोग आउट'),
+('5a305c61da19c14', 'Chinese', 'Logout', '登出'),
+('5a305c66efa1b7c', 'Spanish', 'Logout', 'Cerrar sesión');
 
 -- --------------------------------------------------------
 
@@ -2986,12 +2994,6 @@ ALTER TABLE `zzzzsys_tab`
 --
 ALTER TABLE `zzzzsys_timezone`
   ADD PRIMARY KEY (`zzzzsys_timezone_id`);
-
---
--- Indexes for table `zzzzsys_translate`
---
-ALTER TABLE `zzzzsys_translate`
-  ADD PRIMARY KEY (`zzzzsys_translate_id`);
 
 --
 -- Indexes for table `zzzzsys_user`
