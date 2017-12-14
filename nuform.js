@@ -1473,7 +1473,13 @@ function nuAddBreadcrumb(i){
 
 
 function nuMainForm(){
-	return nuDocumentID == parent.nuDocumentID && nuDocumentID == opener.nuDocumentID;
+	
+	if(opener){
+		return nuDocumentID == opener.nuDocumentID;
+	}
+	
+	return nuDocumentID == parent.nuDocumentID;
+
 }
 
 function nuSetTitle(t){
@@ -1857,7 +1863,8 @@ function nuBuildOptionsList(l, p, type){												//-- loop through adding opt
 	if(type == 'browse'){
 			
 		top		= off.top;
-		left	= off.left - width - 26;
+//		left	= off.left - width - 26;
+		left	= off.left < 240 ? off.left : off.left - width - 26;
 		
 	}
 
