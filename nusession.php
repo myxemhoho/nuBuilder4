@@ -7,7 +7,7 @@ require_once('nucommon.php');
 if(array_key_exists('nuSTATE', $_POST)){
 	
     if(array_key_exists('call_type', $_POST['nuSTATE'])){
-		
+		nudebug($_POST['nuSTATE']['call_type']);
         if($_POST['nuSTATE']['call_type'] == 'login'){
 
             $checkLoginDetailsSQL = "
@@ -169,6 +169,7 @@ if(array_key_exists('nuSTATE', $_POST)){
                         WHERE zzzzsys_user_id = '$checkLoginDetailsOBJ->zzzzsys_user_id'
                         GROUP BY slp_zzzzsys_php_id
                     ");
+					
                     $phpAccess 								= array();
         			
                     while($getPHPsOBJ = db_fetch_object($getPHPsQRY)){
@@ -180,10 +181,7 @@ if(array_key_exists('nuSTATE', $_POST)){
 
                 }
 
-                nuRunQuery("INSERT INTO zzzzsys_session SET sss_access = ?, zzzzsys_session_id = ?", array(
-                    $storeSessionInTableJSON, 
-                    $_SESSION['SESSION_ID']
-                ));
+                nuRunQuery("INSERT INTO zzzzsys_session SET sss_access = ?, zzzzsys_session_id = ?", array($storeSessionInTableJSON, $_SESSION['SESSION_ID']));
 				
             } else {
 				

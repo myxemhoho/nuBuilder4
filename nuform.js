@@ -1434,6 +1434,7 @@ function nuAddBreadcrumb(i){
 	var bc 		= window.nuFORM.breadcrumbs[i];
 	var bcId 	= 'nu_bc_' + i;
 	var bcId 	= 'nuBreadcrumb' + i;
+	var logout = '';
 	
 	var div		= document.createElement('div');
 	div.setAttribute('id', bcId);
@@ -1447,11 +1448,15 @@ function nuAddBreadcrumb(i){
 		.html(nuTranslate(bc.title));
 		
 		if(i == 0){
+			
+			if(nuMainForm()){
+				logout = nuTranslate('Logout');
+			}
 				
 			$('#' + bcId)
 			.css('cursor', "pointer")
 			.attr('onclick', "nuLogout()")
-			.html(nuTranslate('Logout'));
+			.html(logout);
 			
 		}
 		
@@ -1464,6 +1469,11 @@ function nuAddBreadcrumb(i){
 		
 	}
 	
+}
+
+
+function nuMainForm(){
+	return nuDocumentID == parent.nuDocumentID && nuDocumentID == opener.nuDocumentID;
 }
 
 function nuSetTitle(t){

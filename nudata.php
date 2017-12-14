@@ -135,51 +135,51 @@ function nuUpdateDatabase(){
 
 			if(nuEditedRow($edited[$r])){
 				
-				$F			= array();
-				$I			= array();
-				$V			= array();
-				$edit		= $edited[$r];
-				$row		= $rows[$r];
-				$pv			= $row[0];
-				$nv			= nuID();
+				$F					= array();
+				$I					= array();
+				$V					= array();
+				$edit				= $edited[$r];
+				$row				= $rows[$r];
+				$pv					= $row[0];
+				$nv					= nuID();
 				
 				if($pv == '-1'){
 					
-					$nv		= nuBuildPrimaryKey($table, $pk);
-					$id		= "'$nv'";
+					$nv				= nuBuildPrimaryKey($table, $pk);
+					$id				= "'$nv'";
 					
 					if($d == 0){$nuMainID = $nv;}
 					
 				}else{
 					
-					$id		= "'$pv'";
+					$id				= "'$pv'";
 					
 					if($d == 0){$nuMainID = $pv;}
 					
 				}
 				
-				$V			= [];																		//-- primary key id
-				$I			= [];
+				$V					= [];																		//-- primary key id
+				$I					= [];
 				
 				if($nv != 'autoid'){
 						
-					$V[]		= $id;																	//-- primary key id
-					$I[]		= $pk;
+					$V[]			= $id;																	//-- primary key id
+					$I[]			= $pk;
 					
 				}
 				
 				if($fk == ''){
-					$rec_id	= $id;
+					$rec_id			= $id;
 				}else{
 					
-					$V[]	= "'$nuMainID'";
-					$I[]	= "`$fk`";
+					$V[]			= "'$nuMainID'";
+					$I[]			= "`$fk`";
 					
 				}
 				
 				for($R = 1 ; $R < count($row) ; $R++){
 
-					$isAN	= in_array($fields[$R], $auto);
+					$isAN			= in_array($fields[$R], $auto);
 
 					if($edit[$R] == 1 or $isAN){														//-- has been edited
 					
@@ -228,8 +228,10 @@ function nuUpdateDatabase(){
 						}
 						
 					}else{
+						
 						$sql		= "UPDATE $table SET $fs WHERE `$pk` = '$pv';";
 						$S[]		= $sql;
+						
 					}
 				
 				}

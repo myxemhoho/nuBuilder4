@@ -138,7 +138,6 @@ function nuBuildFastForm($table, $form_type){
 
 	";
 	$array          = Array($form_id, $form_type, $form_code, $form_desc, $form_type=='launch'?'':$table, $form_type=='launch'?'':$PK, "SELECT * FROM $table");
-nudebug('PK:'.$PK, $array);
 
 	nuRunQuery($sql, $array);
 
