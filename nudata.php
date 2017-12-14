@@ -132,7 +132,7 @@ function nuUpdateDatabase(){
 		$auto		= nuAutoNumbers($sf->object_id);
 		
 		for($r = 0 ; $r < count($rows) ; $r++){
-
+			
 			if(nuEditedRow($edited[$r])){
 				
 				$F					= array();
