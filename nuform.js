@@ -2304,10 +2304,15 @@ function nuSelectBrowse(e, t){
 	var i 				= window.nuTARGET;
 	var p				= $('#' + t.id).attr('data-nu-primary-key');
 	var f				= window.nuFORM.getProperty('form_id');
+	var r				= window.nuFORM.getProperty('redirect_form_id');
 
 	if(y == 'browse'){
 		
-		nuForm(f, p);
+		if(r == ''){
+			nuForm(f, p);
+		}else{
+			nuForm(r, p);
+		}
 		
 	}else if(y == 'lookup'){
 		
