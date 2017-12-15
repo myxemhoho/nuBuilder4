@@ -7,7 +7,7 @@ require_once('nucommon.php');
 if(array_key_exists('nuSTATE', $_POST)){
 	
     if(array_key_exists('call_type', $_POST['nuSTATE'])){
-		nudebug($_POST['nuSTATE']['call_type']);
+		
         if($_POST['nuSTATE']['call_type'] == 'login'){
 
             $checkLoginDetailsSQL = "
@@ -17,7 +17,7 @@ if(array_key_exists('nuSTATE', $_POST)){
                 WHERE sus_login_name = ? AND sus_login_password = ?
             ";
 
-            $checkLoginDetailsQRY = nuRunQuery($checkLoginDetailsSQL, array($_POST['nuSTATE']['username'], md5($_POST['nuSTATE']['username'])));
+            $checkLoginDetailsQRY = nuRunQuery($checkLoginDetailsSQL, array($_POST['nuSTATE']['username'], md5($_POST['nuSTATE']['password'])));
 
             if(
                 db_num_rows($checkLoginDetailsQRY) > 0 || 
