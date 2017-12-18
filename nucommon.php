@@ -1499,6 +1499,7 @@ function nuSendEmail($to, $from, $fromname, $content, $subject, $filelist, $html
     try{
         $mail                        = new PHPMailer();
         $mail->isSMTP();
+        $mail->CharSet               = 'UTF-8';
         $mail->Host                  = $SMTPhost;
         $mail->Port                  = $SMTPport;
         $mail->SMTPAuth              = $SMTPauth;
