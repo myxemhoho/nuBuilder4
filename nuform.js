@@ -210,7 +210,7 @@ function nuDefine(v){
 }
 
 
-function nuAddActionButtons(f){
+function nuAddActionButtons(form){
 
 	var draggable 	= 0;
 	var rid			= window.nuFORM.getProperty('record_id');
@@ -219,7 +219,7 @@ function nuAddActionButtons(f){
 		draggable = 1;
 	}
 
-	var button	= f.buttons;
+	var button	= form.buttons;
 
 	if(nuFormType() == 'browse'){
 
@@ -237,17 +237,17 @@ function nuAddActionButtons(f){
 		
 		if(!draggable){
 			
-			if(button.Save == 1)		{nuAddActionButton('Save');}
+			if(button.Save == 1 && form.form_type != 'launch')	{nuAddActionButton('Save');}
 			
 			if(rid != -1){
 				
-				if(button.Delete == 1)	{nuAddActionButton('Delete');}
-				if(button.Clone == 1)	{nuAddActionButton('Clone');}
+				if(button.Delete == 1)							{nuAddActionButton('Delete');}
+				if(button.Clone == 1)							{nuAddActionButton('Clone');}
 				
 			}
 			
-			if(button.RunHidden != '')	{nuAddActionButton('runhidden', 'Run', button.RunHidden);}
-			if(button.Run != '')		{nuAddActionButton('run', 'Run', button.Run);}
+			if(button.RunHidden != '')							{nuAddActionButton('runhidden', 'Run', button.RunHidden);}
+			if(button.Run != '')								{nuAddActionButton('run', 'Run', button.Run);}
 			
 		}
 		

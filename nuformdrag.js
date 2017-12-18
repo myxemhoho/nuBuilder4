@@ -921,6 +921,8 @@ function nuSaveNuDrag(){
         return;
 	}
 	
+	parent.nuFORM.edited = false;
+
 	nuSaveAfterDrag();
 	
 }

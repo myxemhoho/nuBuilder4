@@ -112,7 +112,7 @@ function nuUpdateDatabase(){
 	
 	$nudata			= $_POST['nuHash']['nuFORMdata'];
 	$nuMainID		= $_POST['nuHash']['record_id'];
-	$fid			= $_POST['nuHash']['form_id'];
+	$form_type		= nuGetFormProperties($_POST['nuHash']['form_id'])->sfo_type;
 	$nuDelAll		= $_POST['nuHash']['deleteAll'];
 	$nuMainTable	= $nudata[0]->table;
 	$EFid			= $nudata[0]->object_id;
@@ -187,8 +187,18 @@ function nuUpdateDatabase(){
 
 						if($cts[$table] == ''){														//-- not valid table name
 
-							nuDisplayError("<b>$table</b> is not a valid table name for a Subform");
-							return;
+							if($form_type == 'launch'){
+
+								nuDisplayError("Launch Forms Cannot Be Saved");
+								return;
+								
+							}else{
+								
+								nuDisplayError("<b>$table</b> is not a valid table name for a Subform");
+								return;
+								
+							}
+
 
 
 						}
