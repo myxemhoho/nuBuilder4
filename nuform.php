@@ -31,28 +31,31 @@ function nuBeforeEdit($FID, $RID){
 
 	if($ct == 'getform'){
 		
-		if(in_array($logfield, $cts[$r->sfo_table]['names'])){								//-- valid log field name
-			
-			$S				= "SELECT $logfield FROM `$r->sfo_table` WHERE `$r->sfo_primary_key` = ? ";
-			$T				= nuRunQuery($S, [$RID]);
-			$J				= db_fetch_row($T)[0];
-			$jd				= json_decode($J);
-			
-			if(gettype($jd) == 'object'){
-				$jd->viewed	= Array('user' => $user, 'time' => time());								
-			}else{
+		if($cts[$r->sfo_table] !== NULL){
 				
-				$jd 		= new stdClass;
-				$jd->added	= Array('user' => 'unknown', 'time' => 0);
-				$jd->viewed	= Array('user' => $user, 'time' => time());
+			if(in_array($logfield, $cts[$r->sfo_table]['names'])){								//-- valid log field name
+				
+				$S				= "SELECT $logfield FROM `$r->sfo_table` WHERE `$r->sfo_primary_key` = ? ";
+				$T				= nuRunQuery($S, [$RID]);
+				$J				= db_fetch_row($T)[0];
+				$jd				= json_decode($J);
+				
+				if(gettype($jd) == 'object'){
+					$jd->viewed	= Array('user' => $user, 'time' => time());								
+				}else{
+					
+					$jd 		= new stdClass;
+					$jd->added	= Array('user' => 'unknown', 'time' => 0);
+					$jd->viewed	= Array('user' => $user, 'time' => time());
 
+				}
+				
+				$je				= addslashes(json_encode($jd));
+				$S				= "UPDATE `$r->sfo_table` SET $logfield = '$je' WHERE `$r->sfo_primary_key` = ? ";
+				$T				= nuRunQuery($S, [$RID]);
+			
 			}
 			
-			$je				= addslashes(json_encode($jd));
-			$S				= "UPDATE `$r->sfo_table` SET $logfield = '$je' WHERE `$r->sfo_primary_key` = ? ";
-nudebug($jd);		
-			$T				= nuRunQuery($S, [$RID]);
-		
 		}
 		
 		if($RID != ''){
