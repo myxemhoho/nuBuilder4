@@ -92,6 +92,10 @@ function nuBuildForm(f){
 	}else{
 		nuAddJavascript(f);
 	}
+	
+	if(window.nuOnLoad){
+		nuOnLoad();
+	}
 
 }
 
