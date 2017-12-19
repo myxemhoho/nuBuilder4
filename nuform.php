@@ -20,15 +20,48 @@ function nuBeforeBrowse($f){
 }
 
 
-function nuBeforeEdit($f, $r){
+function nuBeforeEdit($FID, $RID){
 
-	$r						= nuFormProperties($f);
+	$r						= nuFormProperties($FID);
+	$logfield				= $r->sfo_table . '_nulog';
     $GLOBALS['EXTRAJS']		= '';
+	$cts					= nuGetJSONData('clientTableSchema');
+	$ct						= $_POST['nuSTATE']['call_type'];
+	$user					= $_POST['nuHash']['USER_ID'];
 
-	if($_POST['nuSTATE']['call_type'] == 'getform' and $r == ''){return;}
-	
-	nuEval($f . '_BE');
-    $GLOBALS['EXTRAJS']		.= $r->sfo_javascript;
+	if($ct == 'getform'){
+		
+		if(in_array($logfield, $cts[$r->sfo_table]['names'])){								//-- valid log field name
+			
+			$S				= "SELECT $logfield FROM `$r->sfo_table` WHERE `$r->sfo_primary_key` = ? ";
+			$T				= nuRunQuery($S, [$RID]);
+			$J				= db_fetch_row($T)[0];
+			$jd				= json_decode($J);
+			
+			if(gettype($jd) == 'object'){
+				$jd->viewed	= Array('user' => $user, 'time' => time());								
+			}else{
+				
+				$jd 		= new stdClass;
+				$jd->added	= Array('user' => 'unknown', 'time' => 0);
+				$jd->viewed	= Array('user' => $user, 'time' => time());
+
+			}
+			
+			$je				= addslashes(json_encode($jd));
+			$S				= "UPDATE `$r->sfo_table` SET $logfield = '$je' WHERE `$r->sfo_primary_key` = ? ";
+nudebug($jd);		
+			$T				= nuRunQuery($S, [$RID]);
+		
+		}
+		
+		if($RID != ''){
+			nuEval($FID . '_BE');
+		}
+		
+		$GLOBALS['EXTRAJS']	= $r->sfo_javascript;
+		
+	}
 	
 }
 
