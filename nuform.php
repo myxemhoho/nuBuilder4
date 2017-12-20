@@ -23,14 +23,17 @@ function nuBeforeBrowse($f){
 function nuBeforeEdit($FID, $RID){
 
 	$r						= nuFormProperties($FID);
-	$logfield				= $r->sfo_table . '_nulog';
     $GLOBALS['EXTRAJS']		= '';
-	$cts					= nuGetJSONData('clientTableSchema');
 	$ct						= $_POST['nuSTATE']['call_type'];
-	$user					= $_POST['nuHash']['USER_ID'];
 
+	if($_POST['nuSTATE']['call_type'] == 'getform' and $r == ''){return;}
+	
 	if($ct == 'getform'){
 		
+		$logfield					= $r->sfo_table . '_nulog';
+		$cts						= nuGetJSONData('clientTableSchema');
+		$user						= $_POST['nuHash']['USER_ID'];
+
 		if($cts[$r->sfo_table] !== NULL){
 				
 			if(in_array($logfield, $cts[$r->sfo_table]['names'])){								//-- valid log field name
@@ -58,16 +61,12 @@ function nuBeforeEdit($FID, $RID){
 			
 		}
 		
-		if($RID != ''){
-			nuEval($FID . '_BE');
-		}
-		
 	}
+
+
 	
-	if($ct == 'getform' || $ct == 'login'){
-		$GLOBALS['EXTRAJS']	= $r->sfo_javascript;
-	}
-	
+	nuEval($FID . '_BE');
+    $GLOBALS['EXTRAJS']		.= $r->sfo_javascript;
 	
 }
 
