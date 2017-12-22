@@ -8,9 +8,9 @@
     $nuConfigDBGlobeadminPassword   = "nu";             //-- globeadmin password
     $nuConfigTitle                  = "nuBuilder 4";
     $nuConfigIsDemo                 = false;
-    $nuWelcomeBodyInnerHTML			= " 
+/*    $nuWelcomeBodyInnerHTML			= " 
 	
-									<div id='login' class='nuLogin' style='width:330;position:absolute;top:50px;height:300px;left:50px;border-style:solid;border-width:1px;border-color: rgba(0, 0, 0, 0.08);'>
+									<div id='login' class='nuLogin' style='background-color:black; width:330;position:absolute;top:50px;height:300px;left:50px;border-style:solid;border-width:1px;border-color: rgba(0, 0, 0, 0.08);'>
 										<div id='nulogo' style='background-size:100% 100%;background-image:url(\"graphics/logo.png\");position:absolute;width:200px;height:80px;top:45px;left:65px;'></div>
 										<br>
 											<div style='position:absolute;top:170px;left:20px;text-align:right;width:70px;display:inline-block;'>Username</div>
@@ -27,7 +27,7 @@
 									</div>
 
 									";
-
+*/
 									
     if(array_key_exists('REQUEST_URI', $_SERVER)){
         if(strpos($_SERVER['REQUEST_URI'], basename(__FILE__)) !== false){
