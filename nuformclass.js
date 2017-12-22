@@ -411,6 +411,7 @@ class nuFormObject {
 		var o			= {'id':id, 'foreign_key':fk, 'primary_key':pk, 'object_id':oi, 'table':table, 'action':action};	//-- foreign_key id id Form's record_id (which might change if cloned.)
 		var F			= ['ID'];
 		o.rows			= [];
+		o.columns		= [];
 		o.edited		= [];
 		o.deleted		= [];
 		var deleteRow	= false;
@@ -423,7 +424,7 @@ class nuFormObject {
 			var E				= [0];
 			var C				= 1;
 			var chk				= $('#' + this.id).prop("checked");
-				
+//console.log(THIS.children('[data-nu-data]'));
 			THIS.children('[data-nu-data]').each(function(){
 				
 				if(this.id.substr(-8) == 'nuDelete'){
@@ -434,7 +435,8 @@ class nuFormObject {
 				if(sf == 'nuRECORD'){						//-- the main Form
 					F[C]		= this.id;
 				}else{
-					F[C]		= this.id.substr(sf.length + 3);
+//					F[C]		= this.id.substr(sf.length + 3);
+					F[C]		= this.id.substr(sf.length);
 				}
 				
 				var dnf			= $('#' + this.id).attr('data-nu-format');
@@ -461,8 +463,32 @@ class nuFormObject {
 			o.deleted.push(chk);
 			
 		});
-
+		
 		o.fields				= F;
+		
+		for(var f = 0 ; f < o.fields.length ; f++){
+				
+			var c					= $('#'+ o.fields[f] +'_title').html();
+			
+			o.columns.push(c);
+			
+		}
+		
+		
+		
+		for(var f = 0 ; f < o.fields.length ; f++){
+				
+			var c					= [];
+			
+			for(var r = 0 ; r < o.rows.length ; r++){
+				c.push(o.rows[r][f]);
+			}
+			
+			o.columns.push(c);
+			
+		}
+		
+
 		
 		return o;
 		

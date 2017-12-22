@@ -308,7 +308,75 @@ function nuSystemUpdate(){
 
 
 
-function nuAttachImage(i, c){
+function nuAttachButtonImage(i, c){
+	
+	c						= String(c).toLowerCase();
+
+	if(window.nuGraphics.indexOf(c + '.png') != -1){						//-- check filenames in graphics dir.
+
+		$(i)
+		.css('background-image', 'url("graphics/' + c + '.png')
+		.css('background-repeat', 'no-repeat')
+		.css('background-size', '30px')
+		.css('padding', '0px 0px 0px 33px')
+		.css('text-align', 'left')
+
+		return;
+		
+	}
+	
+	var PARENT				= parent.parent.parent.parent.parent.parent.parent.parent.parent;
+	
+	if(PARENT.nuImages[c] !== undefined){
+		
+		var p				= JSON.parse(PARENT.nuImages[c]);
+		var b				= atob(p.file);
+		
+		$(i)
+		.css('background-image', 'url("' + b + '")')
+		.css('background-repeat', 'no-repeat')
+		.css('background-size', '30px')
+		.css('padding', '0px 0px 0px 33px')
+		.css('text-align', 'left')
+
+		return;
+		
+	}
+	
+	var current				= nuFORM.getCurrent();
+	var last		 		= $.extend(true, {}, current);
+
+	last.session_id			= window.nuSESSION;
+	last.call_type 			= 'getfile';
+	last.fileCode			= c;
+	
+	var successCallback 	= function(data,textStatus,jqXHR){
+		
+		if(nuDisplayError(data)){return;};
+
+		if(data.JSONfile !== null){
+			
+			PARENT.nuImages[c] 	= data.JSONfile;
+			var p			= JSON.parse(PARENT.nuImages[c]);
+			var b			= atob(p.file);
+			
+			$(i)
+			.css('background-image', 'url("' + b + '")')
+			.css('background-repeat', 'no-repeat')
+			.css('background-size', '30px')
+			.css('padding', '0px 0px 0px 30px')
+			.css('text-align', 'left')
+		
+		}
+		
+	};
+	
+	nuAjax(last,successCallback);
+	
+}
+
+
+function nuAttachButtonImage(i, c){
 	
 	c						= String(c).toLowerCase();
 
