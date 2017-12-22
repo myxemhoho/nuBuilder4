@@ -308,18 +308,19 @@ function nuSystemUpdate(){
 
 
 
-function nuAttachButtonImage(i, c){
+function nuAttachImage(i, c){
 	
 	c						= String(c).toLowerCase();
+	var imgID				= 'image_' + i.replace(/[^0-9a-zA-Z]/g, '');
+	var w					= $(i).css('width');
+	var h					= $(i).css('height');
+
+	
+	$(i).html('<img id="' + imgID + '" class="nuBrowseImage" width="' + w + '" height="' + h + '" src="">');
 
 	if(window.nuGraphics.indexOf(c + '.png') != -1){						//-- check filenames in graphics dir.
-
-		$(i)
-		.css('background-image', 'url("graphics/' + c + '.png')
-		.css('background-repeat', 'no-repeat')
-		.css('background-size', '30px')
-		.css('padding', '0px 0px 0px 33px')
-		.css('text-align', 'left')
+	
+		$('#' + imgID).attr('src', "graphics/" + c + ".png")
 
 		return;
 		
@@ -332,12 +333,7 @@ function nuAttachButtonImage(i, c){
 		var p				= JSON.parse(PARENT.nuImages[c]);
 		var b				= atob(p.file);
 		
-		$(i)
-		.css('background-image', 'url("' + b + '")')
-		.css('background-repeat', 'no-repeat')
-		.css('background-size', '30px')
-		.css('padding', '0px 0px 0px 33px')
-		.css('text-align', 'left')
+		$('#' + imgID).attr('src', b)
 
 		return;
 		
@@ -360,12 +356,7 @@ function nuAttachButtonImage(i, c){
 			var p			= JSON.parse(PARENT.nuImages[c]);
 			var b			= atob(p.file);
 			
-			$(i)
-			.css('background-image', 'url("' + b + '")')
-			.css('background-repeat', 'no-repeat')
-			.css('background-size', '30px')
-			.css('padding', '0px 0px 0px 30px')
-			.css('text-align', 'left')
+			$('#' + imgID).attr('src', b)
 		
 		}
 		
