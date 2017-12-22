@@ -373,7 +373,7 @@ function nuAttachButtonImage(i, c){
 
 	if(window.nuGraphics.indexOf(c + '.png') != -1){						//-- check filenames in graphics dir.
 
-		$(i)
+		$('#' + i)
 		.css('background-image', 'url("graphics/' + c + '.png')
 		.css('background-repeat', 'no-repeat')
 		.css('background-size', '30px')
@@ -391,7 +391,7 @@ function nuAttachButtonImage(i, c){
 		var p				= JSON.parse(PARENT.nuImages[c]);
 		var b				= atob(p.file);
 		
-		$(i)
+		$('#' + i)
 		.css('background-image', 'url("' + b + '")')
 		.css('background-repeat', 'no-repeat')
 		.css('background-size', '30px')
@@ -419,7 +419,7 @@ function nuAttachButtonImage(i, c){
 			var p			= JSON.parse(PARENT.nuImages[c]);
 			var b			= atob(p.file);
 			
-			$(i)
+			$('#' + i)
 			.css('background-image', 'url("' + b + '")')
 			.css('background-repeat', 'no-repeat')
 			.css('background-size', '30px')

@@ -551,18 +551,18 @@ function nuCreateDragOptionsBox(form){
 	
     $('#nuDragDialog',window.parent.document.body).prepend(optionsBoxHTML);
 
-	parent.nuAttachButtonImage('#move_up_btn','UP');
-	parent.nuAttachButtonImage('#move_down_btn','DOWN');
-	parent.nuAttachButtonImage('#move_ver_btn','VER');
-	parent.nuAttachButtonImage('#move_hor_btn','HOR');
-	parent.nuAttachButtonImage('#move_short_btn','SHORT');
-	parent.nuAttachButtonImage('#move_tall_btn','TALL');
-	parent.nuAttachButtonImage('#move_top_btn','TOP');
-	parent.nuAttachButtonImage('#move_bottom_btn','BOTTOM');
-	parent.nuAttachButtonImage('#move_left_btn','LEFT');
-	parent.nuAttachButtonImage('#move_right_btn','RIGHT');
-	parent.nuAttachButtonImage('#move_thin_btn','THIN');
-	parent.nuAttachButtonImage('#move_wide_btn','WIDE');
+	parent.nuAttachButtonImage('move_up_btn','UP');
+	parent.nuAttachButtonImage('move_down_btn','DOWN');
+	parent.nuAttachButtonImage('move_ver_btn','VER');
+	parent.nuAttachButtonImage('move_hor_btn','HOR');
+	parent.nuAttachButtonImage('move_short_btn','SHORT');
+	parent.nuAttachButtonImage('move_tall_btn','TALL');
+	parent.nuAttachButtonImage('move_top_btn','TOP');
+	parent.nuAttachButtonImage('move_bottom_btn','BOTTOM');
+	parent.nuAttachButtonImage('move_left_btn','LEFT');
+	parent.nuAttachButtonImage('move_right_btn','RIGHT');
+	parent.nuAttachButtonImage('move_thin_btn','THIN');
+	parent.nuAttachButtonImage('move_wide_btn','WIDE');
 
     nuInitialiseDragState();
     nuPopulateFieldsList(0);
