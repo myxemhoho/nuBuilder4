@@ -311,12 +311,12 @@ function nuSystemUpdate(){
 function nuAttachImage(i, c){
 	
 	c						= String(c).toLowerCase();
-	var imgID				= 'image_' + i.replace(/[^0-9a-zA-Z]/g, '');
-	var w					= $(i).css('width');
-	var h					= $(i).css('height');
+	var imgID				= 'image_' + i;
+	var w					= $('#' + i).css('width');
+	var h					= $('#' + i).css('height');
 
 	
-	$(i).html('<img id="' + imgID + '" class="nuBrowseImage" width="' + w + '" height="' + h + '" src="">');
+	$('#' + i).html('<img id="' + imgID + '" class="nuBrowseImage" width="' + w + '" height="' + h + '" src="">');
 
 	if(window.nuGraphics.indexOf(c + '.png') != -1){						//-- check filenames in graphics dir.
 	
