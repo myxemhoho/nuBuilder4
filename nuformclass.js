@@ -467,7 +467,7 @@ class nuFormObject {
 		
 		for(var f = 0 ; f < o.fields.length ; f++){
 				
-			var c					= $('#'+ o.fields[f] +'_title').html();
+			var c				= $('#'+ o.fields[f] +'_title').html();
 			
 			o.columns.push(c);
 			
@@ -477,7 +477,7 @@ class nuFormObject {
 		
 		for(var f = 0 ; f < o.fields.length ; f++){
 				
-			var c					= [];
+			var c				= [];
 			
 			for(var r = 0 ; r < o.rows.length ; r++){
 				c.push(o.rows[r][f]);
