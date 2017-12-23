@@ -465,34 +465,32 @@ class nuFormObject {
 		
 		o.fields				= F;
 		
-		for(var f = 0 ; f < o.fields.length ; f++){
-				
-			var c				= $('#'+ o.fields[f] +'_title').html();
+		for(var f = 0 ; f < o.fields.length - 1 ; f++){
 			
-			o.columns.push(c);
-			
-		}
-		
-		
-		
-		for(var f = 0 ; f < o.fields.length ; f++){
-				
 			var c				= [];
+			var t				= $('#'+ 'title_' + sf + o.fields[f]).html();
+			var d				= 0;
+			
+			c[0]				= f==0?'ID':t;
 			
 			for(var r = 0 ; r < o.rows.length ; r++){
-				c.push(o.rows[r][f]);
+				
+				if(o.rows[r][o.fields.length - 1] == 0){
+					c.push(o.rows[r][f]);
+				}
+				
 			}
 			
 			o.columns.push(c);
-			
-		}
 		
+		}
 
 		
 		return o;
 		
 	}	
 	
+
 	setFormats(){
 		
 		var f	= {};

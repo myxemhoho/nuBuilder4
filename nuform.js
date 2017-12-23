@@ -106,6 +106,8 @@ function nuSetBody(){
 	$('body').removeClass('nuBrowseBody nuEditBody');
 	
 	if(nuFormType() == 'browse'){
+
+	
 		$('body').addClass('nuBrowseBody')
 	}else{
 		$('body').addClass('nuEditBody')
