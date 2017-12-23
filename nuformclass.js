@@ -360,11 +360,13 @@ class nuFormObject {
 	
 	data(action = 'save'){
 		
-		var d	= [];
-		var sf	= this.subforms();
+		var d			= [];
+		var sf			= this.subforms();
 
 		for(var i = 0 ; i < sf.length ; i++){
-			d.push(this.subform(sf[i], action));
+			var o		= this.subform(sf[i], action);
+			o.columns	= o.columns.length;
+			d.push(o);
 		}
 		
 		return d;
