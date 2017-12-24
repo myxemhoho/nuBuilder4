@@ -470,10 +470,7 @@ class nuFormObject {
 		for(var f = 0 ; f < o.fields.length - 1 ; f++){
 			
 			var c				= [];
-			var t				= $('#'+ 'title_' + sf + o.fields[f]).html();
 			var d				= 0;
-			
-			c[0]				= f==0?'ID':t;
 			
 			for(var r = 0 ; r < o.rows.length ; r++){
 				
