@@ -364,9 +364,15 @@ class nuFormObject {
 		var sf			= this.subforms();
 
 		for(var i = 0 ; i < sf.length ; i++){
+			
 			var o		= this.subform(sf[i], action);
-			o.columns	= o.columns.length;
+			
+			o.columns	= null;
+			o.graphData	= null;
+			o.pivotData	= null;
+			
 			d.push(o);
+			
 		}
 		
 		return d;
@@ -414,6 +420,8 @@ class nuFormObject {
 		var F			= ['ID'];
 		o.rows			= [];
 		o.columns		= [];
+		o.graphData		= [];
+		o.pivotData		= [];
 		o.edited		= [];
 		o.deleted		= [];
 		var deleteRow	= false;
@@ -466,11 +474,15 @@ class nuFormObject {
 		});
 		
 		o.fields				= F;
+		var titles				= [];
+
 		
 		for(var f = 0 ; f < o.fields.length - 1 ; f++){
 			
 			var c				= [];
 			var d				= 0;
+			
+			titles.push($('#title_' + sf + o.fields[f]).html())
 			
 			for(var r = 0 ; r < o.rows.length ; r++){
 				
@@ -483,11 +495,39 @@ class nuFormObject {
 			o.columns.push(c);
 		
 		}
+		
+		for(var i = 0 ; i < o.rows.length ; i++){
+			
+			var row				= JSON.parse(JSON.stringify(o.rows[i]));
+			
+			row.shift();
+			row.pop();
+			
+			if(o.deleted[i] == 0){
+				o.graphData.push(row);
+			}
+			
+		}
 
+		titles.shift();
+		o.graphData.splice(0,0, titles);
+		
+		for(var i = 0 ; i < o.graphData[0].length ; i++){
+			
+			row					= [];
+
+			for(var p = 0 ; p < o.graphData.length ; p++){
+				row.push(o.graphData[p][i]);
+			}
+			
+			o.pivotData.push(row);
+			
+		}
 		
 		return o;
 		
 	}	
+	
 	
 
 	setFormats(){
@@ -595,7 +635,7 @@ class nuFormObject {
 			}
 			
 			if(String(h) == 'toobig' && nuSERVERRESPONSE.user_id == 'globeadmin'){
-				nuMessage(["What did we say ?",'','<img id="thebig" src="fpdf\\big.png">']);return '';
+				nuMessage(["What did we say ?",'','<img id="thebig" src="graphics\\point.png">']);return '';
 			}
 			
 			return m;
