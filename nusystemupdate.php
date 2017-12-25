@@ -383,6 +383,7 @@ function nuSystemList(){
     $t[]	= 'zzzzsys_access_php';
     $t[]	= 'zzzzsys_access_report';
     $t[]	= 'zzzzsys_browse';
+    $t[]	= 'zzzzsys_chart';
     $t[]	= 'zzzzsys_debug';
     $t[]	= 'zzzzsys_event';
     $t[]	= 'zzzzsys_file';
