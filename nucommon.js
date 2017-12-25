@@ -1074,3 +1074,30 @@ function nuButtonIcon(j){
 	
 }
 
+
+function nuChart(d, t, a, h, x, y, st, is){
+	
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawVisualization);
+
+	function drawVisualization() {
+
+		var data = google.visualization.arrayToDataTable(a);
+
+		var options = {
+			title 		: h,
+			vAxis		: {title: y},
+			hAxis		: {title: x},
+			seriesType	: st,
+			isStacked 	: is,
+		};
+
+		var chart = new google.visualization[t](document.getElementById(d));
+
+		chart.draw(data, options);
+
+	}
+
+}
+
+
