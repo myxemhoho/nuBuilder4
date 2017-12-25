@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2017 at 10:40 PM
+-- Generation Time: Dec 25, 2017 at 11:37 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -984,7 +984,7 @@ INSERT INTO `zzzzsys_tab` (`zzzzsys_tab_id`, `syt_zzzzsys_form_id`, `syt_title`,
 ('nu5a41691611c9154', 'nusample', 'Inputs', 10, ''),
 ('nu5a416916120d8de', 'nusamplesubformform', 'Main', 10, ''),
 ('nu5a4169161229065', 'nuchart', 'Main', 10, ''),
-('nu5a416916127ee07', 'nuuserhome', 'Fast Forms', -1, ''),
+('nufastforms', 'nuuserhome', 'Fast Forms', -1, ''),
 ('nu5a41691612929a3', 'nuchartsubform', 'Main', 10, '');
 
 -- --------------------------------------------------------

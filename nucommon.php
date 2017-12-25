@@ -1357,7 +1357,7 @@ function nuUpdateSystemIds(){
 
 function nuUpdateTabIds(){
 
-	$s		= 'SELECT * FROM zzzzsys_tab';
+	$s		= 'SELECT * FROM zzzzsys_tab WHERE zzzzsys_tab_id != "nufastforms"';
 	$t		= nuRunQuery($s);
 	
 	while($r = db_fetch_object($t)){

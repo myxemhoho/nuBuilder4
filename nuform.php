@@ -173,7 +173,46 @@ function nuGetFormObject($F, $R, $OBJS, $P = stdClass){
 			}
 			
 			if($r->sob_all_type == 'html'){
-				$o->html 			= nuReplaceHashVariables($r->sob_html_code);
+				
+				if($r->sob_html_zzzzsys_chart_id == ''){
+					$o->html 		= nuReplaceHashVariables($r->sob_html_code);
+				}else{
+					
+					$htmljs 		= '';
+					$o->html 		= '';
+					$htmls			= 'SELECT * FROM zzzzsys_chart WHERE zzzzsys_chart_id = ? ';
+					$htmlt			= nuRunQuery($htmls, [sob_html_zzzzsys_chart_id]);
+					$htmlr			= db_fetch_object($htmt);
+					
+					if($htmlr->sch_type == 'Pie Graph'){
+						$htmlj	= "\nnuChart('$r->sob_all_type', 'PieChart', $htmlr->sch_array, '$htmlr->sch_title', '$htmlr->sch_horizontal_label', '$htmlr->sch_vertictal_label', 'bars', false);";
+					}
+
+					if($htmlr->sch_type == 'Line Graph'){
+						$htmlj	= "\nnuChart('$r->sob_all_type', 'ComboChart', $htmlr->sch_array, '$htmlr->sch_title', '$htmlr->sch_horizontal_label', '$htmlr->sch_vertictal_label', 'lines', false);";
+					}
+
+					if($htmlr->sch_type == 'Bar Graph'){
+						$htmlj	= "\nnuChart('$r->sob_all_type', 'ComboChart', $htmlr->sch_array, '$htmlr->sch_title', '$htmlr->sch_horizontal_label', '$htmlr->sch_vertictal_label', 'bars', false);";
+					}
+
+					if($htmlr->sch_type == 'Bar Graph - Stacked'){
+						$htmlj	= "\nnuChart('$r->sob_all_type', 'ComboChart', $htmlr->sch_array, '$htmlr->sch_title', '$htmlr->sch_horizontal_label', '$htmlr->sch_vertictal_label', 'bars', true);";
+					}
+
+					if($htmlr->sch_type == 'Bar Graph - Horizontal'){
+						$htmlj	= "\nnuChart('$r->sob_all_type', 'BarChart', $htmlr->sch_array, '$htmlr->sch_title', '$htmlr->sch_horizontal_label', '$htmlr->sch_vertictal_label', 'bars', false);";
+					}
+
+					if($htmlr->sch_type == 'Bar Graph - Horizontal and Stacked'){
+						$htmlj	= "\nnuChart('$r->sob_all_type', 'BarChart', $htmlr->sch_array, '$htmlr->sch_title', '$htmlr->sch_horizontal_label', '$htmlr->sch_vertictal_label', 'bars', true);";
+					}
+
+					nuAddJavascript($htmlj);
+										
+					
+				}
+				
 			}
 
 			if($r->sob_all_type == 'image'){
