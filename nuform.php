@@ -171,43 +171,40 @@ function nuGetFormObject($F, $R, $OBJS, $P = stdClass){
 				}
 
 			}
-			
 			if($r->sob_all_type == 'html'){
 				
-				if($r->sob_html_zzzzsys_chart_id == ''){
+				if($r->sob_html_chart_type == ''){
 					$o->html 		= nuReplaceHashVariables($r->sob_html_code);
 				}else{
 					
-					$htmljs 		= '';
 					$o->html 		= '';
-					$htmls			= 'SELECT * FROM zzzzsys_chart WHERE zzzzsys_chart_id = ? ';
-					$htmlt			= nuRunQuery($htmls, [sob_html_zzzzsys_chart_id]);
-					$htmlr			= db_fetch_object($htmt);
+					$htmljs			= addSlashes($r->sob_html_javascript);
 					
-					if($htmlr->sch_type == 'Pie Graph'){
-						$htmlj	= "\nnuChart('$r->sob_all_type', 'PieChart', $htmlr->sch_array, '$htmlr->sch_title', '$htmlr->sch_horizontal_label', '$htmlr->sch_vertictal_label', 'bars', false);";
+					if($r->sob_html_chart_type == 'p'){
+						$htmlj	= "\nnuChart('$r->sob_all_id', 'PieChart', '$htmljs', '$r->sob_html_title', '$r->sob_html_horizontal_label', '$r->sob_html_vertictal_label', 'bars', false);";
 					}
 
-					if($htmlr->sch_type == 'Line Graph'){
-						$htmlj	= "\nnuChart('$r->sob_all_type', 'ComboChart', $htmlr->sch_array, '$htmlr->sch_title', '$htmlr->sch_horizontal_label', '$htmlr->sch_vertictal_label', 'lines', false);";
+					if($r->sob_html_chart_type == 'l'){
+						$htmlj	= "\nnuChart('$r->sob_all_id', 'ComboChart', '$htmljs', '$r->sob_html_title', '$r->sob_html_horizontal_label', '$r->sob_html_vertictal_label', 'lines', false);";
 					}
 
-					if($htmlr->sch_type == 'Bar Graph'){
-						$htmlj	= "\nnuChart('$r->sob_all_type', 'ComboChart', $htmlr->sch_array, '$htmlr->sch_title', '$htmlr->sch_horizontal_label', '$htmlr->sch_vertictal_label', 'bars', false);";
+					if($r->sob_html_chart_type == 'b'){
+						$htmlj	= "\nnuChart('$r->sob_all_id', 'ComboChart', '$htmljs', '$r->sob_html_title', '$r->sob_html_horizontal_label', '$r->sob_html_vertictal_label', 'bars', false);";
 					}
 
-					if($htmlr->sch_type == 'Bar Graph - Stacked'){
-						$htmlj	= "\nnuChart('$r->sob_all_type', 'ComboChart', $htmlr->sch_array, '$htmlr->sch_title', '$htmlr->sch_horizontal_label', '$htmlr->sch_vertictal_label', 'bars', true);";
+					if($r->sob_html_chart_type == 'bs'){
+						$htmlj	= "\nnuChart('$r->sob_all_id', 'ComboChart', '$htmljs', '$r->sob_html_title', '$r->sob_html_horizontal_label', '$r->sob_html_vertictal_label', 'bars', true);";
 					}
 
-					if($htmlr->sch_type == 'Bar Graph - Horizontal'){
-						$htmlj	= "\nnuChart('$r->sob_all_type', 'BarChart', $htmlr->sch_array, '$htmlr->sch_title', '$htmlr->sch_horizontal_label', '$htmlr->sch_vertictal_label', 'bars', false);";
+					if($r->sob_html_chart_type == 'bh'){
+						$htmlj	= "\nnuChart('$r->sob_all_id', 'BarChart', '$htmljs', '$r->sob_html_title', '$r->sob_html_horizontal_label', '$r->sob_html_vertictal_label', 'bars', false);";
 					}
 
-					if($htmlr->sch_type == 'Bar Graph - Horizontal and Stacked'){
-						$htmlj	= "\nnuChart('$r->sob_all_type', 'BarChart', $htmlr->sch_array, '$htmlr->sch_title', '$htmlr->sch_horizontal_label', '$htmlr->sch_vertictal_label', 'bars', true);";
+					if($r->sob_html_chart_type == 'bhs'){
+						$htmlj	= "\nnuChart('$r->sob_all_id', 'BarChart', '$htmljs', '$r->sob_html_title', '$r->sob_html_horizontal_label', '$r->sob_html_vertictal_label', 'bars', true);";
 					}
 
+					nudebug($htmlj);
 					nuAddJavascript($htmlj);
 										
 					

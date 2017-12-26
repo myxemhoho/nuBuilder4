@@ -1076,13 +1076,20 @@ function nuButtonIcon(j){
 
 
 function nuChart(d, t, a, h, x, y, st, is){
+
+	a				= eval(a);
 	
 	google.charts.load('current', {'packages':['corechart']});
 	google.charts.setOnLoadCallback(drawVisualization);
+	console.log('nuChart', a);
+	
+	if(a == ''){return;}
 
 	function drawVisualization() {
-
-		var data = google.visualization.arrayToDataTable(a);
+		
+		if(a === undefined){return;}
+		
+		var data 	= google.visualization.arrayToDataTable(a);
 
 		var options = {
 			title 		: h,
@@ -1091,8 +1098,8 @@ function nuChart(d, t, a, h, x, y, st, is){
 			seriesType	: st,
 			isStacked 	: is,
 		};
-
-		var chart = new google.visualization[t](document.getElementById(d));
+		
+		var chart 	= new google.visualization[t](document.getElementById(d));
 
 		chart.draw(data, options);
 
