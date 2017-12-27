@@ -360,16 +360,16 @@ class nuFormObject {
 	
 	data(action = 'save'){
 		
-		var d			= [];
-		var sf			= this.subforms();
+		var d					= [];
+		var sf					= this.subforms();
 
 		for(var i = 0 ; i < sf.length ; i++){
 			
-			var o		= this.subform(sf[i], action);
+			var o				= this.subform(sf[i], action);
 			
-			o.columns	= null;
-			o.graphData	= null;
-			o.pivotData	= null;
+			o.columns			= null;
+			o.chartData			= null;
+			o.chartDataPivot	= null;
 			
 			d.push(o);
 			
@@ -420,8 +420,8 @@ class nuFormObject {
 		var F			= ['ID'];
 		o.rows			= [];
 		o.columns		= [];
-		o.graphData		= [];
-		o.pivotData		= [];
+		o.chartData		= [];
+		o.chartDataPivot= [];
 		o.edited		= [];
 		o.deleted		= [];
 		var deleteRow	= false;
@@ -504,23 +504,23 @@ class nuFormObject {
 			row.pop();
 			
 			if(o.deleted[i] == 0){
-				o.graphData.push(row);
+				o.chartData.push(row);
 			}
 			
 		}
 
 		titles.shift();
-		o.graphData.splice(0,0, titles);
+		o.chartData.splice(0,0, titles);
 		
-		for(var i = 0 ; i < o.graphData[0].length ; i++){
+		for(var i = 0 ; i < o.chartData[0].length ; i++){
 			
 			row					= [];
 
-			for(var p = 0 ; p < o.graphData.length ; p++){
-				row.push(o.graphData[p][i]);
+			for(var p = 0 ; p < o.chartData.length ; p++){
+				row.push(o.chartData[p][i]);
 			}
 			
-			o.pivotData.push(row);
+			o.chartDataPivot.push(row);
 			
 		}
 		
