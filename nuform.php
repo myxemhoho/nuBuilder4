@@ -204,9 +204,7 @@ function nuGetFormObject($F, $R, $OBJS, $P = stdClass){
 						$htmlj	= "\nnuChart('$r->sob_all_id', 'BarChart', '$htmljs', '$r->sob_html_title', '$r->sob_html_horizontal_label', '$r->sob_html_vertictal_label', 'bars', true);";
 					}
 
-					nudebug($htmlj);
 					nuAddJavascript($htmlj);
-										
 					
 				}
 				

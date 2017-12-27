@@ -188,7 +188,6 @@ function nuBuildReport($PDF, $REPORT, $TABLE_ID){
 //======================================================    
 //      LOOP THROUGH TABLE
 //======================================================    
-nudebug("SELECT * FROM (SELECT * FROM $TABLE_ID $order_by $group_by) AS tmp ");
     $DATA                                   = nuRunQuery("SELECT * FROM (SELECT * FROM $TABLE_ID $order_by $group_by) AS tmp ");
     while($ROW = db_fetch_array($DATA)){
     
