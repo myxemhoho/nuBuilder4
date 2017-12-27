@@ -36,7 +36,11 @@ function nuAjax(w,successCallback,errorCallback){
 
 }
 
-function nuForm(f, r, filter, search, n){
+function nuForm(f, r, filter, search, n, newWindow){
+	
+	if(newWindow == 1){
+		window.nuNEW	= 1;
+	}
 	
 	if(nuOpenNewBrowserTab('getform', f, r, filter)){return;}
 
@@ -44,7 +48,7 @@ function nuForm(f, r, filter, search, n){
 	var p 				= '';
 	var s				= '';
 		
-	if(arguments.length != 5){   //-- add a new breadcrumb
+	if(n != 1){   //-- add a new breadcrumb
 		window.nuFORM.addBreadcrumb();
 	}
 

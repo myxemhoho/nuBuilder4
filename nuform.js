@@ -30,6 +30,8 @@ function nuBuildForm(f){
 	nuSetSuffix(1000);
 	nuSetBody();
 	
+	nuRedefine_nuSelectBrowse();
+	
 	if(f.tableSchema.length != 0){  						//-- its an Object (load these once,  at login)
 		nuFORM.tableSchema		= f.tableSchema;
 	}
@@ -3304,6 +3306,36 @@ function nuFastReportFormat(width){
 }
 
 
+function nuRedefine_nuSelectBrowse(){
 
+	nuSelectBrowse = function (e, t){
+
+		var y 				= window.nuBrowseFunction;					//-- browse, lookup or custom function name
+		var i 				= window.nuTARGET;
+		var p				= $('#' + t.id).attr('data-nu-primary-key');
+		var f				= window.nuFORM.getProperty('form_id');
+		var r				= window.nuFORM.getProperty('redirect_form_id');
+
+		if(y == 'browse'){
+			
+			if(r == ''){
+				nuForm(f, p);
+			}else{
+				nuForm(r, p);
+			}
+			
+		}else if(y == 'lookup'){
+			
+			window.parent.nuGetLookupId(p, i);			//-- called from parent window
+			
+		}else{
+
+			window[y](e);
+			
+		}
+		
+	}
+		
+}
 
 
