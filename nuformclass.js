@@ -399,12 +399,18 @@ class nuFormObject {
 		if(sf == ''){
 			
 			id			= 'nuBuilder4EditForm';
+			var oi		= 	-1;
+			var fk		= '';
+			var pk		= $('#nuRECORD').attr('data-nu-primary-key-name');
 			var table	= $('#nuRECORD').attr('data-nu-table');
 			var sel		= '#nuRECORD';
 			var sf		= 'nuRECORD';
-			var oi		= nuFORM.getCurrent().form_id;
-			var fk		= '';
-			var pk		= $('#nuRECORD').attr('data-nu-primary-key-name');
+			
+			if(table === undefined){
+				oi		= parent.nuFORM.getCurrent().form_id;
+			}else{
+				oi		= nuFORM.getCurrent().form_id;
+			}
 		
 		}else{
 			

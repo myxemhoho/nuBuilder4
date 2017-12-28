@@ -62,7 +62,6 @@
 	$f->forms[0]->form_access				= $GLOBALS['nuSetup']->set_denied;
 	$f->forms[0]->javascript				= $GLOBALS['EXTRAJS'];
 	$f->forms[0]->target					= $P['target'];
-nudebug($GLOBALS['EXTRAJS']);
 	$b										= nuButtons($F, $P);
 	
 	$f->forms[0]->buttons					= $b[0];

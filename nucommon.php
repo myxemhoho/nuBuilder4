@@ -335,7 +335,7 @@ function nuSetHashList($p){
 		
 	}
 
-	if(isset($p['hash'])){
+	if(isset($p['hash']) && gettype($p['hash']) == 'array'){
 		
 		foreach ($p['hash'] as $key => $value){								//-- The 'opener' Form's hash variables
 
