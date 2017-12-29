@@ -36,9 +36,9 @@ function nuAjax(w,successCallback,errorCallback){
 
 }
 
-function nuForm(f, r, filter, search, n, newWindow){
+function nuForm(f, r, filter, search, n){
 	
-	if(newWindow == 1){
+	if(n == 2){
 		window.nuNEW	= 1;
 	}
 	
