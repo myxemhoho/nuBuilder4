@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html onclick="nuClick(event)">
 
 <head>
