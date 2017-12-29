@@ -348,7 +348,6 @@ function nuSetHashList($p){
 		}
 		
 	}
-
 	
 	$h['PREVIOUS_RECORD_ID']	= addslashes($rid);
 	$h['RECORD_ID']				= addslashes($rid);

@@ -220,7 +220,18 @@ function nuRunPHP(pCode, iframe){
 	last.call_type 			= 'runphp';
 	last.form_id 			= pCode;
 	last.nuFORMdata			= nuFORM.data();
-	last.hash  				= nuHashFromEditForm();
+	
+	if(nuFORM.getCurrent() === undefined){
+		
+		last.record_id 		= parent.nuFORM.getCurrent().record_id;
+		last.hash 			= parent.nuHashFromEditForm();
+		
+	}else{
+
+		last.record_id 		= nuFORM.getCurrent().record_id;
+		last.hash 			= nuHashFromEditForm();
+		
+	}
 	
 	var successCallback 	= function(data,textStatus,jqXHR){
 		

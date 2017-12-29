@@ -17,12 +17,15 @@
 
 	$_POST['FORM_ID'] 						= $F;
 	$_POST['nuHash']						= array_merge($U, nuSetHashList($P));
+//	nudebug($_POST['nuHash']);
+
 	$_POST['nuHash']['PREVIOUS_RECORD_ID'] 	= $R;
 	$_POST['nuHash']['RECORD_ID'] 			= $R;
 	$_POST['nuHash']['FORM_ID'] 			= $F;
 	$_POST['nuHash']['nuFORMdata']			= json_decode(json_encode($_POST['nuSTATE']['nuFORMdata']));		//-- this holds data from an Edit Form
 	$_POST['nuHash']['TABLE_ID'] 			= nuTT();
 	$_POST['nuHash']['SESSION_ID'] 			= $_SESSION['SESSION_ID'];
+//	nudebug($_POST['nuHash']);
 	$_POST['nuValidate']					= array();
 	$_POST['nuCallback']					= '';
 
