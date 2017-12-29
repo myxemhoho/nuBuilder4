@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 
 <html onclick="nuClick(event)">
 
