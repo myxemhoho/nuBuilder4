@@ -570,13 +570,13 @@ function nuUpdateData(action, instruction){
 	last.hash 				= nuHashFromEditForm();
 	last.session_id 		= window.nuSESSION;
 	
-	$('.nuactionbutton').hide();
+	$('.nuActionButton').hide();
 	
 	var successCallback 	= function(data,textStatus,jqXHR){
 		
 		var fm 				= data;
 
-		$('.nuactionbutton').show();
+		$('.nuActionButton').show();
 		
 		if(nuDisplayError(fm)){
 			

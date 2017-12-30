@@ -1427,9 +1427,7 @@ function nuAddBreadcrumbs(){
 	var b	= window.nuFORM.breadcrumbs.length;
 	
     for(var i = 0 ; i < b ; i++){
-        
 		nuAddBreadcrumb(i);
-
     }
     
 }
@@ -1496,7 +1494,7 @@ function nuSetTitle(t){
 
 	nuFORM.setProperty('title', t);
 	
-	var b 	= $('.nubreadcrumb').length;
+	var b 	= $('.nuBreadcrumb').length;
 	
 	$('#nuBreadcrumb' + b).html(t);
 	
