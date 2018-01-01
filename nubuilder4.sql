@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 01, 2018 at 09:43 PM
+-- Generation Time: Jan 01, 2018 at 09:55 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -639,7 +639,7 @@ INSERT INTO `zzzzsys_object` (`zzzzsys_object_id`, `sob_all_zzzzsys_form_id`, `s
 ('nu5a441af1443509c', 'nuselect', 'zzzzsys_select', 'input', 'sse_resize', 'Resize', 'nu5a441af159d0cec', 30, 46, 689, 100, 16, '1', 'left', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'range', '', '', '', '', '', '', '', ''),
 ('nu5a441af1447ebad', 'nuselect', 'zzzzsys_select', 'select', 'addtable', 'Add Table', 'nu5a441af159d0cec', 20, 46, 405, 200, 16, '1', 'left', '0', '0', '', '', '', '', '', '', '', '', '0', 'SELECT table_name as a, table_name as b FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = DATABASE()', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'range', '', '', '', '', '', '', '', ''),
 ('nu5a441af144a2046', 'nuclause', 'zzzzsys_select_clause', 'input', 'ssc_order', 'Order', 'nu5a441af15a6d8ed', 50, 154, 122, 45, 20, '1', 'right', '0', '0', '', '', '', '', '', '', '', '', '', 'browse|Browse|edit|Edit|browseedit|Browse and Edit|criteria|Criteria or Home|procedure|Procedure|report|Report', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'number', '', '', '', '', '', '', '', ''),
-('nu5a441af144c52a4', 'nuclause', 'zzzzsys_select_clause', 'select', 'ssc_type', 'Type', 'nu5a441af15a6d8ed', 10, 58, 122, 100, 18, '1', 'right', '1', '0', '', '', '', '', '', '', '', '', '0', '1|WHERE|\n2|GROUP BY|\n3|ORDER BY|\n4|HAVING\n', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'number', '', '', '', '', '', '', '', ''),
+('nu5a441af144c52a4', 'nuclause', 'zzzzsys_select_clause', 'select', 'ssc_type', 'Type', 'nu5a441af15a6d8ed', 10, 58, 122, 100, 20, '1', 'right', '1', '0', '', '', '', '', '', '', '', '', '0', '1|WHERE|\n2|GROUP BY|\n3|ORDER BY|\n4|HAVING\n', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'number', '', '', '', '', '', '', '', ''),
 ('nu5a441af144ff2e7', 'nuclause', 'zzzzsys_select_clause', 'input', 'ssc_clause', 'Clause', 'nu5a441af15a6d8ed', 30, 122, 122, 189, 20, '1', 'left', '0', '0', '', '', '', '', '', '', '', '', '0', '10|WHERE|\n20|ORDER BY|\n30|GROUP BY|\n40|HAVING', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5a441af1458c7a2', 'nuclause', 'zzzzsys_select_clause', 'input', 'ssc_field', 'Field', 'nu5a441af15a6d8ed', 20, 90, 122, 220, 20, '1', 'left', '1', '0', '', '', '', '', '', '', '', '', '0', '10|WHERE|\n20|ORDER BY|\n30|GROUP BY|\n40|HAVING', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'nuScroll', 'nuFORM.selectFields()', '', '', '', '', '', '', ''),
 ('nu5a441af145b9a1e', 'nuselect', 'zzzzsys_select', 'subform', 'zzzzsys_select_clause_sf', 'Clauses', 'nu5a441af159d0cec', 80, 302, 89, 700, 119, '1', 'left', '0', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'nuclause', 'ssc_zzzzsys_select_id', '1', '1', 'g', 'zzzzsys_select_clause', 0, '', 'range', '', '', '', '', '', '', '', ''),

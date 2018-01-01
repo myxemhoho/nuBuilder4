@@ -1300,8 +1300,8 @@ function nuLabel(w, i, p, prop){
 	var l = String(nuTranslate(prop.objects[i].label));
 	
 	$('#' + id).css({'top'		: Number(prop.objects[i].top),
-		              'left'	: Number(prop.objects[i].left) - lwidth + -27,
-		              'width'	: Number(lwidth + 20)
+		              'left'	: Number(prop.objects[i].left) - lwidth + -17,
+		              'width'	: Number(lwidth + 10)
 	})
 	.html(l)
 	.attr('ondblclick','nuPopup("nuobject", "' + prop.objects[i].object_id + '")');
