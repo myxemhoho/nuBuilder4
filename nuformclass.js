@@ -360,11 +360,19 @@ class nuFormObject {
 	
 	data(action = 'save'){
 		
-		var d	= [];
-		var sf	= this.subforms();
+		var d					= [];
+		var sf					= this.subforms();
 
 		for(var i = 0 ; i < sf.length ; i++){
-			d.push(this.subform(sf[i], action));
+			
+			var o				= this.subform(sf[i], action);
+			
+			o.columns			= null;
+			o.chartData			= null;
+			o.chartDataPivot	= null;
+			
+			d.push(o);
+			
 		}
 		
 		return d;
@@ -391,12 +399,18 @@ class nuFormObject {
 		if(sf == ''){
 			
 			id			= 'nuBuilder4EditForm';
+			var oi		= 	-1;
+			var fk		= '';
+			var pk		= $('#nuRECORD').attr('data-nu-primary-key-name');
 			var table	= $('#nuRECORD').attr('data-nu-table');
 			var sel		= '#nuRECORD';
 			var sf		= 'nuRECORD';
-			var oi		= nuFORM.getCurrent().form_id;
-			var fk		= '';
-			var pk		= $('#nuRECORD').attr('data-nu-primary-key-name');
+			
+			if(table === undefined){
+				oi		= parent.nuFORM.getCurrent().form_id;
+			}else{
+				oi		= nuFORM.getCurrent().form_id;
+			}
 		
 		}else{
 			
@@ -411,6 +425,9 @@ class nuFormObject {
 		var o			= {'id':id, 'foreign_key':fk, 'primary_key':pk, 'object_id':oi, 'table':table, 'action':action};	//-- foreign_key id id Form's record_id (which might change if cloned.)
 		var F			= ['ID'];
 		o.rows			= [];
+		o.columns		= [];
+		o.chartData		= [];
+		o.chartDataPivot= [];
 		o.edited		= [];
 		o.deleted		= [];
 		var deleteRow	= false;
@@ -423,7 +440,7 @@ class nuFormObject {
 			var E				= [0];
 			var C				= 1;
 			var chk				= $('#' + this.id).prop("checked");
-				
+
 			THIS.children('[data-nu-data]').each(function(){
 				
 				if(this.id.substr(-8) == 'nuDelete'){
@@ -461,13 +478,64 @@ class nuFormObject {
 			o.deleted.push(chk);
 			
 		});
-
+		
 		o.fields				= F;
+		var titles				= [];
+
+		
+		for(var f = 0 ; f < o.fields.length - 1 ; f++){
+			
+			var c				= [];
+			var d				= 0;
+			
+			titles.push($('#title_' + sf + o.fields[f]).html())
+			
+			for(var r = 0 ; r < o.rows.length ; r++){
+				
+				if(o.rows[r][o.fields.length - 1] == 0){
+					c.push(o.rows[r][f]);
+				}
+				
+			}
+			
+			o.columns.push(c);
+		
+		}
+		
+		for(var i = 0 ; i < o.rows.length ; i++){
+			
+			var row				= JSON.parse(JSON.stringify(o.rows[i]));
+			
+			row.shift();
+			row.pop();
+			
+			if(o.deleted[i] == 0){
+				o.chartData.push(row);
+			}
+			
+		}
+
+		titles.shift();
+		o.chartData.splice(0,0, titles);
+		
+		for(var i = 0 ; i < o.chartData[0].length ; i++){
+			
+			row					= [];
+
+			for(var p = 0 ; p < o.chartData.length ; p++){
+				row.push(o.chartData[p][i]);
+			}
+			
+			o.chartDataPivot.push(row);
+			
+		}
 		
 		return o;
 		
 	}	
 	
+	
+
 	setFormats(){
 		
 		var f	= {};
@@ -573,7 +641,7 @@ class nuFormObject {
 			}
 			
 			if(String(h) == 'toobig' && nuSERVERRESPONSE.user_id == 'globeadmin'){
-				nuMessage(["What did we say ?",'','<img id="thebig" src="fpdf\\big.png">']);return '';
+				nuMessage(["What did we say ?",'','<img id="thebig" src="graphics\\point.png">']);return '';
 			}
 			
 			return m;

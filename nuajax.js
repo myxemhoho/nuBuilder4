@@ -38,13 +38,17 @@ function nuAjax(w,successCallback,errorCallback){
 
 function nuForm(f, r, filter, search, n){
 	
+	if(n == 2){
+		window.nuNEW	= 1;
+	}
+	
 	if(nuOpenNewBrowserTab('getform', f, r, filter)){return;}
 
 	var u 				= '';
 	var p 				= '';
 	var s				= '';
 		
-	if(arguments.length != 5){   //-- add a new breadcrumb
+	if(n != 1){   //-- add a new breadcrumb
 		window.nuFORM.addBreadcrumb();
 	}
 
@@ -216,7 +220,18 @@ function nuRunPHP(pCode, iframe){
 	last.call_type 			= 'runphp';
 	last.form_id 			= pCode;
 	last.nuFORMdata			= nuFORM.data();
-	last.hash  				= nuHashFromEditForm();
+	
+	if(nuFORM.getCurrent() === undefined){
+		
+		last.record_id 		= parent.nuFORM.getCurrent().record_id;
+		last.hash 			= parent.nuHashFromEditForm();
+		
+	}else{
+
+		last.record_id 		= nuFORM.getCurrent().record_id;
+		last.hash 			= nuHashFromEditForm();
+		
+	}
 	
 	var successCallback 	= function(data,textStatus,jqXHR){
 		
@@ -311,10 +326,69 @@ function nuSystemUpdate(){
 function nuAttachImage(i, c){
 	
 	c						= String(c).toLowerCase();
+	var imgID				= 'image_' + i;
+	var w					= $('#' + i).css('width');
+	var h					= $('#' + i).css('height');
+
+	
+	$('#' + i).html('<img id="' + imgID + '" class="nuBrowseImage" width="' + w + '" height="' + h + '" src="">');
+
+	if(window.nuGraphics.indexOf(c + '.png') != -1){						//-- check filenames in graphics dir.
+	
+		$('#' + imgID).attr('src', "graphics/" + c + ".png")
+
+		return;
+		
+	}
+	
+	var PARENT				= parent.parent.parent.parent.parent.parent.parent.parent.parent;
+	
+	if(PARENT.nuImages[c] !== undefined){
+		
+		var p				= JSON.parse(PARENT.nuImages[c]);
+		var b				= atob(p.file);
+		
+		$('#' + imgID).attr('src', b)
+
+		return;
+		
+	}
+	
+	var current				= nuFORM.getCurrent();
+	var last		 		= $.extend(true, {}, current);
+
+	last.session_id			= window.nuSESSION;
+	last.call_type 			= 'getfile';
+	last.fileCode			= c;
+	
+	var successCallback 	= function(data,textStatus,jqXHR){
+		
+		if(nuDisplayError(data)){return;};
+
+		if(data.JSONfile !== null){
+			
+			PARENT.nuImages[c] 	= data.JSONfile;
+			var p			= JSON.parse(PARENT.nuImages[c]);
+			var b			= atob(p.file);
+			
+			$('#' + imgID).attr('src', b)
+		
+		}
+		
+	};
+	
+	nuAjax(last,successCallback);
+	
+}
+
+
+function nuAttachButtonImage(i, c){
+	
+	c						= String(c).toLowerCase();
 
 	if(window.nuGraphics.indexOf(c + '.png') != -1){						//-- check filenames in graphics dir.
 
-		$(i)
+		$('#' + i)
 		.css('background-image', 'url("graphics/' + c + '.png')
 		.css('background-repeat', 'no-repeat')
 		.css('background-size', '30px')
@@ -332,7 +406,7 @@ function nuAttachImage(i, c){
 		var p				= JSON.parse(PARENT.nuImages[c]);
 		var b				= atob(p.file);
 		
-		$(i)
+		$('#' + i)
 		.css('background-image', 'url("' + b + '")')
 		.css('background-repeat', 'no-repeat')
 		.css('background-size', '30px')
@@ -360,7 +434,7 @@ function nuAttachImage(i, c){
 			var p			= JSON.parse(PARENT.nuImages[c]);
 			var b			= atob(p.file);
 			
-			$(i)
+			$('#' + i)
 			.css('background-image', 'url("' + b + '")')
 			.css('background-repeat', 'no-repeat')
 			.css('background-size', '30px')
@@ -496,13 +570,13 @@ function nuUpdateData(action, instruction){
 	last.hash 				= nuHashFromEditForm();
 	last.session_id 		= window.nuSESSION;
 	
-	$('.nuactionbutton').hide();
+	$('.nuActionButton').hide();
 	
 	var successCallback 	= function(data,textStatus,jqXHR){
 		
 		var fm 				= data;
 
-		$('.nuactionbutton').show();
+		$('.nuActionButton').show();
 		
 		if(nuDisplayError(fm)){
 			

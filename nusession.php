@@ -17,7 +17,7 @@ if(array_key_exists('nuSTATE', $_POST)){
                 WHERE sus_login_name = ? AND sus_login_password = ?
             ";
 
-            $checkLoginDetailsQRY = nuRunQuery($checkLoginDetailsSQL, array($_POST['nuSTATE']['username'], md5($_POST['nuSTATE']['username'])));
+            $checkLoginDetailsQRY = nuRunQuery($checkLoginDetailsSQL, array($_POST['nuSTATE']['username'], md5($_POST['nuSTATE']['password'])));
 
             if(
                 db_num_rows($checkLoginDetailsQRY) > 0 || 
@@ -169,6 +169,7 @@ if(array_key_exists('nuSTATE', $_POST)){
                         WHERE zzzzsys_user_id = '$checkLoginDetailsOBJ->zzzzsys_user_id'
                         GROUP BY slp_zzzzsys_php_id
                     ");
+					
                     $phpAccess 								= array();
         			
                     while($getPHPsOBJ = db_fetch_object($getPHPsQRY)){
@@ -180,10 +181,7 @@ if(array_key_exists('nuSTATE', $_POST)){
 
                 }
 
-                nuRunQuery("INSERT INTO zzzzsys_session SET sss_access = ?, zzzzsys_session_id = ?", array(
-                    $storeSessionInTableJSON, 
-                    $_SESSION['SESSION_ID']
-                ));
+                nuRunQuery("INSERT INTO zzzzsys_session SET sss_access = ?, zzzzsys_session_id = ?", array($storeSessionInTableJSON, $_SESSION['SESSION_ID']));
 				
             } else {
 				

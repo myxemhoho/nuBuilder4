@@ -170,7 +170,7 @@ function nuLogin(nuconfigNuWelcomeBodyInnerHTML){
 	
 	var h 	= `	
 
-				<div id='login' class='nuLogin' style='width:330;position:absolute;top:50px;height:300px;left:50px;border-style:solid;border-width:1px;border-color: rgba(0, 0, 0, 0.08);'>
+				<div id='login' class='nuLogin' style='background-color:#d8e4ff; width:330;position:absolute;top:50px;height:300px;left:50px;border-style:solid;border-width:1px;border-color: rgba(0, 0, 0, 0.08);'>
 					<div id='nulogo' style='background-size:100% 100%;background-image:url(\"graphics/logo.png\");position:absolute;width:200px;height:80px;top:45px;left:65px;'></div>
 					<br>
 						<div style='position:absolute;top:170px;left:20px;text-align:right;width:70px;display:inline-block;'>Username</div>
@@ -457,7 +457,7 @@ function nuBindCtrlEvents(){
 			window.nuNEW = 0;
 			
 			e.preventDefault();
-console.log(e.keyCode);
+			
 			if(nuFormType() == 'browse') {
 			
 				if(e.keyCode == 67 && window.global_access) {						//-- c		Searchable Columns
@@ -721,7 +721,7 @@ function nuEnable(i){                 //-- Enable Edit Form Object
 	for(var c = 0 ; c < o.length ; c++){
 			
 		$('#' + o[c])
-		.removeClass('nuReadOnly')
+		.removeClass('nuReadonly')
 		.prop('readonly', false)
 		.prop('disabled', false);
 		
@@ -736,7 +736,7 @@ function nuReadonly(i){  			               //-- set Edit Form Object to readonly
 	for(var c = 0 ; c < o.length ; c++){
 			
 		$('#' + o[c])
-		.addClass('nuReadOnly')
+		.addClass('nuReadonly')
 		.attr('onclick','')
 		.prop('readonly', true);
 		
@@ -752,7 +752,7 @@ function nuDisable(i){                 //-- Disable Edit Form Object
 	for(var c = 0 ; c < o.length ; c++){
 			
 		$('#' + o[c])
-		.addClass('nuReadOnly')
+		.addClass('nuReadonly')
 		.prop('readonly', true)
 		.prop('disabled', true);
 		
@@ -1073,4 +1073,37 @@ function nuButtonIcon(j){
 	.css('background-repeat', 'no-repeat')
 	
 }
+
+
+function nuChart(d, t, a, h, x, y, st, is){
+
+	a				= eval(a);
+	
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawVisualization);
+	
+	if(a == ''){return;}
+
+	function drawVisualization() {
+		
+		if(a === undefined){return;}
+		
+		var data 	= google.visualization.arrayToDataTable(a);
+
+		var options = {
+			title 		: h,
+			vAxis		: {title: y},
+			hAxis		: {title: x},
+			seriesType	: st,
+			isStacked 	: is,
+		};
+		
+		var chart 	= new google.visualization[t](document.getElementById(d));
+
+		chart.draw(data, options);
+
+	}
+
+}
+
 

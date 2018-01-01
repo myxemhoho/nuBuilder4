@@ -20,14 +20,52 @@ function nuBeforeBrowse($f){
 }
 
 
-function nuBeforeEdit($f, $r){
+function nuBeforeEdit($FID, $RID){
 
-	$r						= nuFormProperties($f);
+	$r						= nuFormProperties($FID);
     $GLOBALS['EXTRAJS']		= '';
+	$ct						= $_POST['nuSTATE']['call_type'];
 
 	if($_POST['nuSTATE']['call_type'] == 'getform' and $r == ''){return;}
 	
-	nuEval($f . '_BE');
+	if($ct == 'getform'){
+		
+		$logfield					= $r->sfo_table . '_nulog';
+		$cts						= nuGetJSONData('clientTableSchema');
+		$user						= $_POST['nuHash']['USER_ID'];
+
+		if($cts[$r->sfo_table] !== NULL){
+				
+			if(in_array($logfield, $cts[$r->sfo_table]['names'])){								//-- valid log field name
+				
+				$S				= "SELECT $logfield FROM `$r->sfo_table` WHERE `$r->sfo_primary_key` = ? ";
+				$T				= nuRunQuery($S, [$RID]);
+				$J				= db_fetch_row($T)[0];
+				$jd				= json_decode($J);
+				
+				if(gettype($jd) == 'object'){
+					$jd->viewed	= Array('user' => $user, 'time' => time());								
+				}else{
+					
+					$jd 		= new stdClass;
+					$jd->added	= Array('user' => 'unknown', 'time' => 0);
+					$jd->viewed	= Array('user' => $user, 'time' => time());
+
+				}
+				
+				$je				= addslashes(json_encode($jd));
+				$S				= "UPDATE `$r->sfo_table` SET $logfield = '$je' WHERE `$r->sfo_primary_key` = ? ";
+				$T				= nuRunQuery($S, [$RID]);
+			
+			}
+			
+		}
+		
+	}
+
+
+	
+	nuEval($FID . '_BE');
     $GLOBALS['EXTRAJS']		.= $r->sfo_javascript;
 	
 }
@@ -133,9 +171,43 @@ function nuGetFormObject($F, $R, $OBJS, $P = stdClass){
 				}
 
 			}
-			
 			if($r->sob_all_type == 'html'){
-				$o->html 			= nuReplaceHashVariables($r->sob_html_code);
+				
+				if($r->sob_html_chart_type == ''){
+					$o->html 		= nuReplaceHashVariables($r->sob_html_code);
+				}else{
+					
+					$o->html 		= '';
+					$htmljs			= addSlashes($r->sob_html_javascript);
+					
+					if($r->sob_html_chart_type == 'p'){
+						$htmlj	= "\nnuChart('$r->sob_all_id', 'PieChart', '$htmljs', '$r->sob_html_title', '$r->sob_html_horizontal_label', '$r->sob_html_vertictal_label', 'bars', false);";
+					}
+
+					if($r->sob_html_chart_type == 'l'){
+						$htmlj	= "\nnuChart('$r->sob_all_id', 'ComboChart', '$htmljs', '$r->sob_html_title', '$r->sob_html_horizontal_label', '$r->sob_html_vertictal_label', 'lines', false);";
+					}
+
+					if($r->sob_html_chart_type == 'b'){
+						$htmlj	= "\nnuChart('$r->sob_all_id', 'ComboChart', '$htmljs', '$r->sob_html_title', '$r->sob_html_horizontal_label', '$r->sob_html_vertictal_label', 'bars', false);";
+					}
+
+					if($r->sob_html_chart_type == 'bs'){
+						$htmlj	= "\nnuChart('$r->sob_all_id', 'ComboChart', '$htmljs', '$r->sob_html_title', '$r->sob_html_horizontal_label', '$r->sob_html_vertictal_label', 'bars', true);";
+					}
+
+					if($r->sob_html_chart_type == 'bh'){
+						$htmlj	= "\nnuChart('$r->sob_all_id', 'BarChart', '$htmljs', '$r->sob_html_title', '$r->sob_html_horizontal_label', '$r->sob_html_vertictal_label', 'bars', false);";
+					}
+
+					if($r->sob_html_chart_type == 'bhs'){
+						$htmlj	= "\nnuChart('$r->sob_all_id', 'BarChart', '$htmljs', '$r->sob_html_title', '$r->sob_html_horizontal_label', '$r->sob_html_vertictal_label', 'bars', true);";
+					}
+
+					nuAddJavascript($htmlj);
+					
+				}
+				
 			}
 
 			if($r->sob_all_type == 'image'){
@@ -1185,7 +1257,7 @@ function nuFormDimensions($f){
 		}else{
 			
 			$w 	= max($w, $r->sob_all_left + $r->sob_all_width + 40);
-			$gw = $gw + $r->sob_all_width;
+			$gw = $gw + $r->sob_all_width + 4;
 			
 		}
 

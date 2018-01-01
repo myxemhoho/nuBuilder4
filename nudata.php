@@ -112,10 +112,12 @@ function nuUpdateDatabase(){
 	
 	$nudata			= $_POST['nuHash']['nuFORMdata'];
 	$nuMainID		= $_POST['nuHash']['record_id'];
-	$fid			= $_POST['nuHash']['form_id'];
+	$form_type		= nuGetFormProperties($_POST['nuHash']['form_id'])->sfo_type;
 	$nuDelAll		= $_POST['nuHash']['deleteAll'];
 	$nuMainTable	= $nudata[0]->table;
 	$EFid			= $nudata[0]->object_id;
+	$cts			= nuGetJSONData('clientTableSchema');
+	$user			= $_POST['nuHash']['USER_ID'];
 		
 	for($d = 0 ; $d < count($nudata) ; $d++){
 		
@@ -130,69 +132,72 @@ function nuUpdateDatabase(){
 		$fk			= $sf->foreign_key;
 		$fv			= $_POST['nuHash']['record_id'];
 		$auto		= nuAutoNumbers($sf->object_id);
+		$log		= in_array($table . '_nulog', $cts[$table]['names']);
 		
 		for($r = 0 ; $r < count($rows) ; $r++){
-
+			
 			if(nuEditedRow($edited[$r])){
 				
-				$F			= array();
-				$I			= array();
-				$V			= array();
-				$edit		= $edited[$r];
-				$row		= $rows[$r];
-				$pv			= $row[0];
-				$nv			= nuID();
+				$F					= array();
+				$I					= array();
+				$V					= array();
+				$edit				= $edited[$r];
+				$row				= $rows[$r];
+				$pv					= $row[0];
+				$nv					= nuID();
 				
 				if($pv == '-1'){
 					
-					$nv		= nuBuildPrimaryKey($table, $pk);
-					$id		= "'$nv'";
+					$nv				= nuBuildPrimaryKey($table, $pk);
+					$id				= "'$nv'";
 					
 					if($d == 0){$nuMainID = $nv;}
 					
 				}else{
 					
-					$id		= "'$pv'";
+					$id				= "'$pv'";
 					
 					if($d == 0){$nuMainID = $pv;}
 					
 				}
 				
-				$V			= [];																		//-- primary key id
-				$I			= [];
+				$V					= [];																		//-- primary key id
+				$I					= [];
 				
 				if($nv != 'autoid'){
 						
-					$V[]		= $id;																	//-- primary key id
-					$I[]		= $pk;
+					$V[]			= $id;																	//-- primary key id
+					$I[]			= $pk;
 					
 				}
 				
 				if($fk == ''){
-					$rec_id	= $id;
+					$rec_id			= $id;
 				}else{
 					
-					$V[]	= "'$nuMainID'";
-					$I[]	= "`$fk`";
+					$V[]			= "'$nuMainID'";
+					$I[]			= "`$fk`";
 					
 				}
 				
 				for($R = 1 ; $R < count($row) ; $R++){
 
-					$isAN	= in_array($fields[$R], $auto);
+					$isAN			= in_array($fields[$R], $auto);
 
 					if($edit[$R] == 1 or $isAN){														//-- has been edited
 					
-						$cts		= nuGetJSONData('clientTableSchema');
-
 						if($cts[$table] == ''){														//-- not valid table name
 
-							nuDisplayError("<b>$table</b> is not a valid table name for a Subform");
+							if($form_type == 'launch'){
+								nuDisplayError("Launch Forms Cannot Be Saved");
+							}else{
+								nuDisplayError("<b>$table</b> is not a valid table name for a Subform");
+							}
+							
 							return;
 
-
 						}
-
+						
 						if(in_array($fields[$R], $cts[$table]['names'])){								//-- valid field names
 
 							if($isAN){
@@ -212,7 +217,17 @@ function nuUpdateDatabase(){
 					}
 					
 				}
-	
+
+				if($log){
+
+					$jd 		= new stdClass;
+					$jd->added	= Array('user' => $user, 'time' => time());
+					$je			= addslashes(json_encode($jd));
+					$V[]		= "'$je'";
+					$I[]		= "`$table"."_nulog`";
+
+				}
+
 				$fs				= implode(', ', $F);							//-- for update statement
 				$vs				= ' VALUES (' . implode(', ', $V) . ')';
 				$is				= '        (' . implode(', ', $I) . ')';
@@ -225,11 +240,37 @@ function nuUpdateDatabase(){
 							
 							$sql	= "INSERT INTO $table $is $vs;";
 							$S[]	= $sql;
+							
 						}
 						
 					}else{
+						
 						$sql		= "UPDATE $table SET $fs WHERE `$pk` = '$pv';";
 						$S[]		= $sql;
+						
+						if($log){
+							
+							$sql	= "SELECT $table" . "_nulog FROM $table WHERE `$pk` = '$pv';";
+							$logt	= nuRunQuery($sql);
+							$logr	= db_fetch_row($logt);
+							$jd		= json_decode($logr[0]);
+							
+							if(gettype($jd) == 'object'){
+								$jd->edited	= Array('user' => $user, 'time' => time());								
+							}else{
+								
+								$jd 		= new stdClass;
+								$jd->added	= Array('user' => 'unknown', 'time' => 0);
+								$jd->edited	= Array('user' => $user, 'time' => time());
+
+							}
+							
+							$je		= addslashes(json_encode($jd));
+							$sql	= "UPDATE $table SET $table" . "_nulog = '$je' WHERE `$pk` = '$pv';";
+							$S[]	= $sql;
+							
+						}
+						
 					}
 				
 				}
@@ -261,12 +302,10 @@ function nuUpdateDatabase(){
 	
 	if($nuDelAll == 'Yes'){
 		
-//		$evalPHP	= new nuEvalPHPClass($EFid . '_BD');
 		nuEval($EFid . '_BD');
-		$S			= array_reverse($S);				//-- delete children first
+		$S				= array_reverse($S);				//-- delete children first
 		
 	}else{
-//		$evalPHP 	= new nuEvalPHPClass($EFid . '_BS');
 		nuEval($EFid . '_BS');
 	}
 
@@ -274,9 +313,9 @@ function nuUpdateDatabase(){
 
 	for($i = 0 ; $i < count($S) ; $i++){
 		
-		$sql		= $S[$i];
-		$insert		= "INSERT INTO $nuMainTable";
-		$length		= strlen($insert);
+		$sql			= $S[$i];
+		$insert			= "INSERT INTO $nuMainTable";
+		$length			= strlen($insert);
 		
 		nuRunQuery($sql);
 		
@@ -291,10 +330,8 @@ function nuUpdateDatabase(){
     nuChangeHashVariable('RECORD_ID', $nuMainID);
 
 	if($nuDelAll == 'Yes'){
-//		$evalPHP 	= new nuEvalPHPClass($EFid . '_AD');
 		nuEval($EFid . '_AD');
 	}else{
-//		$evalPHP 	= new nuEvalPHPClass($EFid . '_AS');
 		nuEval($EFid . '_AS');
 	}
 
