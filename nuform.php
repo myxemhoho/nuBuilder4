@@ -1257,7 +1257,7 @@ function nuFormDimensions($f){
 		}else{
 			
 			$w 	= max($w, $r->sob_all_left + $r->sob_all_width + 40);
-			$gw = $gw + $r->sob_all_width;
+			$gw = $gw + $r->sob_all_width + 4;
 			
 		}
 

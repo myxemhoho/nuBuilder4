@@ -639,7 +639,7 @@ function nuINPUT(w, i, l, p, prop){
 		nuAddDataTab(id, prop.objects[i].tab, p);
 		
 		$('#' + id).css({'top'      	: Number(prop.objects[i].top),
-						'left'      	: Number(prop.objects[i].left) + Number(prop.objects[i].width) + 2,
+						'left'      	: Number(prop.objects[i].left) + Number(prop.objects[i].width) + 6,
 						'width'		: 15,
 						'height'		: Number(prop.objects[i].height -2)
 		})
@@ -660,7 +660,7 @@ function nuINPUT(w, i, l, p, prop){
 		$('#' + ef).append(inp);
 		nuAddDataTab(id, prop.objects[i].tab, p);
 		$('#' + id).css({'top'		: Number(prop.objects[i].top),
-						'left'		: Number(prop.objects[i].left) + Number(prop.objects[i].width) + 21,
+						'left'		: Number(prop.objects[i].left) + Number(prop.objects[i].width) + 25,
 						'width'		: prop.objects[i].description_width,
 						'visibility': prop.objects[i].description_width == 0 || prop.objects[i].display == 0 ? 'hidden' : 'visible',
 						'height'	: Number(prop.objects[i].height)
@@ -687,7 +687,7 @@ function nuINPUT(w, i, l, p, prop){
 
 		nuSetAccess(ID, prop.objects[i].read);
 		
-		return Number(prop.objects[i].width);
+		return Number(prop.objects[i].width) + 4;
 		
 	}
 	
