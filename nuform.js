@@ -143,7 +143,6 @@ function nuGetTitleHeight(){
 
 function nuResizeBody(f){
 
-//	var d				= f.dimensions[8];
 	var d				= f.dimensions;
 	var headers			= nuGetTitleHeight();
 	
@@ -181,6 +180,11 @@ function nuResizeBody(f){
 		css({'height'		:	(h + 43) + 'px',
 			'width' 		:	(w + 10) + 'px',
 			'visibility' 	:	'visible'
+		});
+
+		$('#nuRECORD').
+		css({'height'		:	(h - 90) + 'px',
+			'width' 		:	(w - 30) + 'px'
 		});
 
 		$('#nuWindow', window.parent.document).
@@ -2083,9 +2087,6 @@ function nuBrowseTable(){
 			var w		= Number(col[c].width);
 			var a		= nuAlign(col[c].align);
 			var f		= col[c].format;
-//			var rw		= 'nurow'    + String('00' + r).substr(-3);
-//			var column	= 'nucolumn' + String('00' + c).substr(-3);
-//			var id		= rw + String('00' + c).substr(-3);
 			var rw		= r;
 			var column	= c;
 			var id		= 'nucell_' + rw + '_' + c;

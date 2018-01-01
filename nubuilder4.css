@@ -312,7 +312,7 @@ input[type=range]::-webkit-slider-runnable-track {
 .nuRECORD {
   display: inline;
   margin: 0px 5px;
-  position:relative;
+  position:absolute;
 }
 
 .nuLogin {
