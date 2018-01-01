@@ -66,12 +66,12 @@ function nuBuildForm(f){
 		nuAddHolder('nuTabHolder');
 	}
 	
-	nuResizeBody(f);
-
 	nuAddHolder('nuRECORD');
 	$('#nuRECORD').attr('data-nu-table', f.table);
 	$('#nuRECORD').attr('data-nu-primary-key-name', f.primary_key);
 	
+	nuResizeBody(f);
+
 	nuAddBreadcrumbs();
 	nuAddEditTabs('', f);
 	

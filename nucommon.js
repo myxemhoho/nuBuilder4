@@ -721,7 +721,7 @@ function nuEnable(i){                 //-- Enable Edit Form Object
 	for(var c = 0 ; c < o.length ; c++){
 			
 		$('#' + o[c])
-		.removeClass('nuReadOnly')
+		.removeClass('nuReadonly')
 		.prop('readonly', false)
 		.prop('disabled', false);
 		
@@ -736,7 +736,7 @@ function nuReadonly(i){  			               //-- set Edit Form Object to readonly
 	for(var c = 0 ; c < o.length ; c++){
 			
 		$('#' + o[c])
-		.addClass('nuReadOnly')
+		.addClass('nuReadonly')
 		.attr('onclick','')
 		.prop('readonly', true);
 		
@@ -752,7 +752,7 @@ function nuDisable(i){                 //-- Disable Edit Form Object
 	for(var c = 0 ; c < o.length ; c++){
 			
 		$('#' + o[c])
-		.addClass('nuReadOnly')
+		.addClass('nuReadonly')
 		.prop('readonly', true)
 		.prop('disabled', true);
 		
