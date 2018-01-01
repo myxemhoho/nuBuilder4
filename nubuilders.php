@@ -203,6 +203,10 @@ function nuBuildFastForm($table, $form_type){
 
 	}
 
+	if($form_type == 'browse'){
+		nuRunQuery("DELETE FROM $TT WHERE 1");
+	}
+	
 	$t              = nuRunQuery("SELECT * FROM $TT");
 	$a              = Array();
 	$n              = 'number date';
@@ -277,7 +281,7 @@ function nuBuildFastForm($table, $form_type){
 
 	
 	
-	if($form_type == 'subform'){
+	if($form_type == 'subform' || $form_type == 'browse'){
 			
 		$js	= "
 
