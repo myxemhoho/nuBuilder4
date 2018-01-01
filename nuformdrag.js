@@ -30,7 +30,7 @@ function nuBindDragEvents(){
     });
 	
     $(document).on('mousedown.nuformdrag', function(e) {	
-	
+
 		window.startX 		= e.clientX + window.scrollX;
 		window.startY 		= e.clientY + window.scrollY;
 		window.moveX 		= 0;
@@ -48,7 +48,7 @@ function nuBindDragEvents(){
 
 		if(draggable) {
 
-			if(e.target === document.body) {
+			if(e.target === document.body || e.target === $('#nuRECORD')[0]) {
 				
 				if(!e.ctrlKey) {
 					$('.nuDragSelected').removeClass('nuDragSelected');
