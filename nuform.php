@@ -560,12 +560,12 @@ function nuGetAllLookupList(){
 					SELECT $id, $code, $description
 					$SQL->from
 					$SQL->where
-					AND $code LIKE '$C'
+					AND $code LIKE ?
 					ORDER BY $code
 					";
 
 	$s				= nuReplaceHashVariables($s);
-	$t				= nuRunQuery($s);
+	$t				= nuRunQuery($s, [$C]);
 	$a				= array();
 
 	nuRunQuery(nuReplaceHashVariables('DROP TABLE if EXISTS #TABLE_ID#'));

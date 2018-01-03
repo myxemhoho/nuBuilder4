@@ -499,13 +499,13 @@ function nuGetLookupCode(e){
 		
 	}
 	
-	var last			= window.nuFORM.getCurrent();
+	var last				= window.nuFORM.getCurrent();
 
-	last.session_id		= window.nuSESSION;
-	last.call_type 		= 'getlookupcode';
-	last.object_id		= e.target.getAttribute('data-nu-object-id');
-	last.target			= e.target.getAttribute('data-nu-target')
-	last.code		 	= e.target.value;
+	last.session_id			= window.nuSESSION;
+	last.call_type 			= 'getlookupcode';
+	last.object_id			= e.target.getAttribute('data-nu-object-id');
+	last.target				= e.target.getAttribute('data-nu-target')
+	last.code		 		= e.target.value;
 	
 	var successCallback = function(data,textStatus,jqXHR){		
 		

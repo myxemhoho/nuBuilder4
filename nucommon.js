@@ -571,6 +571,7 @@ function nuIsOpener() {
 	return false;
 }
 
+/*
 function nuFormValues(){  //-- list of changed fields and values
 
     var list   = {};
@@ -614,13 +615,12 @@ function nuEditPHP(ev){
 	nuPopup("nuphp", i);
 
 }
-
+*/
 
 function nuPreview(a){
 
 	var	t	= String($('#sfo_type').val());
 	var b	= t.indexOf('browse') != -1;
-    //var f   = nuFORM.getProperty('form_id');
     var f   = nuFORM.getProperty('redirect_form_id');
     var r   = nuFORM.getProperty('record_id');
     
