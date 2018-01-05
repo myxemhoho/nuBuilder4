@@ -566,8 +566,12 @@ function nuGetAllLookupList(){
 
 	$s				= nuReplaceHashVariables($s);
 	$t				= nuRunQuery($s, [$C]);
-	$a				= array();
 
+	if(db_num_rows($t) == 0){
+//		$t			= nuRunQuery($s, [$C . '%']);
+	}
+	
+	$a				= array();
 	nuRunQuery(nuReplaceHashVariables('DROP TABLE if EXISTS #TABLE_ID#'));
 
 	$_POST['nuHash']['TABLE_ID'] = $was;
