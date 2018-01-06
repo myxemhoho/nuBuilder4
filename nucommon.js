@@ -1111,3 +1111,13 @@ function nuSubformRowId(t){
 	return $(t).parent().attr('data-nu-primary-key');
 }
 
+
+function nuSubformValue(t, id){
+
+	var p	= $(t).attr('data-nu-prefix');
+	
+	return $('#' + p + id).val();
+
+}
+
+
