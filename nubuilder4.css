@@ -128,6 +128,14 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 
+.nuBrowseResize {
+   position			: absolute;
+   width			: 20px;
+   height			: 10px;
+   bottom			: 0px;
+   right			: -10px;
+   background-color	: red
+}
 
 .nuIframe {
   border-color: lightgrey;

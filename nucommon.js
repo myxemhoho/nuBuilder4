@@ -1107,3 +1107,7 @@ function nuChart(d, t, a, h, x, y, st, is){
 }
 
 
+function nuSubformRowId(t){
+	return $(t).parent().attr('data-nu-primary-key');
+}
+
