@@ -352,7 +352,7 @@ function nuAppendToSystemTables(){
 			print "$s<br>";
 
 			$s		= "DROP TABLE sys_$table";
-			//nuRunQuery($s);
+			nuRunQuery($s);
 			print "$s<br>";
 			
 		}

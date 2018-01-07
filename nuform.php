@@ -851,7 +851,6 @@ function nuBrowseRows($f){
 	if($haslike 	&& $haswhere){	$S->setWhere(" WHERE $like AND $where");}
 	if($haslike 	&& !$haswhere){	$S->setWhere(" WHERE $like");}
 	if(!$haslike 	&& $haswhere){	$S->setWhere(" WHERE $where");}
-	nudebug($S->SQL);
 	
 	if($P['sort'] != '-1'){
 		$S->setOrderBy(' ORDER BY ' . $S->fields[$P['sort'] + 1] . ' ' . $P['sort_direction']);
