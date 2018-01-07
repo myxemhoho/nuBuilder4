@@ -152,6 +152,17 @@ window.nuHASH			= [];
     $nuBrowseFunction 		= 'browse';
 	$like					= '';
 
+	$nuUser					= '';
+	$nuPassword				= '';
+	$nuForm					= '';
+	$nuRecord				= '';
+
+    if(isset($_GET['u']))				{$nuUser 			= $_GET['u'];}
+    if(isset($_GET['p']))				{$nuPassword 		= $_GET['p'];}
+    if(isset($_GET['f']))				{$nuForm 			= $_GET['f'];}
+    if(isset($_GET['r']))				{$nuRecord 			= $_GET['r'];}
+
+
     if(isset($_GET['opener']))			{$opener 			= $_GET['opener'];}
     if(isset($_GET['search']))			{$search 			= $_GET['search'];}
     if(isset($_GET['iframe']))			{$iframe 			= $_GET['iframe'];}
@@ -160,6 +171,11 @@ window.nuHASH			= [];
     if(isset($_GET['browsefunction']))	{$nuBrowseFunction 	= $_GET['browsefunction'];}
 	
 	$h			= "
+	
+	window.nuLoginU							= '$nuUser';
+	window.nuLoginP							= '$nuPassword';
+	window.nuLoginF							= '$nuForm';
+	window.nuLoginR							= '$nuRecord';
 
 	window.nuGraphics						= $f;
 	window.nuIsWindow						= '$iframe';
