@@ -36,10 +36,16 @@ function nuAjax(w,successCallback,errorCallback){
 
 }
 
-function nuForm(f, r, filter, search, n){
+function nuForm(f, r, filter, search, n, like){
 	
 	if(n == 2){
 		window.nuNEW	= 1;
+	}
+	
+	if(like==undefined){
+		like 			= '';
+	}else{
+		like 			= nuDecode(like);
 	}
 	
 	if(nuOpenNewBrowserTab('getform', f, r, filter)){return;}
@@ -61,6 +67,7 @@ function nuForm(f, r, filter, search, n){
 	last.search 		= search;
     last.hash	 		= parent.nuHashFromEditForm();
     last.AAA	 		= 'hw';
+    last.like	 		= like;
 
 	var successCallback = function(data,textStatus,jqXHR){
 
@@ -479,6 +486,7 @@ function nuGetLookupId(pk, id){
 	};
 	
 	nuAjax(last,successCallback);
+	
 }
 
 
@@ -486,7 +494,7 @@ function nuGetLookupCode(e){
 
 	if(e.target.value == ''){			//-- set to blank
 		
-		var id			= e.target.id.substr(0, e.target.id.length - 4);
+		var id				= e.target.id.substr(0, e.target.id.length - 4);
 		
 		$('#' + id).val('');
 		$('#' + id + 'code').val('');

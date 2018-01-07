@@ -207,10 +207,14 @@ function nuLogin(nuconfigNuWelcomeBodyInnerHTML){
 }
 
 
-function nuBuildLookup(t, s){
+function nuBuildLookup(t, s, like){
 
 	var f			= $('#' + t.id).attr('data-nu-form-id');
 	var tar			= $('#' + t.id).attr('data-nu-target');
+	
+	if(arguments.length < 3){
+		like 		= '';
+	}
 	
 	window.nuOPENER.push(new nuOpener('F', f, ''));
 	
@@ -224,7 +228,7 @@ function nuBuildLookup(t, s){
 	
 	$('#nuDragDialog')
 	.css('visibility', 'hidden')
-	.append('<iframe style="right:5px;top:35px;width:400px;height:400px;position:absolute" id="nuWindow" src="index.php?&opener=' +open.id + '&target=' + tar + '&search=' + s + '&browsefunction=lookup&iframe=1"></iframe>');
+	.append('<iframe style="right:5px;top:35px;width:400px;height:400px;position:absolute" id="nuWindow" src="index.php?&opener=' +open.id + '&target=' + tar + '&search=' + s + '&like=' + like + '&browsefunction=lookup&iframe=1"></iframe>');
 
 }
 
@@ -1119,5 +1123,16 @@ function nuSubformValue(t, id){
 	return $('#' + p + id).val();
 
 }
+
+function nuEncode(s){
+	return window.btoa(unescape(encodeURIComponent(s)))
+}
+
+
+function nuDecode(s){
+	return decodeURIComponent(escape(window.atob(s)))
+}
+
+
 
 

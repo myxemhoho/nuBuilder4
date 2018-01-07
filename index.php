@@ -149,20 +149,16 @@ window.nuHASH			= [];
     $target					= '';
 	$l 						= scandir('graphics');
 	$f  					= JSON_encode($l);
+    $nuBrowseFunction 		= 'browse';
+	$like					= '';
 
-    if(isset($_GET['opener']))
-       $opener = $_GET['opener'];
-    if(isset($_GET['search']))
-       $search = $_GET['search'];
-    if(isset($_GET['iframe']))
-       $iframe = $_GET['iframe'];
-    if(isset($_GET['target']))
-       $target = $_GET['target'];	
+    if(isset($_GET['opener']))			{$opener 			= $_GET['opener'];}
+    if(isset($_GET['search']))			{$search 			= $_GET['search'];}
+    if(isset($_GET['iframe']))			{$iframe 			= $_GET['iframe'];}
+    if(isset($_GET['target']))			{$target 			= $_GET['target'];}
+    if(isset($_GET['like']))			{$like	 			= $_GET['like'];}
+    if(isset($_GET['browsefunction']))	{$nuBrowseFunction 	= $_GET['browsefunction'];}
 	
-    $nuBrowseFunction = 'browse';
-    if(isset($_GET['browsefunction']))
-        $nuBrowseFunction = $_GET['browsefunction'];
-
 	$h			= "
 
 	window.nuGraphics						= $f;
@@ -219,9 +215,9 @@ window.nuHASH			= [];
 			} else if(p.type == 'P') {
 				nuRunPHP(p.record_id, p.parameters);
 			} else {
-				
+				console.log('$like');
 				window.filter				= p.filter;
-				nuForm(p.form_id, p.record_id, p.filter, '$search');
+				nuForm(p.form_id, p.record_id, p.filter, '$search', 0, '$like');
 				
 			}
 			

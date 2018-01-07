@@ -531,7 +531,6 @@ function nuGetLookupValues($R, $O){
 }
 
 
-
 function nuGetAllLookupList(){
 
 	$O				= $_POST['nuSTATE']['object_id'];
@@ -560,18 +559,32 @@ function nuGetAllLookupList(){
 					SELECT $id, $code, $description
 					$SQL->from
 					$SQL->where
-					AND $code LIKE ?
+					AND $code = ?
 					ORDER BY $code
 					";
 
 	$s				= nuReplaceHashVariables($s);
 	$t				= nuRunQuery($s, [$C]);
+	$like			= '';
+	$a				= array();
 
 	if(db_num_rows($t) == 0){
-//		$t			= nuRunQuery($s, [$C . '%']);
+			
+		$s			= "
+					SELECT $id, $code, $description
+					$SQL->from
+					$SQL->where
+					AND $code LIKE ?
+					ORDER BY $code
+					";
+
+		$t			= nuRunQuery($s, [$C . '%']);
+		$dq			= '"';
+		$like		= '(`' . $code . '` LIKE "' . $C . '%")';
+//		$like		= "(`$code` LIKE '$C%')";
+		
 	}
 	
-	$a				= array();
 	nuRunQuery(nuReplaceHashVariables('DROP TABLE if EXISTS #TABLE_ID#'));
 
 	$_POST['nuHash']['TABLE_ID'] = $was;
@@ -581,13 +594,13 @@ function nuGetAllLookupList(){
 	}
 
 	$f						= new stdClass;
+	$f->lookup_like			= $like;
 	$f->lookup_values		= $a;
 	$f->lookup_javascript	= $js;
 	
 	return $f;
 	
 }
-
 
 
 function nuLookupRecord(){
@@ -830,11 +843,15 @@ function nuBrowseRows($f){
 		
 	}
 
-	$w				= nuBrowseWhereClause($flds, $filter . ' ' . $search);
-
-	if(trim($w) != '()'){
-		$S->setWhere(' WHERE ' . $w);
-	}
+	$where			= trim(nuBrowseWhereClause($flds, $filter . ' ' . $search));
+	$like			= str_replace('\\"','"',nuHash()['like']);
+	$haswhere		= $where !=  '()';
+	$haslike		= $like != '';
+	
+	if($haslike 	&& $haswhere){	$S->setWhere(" WHERE $like AND $where");}
+	if($haslike 	&& !$haswhere){	$S->setWhere(" WHERE $like");}
+	if(!$haslike 	&& $haswhere){	$S->setWhere(" WHERE $where");}
+	nudebug($S->SQL);
 	
 	if($P['sort'] != '-1'){
 		$S->setOrderBy(' ORDER BY ' . $S->fields[$P['sort'] + 1] . ' ' . $P['sort_direction']);

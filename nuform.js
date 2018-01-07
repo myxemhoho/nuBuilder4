@@ -2381,6 +2381,7 @@ function nuChooseOneLookupRecord(e, fm){
 	var o						= new nuLookupObject(e.target.id);
 	var i						= o.id_id;
 	var t						= document.getElementById(e.target.id);
+	var like					= nuEncode(fm.lookup_like);
 
 	if(fm.lookup_values.length	== 0){
 		nuGetLookupId('', i);
@@ -2397,7 +2398,7 @@ function nuChooseOneLookupRecord(e, fm){
 	}
 	
 	if(fm.lookup_values.length	 > 1){
-		nuBuildLookup(t, e.target.value);
+		nuBuildLookup(t, e.target.value, like);
 	}
 
 }

@@ -1350,6 +1350,7 @@ function nuUpdateSystemIds(){
 	nuUpdateTableIds('zzzzsys_browse');
 	nuUpdateTableIds('zzzzsys_event');
 	nuUpdateTableIds('zzzzsys_file');
+	nuUpdateTableIds('zzzzsys_translate');
 
 }
 
