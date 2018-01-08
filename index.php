@@ -97,9 +97,16 @@ function nuLoginRequest(){
         dataType : "json",
         url      : "nuapi.php",
         method   : "POST",
-        data     : {nuSTATE : {call_type: 'login', username: $('#nuusername').val(), password: $('#nupassword').val()}},
+        data     : {nuSTATE 				: 
+						{call_type			: 'login', 
+						username			: $('#nuusername').val(), 
+						password			: $('#nupassword').val(),
+						login_form_id		: nuLoginF,
+						login_record_id		: nuLoginR}
+					},
         dataType : "json",          
         success  : function(data,textStatus,jqXHR){
+			
             if(nuDisplayError(data)){
                 if(data.log_again == 1){location.reload();}
             } else {
@@ -149,21 +156,33 @@ window.nuHASH			= [];
     $target					= '';
 	$l 						= scandir('graphics');
 	$f  					= JSON_encode($l);
+    $nuBrowseFunction 		= 'browse';
+	$like					= '';
 
-    if(isset($_GET['opener']))
-       $opener = $_GET['opener'];
-    if(isset($_GET['search']))
-       $search = $_GET['search'];
-    if(isset($_GET['iframe']))
-       $iframe = $_GET['iframe'];
-    if(isset($_GET['target']))
-       $target = $_GET['target'];	
+	$nuUser					= '';
+	$nuPassword				= '';
+	$nuForm					= '';
+	$nuRecord				= '';
+
+    if(isset($_GET['u']))				{$nuUser 			= $_GET['u'];}
+    if(isset($_GET['p']))				{$nuPassword 		= $_GET['p'];}
+    if(isset($_GET['f']))				{$nuForm 			= $_GET['f'];}
+    if(isset($_GET['r']))				{$nuRecord 			= $_GET['r'];}
+
+
+    if(isset($_GET['opener']))			{$opener 			= $_GET['opener'];}
+    if(isset($_GET['search']))			{$search 			= $_GET['search'];}
+    if(isset($_GET['iframe']))			{$iframe 			= $_GET['iframe'];}
+    if(isset($_GET['target']))			{$target 			= $_GET['target'];}
+    if(isset($_GET['like']))			{$like	 			= $_GET['like'];}
+    if(isset($_GET['browsefunction']))	{$nuBrowseFunction 	= $_GET['browsefunction'];}
 	
-    $nuBrowseFunction = 'browse';
-    if(isset($_GET['browsefunction']))
-        $nuBrowseFunction = $_GET['browsefunction'];
-
 	$h			= "
+	
+	window.nuLoginU							= '$nuUser';
+	window.nuLoginP							= '$nuPassword';
+	window.nuLoginF							= '$nuForm';
+	window.nuLoginR							= '$nuRecord';
 
 	window.nuGraphics						= $f;
 	window.nuIsWindow						= '$iframe';
@@ -219,9 +238,9 @@ window.nuHASH			= [];
 			} else if(p.type == 'P') {
 				nuRunPHP(p.record_id, p.parameters);
 			} else {
-				
+				console.log('$like');
 				window.filter				= p.filter;
-				nuForm(p.form_id, p.record_id, p.filter, '$search');
+				nuForm(p.form_id, p.record_id, p.filter, '$search', 0, '$like');
 				
 			}
 			
