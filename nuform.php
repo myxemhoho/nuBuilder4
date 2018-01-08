@@ -808,6 +808,15 @@ function nuBrowseRows($f){
 	
 	$P				= $_POST['nuSTATE'];
 	$rows			= $P['rows'];
+
+	if($rows == ''){
+		$rows		= $f->rows;
+	}
+
+	if($rows == '0'){
+		$rows		= 25;
+	}
+
 	$page_number	= $P['page_number'];
 	$start			= $page_number * $rows;
 	$search			= str_replace('&#39;', "'", $P['search']);
@@ -1022,9 +1031,9 @@ function nuGatherFormAndSessionData($home){
     }
 	
 	
-    if(isset($_POST['nuSTATE']['login_record_id'])){
+    if(isset($_POST['nuSTATE']['login_form_id'])){//-- check empty form_id not empty record_id
 		
-		if($_POST['nuSTATE']['login_record_id'] != ''){
+		if($_POST['nuSTATE']['login_form_id'] != ''){
 			$formAndSessionData->record_id  = $_POST['nuSTATE']['login_record_id'];
 		}
 		
@@ -1075,7 +1084,7 @@ function nuGatherFormAndSessionData($home){
         }
 
 		$f = nuFormAccessList($access); //-- form list including forms id used in reports and procedures
-nudebug($formAndSessionData);
+		
 		if(!in_array($formAndSessionData->form_id, $f) && ($formAndSessionData->call_type == 'getform' || $formAndSessionData->call_type == 'login')){
 
 			$nuT						= nuRunQuery("SELECT * FROM zzzzsys_form WHERE zzzzsys_form_id = '$formAndSessionData->form_id'");
