@@ -193,11 +193,30 @@ function nuLogin(nuconfigNuWelcomeBodyInnerHTML){
 	var e 	= document.createElement('div');
 	
 	e.setAttribute('id', 'loginbg');
-	
-	$('body').html(H);
 
-    $('#nuusername').focus();
+	$('body').html(H);
 	
+	
+	if(window.nuLoginU == '' && window.nuLoginP == ''){
+		$('#nuusername').focus();
+	}
+	
+	if(window.nuLoginU != '' && window.nuLoginP == ''){
+		
+		$('#nuusername').val(window.nuLoginU);
+		$('#nupassword').focus();
+		
+	}
+
+	if(window.nuLoginU != '' && window.nuLoginP != ''){
+		
+		$('#nuusername').val(window.nuLoginU);
+		$('#nupassword').val(window.nuLoginP);
+		
+		nuLoginRequest();
+		
+	}
+
 	if(sessionStorage.logout == 'true'){
 		nuMessage(['You have been logged out']);
 	}
