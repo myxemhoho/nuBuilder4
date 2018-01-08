@@ -198,7 +198,6 @@ function nuLogin(nuconfigNuWelcomeBodyInnerHTML){
 	window.nuLoginP	= window.nuLoginP===undefined?'':window.nuLoginP;
 
 	$('body').html(H);
-	$('#nuMessageDiv').remove();
 	
 	if(window.nuLoginU == '' && window.nuLoginP == ''){
 		$('#nuusername').focus();
