@@ -1,4 +1,3 @@
-
 .nu_browse                   {background-color : #8de2e2 !important}
 .nu_button                   {background-color : #98AFC7 !important}
 .nu_display                  {background-color : #cc9a5c !important}
@@ -129,6 +128,14 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 
+.nuBrowseResize {
+   position			: absolute;
+   width			: 20px;
+   height			: 10px;
+   bottom			: 0px;
+   right			: -10px;
+   background-color	: red
+}
 
 .nuIframe {
   border-color: lightgrey;

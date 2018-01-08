@@ -36,10 +36,16 @@ function nuAjax(w,successCallback,errorCallback){
 
 }
 
-function nuForm(f, r, filter, search, n){
+function nuForm(f, r, filter, search, n, like){
 	
 	if(n == 2){
 		window.nuNEW	= 1;
+	}
+	
+	if(like==undefined){
+		like 			= '';
+	}else{
+		like 			= nuDecode(like);
 	}
 	
 	if(nuOpenNewBrowserTab('getform', f, r, filter)){return;}
@@ -61,6 +67,7 @@ function nuForm(f, r, filter, search, n){
 	last.search 		= search;
     last.hash	 		= parent.nuHashFromEditForm();
     last.AAA	 		= 'hw';
+    last.like	 		= like;
 
 	var successCallback = function(data,textStatus,jqXHR){
 
@@ -292,7 +299,7 @@ function nuRunPHPHidden(i, h){
 
 function nuSystemUpdate(){
 	
-    if(confirm("Update System?") == false){return;}
+    if(confirm("Update System? - (maybe do a backup first, just in case)") == false){return;}
 	
 	var current				= nuFORM.getCurrent();
 	var last		 		= $.extend(true, {}, current);
@@ -479,6 +486,7 @@ function nuGetLookupId(pk, id){
 	};
 	
 	nuAjax(last,successCallback);
+	
 }
 
 
@@ -486,7 +494,7 @@ function nuGetLookupCode(e){
 
 	if(e.target.value == ''){			//-- set to blank
 		
-		var id			= e.target.id.substr(0, e.target.id.length - 4);
+		var id				= e.target.id.substr(0, e.target.id.length - 4);
 		
 		$('#' + id).val('');
 		$('#' + id + 'code').val('');
@@ -499,13 +507,13 @@ function nuGetLookupCode(e){
 		
 	}
 	
-	var last			= window.nuFORM.getCurrent();
+	var last				= window.nuFORM.getCurrent();
 
-	last.session_id		= window.nuSESSION;
-	last.call_type 		= 'getlookupcode';
-	last.object_id		= e.target.getAttribute('data-nu-object-id');
-	last.target			= e.target.getAttribute('data-nu-target')
-	last.code		 	= e.target.value;
+	last.session_id			= window.nuSESSION;
+	last.call_type 			= 'getlookupcode';
+	last.object_id			= e.target.getAttribute('data-nu-object-id');
+	last.target				= e.target.getAttribute('data-nu-target')
+	last.code		 		= e.target.value;
 	
 	var successCallback = function(data,textStatus,jqXHR){		
 		

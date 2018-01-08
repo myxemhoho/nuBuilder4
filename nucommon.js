@@ -178,7 +178,7 @@ function nuLogin(nuconfigNuWelcomeBodyInnerHTML){
 					<br>
 					<br>
 						<div style='position:absolute;top:200px;left:20px;text-align:right;width:70px;display:inline-block;'>Password</div>
-						<input id='nupassword' style='position:absolute;top:200px;left:100px;' type='password'/>
+						<input id='nupassword' style='position:absolute;top:200px;left:100px;' type='password'  onkeypress='nuSubmit(event)'//>
 					<br>
 					<br>
 						<input id='submit' type='button' class='nuButton'  style='position:absolute;width:90px;height:30px;top:240px;left:130px;' onclick='nuLoginRequest()' value='Log in'/>
@@ -194,10 +194,32 @@ function nuLogin(nuconfigNuWelcomeBodyInnerHTML){
 	
 	e.setAttribute('id', 'loginbg');
 	
-	$('body').html(H);
+	window.nuLoginU	= window.nuLoginU===undefined?'':window.nuLoginU;
+	window.nuLoginP	= window.nuLoginP===undefined?'':window.nuLoginP;
 
-    $('#nuusername').focus();
+	$('body').html(H);
+	$('#nuMessageDiv').remove();
 	
+	if(window.nuLoginU == '' && window.nuLoginP == ''){
+		$('#nuusername').focus();
+	}
+	
+	if(window.nuLoginU != '' && window.nuLoginP == ''){
+		
+		$('#nuusername').val(window.nuLoginU);
+		$('#nupassword').focus();
+		
+	}
+
+	if(window.nuLoginU != '' && window.nuLoginP != ''){
+		
+		$('#nuusername').val(window.nuLoginU);
+		$('#nupassword').val(window.nuLoginP);
+		
+		nuLoginRequest();
+		
+	}
+
 	if(sessionStorage.logout == 'true'){
 		nuMessage(['You have been logged out']);
 	}
@@ -207,10 +229,23 @@ function nuLogin(nuconfigNuWelcomeBodyInnerHTML){
 }
 
 
-function nuBuildLookup(t, s){
+function nuSubmit(e){
+	
+	if(e.keyCode == 13){
+		$('#submit').click();
+	}
+	
+}
+
+
+function nuBuildLookup(t, s, like){
 
 	var f			= $('#' + t.id).attr('data-nu-form-id');
 	var tar			= $('#' + t.id).attr('data-nu-target');
+	
+	if(arguments.length < 3){
+		like 		= '';
+	}
 	
 	window.nuOPENER.push(new nuOpener('F', f, ''));
 	
@@ -224,7 +259,7 @@ function nuBuildLookup(t, s){
 	
 	$('#nuDragDialog')
 	.css('visibility', 'hidden')
-	.append('<iframe style="right:5px;top:35px;width:400px;height:400px;position:absolute" id="nuWindow" src="index.php?&opener=' +open.id + '&target=' + tar + '&search=' + s + '&browsefunction=lookup&iframe=1"></iframe>');
+	.append('<iframe style="right:5px;top:35px;width:400px;height:400px;position:absolute" id="nuWindow" src="index.php?&opener=' +open.id + '&target=' + tar + '&search=' + s + '&like=' + like + '&browsefunction=lookup&iframe=1"></iframe>');
 
 }
 
@@ -571,6 +606,7 @@ function nuIsOpener() {
 	return false;
 }
 
+/*
 function nuFormValues(){  //-- list of changed fields and values
 
     var list   = {};
@@ -614,13 +650,12 @@ function nuEditPHP(ev){
 	nuPopup("nuphp", i);
 
 }
-
+*/
 
 function nuPreview(a){
 
 	var	t	= String($('#sfo_type').val());
 	var b	= t.indexOf('browse') != -1;
-    //var f   = nuFORM.getProperty('form_id');
     var f   = nuFORM.getProperty('redirect_form_id');
     var r   = nuFORM.getProperty('record_id');
     
@@ -1105,5 +1140,30 @@ function nuChart(d, t, a, h, x, y, st, is){
 	}
 
 }
+
+
+function nuSubformRowId(t){
+	return $(t).parent().attr('data-nu-primary-key');
+}
+
+
+function nuSubformValue(t, id){
+
+	var p	= $(t).attr('data-nu-prefix');
+	
+	return $('#' + p + id).val();
+
+}
+
+function nuEncode(s){
+	return window.btoa(unescape(encodeURIComponent(s)))
+}
+
+
+function nuDecode(s){
+	return decodeURIComponent(escape(window.atob(s)))
+}
+
+
 
 

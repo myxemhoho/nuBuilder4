@@ -531,7 +531,6 @@ function nuGetLookupValues($R, $O){
 }
 
 
-
 function nuGetAllLookupList(){
 
 	$O				= $_POST['nuSTATE']['object_id'];
@@ -560,14 +559,32 @@ function nuGetAllLookupList(){
 					SELECT $id, $code, $description
 					$SQL->from
 					$SQL->where
-					AND $code LIKE '$C'
+					AND $code = ?
 					ORDER BY $code
 					";
 
 	$s				= nuReplaceHashVariables($s);
-	$t				= nuRunQuery($s);
+	$t				= nuRunQuery($s, [$C]);
+	$like			= '';
 	$a				= array();
 
+	if(db_num_rows($t) == 0){
+			
+		$s			= "
+					SELECT $id, $code, $description
+					$SQL->from
+					$SQL->where
+					AND $code LIKE ?
+					ORDER BY $code
+					";
+
+		$t			= nuRunQuery($s, [$C . '%']);
+		$dq			= '"';
+		$like		= '(`' . $code . '` LIKE "' . $C . '%")';
+//		$like		= "(`$code` LIKE '$C%')";
+		
+	}
+	
 	nuRunQuery(nuReplaceHashVariables('DROP TABLE if EXISTS #TABLE_ID#'));
 
 	$_POST['nuHash']['TABLE_ID'] = $was;
@@ -577,13 +594,13 @@ function nuGetAllLookupList(){
 	}
 
 	$f						= new stdClass;
+	$f->lookup_like			= $like;
 	$f->lookup_values		= $a;
 	$f->lookup_javascript	= $js;
 	
 	return $f;
 	
 }
-
 
 
 function nuLookupRecord(){
@@ -791,6 +808,15 @@ function nuBrowseRows($f){
 	
 	$P				= $_POST['nuSTATE'];
 	$rows			= $P['rows'];
+
+	if($rows == ''){
+		$rows		= $f->rows;
+	}
+
+	if($rows == '0'){
+		$rows		= 25;
+	}
+
 	$page_number	= $P['page_number'];
 	$start			= $page_number * $rows;
 	$search			= str_replace('&#39;', "'", $P['search']);
@@ -826,11 +852,14 @@ function nuBrowseRows($f){
 		
 	}
 
-	$w				= nuBrowseWhereClause($flds, $filter . ' ' . $search);
-
-	if(trim($w) != '()'){
-		$S->setWhere(' WHERE ' . $w);
-	}
+	$where			= trim(nuBrowseWhereClause($flds, $filter . ' ' . $search));
+	$like			= str_replace('\\"','"',nuHash()['like']);
+	$haswhere		= $where !=  '()';
+	$haslike		= $like != '';
+	
+	if($haslike 	&& $haswhere){	$S->setWhere(" WHERE $like AND $where");}
+	if($haslike 	&& !$haswhere){	$S->setWhere(" WHERE $like");}
+	if(!$haslike 	&& $haswhere){	$S->setWhere(" WHERE $where");}
 	
 	if($P['sort'] != '-1'){
 		$S->setOrderBy(' ORDER BY ' . $S->fields[$P['sort'] + 1] . ' ' . $P['sort_direction']);
@@ -993,6 +1022,23 @@ function nuGatherFormAndSessionData($home){
 		$formAndSessionData->form_id 	= $home == '' ? 'nuhome' : $home;
     }
 	
+    if(isset($_POST['nuSTATE']['login_form_id'])){
+		
+		if($_POST['nuSTATE']['login_form_id'] != ''){
+			$formAndSessionData->form_id  = $_POST['nuSTATE']['login_form_id'];
+		}
+		
+    }
+	
+	
+    if(isset($_POST['nuSTATE']['login_form_id'])){//-- check empty form_id not empty record_id
+		
+		if($_POST['nuSTATE']['login_form_id'] != ''){
+			$formAndSessionData->record_id  = $_POST['nuSTATE']['login_record_id'];
+		}
+		
+    }
+	
 	$formAndSessionData->session_id 	= $_SESSION['SESSION_ID'];
 	$formAndSessionData->call_type 		= $_POST['nuSTATE']['call_type'];
 	$formAndSessionData->filter 		= $_POST['nuFilter'];
@@ -1039,7 +1085,7 @@ function nuGatherFormAndSessionData($home){
 
 		$f = nuFormAccessList($access); //-- form list including forms id used in reports and procedures
 		
-		if(!in_array($formAndSessionData->form_id, $f) && $formAndSessionData->call_type == 'getform'){
+		if(!in_array($formAndSessionData->form_id, $f) && ($formAndSessionData->call_type == 'getform' || $formAndSessionData->call_type == 'login')){
 
 			$nuT						= nuRunQuery("SELECT * FROM zzzzsys_form WHERE zzzzsys_form_id = '$formAndSessionData->form_id'");
 			$nuR						= db_fetch_object($nuT);
@@ -1051,7 +1097,7 @@ function nuGatherFormAndSessionData($home){
 	}
     
     $formAndSessionData->errors 		= $_POST['nuErrors'];
-
+	
 	return $formAndSessionData;
 	
 }

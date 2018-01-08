@@ -322,6 +322,10 @@ function nuRemoveNuRecords(){
     nuRunQuery($s);
     print "$s<br>";
     
+    $s  =  "DELETE FROM sys_zzzzsys_translate WHERE zzzzsys_translate_id LIKE 'nu%'";  				  									//-- KEEP BROWSEs from FORMs with ids that start with 'nu'
+    nuRunQuery($s);
+    print "$s<br>";
+    
     $s  =  "DELETE FROM sys_zzzzsys_timezone";									   				 										//-- delete if attached to objects on forms with ids starting with 'nu'
     nuRunQuery($s);
     print "$s<br>";
