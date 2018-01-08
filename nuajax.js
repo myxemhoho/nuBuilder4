@@ -299,7 +299,7 @@ function nuRunPHPHidden(i, h){
 
 function nuSystemUpdate(){
 	
-    if(confirm("Update System? - (maybe do a backup first, just in case)") == false){return;}
+    if(confirm("Update System? Be sure to backup first.") == false){return;}
 	
 	var current				= nuFORM.getCurrent();
 	var last		 		= $.extend(true, {}, current);
