@@ -178,7 +178,7 @@ function nuLogin(nuconfigNuWelcomeBodyInnerHTML){
 					<br>
 					<br>
 						<div style='position:absolute;top:200px;left:20px;text-align:right;width:70px;display:inline-block;'>Password</div>
-						<input id='nupassword' style='position:absolute;top:200px;left:100px;' type='password'/>
+						<input id='nupassword' style='position:absolute;top:200px;left:100px;' type='password'  onkeypress='nuSubmit(event)'//>
 					<br>
 					<br>
 						<input id='submit' type='button' class='nuButton'  style='position:absolute;width:90px;height:30px;top:240px;left:130px;' onclick='nuLoginRequest()' value='Log in'/>
@@ -223,6 +223,15 @@ function nuLogin(nuconfigNuWelcomeBodyInnerHTML){
 	
 	sessionStorage.logout	= '';
 		
+}
+
+
+function nuSubmit(e){
+	
+	if(e.keyCode == 13){
+		$('#submit').click();
+	}
+	
 }
 
 

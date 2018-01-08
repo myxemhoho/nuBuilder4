@@ -97,9 +97,16 @@ function nuLoginRequest(){
         dataType : "json",
         url      : "nuapi.php",
         method   : "POST",
-        data     : {nuSTATE : {call_type: 'login', username: $('#nuusername').val(), password: $('#nupassword').val()}},
+        data     : {nuSTATE 				: 
+						{call_type			: 'login', 
+						username			: $('#nuusername').val(), 
+						password			: $('#nupassword').val(),
+						login_form_id		: nuLoginF,
+						login_record_id		: nuLoginR}
+					},
         dataType : "json",          
         success  : function(data,textStatus,jqXHR){
+			
             if(nuDisplayError(data)){
                 if(data.log_again == 1){location.reload();}
             } else {

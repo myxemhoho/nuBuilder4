@@ -1013,6 +1013,23 @@ function nuGatherFormAndSessionData($home){
 		$formAndSessionData->form_id 	= $home == '' ? 'nuhome' : $home;
     }
 	
+    if(isset($_POST['nuSTATE']['login_form_id'])){
+		
+		if($_POST['nuSTATE']['login_form_id'] != ''){
+			$formAndSessionData->form_id  = $_POST['nuSTATE']['login_form_id'];
+		}
+		
+    }
+	
+	
+    if(isset($_POST['nuSTATE']['login_record_id'])){
+		
+		if($_POST['nuSTATE']['login_record_id'] != ''){
+			$formAndSessionData->record_id  = $_POST['nuSTATE']['login_record_id'];
+		}
+		
+    }
+	
 	$formAndSessionData->session_id 	= $_SESSION['SESSION_ID'];
 	$formAndSessionData->call_type 		= $_POST['nuSTATE']['call_type'];
 	$formAndSessionData->filter 		= $_POST['nuFilter'];
@@ -1058,8 +1075,8 @@ function nuGatherFormAndSessionData($home){
         }
 
 		$f = nuFormAccessList($access); //-- form list including forms id used in reports and procedures
-		
-		if(!in_array($formAndSessionData->form_id, $f) && $formAndSessionData->call_type == 'getform'){
+nudebug($formAndSessionData);
+		if(!in_array($formAndSessionData->form_id, $f) && ($formAndSessionData->call_type == 'getform' || $formAndSessionData->call_type == 'login')){
 
 			$nuT						= nuRunQuery("SELECT * FROM zzzzsys_form WHERE zzzzsys_form_id = '$formAndSessionData->form_id'");
 			$nuR						= db_fetch_object($nuT);
@@ -1071,7 +1088,7 @@ function nuGatherFormAndSessionData($home){
 	}
     
     $formAndSessionData->errors 		= $_POST['nuErrors'];
-
+	
 	return $formAndSessionData;
 	
 }
