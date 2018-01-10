@@ -95,6 +95,17 @@ function nuBuildForm(f){
 		nuAddJavascript(f);
 	}
 	
+	if(window.nuLoginH != ''){
+		
+		$('#nuBreadcrumb0')
+		.html(nuTranslate('Home'))
+		.attr('onclick', '')
+		.attr('onclick', 'nuForm("' + window.nuLoginH + '", -1, "", "", 1);');
+		
+		window.nuLoginH	 = ''
+		
+	}
+	
 	if(window.nuOnLoad){
 		nuOnLoad();
 	}
