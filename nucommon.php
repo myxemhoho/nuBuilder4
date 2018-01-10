@@ -470,8 +470,6 @@ function nuGetJSONData($i){
 
 	$j					= json_decode($r->sss_access, true);
 
-
-	
 	return $j[$i];
 	
 }

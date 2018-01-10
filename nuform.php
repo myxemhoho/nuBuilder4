@@ -1008,27 +1008,27 @@ function nuGatherFormAndSessionData($home){
 
 	nuUpdateTables();
 	
-	$formAndSessionData 				= new stdClass;
+	$formAndSessionData 					= new stdClass;
 
     if(isset($_POST['nuSTATE']['record_id'])){
-        $formAndSessionData->record_id  = $_POST['nuSTATE']['record_id'];
+        $formAndSessionData->record_id  	= $_POST['nuSTATE']['record_id'];
     } else {
-        $formAndSessionData->record_id  = '-1';
+        $formAndSessionData->record_id  	= '-1';
     }
 	
     if(isset($_POST['nuSTATE']['form_id'])){
-        $formAndSessionData->form_id  	= $_POST['nuSTATE']['form_id'];
+        $formAndSessionData->form_id 	 	= $_POST['nuSTATE']['form_id'];
     } else {
-		$formAndSessionData->form_id 	= $home == '' ? 'nuhome' : $home;
+		$formAndSessionData->form_id 		= $home == '' ? 'nuhome' : $home;
     }
 	
     if(isset($_POST['nuSTATE']['login_form_id'])){
 		
 		if($_POST['nuSTATE']['login_form_id'] != ''){
-			$formAndSessionData->form_id  = $_POST['nuSTATE']['login_form_id'];
+			$formAndSessionData->form_id	= $_POST['nuSTATE']['login_form_id'];
 		}
 		
-    }
+	}
 	
 	
     if(isset($_POST['nuSTATE']['login_form_id'])){//-- check empty form_id not empty record_id
@@ -1054,7 +1054,7 @@ function nuGatherFormAndSessionData($home){
 
 		if($formAndSessionData->call_type == 'getreport'){
 			
-			$r = nuReportAccessList($access);
+			$r 							= nuReportAccessList($access);
 			
 			if(!in_array($formAndSessionData->record_id, $r)) { //form_id is record_id for getreport
 
@@ -1071,7 +1071,7 @@ function nuGatherFormAndSessionData($home){
 
         if($formAndSessionData->call_type == 'getphp'){
 
-			$p = nuProcedureAccessList($access);
+			$p 							= nuProcedureAccessList($access);
 			
             if(!in_array($formAndSessionData->record_id, $p)) { //form_id is record_id for getphp
 			
