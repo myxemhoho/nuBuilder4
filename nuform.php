@@ -1038,7 +1038,7 @@ function nuGatherFormAndSessionData($home){
 		}
 		
     }
-	
+
 	$formAndSessionData->session_id 	= $_SESSION['SESSION_ID'];
 	$formAndSessionData->call_type 		= $_POST['nuSTATE']['call_type'];
 	$formAndSessionData->filter 		= $_POST['nuFilter'];
