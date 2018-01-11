@@ -659,6 +659,7 @@ function nuINPUT(w, i, l, p, prop){
 						'height'		: Number(prop.objects[i].height -2)
 		})
 		.attr('type','button')
+		.attr ("data-nu-prefix", p)
 		.attr('data-nu-form-id', w.objects[i].form_id)
 		.attr('data-nu-object-id', w.objects[i].object_id)
 		.attr('data-nu-target', target)
