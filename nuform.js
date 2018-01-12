@@ -58,7 +58,7 @@ function nuBuildForm(f){
 	b.form_type					= f.form_type;
 	b.run_code					= f.run_code;
 	b.run_description			= f.run_description;
-
+	
 	nuAddHolder('nuActionHolder');
 	nuAddHolder('nuBreadcrumbHolder');
 	
@@ -93,6 +93,10 @@ function nuBuildForm(f){
         nuCreateDragOptionsBox(f);
 	}else{
 		nuAddJavascript(f);
+	}
+
+	if(b.column_widths != 0){
+		nu_set_column_widths(b.column_widths);
 	}
 	
 	if(window.nuLoginH != ''){

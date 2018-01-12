@@ -97,6 +97,7 @@ class nuFormObject {
 		b.record_id 		= '';
 		b.title				= '';
 		b.call_type        	= '';
+		b.column_widths    	= 0;
 		b.filter           	= '';
 		b.forms        		= [];
 		b.iframe			= 0;

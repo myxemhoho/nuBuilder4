@@ -1164,6 +1164,18 @@ function nuDecode(s){
 	return decodeURIComponent(escape(window.atob(s)))
 }
 
+function nuAddRow(s){
 
+	var o 	= nuSubformObject(s);
+	
+	var i	= s + nuPad3(o.rows.length - 1) + o.fields[1];
+	
+	$('#' + i).change();
+
+	i		= s + nuPad3(o.rows.length) + o.fields[1];
+	
+	$('#' + i).focus();
+	
+}
 
 
