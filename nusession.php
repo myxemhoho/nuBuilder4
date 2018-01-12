@@ -80,6 +80,7 @@ if(array_key_exists('nuSTATE', $_POST)){
                     }
         			
                     $storeSessionInTable->procedures 		= $phpAccess;
+                    $storeSessionInTable->access_level_code	= '';
                     $storeSessionInTableJSON 				= json_encode($storeSessionInTable);
 					
 //==================================================  Not globeadmin
@@ -117,6 +118,7 @@ if(array_key_exists('nuSTATE', $_POST)){
                     $sessionIds->global_access 				= '0';
                     $storeSessionInTable                    = new stdClass;
                     $storeSessionInTable->session           = $sessionIds;
+                    $storeSessionInTable->access_level_code	= nuAccessLevelCode($checkLoginDetailsOBJ->zzzzsys_user_id);
                     
                     // form ids
                     $getFormsQRY 							= nuRunQuery("
@@ -160,6 +162,7 @@ if(array_key_exists('nuSTATE', $_POST)){
                     // php ids
                     $getPHPsQRY								 = nuRunQuery("
                         SELECT 
+                            sal_code AS access_level_code,
                             slp_zzzzsys_php_id AS id,
                             sph_zzzzsys_form_id AS form_id
                         FROM zzzzsys_user
@@ -175,7 +178,7 @@ if(array_key_exists('nuSTATE', $_POST)){
                     while($getPHPsOBJ = db_fetch_object($getPHPsQRY)){
                         $phpAccess[] 						= [$getPHPsOBJ->id, $getPHPsOBJ->form_id];
                     }
-        			
+
                     $storeSessionInTable->procedures 		= $phpAccess;
                     $storeSessionInTableJSON 				= json_encode($storeSessionInTable);
 
@@ -242,6 +245,25 @@ if(isset($_SESSION['SESSION_ID'])){
     die('You must be logged into nuBuilder.');
 	
 }
+
+
+
+function nuAccessLevelCode($u){
+
+	$s	= "
+		SELECT sal_code
+		FROM zzzzsys_user
+		JOIN zzzzsys_access ON zzzzsys_access_id = sus_zzzzsys_access_id
+		JOIN zzzzsys_access_php ON zzzzsys_access_id = slp_zzzzsys_access_id
+		WHERE zzzzsys_user_id = ?
+	";
+
+	$t	= nuRunQuery($s, [$u]);
+
+	return db_fetch_row($t)[0];
+
+}
+
 
 
 function nuIDTEMP(){

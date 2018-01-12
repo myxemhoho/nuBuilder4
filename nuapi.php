@@ -50,7 +50,8 @@
     	if($CT == 'systemupdate')	{$f->forms[0]->id					= nuRunSystemUpdate();}
 		
     }
-	
+
+	$f->forms[0]->access_level_code			= $U['ACCESS_LEVEL_CODE'];
 	$f->forms[0]->user_id					= $U['USER_ID'];
 	$f->forms[0]->dimensions				= $formAndSessionData->dimensions;
 	$f->forms[0]->translation				= $formAndSessionData->translation;

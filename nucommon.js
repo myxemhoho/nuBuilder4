@@ -1178,4 +1178,6 @@ function nuAddRow(s){
 	
 }
 
-
+function nuAccessLevelCode(){
+	return nuSERVERRESPONSE.access_level_code;
+}
