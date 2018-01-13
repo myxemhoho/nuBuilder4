@@ -856,10 +856,11 @@ function nuBrowseRows($f){
 	$like			= str_replace('\\"','"',nuHash()['like']);
 	$haswhere		= $where !=  '()';
 	$haslike		= $like != '';
+	$hardwhere		= $S->getWhere();
 	
-	if($haslike 	&& $haswhere){	$S->setWhere(" WHERE $like AND $where");}
-	if($haslike 	&& !$haswhere){	$S->setWhere(" WHERE $like");}
-	if(!$haslike 	&& $haswhere){	$S->setWhere(" WHERE $where");}
+	if($haslike 	&& $haswhere){	$S->setWhere(" $hardwhere AND $like AND $where");}
+	if($haslike 	&& !$haswhere){	$S->setWhere(" $hardwhere AND $like");}
+	if(!$haslike 	&& $haswhere){	$S->setWhere(" $hardwhere AND $where");}
 	
 	if($P['sort'] != '-1'){
 		$S->setOrderBy(' ORDER BY ' . $S->fields[$P['sort'] + 1] . ' ' . $P['sort_direction']);
@@ -867,6 +868,7 @@ function nuBrowseRows($f){
 	
 	$a				= array();
 	$s				= nuReplaceHashVariables($S->SQL);
+	
 	$t 				= nuRunQuery($s);
 	$rowData		= db_num_rows($t);
 	$s				.= " LIMIT $start, $rows";

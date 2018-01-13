@@ -1,6 +1,8 @@
 
 
 function nuBuildForm(f){
+
+    $('#nubody').off('.nuresizecolumn'); 				//removes (if exist) the cursormove/touchmove event listeners binded to nubody
 	
 	if(f.tableSchema === null){  						//-- need to login again
 	
@@ -94,10 +96,8 @@ function nuBuildForm(f){
 	}else{
 		nuAddJavascript(f);
 	}
-
-	if(b.column_widths != 0){
-		nu_set_column_widths(b.column_widths);
-	}
+	
+	nuAddBrowseListeners(b.column_widths);
 	
 	if(window.nuLoginH != ''){
 		
@@ -2833,13 +2833,13 @@ function nuAddJavascript(o){
 	s.innerHTML 		= "\n\n" + o.javascript + "\n\n";
 	
 	$('body').append(s);
-	
+/*
 	if(nuFormType() == 'browse'){
 		if(nuLoadBrowse != null){nuLoadBrowse();}
 	}else{
 		if(nuLoadEdit != null){nuLoadEdit();}
 	}
-	
+*/	
 }
 
 function nuHashFromEditForm(){
