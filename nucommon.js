@@ -1194,7 +1194,7 @@ function nuAccessLevelCode(){
 
 
 //=============================================================
-//========== nuAddBrowseListeners() added by Fike ===============
+//========== nuAddBrowseListeners() added by Fike =============
 //=============================================================
 
 
@@ -1354,9 +1354,15 @@ function nu_add_title_props(div_id, l_text, r_text){
     $("#"+div_id).on('mousedown.nuresizecolumn', function(event) {   
                                                             event.preventDefault();
                                                             window.nuBROWSERESIZE.mouse_down = true;
-                                                            window.nuBROWSERESIZE.pointer = 'mouse_cursor';
+                                                            window.nuBROWSERESIZE.pointer = 'pointer';
                                                             window.nuBROWSERESIZE.moving_element = this.id;
+															$('#' + this.id).css('cursor', 'ew-resize');
+															console.log(this.id);
                                                             nu_get_start_pos(event);
+                                                        });
+    
+    $("#"+div_id).on('mouseup.nuresizecolumn', function(event) {   
+															$('#' + this.id).css('cursor', '');
                                                         });
     
     
@@ -1528,7 +1534,8 @@ function nu_adjust_col_min_width(min_col_val){
 
 function nu_set_title_width(l_side_id, new_l_width, div_number, div_id, current_r_left_pos, direction, offset_value){
 
-    $("#"+l_side_id).css("background-color", "#b1dbad");
+    $("#"+l_side_id)
+	.css("background-color", "#b1dbad")
     
     $("#"+l_side_id).width(new_l_width);
     
