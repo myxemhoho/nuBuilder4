@@ -1517,8 +1517,15 @@ function nuAddBreadcrumb(i){
 
 function nuMainForm(){
 	
+	var result = false; 	
+
 	if(opener){
-		return nuDocumentID == opener.nuDocumentID;
+		try {
+			result = nuDocumentID == opener.nuDocumentID;	
+		} catch ( error ) {
+			result = false;
+		}
+		return result;
 	}
 	
 	return nuDocumentID == parent.nuDocumentID;
