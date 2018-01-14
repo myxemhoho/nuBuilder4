@@ -1362,7 +1362,6 @@ function nu_add_title_props(div_id, l_text, r_text){
                                                             window.nuBROWSERESIZE.pointer = 'pointer';
                                                             window.nuBROWSERESIZE.moving_element = this.id;
 															$('#' + this.id).css('cursor', 'ew-resize');
-															console.log(this.id);
                                                             nu_get_start_pos(event);
                                                         });
     

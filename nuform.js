@@ -25,6 +25,7 @@ function nuBuildForm(f){
 	window.nuHASH				= [];                       //-- remove any hash variables previously set.
 	window.nuTABHELP			= [];
 	window.nuFORMHELP			= [];
+	window.nuBROWSERROW			= -1;
 	window.nuUniqueID			= 'c' + String(Date.now());
 	window.global_access		= f.global_access == '1';
 	nuFORM.edited				= false;
@@ -268,7 +269,7 @@ function nuAddActionButtons(form){
 		var s 	= nuDefine(nuFORM.getProperty('search'));
 		var f 	= nuDefine(nuFORM.getProperty('filter'));
 		
-		$('#nuActionHolder').append("<input id='nuSearchField' type='text' class='nuSearch' onfocus='this.value = this.value;' onkeypress='nuSearchPressed(event)' value='" + s + "'>&nbsp;");
+		$('#nuActionHolder').append("<input id='nuSearchField' type='text' class='nuSearch' onfocus='this.value = this.value;' onkeypress='nuSearchPressed(event)' onkeydown='nuArrowPressed(event)' value='" + s + "'>&nbsp;");
 		$('#nuActionHolder').append("<input id='nuFilter' style='visibility:hidden;width:0px' value='" + f + "'>");
 		$('#nuActionHolder').append("<input id='nuSearchButton' type='button' class='nuActionButton ' value='" + nuTranslate('Search') + "' onclick='nuSearchAction()'>&nbsp;");
 		
@@ -2163,16 +2164,26 @@ function nuBrowseTable(){
 				
 					function() {
 						
-						var rw = $( this ).attr('data-nu-row');
-						$("[data-nu-row='"+rw+"']").addClass('nuSelectBrowse');
-						$("[data-nu-row='"+rw+"']").removeClass('nuBrowseTable');
+						$("[data-nu-row]").addClass('nuBrowseTable');
+						$("[data-nu-row]").removeClass('nuSelectBrowse');
+		
+						var rw 				= $( this ).attr('data-nu-row');
+						window.nuBROWSERROW	= -1;
+
+						$("[data-nu-row='" + rw + "']").addClass('nuSelectBrowse');
+						$("[data-nu-row='" + rw + "']").removeClass('nuBrowseTable');
 						 
 						
 					}, function() {
 						
-						var rw = $( this ).attr('data-nu-row');
-						$("[data-nu-row='"+rw+"']").addClass('nuBrowseTable');
-						$("[data-nu-row='"+rw+"']").removeClass('nuSelectBrowse');
+						$("[data-nu-row]").addClass('nuBrowseTable');
+						$("[data-nu-row]").removeClass('nuSelectBrowse');
+		
+						var rw 				= $( this ).attr('data-nu-row');
+						window.nuBROWSERROW	= -1;
+
+						$("[data-nu-row='" + rw + "']").addClass('nuBrowseTable');
+						$("[data-nu-row='" + rw + "']").removeClass('nuSelectBrowse');
 						
 					}
 				);
@@ -2212,6 +2223,7 @@ function nuBrowseTable(){
 	nuHighlightSearch();
 	
 }
+
 
 function nuAlign(a){
 
@@ -2258,8 +2270,62 @@ function nuSearchPressed(e){
 
     if(!e){e=window.event;}
 
-    if(e.keyCode == 13){                    //-- enter key
+    if(e.keyCode == 13 && window.nuBROWSERROW == -1){                    //-- enter key
         $('#nuSearchButton').click();
+    }
+
+    if(e.keyCode == 13 && window.nuBROWSERROW != -1){                    //-- enter key
+
+		var p		= $('#nucell_' + window.nuBROWSERROW + '_0').attr('data-nu-primary-key');
+		var f		= nuFORM.getCurrent().form_id;
+
+		nuForm(f, p);
+
+    }
+
+
+}
+
+function nuArrowPressed(e){
+
+    if(!e){e=window.event;}
+
+	var rows	= $("[data-nu-column='0']").length - 1;
+	
+    if(e.keyCode == 38){                    //-- up
+		
+		if(window.nuBROWSERROW == -1){
+			window.nuBROWSERROW	= rows;
+		}else{
+			window.nuBROWSERROW	= window.nuBROWSERROW - 1;
+		}
+
+		$("[data-nu-row]").addClass('nuBrowseTable');
+		$("[data-nu-row]").removeClass('nuSelectBrowse');
+		
+		$("[data-nu-row='" + window.nuBROWSERROW + "']").addClass('nuSelectBrowse');
+		$("[data-nu-row='" + window.nuBROWSERROW + "']").removeClass('nuBrowseTable');
+		
+		console.log(window.nuBROWSERROW);
+		
+    }
+
+    if(e.keyCode == 40){                    //-- down
+		
+		if(window.nuBROWSERROW == rows){
+			window.nuBROWSERROW	= -1;
+		}else{
+			window.nuBROWSERROW	= window.nuBROWSERROW + 1;
+		}
+
+		$("[data-nu-row]").addClass('nuBrowseTable');
+		$("[data-nu-row]").removeClass('nuSelectBrowse');
+		
+		$("[data-nu-row='" + window.nuBROWSERROW + "']").addClass('nuSelectBrowse');
+		$("[data-nu-row='" + window.nuBROWSERROW + "']").removeClass('nuBrowseTable');
+		
+		console.log(window.nuBROWSERROW);
+		
     }
     
 }
