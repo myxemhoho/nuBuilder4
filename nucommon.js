@@ -19,6 +19,7 @@ window.nuAFTER					= [];
 window.nuSESSION				= '';
 window.nuDRAGLINEVSTART			= '';
 window.nuDRAGLINEVID			= '';
+window.nuLASTRECORD				= '';
 window.nuBROWSERESIZE 			= {
 									x_position				: 0, 
 									mouse_down				: false, 
@@ -1124,8 +1125,12 @@ function nuChart(d, t, a, h, x, y, st, is){
 
 	a				= eval(a);
 	
-	google.charts.load('current', {'packages':['corechart']});
-	google.charts.setOnLoadCallback(drawVisualization);
+	if(typeof(google['charts']) == 'undefined'){
+			
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawVisualization);
+		
+	}
 	
 	if(a == ''){return;}
 

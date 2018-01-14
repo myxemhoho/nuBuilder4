@@ -43,6 +43,8 @@ function nuBuildForm(f){
 		
 	var b 						= window.nuFORM.getCurrent();
 
+	nuAddedByLookup(f);
+	
 	b.form_id 					= f.form_id;
 	b.record_id 				= f.record_id;
 	b.session_id 				= f.session_id;
@@ -114,6 +116,19 @@ function nuBuildForm(f){
 		nuOnLoad();
 	}
 
+}
+
+
+function nuAddedByLookup(f){
+	
+	var isEdit			= nuFormType() 			== 'edit';
+	var isNewRecord		= window.nuLASTRECORD 	== '-1';
+	var isLookup		= window.nuTARGET 		!= '';
+	
+	if(isEdit && isNewRecord && isLookup){
+		window.parent.nuGetLookupId(nuFORM.getCurrent().record_id, window.nuTARGET);			//-- called from parent window
+	}
+	
 }
 
 

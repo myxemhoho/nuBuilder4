@@ -568,6 +568,7 @@ function nuUpdateData(action, instruction){
 
 	var f					= last.form_id;
 	var r					= last.record_id;
+	window.nuLASTRECORD		= last.record_id;
 
 	if(arguments.length == 2){
 		last.instruction	= instruction;
