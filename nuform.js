@@ -25,7 +25,8 @@ function nuBuildForm(f){
 	window.nuHASH				= [];                       //-- remove any hash variables previously set.
 	window.nuTABHELP			= [];
 	window.nuFORMHELP			= [];
-	window.nuBROWSERROW			= -1;
+	window.nuBROWSEROW			= -1;
+	window.nuBROWSECLICKED		= false;
 	window.nuUniqueID			= 'c' + String(Date.now());
 	window.global_access		= f.global_access == '1';
 	nuFORM.edited				= false;
@@ -2168,7 +2169,7 @@ function nuBrowseTable(){
 						$("[data-nu-row]").removeClass('nuSelectBrowse');
 		
 						var rw 				= $( this ).attr('data-nu-row');
-						window.nuBROWSERROW	= -1;
+						window.nuBROWSEROW	= -1;
 
 						$("[data-nu-row='" + rw + "']").addClass('nuSelectBrowse');
 						$("[data-nu-row='" + rw + "']").removeClass('nuBrowseTable');
@@ -2180,7 +2181,7 @@ function nuBrowseTable(){
 						$("[data-nu-row]").removeClass('nuSelectBrowse');
 		
 						var rw 				= $( this ).attr('data-nu-row');
-						window.nuBROWSERROW	= -1;
+						window.nuBROWSEROW	= -1;
 
 						$("[data-nu-row='" + rw + "']").addClass('nuBrowseTable');
 						$("[data-nu-row='" + rw + "']").removeClass('nuSelectBrowse');
@@ -2270,16 +2271,15 @@ function nuSearchPressed(e){
 
     if(!e){e=window.event;}
 
-    if(e.keyCode == 13 && window.nuBROWSERROW == -1){                    //-- enter key
+    if(e.keyCode == 13 && window.nuBROWSEROW == -1){                    //-- enter key
         $('#nuSearchButton').click();
     }
 
-    if(e.keyCode == 13 && window.nuBROWSERROW != -1){                    //-- enter key
-
-		var p		= $('#nucell_' + window.nuBROWSERROW + '_0').attr('data-nu-primary-key');
-		var f		= nuFORM.getCurrent().form_id;
-
-		nuForm(f, p);
+    if(e.keyCode == 13 && window.nuBROWSEROW != -1){                    //-- enter key
+	
+		var i	= '#nucell_' + window.nuBROWSEROW + '_0';
+		
+		nuSelectBrowse('', $(i)[0]);
 
     }
 
@@ -2294,37 +2294,33 @@ function nuArrowPressed(e){
 	
     if(e.keyCode == 38){                    //-- up
 		
-		if(window.nuBROWSERROW == -1){
-			window.nuBROWSERROW	= rows;
+		if(window.nuBROWSEROW == -1){
+			window.nuBROWSEROW	= rows;
 		}else{
-			window.nuBROWSERROW	= window.nuBROWSERROW - 1;
+			window.nuBROWSEROW	= window.nuBROWSEROW - 1;
 		}
 
 		$("[data-nu-row]").addClass('nuBrowseTable');
 		$("[data-nu-row]").removeClass('nuSelectBrowse');
 		
-		$("[data-nu-row='" + window.nuBROWSERROW + "']").addClass('nuSelectBrowse');
-		$("[data-nu-row='" + window.nuBROWSERROW + "']").removeClass('nuBrowseTable');
-		
-		console.log(window.nuBROWSERROW);
+		$("[data-nu-row='" + window.nuBROWSEROW + "']").addClass('nuSelectBrowse');
+		$("[data-nu-row='" + window.nuBROWSEROW + "']").removeClass('nuBrowseTable');
 		
     }
 
     if(e.keyCode == 40){                    //-- down
 		
-		if(window.nuBROWSERROW == rows){
-			window.nuBROWSERROW	= -1;
+		if(window.nuBROWSEROW == rows){
+			window.nuBROWSEROW	= -1;
 		}else{
-			window.nuBROWSERROW	= window.nuBROWSERROW + 1;
+			window.nuBROWSEROW	= window.nuBROWSEROW + 1;
 		}
 
 		$("[data-nu-row]").addClass('nuBrowseTable');
 		$("[data-nu-row]").removeClass('nuSelectBrowse');
 		
-		$("[data-nu-row='" + window.nuBROWSERROW + "']").addClass('nuSelectBrowse');
-		$("[data-nu-row='" + window.nuBROWSERROW + "']").removeClass('nuBrowseTable');
-		
-		console.log(window.nuBROWSERROW);
+		$("[data-nu-row='" + window.nuBROWSEROW + "']").addClass('nuSelectBrowse');
+		$("[data-nu-row='" + window.nuBROWSEROW + "']").removeClass('nuBrowseTable');
 		
     }
     
@@ -2403,12 +2399,15 @@ function nuGetPage(p){
 
 
 function nuSelectBrowse(e, t){
-
-	var y 				= window.nuBrowseFunction;					//-- browse, lookup or custom function name
-	var i 				= window.nuTARGET;
-	var p				= $('#' + t.id).attr('data-nu-primary-key');
-	var f				= window.nuFORM.getProperty('form_id');
-	var r				= window.nuFORM.getProperty('redirect_form_id');
+	
+	if(window.nuBROWSECLICKED){return;}
+	
+	window.nuBROWSECLICKED	= true;
+	var y 					= window.nuBrowseFunction;					//-- browse, lookup or custom function name
+	var i 					= window.nuTARGET;
+	var p					= $('#' + t.id).attr('data-nu-primary-key');
+	var f					= window.nuFORM.getProperty('form_id');
+	var r					= window.nuFORM.getProperty('redirect_form_id');
 
 	if(y == 'browse'){
 		
