@@ -390,7 +390,6 @@ function nuGetEditForm($F, $R){
     $f->form_code       = $r->sfo_code;
     $f->form_description= $r->sfo_description;
     $f->form_type      	= $r->sfo_type;
-//    $f->type        	= $r->sfo_type;
     $f->table       	= nuReplaceHashVariables($r->sfo_table);
     $f->primary_key 	= $r->sfo_primary_key;
     $f->redirect_form_id= $r->sfo_browse_redirect_form_id == '' ? $r->zzzzsys_form_id : $r->sfo_browse_redirect_form_id;
@@ -856,10 +855,11 @@ function nuBrowseRows($f){
 	$like			= str_replace('\\"','"',nuHash()['like']);
 	$haswhere		= $where !=  '()';
 	$haslike		= $like != '';
+	$hardwhere		= $S->getWhere();
 	
-	if($haslike 	&& $haswhere){	$S->setWhere(" WHERE $like AND $where");}
-	if($haslike 	&& !$haswhere){	$S->setWhere(" WHERE $like");}
-	if(!$haslike 	&& $haswhere){	$S->setWhere(" WHERE $where");}
+	if($haslike 	&& $haswhere){	$S->setWhere(" $hardwhere AND $like AND $where");}
+	if($haslike 	&& !$haswhere){	$S->setWhere(" $hardwhere AND $like");}
+	if(!$haslike 	&& $haswhere){	$S->setWhere(" $hardwhere AND $where");}
 	
 	if($P['sort'] != '-1'){
 		$S->setOrderBy(' ORDER BY ' . $S->fields[$P['sort'] + 1] . ' ' . $P['sort_direction']);
@@ -867,6 +867,7 @@ function nuBrowseRows($f){
 	
 	$a				= array();
 	$s				= nuReplaceHashVariables($S->SQL);
+	
 	$t 				= nuRunQuery($s);
 	$rowData		= db_num_rows($t);
 	$s				.= " LIMIT $start, $rows";
@@ -1038,7 +1039,7 @@ function nuGatherFormAndSessionData($home){
 		}
 		
     }
-	
+
 	$formAndSessionData->session_id 	= $_SESSION['SESSION_ID'];
 	$formAndSessionData->call_type 		= $_POST['nuSTATE']['call_type'];
 	$formAndSessionData->filter 		= $_POST['nuFilter'];

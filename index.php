@@ -198,6 +198,7 @@ window.nuHASH			= [];
 			nuBindCtrlEvents();
 			window.nuDefaultBrowseFunction	= '$nuBrowseFunction';
 			window.nuBrowseFunction			= '$nuBrowseFunction';
+			window.nuTARGET					= '$target';
 			var welcome						= `$welcome`;
 			nuLogin(welcome);
 

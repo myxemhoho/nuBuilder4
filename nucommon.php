@@ -767,41 +767,16 @@ function nuGetUserAccess(){
 	$r					= db_fetch_object($t);
 	$j					= json_decode($r->sss_access);
 	
-	$A['USER_ID']		= $j->session->zzzzsys_user_id;
-	$A['USER_GROUP_ID']	= $j->session->zzzzsys_access_id;
-	$A['HOME_ID']		= $j->session->zzzzsys_form_id;
-	$A['GLOBAL_ACCESS']	= $j->session->global_access;
+	$A['USER_ID']				= $j->session->zzzzsys_user_id;
+	$A['USER_GROUP_ID']			= $j->session->zzzzsys_access_id;
+	$A['HOME_ID']				= $j->session->zzzzsys_form_id;
+	$A['GLOBAL_ACCESS']			= $j->session->global_access;
+	$A['ACCESS_LEVEL_CODE']		= $j->access_level_code;
 	
 	return $A;
 	
 }
 
-/*
-
-function nuDisplayHeaderHTML() {
-	
-	$h = "
-		<html>
-			<head>
-			</head>
-			<body>
-	";
-	
-	echo $h;
-	
-}
-
-function nuDisplayFooterHTML(){
-	
-	$h = "
-			</body>
-		</html>
-	";
-	
-	echo $h;
-	
-}
-*/
 
 function nuGetFormProperties($i){
 	

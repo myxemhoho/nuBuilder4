@@ -94,9 +94,11 @@ class nuFormObject {
 		
 		var b				= {};
 		b.form_id 			= '';
+		b.redirect_form_id	= '';
 		b.record_id 		= '';
 		b.title				= '';
 		b.call_type        	= '';
+		b.column_widths    	= 0;
 		b.filter           	= '';
 		b.forms        		= [];
 		b.iframe			= 0;
