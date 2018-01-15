@@ -3421,10 +3421,6 @@ function nuRedefine_nuSelectBrowse(){
 		var f				= window.nuFORM.getProperty('form_id');
 		var r				= window.nuFORM.getProperty('redirect_form_id');
 		
-		if(typeof(r) == 'undefined'){
-			console.log(nuFORM.getCurrent());
-		}
-
 		if(y == 'browse'){
 			
 			if(r == ''){
