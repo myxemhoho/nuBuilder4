@@ -2297,7 +2297,7 @@ function nuArrowPressed(e){
 
     if(!e){e=window.event;}
 
-	var rows	= $("[data-nu-column='0']").length - 1;
+	var rows	= $("[data-nu-column='0'][data-nu-primary-key]").length - 1;
 	
     if(e.keyCode == 38){                    //-- up
 		
