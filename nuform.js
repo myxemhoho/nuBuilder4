@@ -2404,6 +2404,7 @@ function nuGetPage(p){
 	
 }
 
+/*
 
 function nuSelectBrowse(e, t){
 	
@@ -2436,6 +2437,7 @@ function nuSelectBrowse(e, t){
 	
 }
 
+*/
 
 function nuPopulateLookup(fm, target){
 	
@@ -3418,6 +3420,10 @@ function nuRedefine_nuSelectBrowse(){
 		var p				= $('#' + t.id).attr('data-nu-primary-key');
 		var f				= window.nuFORM.getProperty('form_id');
 		var r				= window.nuFORM.getProperty('redirect_form_id');
+		
+		if(typeof(r) == 'undefined'){
+			console.log(nuFORM.getCurrent());
+		}
 
 		if(y == 'browse'){
 			

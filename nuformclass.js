@@ -94,6 +94,7 @@ class nuFormObject {
 		
 		var b				= {};
 		b.form_id 			= '';
+		b.redirect_form_id	= '';
 		b.record_id 		= '';
 		b.title				= '';
 		b.call_type        	= '';
