@@ -2443,7 +2443,7 @@ function nuPopulateLookup(fm, target){
 	
 	var p 		= String($('#' + target).attr('data-nu-prefix'));
 	var f		= fm.lookup_values;
-
+	
 	for(var i = 0 ; i < f.length ; i++){
 		
 		var	id	= String(f[i][0]);
@@ -2473,7 +2473,7 @@ function nuPopulateLookup(fm, target){
 		
 
 	}
-	
+
 	eval(fm.lookup_javascript);
 	
 	$('#dialogClose').click();

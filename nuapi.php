@@ -6,6 +6,7 @@
 	require_once('nuform.php');
 	require_once('nudata.php');
     require_once('nudrag.php');
+    require_once('nuconfig.php');
 
 	$_POST['nuCounter']						= rand(0, 999);
 	$_POST['nuErrors']						= array();
@@ -53,6 +54,7 @@
 
 	$f->forms[0]->access_level_code			= $U['ACCESS_LEVEL_CODE'];
 	$f->forms[0]->user_id					= $U['USER_ID'];
+	$f->forms[0]->database					= $nuConfigDBName;
 	$f->forms[0]->dimensions				= $formAndSessionData->dimensions;
 	$f->forms[0]->translation				= $formAndSessionData->translation;
 	$f->forms[0]->tableSchema				= nuUpdateTableSchema();

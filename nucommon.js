@@ -1661,4 +1661,10 @@ function nu_end_resize(){
 }
 
 
+//=================================================================
+
+
+function nuDatabase(){
+	return nuSERVERRESPONSE.database;
+}
 
