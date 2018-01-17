@@ -1125,12 +1125,8 @@ function nuChart(d, t, a, h, x, y, st, is){
 
 	a				= eval(a);
 	
-	if(typeof(google['charts']) == 'undefined'){
-			
-		google.charts.load('current', {'packages':['corechart']});
-		google.charts.setOnLoadCallback(drawVisualization);
-		
-	}
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawVisualization);
 	
 	if(a == ''){return;}
 
@@ -1661,4 +1657,10 @@ function nu_end_resize(){
 }
 
 
+//=================================================================
+
+
+function nuDatabase(){
+	return nuSERVERRESPONSE.database;
+}
 

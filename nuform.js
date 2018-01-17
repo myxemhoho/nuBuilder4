@@ -17,7 +17,9 @@ function nuBuildForm(f){
 	}
 	
 	window.nuBeforeSave			= null;
+	window.nuOnClone			= null;
 	window.nuBrowseFunction		= window.nuDefaultBrowseFunction;
+	window.nuCLONE				= false;
 	window.nuSERVERRESPONSE		= f;
 	window.nuSERVERRESPONSELU	= [];
 	window.nuSESSION			= f.session_id;
@@ -2443,7 +2445,7 @@ function nuPopulateLookup(fm, target){
 	
 	var p 		= String($('#' + target).attr('data-nu-prefix'));
 	var f		= fm.lookup_values;
-
+	
 	for(var i = 0 ; i < f.length ; i++){
 		
 		var	id	= String(f[i][0]);
@@ -2473,7 +2475,7 @@ function nuPopulateLookup(fm, target){
 		
 
 	}
-	
+
 	eval(fm.lookup_javascript);
 	
 	$('#dialogClose').click();
@@ -2859,7 +2861,19 @@ function nuCloneAction(){
 	.css('background-color', 'red')
 	.css('visibility','visible');
 	
+	nuCLONE	= true;
+	
+	if(window.nuOnClone){
+		nuOnClone();
+	}
+	
 }
+
+function nuIsClone(){
+	return nuCLONE;
+}
+
+
 
 function nuSaveAction(){
 	
@@ -3438,6 +3452,8 @@ function nuRedefine_nuSelectBrowse(){
 			window[y](e);
 			
 		}
+		
+		nuSelectBrowse = function (e, t){}					//-- so that it doesn't run twice.
 		
 	}
 		

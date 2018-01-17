@@ -4,6 +4,7 @@
 <head>
 <title>nuBuilder 4</title>
 <meta http-equiv='Content-type' content='text/html;charset=UTF-8'>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"><script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
 <?php
