@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 17, 2018 at 04:53 AM
+-- Generation Time: Jan 17, 2018 at 05:06 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -891,7 +891,7 @@ CREATE TABLE `zzzzsys_setup` (
 --
 
 INSERT INTO `zzzzsys_setup` (`zzzzsys_setup_id`, `set_time_out_minutes`, `set_zzzzsys_timezone_id`, `set_language`, `set_smtp_username`, `set_smtp_password`, `set_smtp_host`, `set_smtp_from_address`, `set_smtp_from_name`, `set_smtp_port`, `set_smtp_use_ssl`, `set_smtp_use_authentication`, `set_header`, `set_denied`, `set_splash`) VALUES
-('1', 120, '52819fa94bc9a93', '', '1', '1', '1', '1', '1', 0, '0', '1', 'function nuHeaderTest() {\n\n    console.log(''Functions placed here before a closing script tag are available anywhere in nuBuilder Forte'');\n\n}\n\n\n\n</script>\n<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>\n<style>\n    \n.1nuActionButton {background:#8dbef4;}\n.1nuButton {background:#8dbef4;}\n\n</style>\n<script>\n', '0', '1');
+('1', 120, '52819fa94bc9a93', '', '1', '1', '1', '1', '1', 0, '0', '1', 'function nuHeaderTest() {\n\n    console.log(''Functions placed here before a closing script tag are available anywhere in nuBuilder Forte'');\n\n}\n\n\n\n</script>\n</script>\n<style>\n    \n.1nuActionButton {background:#8dbef4;}\n.1nuButton {background:#8dbef4;}\n\n</style>\n<script>\n', '0', '1');
 
 -- --------------------------------------------------------
 
