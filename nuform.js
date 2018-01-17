@@ -17,6 +17,7 @@ function nuBuildForm(f){
 	}
 	
 	window.nuBeforeSave			= null;
+	window.nuOnClone			= null;
 	window.nuBrowseFunction		= window.nuDefaultBrowseFunction;
 	window.nuCLONE				= false;
 	window.nuSERVERRESPONSE		= f;
@@ -2862,8 +2863,11 @@ function nuCloneAction(){
 	
 	nuCLONE	= true;
 	
+	if(window.nuOnClone){
+		nuOnClone();
+	}
+	
 }
-
 
 function nuIsClone(){
 	return nuCLONE;
