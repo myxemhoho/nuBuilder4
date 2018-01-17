@@ -18,6 +18,7 @@ function nuBuildForm(f){
 	
 	window.nuBeforeSave			= null;
 	window.nuBrowseFunction		= window.nuDefaultBrowseFunction;
+	window.nuCLONE				= false;
 	window.nuSERVERRESPONSE		= f;
 	window.nuSERVERRESPONSELU	= [];
 	window.nuSESSION			= f.session_id;
@@ -2859,7 +2860,16 @@ function nuCloneAction(){
 	.css('background-color', 'red')
 	.css('visibility','visible');
 	
+	nuCLONE	= true;
+	
 }
+
+
+function nuIsClone(){
+	return nuCLONE;
+}
+
+
 
 function nuSaveAction(){
 	
