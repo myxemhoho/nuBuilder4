@@ -180,7 +180,7 @@ window.nuHASH			= [];
     if(isset($_GET['like']))			{$like	 			= $_GET['like'];}
     if(isset($_GET['browsefunction']))	{$nuBrowseFunction 	= $_GET['browsefunction'];}
 	
-	$h			= "
+	$h1			= "
 	
 	window.nuLoginU							= '$nuUser';
 	window.nuLoginP							= '$nuPassword';
@@ -191,9 +191,11 @@ window.nuHASH			= [];
 	window.nuGraphics						= $f;
 	window.nuIsWindow						= '$iframe';
 	window.nuImages							= [];
+
+	";
 	
-	if('$opener' == ''){
-		
+	if($opener == ''){
+		$h2 = "
 		function nuLoad(){
 
 			nuBindCtrlEvents();
@@ -204,9 +206,10 @@ window.nuHASH			= [];
 			nuLogin(welcome);
 
 		}
+		";
 		
 	}else{
-
+		$h2 = "
 		function nuLoad(){
 
 			if(nuIsOpener(window)){
@@ -253,11 +256,12 @@ window.nuHASH			= [];
 				nuBindDragEvents();		
 			}
 			
-		}	
+		}
+		";	
 		
 	}
 	
-
+	$h3 = "
 	function nuResize(){
 
 	   $('#nuActionHolder').css('width', window.innerWidth);
@@ -277,6 +281,7 @@ $nuHeader
 	
 	";
 
+	$h = $h1.$h2.$h3;
 	print $h;
 	
 ?>
