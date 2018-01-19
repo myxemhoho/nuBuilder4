@@ -243,7 +243,6 @@ window.nuHASH			= [];
 			} else if(p.type == 'P') {
 				nuRunPHP(p.record_id, p.parameters);
 			} else {
-				console.log('$like');
 				window.filter				= p.filter;
 				nuForm(p.form_id, p.record_id, p.filter, '$search', 0, '$like');
 				

@@ -119,7 +119,7 @@ if(array_key_exists('nuSTATE', $_POST)){
                     $storeSessionInTable                    = new stdClass;
                     $storeSessionInTable->session           = $sessionIds;
                     $storeSessionInTable->access_level_code	= nuAccessLevelCode($checkLoginDetailsOBJ->zzzzsys_user_id);
-                    
+
                     // form ids
                     $getFormsQRY 							= nuRunQuery("
                         SELECT slf_zzzzsys_form_id  AS id,
@@ -254,7 +254,6 @@ function nuAccessLevelCode($u){
 		SELECT sal_code
 		FROM zzzzsys_user
 		JOIN zzzzsys_access ON zzzzsys_access_id = sus_zzzzsys_access_id
-		JOIN zzzzsys_access_php ON zzzzsys_access_id = slp_zzzzsys_access_id
 		WHERE zzzzsys_user_id = ?
 	";
 

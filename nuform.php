@@ -80,7 +80,7 @@ function nuFormCode($f){
 }
 
 function nuGetFormObject($F, $R, $OBJS, $P = stdClass){
-
+	
     $tabs 			= nuBuildTabList($F);
     $f				= nuGetEditForm($F, $R);
     $f->form_id		= $F;
@@ -675,7 +675,7 @@ function nuGetSubformRecords($R, $A){
 
     $t = nuRunQuery($s);
     $a = array();
-
+nudebug($s);
     while($r = db_fetch_row($t)){
 
 		$_POST['nuHash']['RECORD_ID']			= $r[0];
