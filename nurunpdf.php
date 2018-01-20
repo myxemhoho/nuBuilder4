@@ -156,7 +156,13 @@ function nuBuildReport($PDF, $REPORT, $TABLE_ID){
     
     }
     $group_by                               = implode(',', $groupBy);
-    $DATA                                   = nuRunQuery("SELECT * FROM $TABLE_ID $order_by $group_by");
+	
+    $DATA                                   = nuRunQuery("CREATE TABLE a$TABLE_ID SELECT * FROM $TABLE_ID $order_by $group_by");
+    $DATA                                   = nuRunQuery("DROP TABLE $TABLE_ID");
+    $DATA                                   = nuRunQuery("CREATE TABLE $TABLE_ID SELECT * FROM a$TABLE_ID");
+    $DATA                                   = nuRunQuery("DROP TABLE a$TABLE_ID");
+    $DATA                                   = nuRunQuery("SELECT * FROM $TABLE_ID");
+	
     nuMakeSummaryTable($REPORT, $TABLE_ID);
     $sectionTop                             = 0;
     $ROW                                    = db_fetch_array($DATA);                                                         //-- first row

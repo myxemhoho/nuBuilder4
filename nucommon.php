@@ -981,7 +981,6 @@ function nuBuildTempTable($name_id, $tt, $rd = 0){
 	$id				= substr(strstr($name_id, ':'),1);
 	
 	if($x[0] == 'PROCEDURE'){
-//		$e			= new nuEvalPHPClass($id);
 		nuEval($id);
 	}
 
@@ -1016,7 +1015,7 @@ function nuBuildTempTable($name_id, $tt, $rd = 0){
 		$tt			= addslashes($tt);
 		
 		$P			= "	nuRunQuery('CREATE TABLE $tt $p');";
-
+		
 		eval($P);
 		
 	}
