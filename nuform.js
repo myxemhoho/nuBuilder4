@@ -92,7 +92,7 @@ function nuBuildForm(f){
 	if(nuFormType() == 'edit'){
 		
 		nuBuildEditObjects(f, '', '', f);
-		nuCalculateForm();
+		nuCalculateForm(false);
 		
 	}
 
@@ -2696,7 +2696,7 @@ function nuChangeFile(e){
 }
 
 
-function nuCalculateForm(){	//-- calculate subform 'calcs' first
+function nuCalculateForm(setAsEdited){	//-- calculate subform 'calcs' first
 	
     var subformFirst 	= function(b, a){
 
@@ -2704,6 +2704,10 @@ function nuCalculateForm(){	//-- calculate subform 'calcs' first
 		var B			= $('#' + b.id).hasClass('nuSubformObject') ? 1000 : 0;
 		var a			= parseInt($('#' + a.id).attr('data-nu-calc-order'));
 		var b			= parseInt($('#' + b.id).attr('data-nu-calc-order'));
+		
+		if(arguments.length == 0){
+			$('#' + a.id).addClass('nuEdited');
+		}
 		
 		return (a + A) - (b + B);
 	

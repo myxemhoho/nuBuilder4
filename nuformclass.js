@@ -707,13 +707,26 @@ class nuFormObject {
 		
 			var F		= nuNumberFormat(f);
 			
-			v			= v.replaceAll(F.separator, '').replace(F.decimal, '.')
+			v			= v.replaceAll(F.separator, '')
+			
+			if(F.decimal.length == 1){
+				v	= v.replace(F.decimal, '.')
+			}
+			
+			var sign	= '';
+			
+			if(v.split(' ').length == 2){
+				sign	= v.split(' ')[0];
+			}
 			
 			var bits	= v.split('.');
-			
+
 			if(bits.length == 1){bits.push('');}
+
+			bits[0]		= String(bits[0]).replace(sign, '') + (F.places==0?'':'.');
+			bits[1]		= String(bits[1]).substr(0, F.places)
 			
-			return parseFloat(bits[0] + '.' + bits[1].substr(0, F.places));
+			return String(bits[0] + bits[1]).trim();
 			
 		}
 

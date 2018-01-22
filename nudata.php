@@ -111,6 +111,7 @@ function nuUpdateDatabase(){
 	nuValidateSubforms();
 	
 	$nudata			= $_POST['nuHash']['nuFORMdata'];
+nudebug($nudata);	
 	$nuMainID		= $_POST['nuHash']['record_id'];
 	$form_type		= nuGetFormProperties($_POST['nuHash']['form_id'])->sfo_type;
 	$nuDelAll		= $_POST['nuHash']['deleteAll'];
