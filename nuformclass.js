@@ -603,50 +603,33 @@ class nuFormObject {
 	
 	addFormatting(v, f){
 
-		if(v == '' || f == '' || f == undefined){return v;}
 		
-		v				= String(v) == 'null' ? '' : String(v);
+		if(v == undefined)	{return '';}
+		if(v == null)		{return '';}
+		if(f == undefined)	{return v;}
+		if(f == '')			{return v;}
+		if(v == '')			{return v;}
+		
+		v				= String(v);
 		f				= String(f);
 		
-		if(f[0] == 'N'){							//-- number  '456.789','N|€ 1,000.00'
+		if(f[0] == 'N'){									//-- number  '456.789','N|€ 1,000.00'
 
 			if(isNaN(Number(v))){return '';}
-			
-			f			= f.substr(2);
-			var s		= String(f.split(' ')[0]);			//-- sign
-			var n		= String(f.split(' ')[1]);			//-- number
-			var c		= n[1] == '0' ? '' : n[1];			//-- comma
-			
-			if(c == ''){
-				var d	= n[4];								//-- decimal
-				var p	= n.length - 5;						//-- places
-			}else{
-				var d	= n[5];								//-- decimal
-				var p	= n.length - 6;						//-- places
-			}
 
+			var F		= nuNumberFormat(f);
 			var o		= v.split('.');
-			var h		= nuAddThousandSpaces(o[0], c);
+			var h		= nuAddThousandSpaces(o[0], F.separator);
 			
-			if(p == 0){ 									//-- no decimal numbers even if it has a decimal place
-				var m		= s + ' ' + h;
-			}else{
-				
-				if(o.length == 2){							//-- this number had decimals
-					var suf	= d + String(o[1] + String(0).repeat(1000)).substr(0, p)
-				}else{
-					var suf	= d + String(String(0).repeat(1000)).substr(0, p)
-				}
-				
-				var m		= s + ' ' + h + suf
-				
-			}
-			
-			if(String(h) == 'toobig' && nuSERVERRESPONSE.user_id == 'globeadmin'){
+			var d		= o.length==1?'':o[1];
+			var p		= F.sign + ' ' + h + F.decimal;
+			var s		= String(d + String(0).repeat(100)).substr(0, F.places).trim();
+
+			if(String(h) == 'toobig' && nuSERVERRESPONSE.access_level_code == ''){
 				nuMessage(["What did we say ?",'','<img id="thebig" src="graphics\\point.png">']);return '';
 			}
 			
-			return m;
+			return String(p + s).trim();
 		
 		}
 		
@@ -712,39 +695,29 @@ class nuFormObject {
 	
 	removeFormatting(v, f){
 		
-		if(v == '' || f == '' || f == undefined){return v;}
+		if(v == undefined)	{return '';}
+		if(f == undefined)	{return v;}
+		if(f == '')			{return v;}
+		if(v == '')			{return v;}
 		
 		v				= String(v);
 		f				= String(f);
 
-		if(f[0] == 'N'){									//-- number
-
-			f			= f.substr(2);
-			var s		= String(f.split(' ')[0]);			//-- sign
-			var n		= String(f.split(' ')[1]);			//-- number
-			var c		= n[1] == '0' ? '' : n[1];			//-- comma
+		if(f[0] == 'N'){										//-- number
+		
+			var F		= nuNumberFormat(f);
 			
-			if(c == ''){
-				
-				var d	= n[4];								//-- decimal
-				var p	= n.length - 5;						//-- places
-				
-			}else{
-				
-				var d	= n[5];								//-- decimal
-				var p	= n.length - 6;						//-- places
-				
-			}
-
-			var num		= v
-						.replaceAll(c, '')
-						.replaceAll(s, '')
-						.replaceAll(d, '.');
-						
-			return parseFloat(num);
+			v			= v.replaceAll(F.separator, '').replace(F.decimal, '.')
+			
+			var bits	= v.split('.');
+			
+			if(bits.length == 1){bits.push('');}
+			
+			return parseFloat(bits[0] + '.' + bits[1].substr(0, F.places));
+			
 		}
 
-		if(f[0] == 'D'){									//-- date
+		if(f[0] == 'D'){										//-- date
 			
 			if(f.substr(0, 10) == '0000-00-00'){
 				return '';
@@ -816,6 +789,41 @@ class nuFormObject {
 	}
 	
 }
+
+
+function nuNumberFormat(f){
+	
+	var o				= {type : ''};
+
+	if(f[0] == 'N'){										//-- number
+
+		var spl			= f.substr(2).split(' ');			//-- array [sign, number]
+		var n			= spl[spl.length-1];				//-- number format
+		
+		o.type			= 'Number';
+		o.separator		= n.substr(1,3).replaceAll('0','');
+		o.decimal		= n.substr(3).replaceAll('0','');
+		o.sign			= spl[0];
+		o.places		= 0;
+		o.format		= f;
+		
+		if(spl.length == 1){
+			
+			o.sign		= '';
+			spl.unshift('');
+			
+		}
+		
+		if(o.decimal.length == 1){
+			o.places	= spl[1].split(o.decimal)[1].length;
+		}
+
+	}
+	
+	return o;
+	
+}
+
 
 function nuCurrentProperties(){
 	return nuFORM.getCurrent();

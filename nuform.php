@@ -675,7 +675,7 @@ function nuGetSubformRecords($R, $A){
 
     $t = nuRunQuery($s);
     $a = array();
-nudebug($s);
+	
     while($r = db_fetch_row($t)){
 
 		$_POST['nuHash']['RECORD_ID']			= $r[0];

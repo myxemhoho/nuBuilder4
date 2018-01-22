@@ -90,7 +90,10 @@ function nuBuildForm(f){
 	nuRecordProperties(f, '');
 
 	if(nuFormType() == 'edit'){
+		
 		nuBuildEditObjects(f, '', '', f);
+		nuCalculateForm();
+		
 	}
 
 	nuGetStartingTab();
@@ -2276,6 +2279,20 @@ function nuSetSearchColumn(){
 
 }
 
+function nuSetNoSearchColumns(a){
+	
+	var s	= nuFORM.getCurrent().nosearch_columns;
+	a		= s.concat(a);
+	
+	for(var i = 0 ; i < a.length ; i++){
+		$('#nusort_' + a[i]).addClass('nuNoSearch');
+	}
+
+	nuFORM.setProperty('nosearch_columns', a);
+	
+}
+
+
 function nuSearchPressed(e){
 
     if(!e){e=window.event;}
@@ -2603,88 +2620,6 @@ function nuHighlightSearch(){
 	
 }
 
-function nuGetFormData(){
-
-	var a	= [];
-	var s	= '';
-	var f	= $("[id$='nuRECORD']");
-
-	f.each(function(index){
-		
-		var	s	= String($(this).attr('id'));
-		
-		a.push(s.substr(0, s.length - 8));
-		
-	});
-	
-	var r		= [];
-	
-	for(var i = 0 ; i < a.length ; i++){
-		
-		var rw	= new nuFormClass(a[i]);
-
-		if(rw.d == 'Yes' || rw.pk == '-1' || rw.f.length > 0 || rw.fk === undefined){
-			r.push(rw);
-			
-		}
-		
-	}
-
-	return r;
-
-}
-
-
-function nuFormClass(frm){
-
-	var fh				= '#' + frm + 'nuRECORD';
-	var foreign_key		= $(fh).attr('data-nu-foreign-key');
-	var primary_key		= $(fh).attr('data-nu-primary-key');
-	var form_id			= $(fh).attr('data-nu-form-id');
-	var foreign_field	= $(fh).attr('data-nu-foreign-field');
-	
-	var deleted			= $('#' + frm + 'nuDelete').is(":checked") ? 'Yes' : 'No';
-	var fields			= [];
-	var values			= [];
-	var rows			= [];
-
-    var field_selector = "[data-nu-prefix='" + frm + "'][data-nu-field].nuEdited";
-    if(primary_key == '-1')
-        field_selector = "[data-nu-prefix='" + frm + "'][data-nu-field]";
-	var o				= $(field_selector);
-
-	o.each(function(index){
-
-		var rw			= String($(this).attr('data-nu-prefix'));
-		var rowno		= parseInt(rw.substr(rw.length - 3));
-		var f			= $(this).attr('data-nu-field');
-		var fmt			= $(this).attr('data-nu-format');
-		var typ			= $(this).attr('type');
-		var v			= $(this).val();
-		
-		if(typ == 'checkbox'){
-			v			= $(this).prop("checked") ? 1 : 0;
-		}
-
-
-
-		fields.push(f);
-		
-		values.push(nuFORM.removeFormatting(v, fmt));
-		rows.push(rw != '' ? rowno + 1 : 0);
-		
-	});
-	
-	this.pk	= primary_key;
-	this.fk	= foreign_key;
-	this.fm	= form_id;
-	this.ff	= foreign_field;
-	this.d	= deleted;
-	this.r	= rows;
-	this.f	= fields;
-	this.v	= values;
-
-}
 
 
 function nuChange(e){
