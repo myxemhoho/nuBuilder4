@@ -2813,6 +2813,11 @@ function nuIsClone(){
 }
 
 
+function nuIsNewRecord(){
+	return nuFORM.getCurrent().record_id == -1 && !nuCLONE;
+}
+
+
 
 function nuSaveAction(){
 	
