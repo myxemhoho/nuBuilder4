@@ -440,19 +440,20 @@ function nuBreadcrumbDescription($r, $R){
 
 function nuGetOtherLookupValues($o){
 
-	$p						= $o->object_id;
-	$s						= "SELECT sob_lookup_zzzzsys_form_id as form_id FROM zzzzsys_object WHERE zzzzsys_object_id  = ? ";
-	$t						= nuRunQuery($s, [$p]);
-	$r						= db_fetch_object($t);
-	$i						= $r->form_id;
-	$f						= nuFormProperties($i);
-	$s						= "SELECT * FROM $f->sfo_table WHERE $f->sfo_primary_key  = ? ";
-	$t						= nuRunQuery($s, [$_POST['nuHash']['LOOKUP_RECORD_ID']]);
+	$p								= $o->object_id;
+	$l								= $_POST['nuHash']['LOOKUP_RECORD_ID'];
+	$s								= "SELECT sob_lookup_zzzzsys_form_id as form_id FROM zzzzsys_object WHERE zzzzsys_object_id  = ? ";
+	$t								= nuRunQuery($s, [$p]);
+	$r								= db_fetch_object($t);
+	$i								= $r->form_id;
+	$f								= nuFormProperties($i);
+	$s								= "SELECT * FROM $f->sfo_table WHERE $f->sfo_primary_key  = ? ";
+	$t								= nuRunQuery($s, [$l]);
 	
-	$_POST['lookup_row']	= db_fetch_object($t);
-	$_POST['lookup_values']	= array();
+	$_POST['lookup_row']			= db_fetch_object($t);
+	$_POST['lookup_row']->ID		= $l;
+	$_POST['lookup_values']			= array();
 
-//	$evalPHP 				= new nuEvalPHPClass($p . '_AB');
 	nuEval($p . '_AB');
 	
 	return $_POST['lookup_values'];

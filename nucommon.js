@@ -1187,8 +1187,13 @@ function nuAddRow(s){
 	
 }
 
+
 function nuAccessLevelCode(){
 	return nuSERVERRESPONSE.access_level_code;
+}
+
+function nuUserName(){
+	return nuSERVERRESPONSE.user_name;
 }
 
 
