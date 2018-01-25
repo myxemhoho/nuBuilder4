@@ -263,21 +263,6 @@ function nuAccessLevelCode($u){
 
 }
 
-function nuUser($u){
-
-	$s	= "
-		SELECT *
-		FROM zzzzsys_user
-		WHERE zzzzsys_user_id = ?
-	";
-
-	$t	= nuRunQuery($s, [$u]);
-
-	return db_fetch_object($t);
-
-}
-
-
 
 function nuIDTEMP(){
 
