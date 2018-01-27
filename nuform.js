@@ -1185,7 +1185,10 @@ function nuSUBFORM(w, i, l, p, prop){
 		.addClass('nuSubform' + even);
 
 		nuBuildEditObjects(SFR.forms[c], prefix, SF, SF.forms[0]);
-		nuRecordProperties(SF.forms[c], prefix, rowWidth - 40);
+		
+		if(SF.delete == '1'){
+			nuRecordProperties(SF.forms[c], prefix, rowWidth - 40);
+		}
 
 		rowTop 		= Number(rowTop) + Number(rowHeight);
 		even		= even == '0' ? '1' : '0'

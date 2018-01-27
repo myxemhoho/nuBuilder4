@@ -1552,6 +1552,8 @@ function nuSendEmail($to, $from, $fromname, $content, $subject, $filelist, $html
 }
 
 
+
+
 function nuUser(){
 
 	$s	= "
@@ -1559,7 +1561,7 @@ function nuUser(){
 		FROM zzzzsys_user
 		WHERE zzzzsys_user_id = ?
 	";
-NUDEBUG($s, [nuHash()['USER_ID']]);
+	
 	$t	= nuRunQuery($s, [nuHash()['USER_ID']]);
 
 	return db_fetch_object($t);

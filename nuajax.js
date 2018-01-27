@@ -214,10 +214,14 @@ function nuGetPHP(f, r){
 }
 
 
-function nuRunPHP(pCode, iframe){
-	
-	if(window.nuBeforeSave){
-		if(!nuBeforeSave()){return;}
+function nuRunPHP(pCode, iframe, rbs){
+
+	if(arguments.length == 1){
+		
+		if(window.nuBeforeSave){
+			if(nuBeforeSave() === false ){return;}
+		}
+		
 	}
 
 	var current				= nuFORM.getCurrent();
@@ -248,7 +252,7 @@ function nuRunPHP(pCode, iframe){
 			
 			var pdfUrl		= 'nurunphp.php?i=' + fm.id;
 			
-			if(iframe === undefined){
+			if(iframe === undefined || iframe === ''){
 				window.open(pdfUrl);
 			}else{
 				parent.$('#' + iframe).attr('src', pdfUrl);
@@ -263,10 +267,14 @@ function nuRunPHP(pCode, iframe){
 }
 
 
-function nuRunPHPHidden(i, h){
+function nuRunPHPHidden(i, rbs){
 
-	if(window.nuBeforeSave){
-		if(!nuBeforeSave()){return;}
+	if(arguments.length == 1){
+		
+		if(window.nuBeforeSave){
+			if(nuBeforeSave() === false ){return;}
+		}
+		
 	}
 
 	var current				= nuFORM.getCurrent();
@@ -279,7 +287,7 @@ function nuRunPHPHidden(i, h){
 	last.record_id			= i;								//-- php code
 	last.nuFORMdata			= nuFORM.data();
 	last.hash  				= nuHashFromEditForm();
-	last.HIDDEN_ID			= arguments.length == 2 ? h : '';
+//	last.HIDDEN_ID			= arguments.length == 2 ? h : '';
 	
 	var successCallback 	= function(data,textStatus,jqXHR){
 		
@@ -561,7 +569,7 @@ function nuPrintAction(){
 function nuUpdateData(action, instruction){
 	
 	if(window.nuBeforeSave){
-		if(!nuBeforeSave()){return;}
+		if(nuBeforeSave() === false ){return;}
 	}
 
 	var last				= window.nuFORM.getCurrent();

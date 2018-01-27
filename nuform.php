@@ -449,9 +449,12 @@ function nuGetOtherLookupValues($o){
 	$f								= nuFormProperties($i);
 	$s								= "SELECT * FROM $f->sfo_table WHERE $f->sfo_primary_key  = ? ";
 	$t								= nuRunQuery($s, [$l]);
-	
 	$_POST['lookup_row']			= db_fetch_object($t);
-	$_POST['lookup_row']->ID		= $l;
+
+	if(db_num_rows($t) == 1){
+		$_POST['lookup_row']->ID	= $l;
+	}
+	
 	$_POST['lookup_values']			= array();
 
 	nuEval($p . '_AB');
@@ -511,11 +514,11 @@ function nuGetLookupValues($R, $O){
 		WHERE 
 			`$r->sfo_primary_key` = '$O->value'
     ";
-
 	$s			= nuReplaceHashVariables($s);
     $t 			= nuRunQuery($s);
     $l 			= db_fetch_row($t);
 	$f			= $_POST['nuSTATE']['prefix'] . $O->id;
+nudebug($s, $l, $O);
 
 	nuRunQuery(nuReplaceHashVariables('DROP TABLE if EXISTS #TABLE_ID#'));
 	
