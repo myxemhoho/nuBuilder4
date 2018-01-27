@@ -1186,9 +1186,9 @@ function nuSUBFORM(w, i, l, p, prop){
 
 		nuBuildEditObjects(SFR.forms[c], prefix, SF, SF.forms[0]);
 		
-		if(SF.delete == '1'){
-			nuRecordProperties(SF.forms[c], prefix, rowWidth - 40);
-		}
+//		if(SF.delete == '1'){
+//			nuRecordProperties(SF.forms[c], prefix, rowWidth - 40);
+//		}
 
 		rowTop 		= Number(rowTop) + Number(rowHeight);
 		even		= even == '0' ? '1' : '0'
