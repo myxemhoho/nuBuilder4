@@ -2896,9 +2896,14 @@ function nuHashFromEditForm(){
 
 	var A				= {};
 	var S				= nuSubformObject('');
+	var B				= nuFORM.getCurrent();
 	
 	if(S.rows.length == 0 ){return A;}
-	
+
+	for (var key in B) {
+		A[key]	= B[key];
+	}
+
 	for(var i = 0 ; i < S.fields.length ; i++){
 		A[S.fields[i]]	= S.rows[0][i];
 	}
