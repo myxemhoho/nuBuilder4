@@ -1670,8 +1670,8 @@ function nuDatabase(){
 
 function nuClosePopup(){
 
-	$('#nuModal').remove();
-	$('#nuDragDialog').remove();
+	parent.$('#nuModal').remove();
+	parent.$('#nuDragDialog').remove();
 
 }
 
