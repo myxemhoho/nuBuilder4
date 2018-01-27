@@ -216,7 +216,7 @@ function nuGetPHP(f, r){
 
 function nuRunPHP(pCode, iframe, rbs){
 
-	if(arguments.length == 1){
+	if(arguments.length < 3 ){
 		
 		if(window.nuBeforeSave){
 			if(nuBeforeSave() === false ){return;}
