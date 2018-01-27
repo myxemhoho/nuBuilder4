@@ -1667,3 +1667,12 @@ function nuDatabase(){
 	return nuSERVERRESPONSE.database;
 }
 
+
+function nuClosePopup(){
+
+	$('#nuModal').remove();
+	$('#nuDragDialog').remove();
+
+}
+
+
