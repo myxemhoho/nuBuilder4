@@ -94,7 +94,9 @@ function nuBuildForm(f){
 		nuBuildEditObjects(f, '', '', f);
 		nuCalculateForm(false);
 
-		if(nuFORM.getProperty('tab_start')[0].tabNumber == 0 && f.objects.length > 0){
+//		if(nuFORM.getProperty('tab_start')[0].tabNumber == 0 && f.objects.length > 0){
+
+		if(f.objects.length > 0){
 
 			if($('#' + f.objects[0].id).attr('data-nu-type') == 'lookup'){
 				var obj0	= $('#' + f.objects[0].id + 'code');
