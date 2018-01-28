@@ -541,6 +541,17 @@ function nuINPUT(w, i, l, p, prop){
 		$('#' + id).addClass('input_' + input_type);
 
 	}
+
+	var onChange	= 'nuChange(event)';
+
+	if(input_type == 'file'){
+		onChange	= 'nuChangeFile(event)';
+	}
+
+	if(prop.objects[i].type == 'lookup'){
+		onChange	= 'nuGetLookupId(this.value, this.id)';
+	}
+	
 	
 	nuAddDataTab(id, prop.objects[i].tab, p);
 
@@ -551,7 +562,7 @@ function nuINPUT(w, i, l, p, prop){
 					'text-align': prop.objects[i].align,
 					'position'	: 'absolute'
 	})
-	.attr('onchange', input_type == 'file' ? 'nuChangeFile(event)' : 'nuChange(event)')
+	.attr('onchange', onChange)
 	.attr('data-nu-field', input_type == 'button' || input_type == 'file' ? null : prop.objects[i].id)
 	.attr('data-nu-object-id', w.objects[i].object_id)
 	.attr('data-nu-format', '')
@@ -2504,9 +2515,9 @@ function nuPopulateLookup(fm, target){
 		}else{
 			$('#' + id).val(f[i][1]);
 			
-			if(id != target + 'code'){
-				$('#' + id).change();
-			}
+//			if(id != target + 'code'){
+//				$('#' + id).change();
+//			}
 			
 		}
 		

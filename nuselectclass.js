@@ -1011,7 +1011,6 @@ function nuAngle(){
 
 function nuChangeJoin(e){
 	
-	debugger;
 	var v			= parent.$('#sse_json').val();
 	var j			= JSON.parse(v);
 	var i			= $(e.target).attr('data-nu-join');

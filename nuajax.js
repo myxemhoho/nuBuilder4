@@ -487,8 +487,10 @@ function nuGetLookupId(pk, id){
 
 		if(!nuDisplayError(data)){
 			
-			$('#' + id).change();	
+//			$('#' + id).change();	
 			nuPopulateLookup(data, id);
+			$('#' + id).addClass('nuEdited');
+			nuHasBeenEdited();
 			
 		}
 		
