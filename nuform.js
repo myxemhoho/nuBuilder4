@@ -1283,7 +1283,7 @@ function nuRecordHolderObject(t){
 }
 
 function nuAddSubformRow(t, e){
-	
+
 	var sfid	= $('#' + t.id).parent().parent().parent()[0].id;
 	var before	= $('#' + sfid).attr('data-nu-beforeinsertrow');
 	var after	= $('#' + sfid).attr('data-nu-afterinsertrow');
@@ -1294,7 +1294,7 @@ function nuAddSubformRow(t, e){
 	
 	if(nuCancel){return;}
 	
-	e.stopPropagation();
+	if(e !== false){e.stopPropagation();}
 
 	var o = new nuRecordHolderObject(t);
 	
@@ -2556,6 +2556,7 @@ function nuChooseOneLookupRecord(e, fm){
 	}
 
 }
+
 
 function nuLookupObject(id, set, value){
 

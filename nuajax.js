@@ -490,11 +490,16 @@ function nuGetLookupId(pk, id){
 
 		if(!nuDisplayError(data)){
 			
-//			$('#' + id).change();	
 			nuPopulateLookup(data, id);
 			$('#' + id).addClass('nuEdited');
 			nuHasBeenEdited();
+
+			var o		= $('#' + id);
+
+			if(o.attr('data-nu-prefix') == ''){return;}
 			
+			nuAddSubformRow(o[0], false);
+
 		}
 		
 	};
@@ -516,7 +521,7 @@ function nuGetLookupCode(e){
 		
 		$('#' + id).addClass('nuEdited');
 		$('#nuSaveButton').addClass('nuSaveButtonEdited');
-		
+
 		return;
 		
 	}
@@ -528,6 +533,7 @@ function nuGetLookupCode(e){
 	last.object_id			= e.target.getAttribute('data-nu-object-id');
 	last.target				= e.target.getAttribute('data-nu-target')
 	last.code		 		= e.target.value;
+	last.hash  				= nuHashFromEditForm();
 	
 	var successCallback = function(data,textStatus,jqXHR){		
 		
