@@ -114,9 +114,6 @@ function nuBuildForm(f){
 		obj0.focus();
 	}
 
-	
-	$('#nuSearchField').focus();
-
     if(f.record_id == '-2'){
         nuCreateDragOptionsBox(f);
 	}else{
@@ -139,6 +136,8 @@ function nuBuildForm(f){
 	if(window.nuOnLoad){
 		nuOnLoad();
 	}
+
+	$('#nuSearchField').focus();
 
 }
 

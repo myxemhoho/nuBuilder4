@@ -58,7 +58,8 @@ function nuForm(f, r, filter, search, n, like){
 		window.nuFORM.addBreadcrumb();
 	}
 
-	var last			= window.nuFORM.getCurrent();
+	var current			= window.nuFORM.getCurrent();
+	var last	 		= $.extend(true, {}, current);
 
 	last.call_type		= 'getform';
 	last.form_id 		= f;
@@ -126,7 +127,8 @@ function nuRunReport(f, iframe){
 
 	nuFORM.addBreadcrumb();
 
-	var last			= nuFORM.getCurrent();
+	var current			= nuFORM.getCurrent();
+	var last	 		= $.extend(true, {}, current);
 
 	last.session_id 	= window.nuSESSION;
 	last.call_type		= 'runreport';
@@ -187,7 +189,8 @@ function nuGetPHP(f, r){
 
 	window.nuFORM.addBreadcrumb();
 
-	var last			= window.nuFORM.getCurrent();
+	var current			= nuFORM.getCurrent();
+	var last	 		= $.extend(true, {}, current);
 
 	last.session_id 	= window.nuSESSION;
 	last.call_type 		= 'getphp';
@@ -574,7 +577,8 @@ function nuUpdateData(action, instruction){
 		if(nuBeforeSave() === false ){return;}
 	}
 
-	var last				= window.nuFORM.getCurrent();
+	var current				= window.nuFORM.getCurrent();
+	var last		 		= $.extend(true, {}, current);
 
 	var f					= last.form_id;
 	var r					= last.record_id;
