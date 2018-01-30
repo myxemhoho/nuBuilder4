@@ -150,7 +150,9 @@ class nuSelectObject{
 	}
 
 	buildSQL(c, b){
-		
+
+		if(parent.$('#sse_edit').val() == 1){return;}
+
 		nuAngle();
 	
 		var s 	= this.buildSelect(c, b);

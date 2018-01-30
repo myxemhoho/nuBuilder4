@@ -2329,15 +2329,20 @@ function nuSearchPressed(e){
 
     if(e.keyCode == 13 && window.nuBROWSEROW == -1){                    //-- enter key
         $('#nuSearchButton').click();
-    }
-
-    if(e.keyCode == 13 && window.nuBROWSEROW != -1){                    //-- enter key
+    }else if(e.keyCode == 13 && window.nuBROWSEROW != -1){              //-- enter key
 	
 		var i	= '#nucell_' + window.nuBROWSEROW + '_0';
 		
 		nuSelectBrowse('', $(i)[0]);
 
-    }
+    }else{
+
+		window.nuBROWSEROW = -1;
+		$("[data-nu-row]").addClass('nuBrowseTable');
+		$("[data-nu-row]").removeClass('nuSelectBrowse');
+
+	}
+
 
 
 }

@@ -161,12 +161,12 @@ function nuUpdateDatabase(){
 					
 				}
 				
-				$V					= [];																		//-- primary key id
+				$V					= [];																//-- primary key id
 				$I					= [];
 				
 				if($nv != 'autoid'){
 						
-					$V[]			= $id;																	//-- primary key id
+					$V[]			= $id;																//-- primary key id
 					$I[]			= $pk;
 					
 				}
@@ -186,7 +186,7 @@ function nuUpdateDatabase(){
 
 					if($edit[$R] == 1 or $isAN){														//-- has been edited
 					
-						if($cts[$table] == ''){														//-- not valid table name
+						if($cts[$table] == ''){															//-- not valid table name
 
 							if($form_type == 'launch'){
 								nuDisplayError("Launch Forms Cannot Be Saved");
@@ -335,10 +335,7 @@ function nuUpdateDatabase(){
 		nuEval($EFid . '_AS');
 	}
 
-	return $nuMainID;
-
-
-
+	return $_POST['nuHash']['RECORD_ID'];
 	
 }
 
@@ -553,6 +550,10 @@ function nuHasNewRecordID(){
 
 function nuChangeHashVariable($h, $v){
 	$_POST['nuHash'][$h]	= $v;
+}
+
+function nuReturnNewRecord(){
+	$_POST['nuHash']['RECORD_ID'] = -1;
 }
 
 

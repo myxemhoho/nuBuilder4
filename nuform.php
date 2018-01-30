@@ -518,7 +518,6 @@ function nuGetLookupValues($R, $O){
     $t 			= nuRunQuery($s);
     $l 			= db_fetch_row($t);
 	$f			= $_POST['nuSTATE']['prefix'] . $O->id;
-nudebug($s, $l, $O);
 
 	nuRunQuery(nuReplaceHashVariables('DROP TABLE if EXISTS #TABLE_ID#'));
 	
