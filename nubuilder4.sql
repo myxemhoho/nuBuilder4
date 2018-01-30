@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2018 at 10:06 AM
+-- Generation Time: Jan 30, 2018 at 11:22 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -744,7 +744,7 @@ INSERT INTO `zzzzsys_php` (`zzzzsys_php_id`, `sph_code`, `sph_description`, `sph
 ('nuform_AD', 'nuform_AD', 'System PHP', '', 'nuDeleteForm(''#RECORD_ID#'');', '', '', '1', ''),
 ('nufastform', 'RUNFF', 'Run Fast Form', 'nubuilder', 'nuBuildFastForm(''#fastform_table#'', ''#fastform_type#'');\n\n', '', 'nufflaunch', '1', ''),
 ('nuobject_BB', 'nuobject_BB', 'System PHP', '', '\n$s  = "CREATE TABLE #TABLE_ID# SELECT zzzzsys_object_id AS theid FROM zzzzsys_object WHERE ";\n$w  = "1";\n\nif($GLOBALS[''nuSetup'']->set_denied == 1){\n    $w  = "sob_all_zzzzsys_form_id NOT LIKE ''nu%'' OR sob_all_zzzzsys_form_id = ''nuuserhome''";\n}\n\nnuRunQuery("$s$w");\n\n', '', '', '1', ''),
-('nuform_BB', 'nuform_BB', 'System PHP', '', '\n$s  = "CREATE TABLE #TABLE_ID# SELECT zzzzsys_form_id AS theid FROM zzzzsys_form WHERE ";\n$w  = "1";\n\nif($GLOBALS[''nuSetup'']->set_denied == 1){\n    $w  = "zzzzsys_form_id NOT LIKE ''nu%''";\n}\n\nnuRunQuery("$s$w");\n', '', '', '1', ''),
+('nuform_BB', 'nuform_BB', 'System PHP', '', '\n$s  = "CREATE TABLE #TABLE_ID# SELECT zzzzsys_form_id AS theid FROM zzzzsys_form WHERE ";\n$w  = "1";\n\nif($GLOBALS[''nuSetup'']->set_denied == 1){\n    $w  = "zzzzsys_form_id NOT LIKE ''nu%'' OR zzzzsys_form_id = ''nuuserhome''";\n}\n\nnuRunQuery("$s$w");\n', '', '', '1', ''),
 ('nuphp_BB', 'nuphp_BB', 'System PHP', '', '\n$s  = "CREATE TABLE #TABLE_ID# SELECT zzzzsys_php_id AS theid FROM zzzzsys_php WHERE ";\n$w  = "sph_system != 1";\n\nnuRunQuery("$s$w");\n\n', '', '', '1', ''),
 ('nuselect_BS', 'nuselect_BS', 'System PHP', '', '$rid    = ''#RECORD_ID#'';\n\nif($rid != ''-1'' and $rid != ''-2''){ \n    \n    $s      = "SELECT * FROM zzzzsys_select WHERE zzzzsys_select_id = ''$rid''";\n    $t      = nuRunQuery($s);\n    $r      = db_fetch_object($t);\n    \n    if(db_num_rows($t) == 0){\n        \n        $s              = "\n        INSERT INTO zzzzsys_select\n        (zzzzsys_select_id, sse_system)\n        VALUES\n        (''$rid'', ''1'')\n        ";\n        \n        nuRunQuery($s);\n        \n    }\n    \n}\n\n', '', '', '1', ''),
 ('nuphp_BE', 'nuphp_BE', 'System PHP', 'nubuilder', '$rid    = ''#RECORD_ID#'';\n\nif($rid != ''-1'' and $rid != ''-2''){ \n    \n    $s      = "SELECT * FROM zzzzsys_php WHERE zzzzsys_php_id = ''$rid''";\n    $t      = nuRunQuery($s);\n    $r      = db_fetch_object($t);\n    \n    if(db_num_rows($t) == 0){\n    \n        $s              = "\n        INSERT INTO zzzzsys_php\n        (\n            zzzzsys_php_id,\n            sph_code,\n            sph_description,\n            sph_group,\n            sph_system\n        )\n        VALUES\n        (\n            ''$rid'', \n            ''$rid'', \n            ''System PHP'', \n            ''nubuilder'', \n            ''1''\n        )\n        ";\n        \n        nuRunQuery($s);\n        \n    }\n    \n}\n\n', '', '', '1', ''),
@@ -778,7 +778,7 @@ INSERT INTO `zzzzsys_php` (`zzzzsys_php_id`, `sph_code`, `sph_description`, `sph
 ('nudebug_BB', 'nudebug_BB', 'System PHP', 'nubuilder', '', '', '', '1', ''),
 ('nudebug_AD', 'nudebug_AD', 'System PHP', 'nubuilder', '', '', '', '1', ''),
 ('nutab_BB', 'nutab_BB', 'System PHP', 'nubuilder', '', '', '', '1', ''),
-('nutablookup_BB', 'nutablookup_BB', 'System PHP', 'nubuilder', '\n$s  = "CREATE TABLE #TABLE_ID# SELECT zzzzsys_form_id AS theid FROM zzzzsys_form WHERE ";\n$w  = "1";\n\nif($GLOBALS[''nuSetup'']->set_denied == 1){\n    $w  = "zzzzsys_form_id NOT LIKE ''nu%''";\n}\n\nnuRunQuery("$s$w");\n', '', '', '1', '');
+('nutablookup_BB', 'nutablookup_BB', 'System PHP', 'nubuilder', '\n$s  = "CREATE TABLE #TABLE_ID# SELECT zzzzsys_form_id AS theid FROM zzzzsys_form WHERE ";\n$w  = "1";\n\nif($GLOBALS[''nuSetup'']->set_denied == 1){\n    $w  = "zzzzsys_form_id NOT LIKE ''nu%'' OR zzzzsys_form_id = ''nuuserhome''";\n}\n\nnuRunQuery("$s$w");\n', '', '', '1', '');
 
 -- --------------------------------------------------------
 
