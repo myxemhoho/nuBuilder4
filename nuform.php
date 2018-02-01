@@ -63,9 +63,10 @@ function nuBeforeEdit($FID, $RID){
 		
 	}
 
-
+	if($RID != ''){
+		nuEval($FID . '_BE');
+	}
 	
-	nuEval($FID . '_BE');
     $GLOBALS['EXTRAJS']		.= $r->sfo_javascript;
 	
 }
