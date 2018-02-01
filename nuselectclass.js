@@ -174,12 +174,6 @@ class nuSelectObject{
 			parent.$('#nuSaveButton').show();
 			
 		}
-/*
-        parent.$('#nuSaveButton')
-        .val("Save")
-		.unbind('click')
-		.attr('onclick', 'nuSaveAction()');
-*/		
 	}
 	
 	buildSelect(c, b){				//-- checkbox type, boxID
@@ -275,15 +269,16 @@ class nuSelectObject{
 							
 							var a2	= this.buildAlias(ob.tables[0], ob.aliases[0]);
 							A		= this.justAlias(ob.tables[0], ob.aliases[0]);
-							defined.push(A);
 							
 						}else{
 							
 							var a2	= this.buildAlias(ob.tables[1], ob.aliases[1]);
 							A		= this.justAlias(ob.tables[1], ob.aliases[1]);
-							defined.push(A);
 							
 						}
+						
+						defined.push(A);
+							
 						this.markTableAsUsed(ob.aliases[0]);
 						this.markTableAsUsed(ob.aliases[1]);
 						this.markTableAsUsed(ob.tables[0]);
@@ -381,6 +376,15 @@ class nuSelectObject{
 	getJoinObject(a){
 	
 		var tj		= this.tempJoins;
+		var aList	= [];
+		
+		for(var i = 0 ; i < a.length ; i++){
+			
+			var s	= a[i].split(' ');
+			
+			aList.push(s[0]);
+			aList.push(s[s.length - 1]);
+		}
 		
 		for(var i = 0 ; i < tj.length ; i++){
 			
@@ -389,9 +393,8 @@ class nuSelectObject{
 			var j	= this.justAlias(o.tables[0], o.aliases[0]);
 			var J	= this.justAlias(o.tables[1], o.aliases[1]);
 			
-//			if(a.indexOf(o.tables[0]) != -1 || a.indexOf(o.tables[1]) != -1){
-			if(a.indexOf(j) != -1 || a.indexOf(J) != -1){
-				
+			if(aList.indexOf(j) != -1 || aList.indexOf(J) != -1){
+console.log(j, J, aList);
 				var r	= this.tempJoins.splice(i, 1);
 				
 				return [true,o];

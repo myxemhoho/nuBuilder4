@@ -552,8 +552,9 @@ function nuChangeHashVariable($h, $v){
 	$_POST['nuHash'][$h]	= $v;
 }
 
-function nuReturnNewRecord(){
-	$_POST['nuHash']['RECORD_ID'] = -1;
+function nuReturnNewRecord($i = -1){
+	
+	$_POST['nuHash']['RECORD_ID'] = $i;
 }
 
 
