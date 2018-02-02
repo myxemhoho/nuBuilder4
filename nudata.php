@@ -52,6 +52,7 @@ function nuValidateSubforms(){
 							if($d == 0){
 								nuDisplayError("$label cannot be left blank");
 							}else{
+								nudebug($sf->rows[$i],$sf);
 								nuDisplayError("$label on row $noz cannot be left blank $slabel");
 							}
 							

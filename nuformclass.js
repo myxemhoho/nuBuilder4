@@ -421,7 +421,9 @@ class nuFormObject {
 			var oi		= $('#' + sf).attr('data-nu-object-id');
 			var fk		= $('#' + sf).attr('data-nu-foreign-key-name');
 			var pk		= $('#' + sf).attr('data-nu-primary-key-name');
-			
+			var nd		= $('#' + sf).attr('data-nu-delete');
+			var na		= $('#' + sf).attr('data-nu-add');
+
 		}
 		
 		var o			= {'id':id, 'foreign_key':fk, 'primary_key':pk, 'object_id':oi, 'table':table, 'action':action};	//-- foreign_key id id Form's record_id (which might change if cloned.)
@@ -529,6 +531,18 @@ class nuFormObject {
 			}
 			
 			o.chartDataPivot.push(row);
+			
+		}
+		
+		if(nd == 0){								//-- no deleting allowed
+		
+			for(var i = 0 ; i < o.rows.length ; i ++){
+				o.deleted[i]	= 0;
+			}
+			
+			if(na == 1){
+				o.deleted[o.deleted.length - 1]	= 1;
+			}
 			
 		}
 		

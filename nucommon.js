@@ -769,6 +769,15 @@ function nuEnable(i){                 //-- Enable Edit Form Object
 		.prop('disabled', false);
 		
 	}
+	
+	if(c == 2){										//-- button
+		
+		$('#' + o[c])
+		.on( "click", function() {
+		  nuBuildLookup(this,"");
+		})
+		
+	}
 
 }
 
@@ -788,7 +797,7 @@ function nuReadonly(i){  			               //-- set Edit Form Object to readonly
 }
 
 
-function nuDisable(i){                 //-- Disable Edit Form Object
+function nuDisable(i){                 	//-- Disable Edit Form Object
 
 	var o	= [i, i + 'code', i + 'button', i + 'description'];
 	
@@ -799,12 +808,18 @@ function nuDisable(i){                 //-- Disable Edit Form Object
 		.prop('readonly', true)
 		.prop('disabled', true);
 		
+		if(c == 2){						//-- button
+			
+			$('#' + o[c]).off();
+			
+		}
+		
 	}
 
 }
 
 
-function nuShow(i){                 //-- Show Edit Form Object
+function nuShow(i){                 	//-- Show Edit Form Object
 
 	var o	= [i, i + 'code', i + 'button', i + 'description', 'label_' + i];
 	
