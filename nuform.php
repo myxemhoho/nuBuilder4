@@ -405,10 +405,10 @@ function nuGetEditForm($F, $R){
 		$f->row_height	= intval($r->sfo_browse_row_height);
 	}
     
-	if(intval($r->sfo_browse_rows_per_page) == 0){
+	if($r->sfo_browse_rows_per_page == 0){
 		$f->rows	= 20;
 	}else{
-		$f->rows	= intval($r->sfo_browse_rows_per_page);
+		$f->rows	= $r->sfo_browse_rows_per_page;
 	}
 
     $f->title		= nuBreadcrumbDescription($r, $R);
@@ -808,13 +808,13 @@ function nuBrowseRows($f){
 	
 	$P				= $_POST['nuSTATE'];
 	$rows			= $P['rows'];
-
 	if($rows == ''){
 		$rows		= $f->rows;
 	}
+if($f->form_id =='nuform'){nudebug($rows);}
 
 	if($rows == '0'){
-		$rows		= 25;
+		$rows		= nuFormProperties($f->form_id)->sfo_browse_rows_per_page;
 	}
 
 	$page_number	= $P['page_number'];
