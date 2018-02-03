@@ -411,7 +411,7 @@ function nuRecordProperties(w, p, l){
 
 	chk.setAttribute('id', de);
 	chk.setAttribute('title', nuTranslate('Delete This Row When Saved'));
-	chk.setAttribute('type', 'checkbox');
+	chk.setAttribute('type', w.deletable == '0'?'text':'checkbox');
 	chk.setAttribute('onclick', 'nuChange(event)');
 
 	$('#' + fh)
