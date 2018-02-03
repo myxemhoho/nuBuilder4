@@ -816,8 +816,9 @@ function nuBrowseRows($f){
 
 	if($rows == '0'){
 		$rows		= 20;
+//		$rows		= nuFormProperties($f->form_id)->sfo_browse_rows_per_page;
 	}
-//if($f->form_id =='nuform'){nudebug($rows, $rowsw);}
+if($f->form_id =='nuform'){nudebug($rows, $rowsw);}
 
 	$page_number	= $P['page_number'];
 	$start			= $page_number * $rows;
