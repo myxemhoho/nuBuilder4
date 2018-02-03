@@ -439,7 +439,7 @@ function nuRecordProperties(w, p, l){
 			'visibility'	: 'visible'})
 			
 		if(w.deletable == '0'){				//-- Fike
-			$('#' + de).css({'width' : 1, 'height' : 1, 'left' : -1, 'top' : -1})			//-- allows tabbing when there is no checkbox.
+			$('#' + de).css({'width' : 0, 'height' : 0, 'left' : -10, 'top' : 10})			//-- allows tabbing when there is no checkbox.
 		}
 		
 	}else{
