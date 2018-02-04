@@ -809,17 +809,17 @@ function nuBrowseRows($f){
 	$P				= $_POST['nuSTATE'];
 	$rows			= $P['rows'];
 	$rowsw			= $P['rows'];
-	
-	if($rows == ''){
-		$rows		= $f->rows;
+
+
+	if($rows == -1){
+		$rows		= nuFormProperties($f->form_id)->sfo_browse_rows_per_page;
 	}
 
-	if($rows == '0'){
+	if($rows == 0){
 		$rows		= 20;
-//		$rows		= nuFormProperties($f->form_id)->sfo_browse_rows_per_page;
 	}
-if($f->form_id =='nuform'){nudebug($rows, $rowsw);}
 
+//if($f->form_id =='5a74d7d036a72ea'){nudebug($rowsw, $rows);}
 	$page_number	= $P['page_number'];
 	$start			= $page_number * $rows;
 	$search			= str_replace('&#39;', "'", $P['search']);
