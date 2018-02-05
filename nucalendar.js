@@ -16,7 +16,7 @@ function nuAppendChild(p,t,i){
 	
 }
 
-function nuPopupCalendar(pThis){
+function nuPopupCalendar(pThis, d){
 
 	if(pThis === null){return;}
 
@@ -27,7 +27,13 @@ function nuPopupCalendar(pThis){
 	
 	var o	= $('#' + window.nuCalendarCaller);
 	var f	= o.attr('data-nu-format');
-	var v	= o.val();
+	
+	if(d === undefined){									//-- added by toms
+		var v	= o.val();
+	}else{
+		var v	= d;
+	}
+	
 	var u	= nuFORM.removeFormatting(v, f);
 
 	var i					= pThis.id; 					//-- Object ID;
