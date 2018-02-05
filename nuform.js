@@ -2251,7 +2251,7 @@ function nuBrowseTable(){
 
 	var pg	= '&nbsp;Page&nbsp;';
 	var cu	= '<input id="browsePage" style="text-align:center;margin:3px 0px 0px 0px;width:40px" onchange="nuGetPage(this.value)" value="' + (bc.page_number + 1) + '" class="browsePage"/>';
-	var of	= '&nbsp;/&nbsp;' + bc.pages + '&nbsp;';
+	var of	= '&nbsp;/&nbsp;' + (bc.pages==0?1:bc.pages) + '&nbsp;';
 
 	var id	= 'nuBrowseFooter';
 	var div = document.createElement('div');
