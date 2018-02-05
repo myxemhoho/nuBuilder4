@@ -874,7 +874,7 @@ function nuBrowseRows($f){
 	
 	$t 				= nuRunQuery($s);
 	$rowData		= db_num_rows($t);
-	$s				.= " LIMIT $start, $rows";
+	$s				.= " LIMIT " . ($start<0?0:$start) . ", $rows";
 	$t 				= nuRunQuery($s);
 
 	while($r = db_fetch_row($t)){
