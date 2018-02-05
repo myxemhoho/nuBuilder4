@@ -2820,6 +2820,7 @@ function nuDeleteAllAction(){
 	
 }
 
+
 function nuCloneAction(){
 	
 	$('[data-nu-primary-key]').each(function(index){

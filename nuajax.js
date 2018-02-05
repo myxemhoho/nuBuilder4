@@ -616,6 +616,15 @@ function nuUpdateData(action, instruction){
 			
 			if($('#nuDelete').prop('checked')){
 				
+				if (action == "delete" && instruction == "all" && fm.record_id == ""){
+					
+					nuSearchAction();
+					nuGetBreadcrumb();
+					return;
+					
+				}
+				
+				
 				window.nuFORM.removeLast();						//-- return to browse
 				nuGetBreadcrumb();
 				
