@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2018 at 08:00 AM
+-- Generation Time: Feb 06, 2018 at 09:24 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -523,8 +523,8 @@ INSERT INTO `zzzzsys_object` (`zzzzsys_object_id`, `sob_all_zzzzsys_form_id`, `s
 ('nu5a54e24200f068a', 'nuuser', 'zzzzsys_user', 'input', 'sus_name', 'Name', 'nu5a54e24235c85e1', 10, 53, 150, 300, 18, '1', 'left', '2', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5a54e242018931c', 'nuuser', 'zzzzsys_user', 'input', 'sus_email', 'Email', 'nu5a54e24235c85e1', 20, 84, 150, 300, 18, '1', 'left', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5a54e24201f5c3e', 'nuuser', 'zzzzsys_user', 'input', 'sus_login_name', 'Login Name', 'nu5a54e24235c85e1', 50, 166, 150, 200, 18, '1', 'left', '2', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
-('nu5a54e242023cfc9', 'nuuser', 'zzzzsys_user', 'input', 'new_password', 'Enter New Password', 'nu5a54e24235c85e1', 60, 196, 150, 200, 18, '1', 'left', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'password', '', '', '', '', '', '', '', ''),
-('nu5a54e242027daab', 'nuuser', 'zzzzsys_user', 'input', 'check_password', 'Reenter New Password', 'nu5a54e24235c85e1', 70, 226, 150, 200, 18, '1', 'left', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'password', '', '', '', '', '', '', '', ''),
+('nu5a54e242023cfc9', 'nuuser', 'zzzzsys_user', 'input', 'new_password', 'Enter New Password', 'nu5a54e24235c85e1', 60, 196, 150, 200, 18, '1', 'left', '0', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'password', '', '', '', '', '', '', '', ''),
+('nu5a54e242027daab', 'nuuser', 'zzzzsys_user', 'input', 'check_password', 'Reenter New Password', 'nu5a54e24235c85e1', 70, 226, 150, 200, 18, '1', 'left', '0', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'password', '', '', '', '', '', '', '', ''),
 ('nu5a54e24202e3351', 'nuuser', 'zzzzsys_user', 'lookup', 'sus_zzzzsys_access_id', 'Access Level', 'nu5a54e24235c85e1', 40, 136, 150, 100, 18, '1', 'left', '1', '0', '', '', '', '', '', '', '', '', '', '', 'sal_code', 'sal_description', '200', '', 'nuaccess', '', '', 'zzzzsys_access', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5a54e2420398064', 'nuphp', 'zzzzsys_php', 'input', 'sph_code', 'Code', 'nu5a54e2423584601', 10, 12, 142, 136, 18, '1', 'left', '1', '0', '', '', '', '', '', '', '', '', '', 'browse|Browse|edit|Edit|browseedit|Browse and Edit|criteria|Criteria or Home|procedure|Procedure|report|Report', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5a54e2420448a29', 'nusetup', 'zzzzsys_setup', 'word', 'wrdauth', 'Auth SMTP Information', 'nu5a54e24237ea85e', 40, 42, 172, 200, 18, '1', 'center', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'number', '', '', '', '', '', '', '', ''),
