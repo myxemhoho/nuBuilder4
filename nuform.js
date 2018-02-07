@@ -1321,6 +1321,11 @@ function nuAddSubformRow(t, e){
 	
 	$('.nuTabSelected').click();
 
+	$('#' + o.form + nuPad3(o.rows) + 'nuRECORD > .nuLookupButton')
+	.on( "click", function() {
+	  nuBuildLookup(this,"");
+	})
+	
 	eval(after);
 	
 }
@@ -2694,6 +2699,8 @@ function nuChange(e){
 	nuAddSubformRow(t, e);
 	
 }
+
+
 
 function nuChangeFile(e){
 
