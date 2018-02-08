@@ -2781,7 +2781,7 @@ function nuCalculateForm(setAsEdited){	//-- calculate subform 'calcs' first
 		}
 		
 		var fixed		= nuFORM.addFormatting(v, fmt);
-		
+
 		$(this).val(fixed);
 		
 	});	
@@ -3155,6 +3155,7 @@ function nuGetSearchList(){
 	$('#nuSearchList').css({'height' : 50 + (c.length * 20)});
 	
 }
+
 
 function nuTotal(f){
 	return Number(nuFORM.calc(f));

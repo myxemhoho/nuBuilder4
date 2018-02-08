@@ -344,7 +344,8 @@ class nuFormObject {
 
 					if(SF.deleted[c] == 0){										//-- add up only stuff not being deleted
 						
-						u	= nuFORM.removeFormatting(SF.rows[c][f], fmt);
+//						u	= nuFORM.removeFormatting(SF.rows[c][f], fmt);
+						u	= SF.rows[c][f];
 						v	= parseFloat(Number(v) + Number(u)).toPrecision(10)
 						
 					}
