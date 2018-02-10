@@ -896,9 +896,9 @@ function nuMove(e){
 	if(window.nuCurrentID == ''){return;}
 
 	var el						= $('#' + window.nuCurrentID);
-	
-	if(el.hasClass('nuTableName')){
 
+	if(el.hasClass('nuTableName')){
+		
 		if(e.buttons == 1){
 			
 			if(e.clientY - window.nuY > 0){
