@@ -138,7 +138,7 @@ function nuUpdateDatabase(){
 		for($r = 0 ; $r < count($rows) ; $r++){
 			
 			if(nuEditedRow($edited[$r])){
-				
+nudebug(88)				;
 				$F					= array();
 				$I					= array();
 				$V					= array();

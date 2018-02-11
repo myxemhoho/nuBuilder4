@@ -626,6 +626,11 @@ function nuINPUT(w, i, l, p, prop){
 		if(input_type == 'button'){
 			$('#' + id).val(nuTranslate(w.objects[i].value))
 		}else{
+			
+			if(input_type == 'datetime-local'){													//-- replace ' ' between date and time with 'T'
+				w.objects[i].value = w.objects[i].value.replace(' ','T');
+			}
+			
 			$('#' + id).val(nuFORM.addFormatting(w.objects[i].value, w.objects[i].format));
 		}
 	
