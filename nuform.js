@@ -1640,15 +1640,14 @@ function nuSetStartingTab(p, w){
 		nuFORMHELP[p] 	= nuTABHELP[w.tabs[0].id]
 	}
 	
-	
 	for(var i = 0 ; i < t.length ; i++){
 		
-		nuFORMHELP[p] 	= nuTABHELP[w.tabs[i].id]
+		nuFORMHELP[p] 	= nuTABHELP[w.tabs[0].id];
 		
 		if(t[i].prefix == p){return;}
 		
 	}
-	
+
 	t.push(new nuStartingTab(p));
 	
 }
