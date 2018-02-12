@@ -64,7 +64,8 @@ function nuForm(f, r, filter, search, n, like){
 	last.call_type		= 'getform';
 	last.form_id 		= f;
 	last.record_id		= r;
-	last.filter 		= filter;
+	//last.filter 		= filter;
+	last.filter 		= window.nuFILTER;
 	last.search 		= search;
     last.hash	 		= parent.nuHashFromEditForm();
     last.AAA	 		= 'hw';

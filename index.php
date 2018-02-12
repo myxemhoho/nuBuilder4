@@ -247,6 +247,7 @@ window.nuHASH			= [];
 				nuRunPHP(p.record_id, p.parameters);
 			} else {
 				window.filter				= p.filter;
+				window.nuFILTER				= p.filter;
 				nuForm(p.form_id, p.record_id, p.filter, '$search', 0, '$like');
 				
 			}
