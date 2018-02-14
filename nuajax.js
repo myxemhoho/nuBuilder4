@@ -607,10 +607,10 @@ function nuUpdateData(action, instruction){
 		
 		var fm 				= data;
 
-		$('.nuActionButton').show();
-		
 		if(nuDisplayError(fm)){
 			
+			$('.nuActionButton').show();
+		
 			nuAbortSave();
 			
 		}else{

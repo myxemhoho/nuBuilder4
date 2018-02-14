@@ -691,6 +691,16 @@ input[type=range]::-webkit-slider-runnable-track {
   opacity: 0.70;
 }
 
+#nuPopupModal {
+  background-color: grey;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.0;
+}
+
 .nuDragOptionsField {
     background-color: #9BD16F;
 }
