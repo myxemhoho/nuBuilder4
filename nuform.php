@@ -819,7 +819,6 @@ function nuBrowseRows($f){
 		$rows		= 20;
 	}
 
-//if($f->form_id =='5a74d7d036a72ea'){nudebug($rowsw, $rows);}
 	$page_number	= $P['page_number'];
 	$start			= $page_number * $rows;
 	$search			= str_replace('&#39;', "'", $P['search']);
