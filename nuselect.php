@@ -43,12 +43,17 @@ body  {
 		if(!nuSQL.rebuildGraphic()){
 			return;
 		}
-		
-		$('body')
-		.attr('onmousemove', 	'nuMove(event)')
-		.attr('onmousedown', 	'nuDown(event)')
-		.attr('onmouseup', 		'nuUp(event)')
-		.css('zoom', Number(parent.$('#sse_resize').val()) / 100)
+
+        $(document).mousemove(function(){
+            nuMove(event);
+        });
+        $(document).mousedown(function(){
+            nuDown(event);
+        });
+        $(document).mouseup(function(){
+            nuUp(event);
+        });
+        $('body').css('zoom', Number(parent.$('#sse_resize').val()) / 100)
 		.css('transform', Number(parent.$('#sse_resize').val()) / 100)
 		
 		parent.nuHasNotBeenEdited();
