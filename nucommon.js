@@ -390,13 +390,15 @@ function nuCreateDialog(t){
 			'z-index'			: 3000, 
 			'position'			: 'absolute'
 		})
-		.html('<div id="dialogTitle" ondblclick="nuResizeWindow(event)" style="background-color:#CCCCCC ;position:absolute;width:100%;height:35px;font-size:16px;font-family:Helvetica"><div id="dialogTitleWords" style="padding-top: 9px;height:30px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+translation+'</div><img id="dialogClose" src="graphics/close.png" style="position:absolute; top:2px; left:0px"></div>')
+		.html('<div id="dialogTitle" style="background-color:#CCCCCC ;position:absolute;width:100%;height:35px;font-size:16px;font-family:Helvetica"><div id="dialogTitleWords" style="padding-top: 9px;height:30px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+translation+'</div><img id="dialogClose" src="graphics/close.png" style="position:absolute; top:2px; left:0px"></div>')
+//		.html('<div id="dialogTitle" ondblclick="nuResizeWindow(event)" style="background-color:#CCCCCC ;position:absolute;width:100%;height:35px;font-size:16px;font-family:Helvetica"><div id="dialogTitleWords" style="padding-top: 9px;height:30px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+translation+'</div><img id="dialogClose" src="graphics/close.png" style="position:absolute; top:2px; left:0px"></div>')
 
 		$('body')
 		.on('mousemove.popup', 	function(event){nuDialog.move(event);})
-		.on('click.popup',     	function(event){nuDialog.click(event);})
+//		.on('click.popup',     	function(event){nuDialog.click(event);})
 		.on('mousedown.popup', 	function(event){nuDialog.down(event);})
 		.on('mouseup.popup', 	function(event){window.nuCurrentID='';$('#nuPopupModal').remove();})
+		.on('dblclick.popup', 	function(event){nuResizeWindow(event);})
 
 		this.startX = l;
 		this.startY = t;
@@ -923,6 +925,8 @@ function nuDuplicates(arr){
 
 
 function nuResizeWindow(e){
+
+	if(e.target.id != 'dialogTitleWords'){return;}
 
 	var d	= $('#nuDragDialog');
 	var D	= $('.nuDragOptionsBox');
