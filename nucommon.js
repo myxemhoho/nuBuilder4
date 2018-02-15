@@ -345,11 +345,11 @@ function nuCreateDialog(t){
 			$('#nuModal').remove();
 			$('body').off('.popup');
 			
-			return;
-			
 		}
 		
-		$('#nuDragDialog').append('<div id="nuPopupModal"></div>');
+		if(event.target.id == 'nuDragDialog'){
+			$('#nuDragDialog').append('<div id="nuPopupModal"></div>');
+		}
 		
 	}
 
@@ -395,7 +395,7 @@ function nuCreateDialog(t){
 
 		$('body')
 		.on('mousemove.popup', 	function(event){nuDialog.move(event);})
-//		.on('click.popup',     	function(event){nuDialog.click(event);})
+		.on('click.popup',     	function(event){nuDialog.click(event);})
 		.on('mousedown.popup', 	function(event){nuDialog.down(event);})
 		.on('mouseup.popup', 	function(event){window.nuCurrentID='';$('#nuPopupModal').remove();})
 		.on('dblclick.popup', 	function(event){nuResizeWindow(event);})
