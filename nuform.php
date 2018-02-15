@@ -118,7 +118,7 @@ function nuGetFormObject($F, $R, $OBJS, $P = stdClass){
 			$o 						= nuDefaultObject($r, $tabs);
 			
 			if($R == '-1'){
-				$o->value			= nuGetSQLValue($r->sob_all_default_value_sql);
+				$o->value			= '';//nuGetSQLValue($r->sob_all_default_value_sql);
 			}else{
 				$o->value			= $A[$r->sob_all_id];
 			}
