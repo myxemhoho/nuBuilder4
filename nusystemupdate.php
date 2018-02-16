@@ -163,7 +163,7 @@ function nuUpdateSystemRecords(){									//-- after zzzzsys files have been imp
 
 				$sql= "ALTER TABLE sys_$table DROP COLUMN $field";
 				nuRunQuery($sql);
-				print "<BR>$sql<br><br>";
+//				print "<BR>$sql<br><br>";
 				
 			}
 			
