@@ -1,12 +1,17 @@
 
 window.nuDialog 				= new nuCreateDialog('');
 window.nuFORM					= new nuFormObject();
-window.nuNEW					= '';
+window.nuHideMessage 			= true;
 window.nuDragID					= 1000;
+window.nuNEW					= '';
 window.nuColor					= '';
 window.nuImage					= '';
+window.nuSESSION				= '';
+window.nuDRAGLINEVSTART			= '';
+window.nuDRAGLINEVID			= '';
+window.nuLASTRECORD				= '';
+window.nuMESSAGES				= [];
 window.nuImages					= [];
-window.nuHideMessage 			= true;
 window.nuOPENER					= [];
 window.nuSUBFORMROW				= [];
 window.nuSUBFORMJSON			= [];
@@ -16,10 +21,6 @@ window.nuFIELD					= [];
 window.nuHASH					= [];
 window.nuBEFORE					= [];
 window.nuAFTER					= [];
-window.nuSESSION				= '';
-window.nuDRAGLINEVSTART			= '';
-window.nuDRAGLINEVID			= '';
-window.nuLASTRECORD				= '';
 window.nuBROWSERESIZE 			= {
 									x_position				: 0, 
 									mouse_down				: false, 
@@ -128,7 +129,7 @@ function nuDisplayError(e){
 
 	nuMessage(e.errors);
 
-	return true;
+	return e.after_event == false;								//-- errors are really just messages if from after save or after delete.
 	
 }
 

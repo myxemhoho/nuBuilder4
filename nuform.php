@@ -584,7 +584,7 @@ function nuGetAllLookupList(){
 					SELECT $id, $code, $description
 					$SQL->from
 					$SQL->where
-					AND $code LIKE ? OR $description LIKE ?
+					AND ($code LIKE ? OR $description LIKE ?)
 					AND '$C' != ''
 					ORDER BY $code
 					";
@@ -598,6 +598,7 @@ function nuGetAllLookupList(){
 	$_POST['nuHash']['TABLE_ID'] = $was;
 	
 	while($r = db_fetch_row($t)){
+		nudebug($s, $C,$r);
 		$a[]		= $r;
 	}
 

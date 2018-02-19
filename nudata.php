@@ -335,6 +335,8 @@ function nuUpdateDatabase(){
 		nuEval($EFid . '_AS');
 	}
 
+	$_POST['nuAfterEvent'] = true;
+
 	return $_POST['nuHash']['RECORD_ID'];
 	
 }

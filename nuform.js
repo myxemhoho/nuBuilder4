@@ -136,6 +136,13 @@ function nuBuildForm(f){
 	}
 
 	$('#nuSearchField').focus();
+	
+	if(window.nuMESSAGES.length > 0){
+		
+		nuMessage(window.nuMESSAGES);
+		window.nuMESSAGES	= [];
+		
+	}
 
 }
 

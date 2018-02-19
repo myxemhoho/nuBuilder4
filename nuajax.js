@@ -618,6 +618,10 @@ function nuUpdateData(action, instruction){
 			
 		}else{
 			
+			if(fm.after_event){
+				nuMESSAGES	= fm.errors;
+			}
+			
 			if($('#nuDelete').prop('checked')){
 				
 				if (action == "delete" && instruction == "all" && fm.record_id == ""){

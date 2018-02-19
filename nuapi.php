@@ -28,6 +28,7 @@
 
 	$_POST['nuValidate']					= array();
 	$_POST['nuCallback']					= '';
+	$_POST['nuAfterEvent']					= false;
 
 	$CT										= $P['call_type'];
 	$f->forms[0]							= new stdClass;
@@ -52,6 +53,7 @@
 		
     }
 
+	$f->forms[0]->after_event				= $_POST['nuAfterEvent'];
 	$f->forms[0]->user_name					= nuUser($U['USER_ID'])->sus_name;
 	$f->forms[0]->access_level_code			= $U['ACCESS_LEVEL_CODE'];
 	$f->forms[0]->user_id					= $U['USER_ID'];
