@@ -451,9 +451,16 @@ function nuGetOtherLookupValues($o){
 	$s								= "SELECT * FROM $f->sfo_table WHERE $f->sfo_primary_key  = ? ";
 	$t								= nuRunQuery($s, [$l]);
 	$_POST['lookup_row']			= db_fetch_object($t);
-
+	
 	if(db_num_rows($t) == 1){
 		$_POST['lookup_row']->ID	= $l;
+	}
+	
+	if(db_num_rows($t) == 0){
+
+		$_POST['lookup_row']		= new stdClass;
+		$_POST['lookup_row']->ID	= '';
+		
 	}
 	
 	$_POST['lookup_values']			= array();
@@ -578,6 +585,7 @@ function nuGetAllLookupList(){
 					$SQL->from
 					$SQL->where
 					AND $code LIKE ? OR $description LIKE ?
+					AND '$C' != ''
 					ORDER BY $code
 					";
 
@@ -597,7 +605,7 @@ function nuGetAllLookupList(){
 	$f->lookup_like			= $like;
 	$f->lookup_values		= $a;
 	$f->lookup_javascript	= $js;
-	
+
 	return $f;
 	
 }

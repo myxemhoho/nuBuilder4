@@ -512,6 +512,7 @@ function nuGetLookupId(pk, id){
 
 function nuGetLookupCode(e){
 
+/*
 	if(e.target.value == ''){			//-- set to blank
 		
 		var id				= e.target.id.substr(0, e.target.id.length - 4);
@@ -526,6 +527,8 @@ function nuGetLookupCode(e){
 		return;
 		
 	}
+
+*/	
 	
 	var last				= window.nuFORM.getCurrent();
 
