@@ -39,7 +39,11 @@ function nuAjax(w,successCallback,errorCallback){
 function nuForm(f, r, filter, search, n, like){
 	
 	if(n == 2){
+		
 		window.nuNEW	= 1;
+		filter			= '';
+		search			= '';
+		
 	}
 	
 	if(like==undefined){
@@ -59,13 +63,27 @@ function nuForm(f, r, filter, search, n, like){
 	}
 
 	var current			= window.nuFORM.getCurrent();
+	
+	if(current.filter == ''){
+		
+		if(filter != ''){
+			current.filter 	= filter;
+		}else{
+			
+			if(window.nuFILTER != ''){
+				current.filter 	= window.nuFILTER;
+			}
+			
+		}
+		
+	}
+	
 	var last	 		= $.extend(true, {}, current);
 
 	last.call_type		= 'getform';
 	last.form_id 		= f;
 	last.record_id		= r;
-	//last.filter 		= filter;
-	last.filter 		= window.nuFILTER;
+	last.filter 		= filter==''?window.nuFILTER:filter;
 	last.search 		= search;
     last.hash	 		= parent.nuHashFromEditForm();
     last.AAA	 		= 'hw';
