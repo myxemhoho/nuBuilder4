@@ -1826,7 +1826,8 @@ function nuGetOptionsList(f, t, p, a, type){
 	
 	if(nuFormType() == 'edit'){
 
-		if(a == 1 || f == 'nuuserhome'){
+//		if(a == 1 || f == 'nuuserhome'){
+		if(a == 1){
 			
 			if(nuAllowChanges(f)){
 			
