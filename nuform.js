@@ -1079,6 +1079,11 @@ function nuSELECT(w, i, l, p, prop){
 	nuAddJSObjectEvents(id, prop.objects[i].js);
 
 	nuSetAccess(id, prop.objects[i].read);
+
+	if(prop.objects[i].read == 1){
+		nuDisable(id);
+	}
+	
 	
 	return Number(prop.objects[i].width);
 	
@@ -1826,14 +1831,13 @@ function nuGetOptionsList(f, t, p, a, type){
 	
 	if(nuFormType() == 'edit'){
 
-//		if(a == 1 || f == 'nuuserhome'){
 		if(a == 1){
 			
 			if(nuAllowChanges(f)){
 			
 				list.push([nuTranslate('Arrange Objects'), 		'nuPopup("' + f + '", "-2")', 			'graphics/nu_option_arrange.png', 		'Ctrl+Shft+A']);
 				list.push([nuTranslate('Form Properties'), 		'nuPopup("nuform", "' + f + '")', 		'graphics/nu_option_properties.png',	'Ctrl+Shft+F']);
-				list.push([nuTranslate('Form Object List'), 		'nuPopup("nuobject", "", "' + f + '")', 'graphics/nu_option_objects.png',		'Ctrl+Shft+O']);
+				list.push([nuTranslate('Form Object List'), 	'nuPopup("nuobject", "", "' + f + '")', 'graphics/nu_option_objects.png',		'Ctrl+Shft+O']);
 				
 			}
 			
@@ -1843,7 +1847,7 @@ function nuGetOptionsList(f, t, p, a, type){
 			
 		}else{
 			
-			list.push([nuTranslate('Change Login'), 				'nuPopup("nupassword", "' + u + '", "")', 	'graphics/nu_option_password.png', 	'Ctrl+Shft+L']);
+			list.push([nuTranslate('Change Login'), 			'nuPopup("nupassword", "' + u + '", "")', 	'graphics/nu_option_password.png', 	'Ctrl+Shft+L']);
 			
 		}
 
@@ -1854,8 +1858,8 @@ function nuGetOptionsList(f, t, p, a, type){
 			if(nuFORM.getCurrent().form_type != 'launch'){
 				
 				if(nuSERVERRESPONSE.buttons.Save == '1'){list.push([nuTranslate('Save'),					'nuSaveAction();', 							'graphics/nu_option_button.png',		'Ctrl+Shft+S']);}
-				if(nuSERVERRESPONSE.buttons.Delete == '1'){list.push([nuTranslate('Delete'),				'nuDeleteAction();', 						'graphics/nu_option_button.png',	'Ctrl+Shft+Y']);}
-				if(nuSERVERRESPONSE.buttons.Clone == '1'){list.push([nuTranslate('Clone'),				'nuCloneAction();', 						'graphics/nu_option_button.png',		'Ctrl+Shft+C']);}
+				if(nuSERVERRESPONSE.buttons.Delete == '1'){list.push([nuTranslate('Delete'),				'nuDeleteAction();', 						'graphics/nu_option_button.png',		'Ctrl+Shft+Y']);}
+				if(nuSERVERRESPONSE.buttons.Clone == '1'){list.push([nuTranslate('Clone'),					'nuCloneAction();', 						'graphics/nu_option_button.png',		'Ctrl+Shft+C']);}
 				
 			}
 			
