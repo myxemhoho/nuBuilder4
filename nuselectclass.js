@@ -238,7 +238,7 @@ class nuSelectObject{
 		var THIS			= this;
 		this.tempTables		= this.usedTables();
 		this.tempJoins		= this.getJoinObjects();													//-- current visible joins
-console.log(this.tempJoins, this.tempTables);
+
 		for(var i = 0 ; i < this.tempTables.length ; i++){
 
 			if(this.tempTables[i].used != -1){
@@ -896,16 +896,17 @@ function nuMove(e){
 	if(window.nuCurrentID == ''){return;}
 
 	var el						= $('#' + window.nuCurrentID);
+	var re						= parent.$('#sse_resize').val() / 100;
 
 	if(el.hasClass('nuTableName')){
 		
 		if(e.buttons == 1){
 			
 			if(e.clientY - window.nuY > 0){
-				el.parent().css('top', e.clientY - window.nuY);
+				el.parent().css('top', e.clientY - (window.nuY * re));
 			}
 			if(e.clientX - window.nuX > 0){
-				el.parent().css('left', e.clientX - window.nuX);
+				el.parent().css('left', e.clientX - (window.nuX * re));
 			}
 			
 			nuAngle();
