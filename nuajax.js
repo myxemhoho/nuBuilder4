@@ -601,9 +601,8 @@ function nuPrintAction(){
 
 function nuUpdateData(action, instruction){
 	
-	if(window.nuBeforeSave){
-		if(nuBeforeSave() === false ){return;}
-	}
+	if(action == 'save' && window.nuBeforeSave){if(nuBeforeSave() === false ){return;}}
+	if(action != 'save' && window.nuBeforeDelete){if(nuBeforeDelete() === false ){return;}}
 
 	var current				= window.nuFORM.getCurrent();
 	var last		 		= $.extend(true, {}, current);

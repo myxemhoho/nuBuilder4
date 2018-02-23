@@ -238,7 +238,7 @@ class nuSelectObject{
 		var THIS			= this;
 		this.tempTables		= this.usedTables();
 		this.tempJoins		= this.getJoinObjects();													//-- current visible joins
-
+console.log(this.tempJoins, this.tempTables);
 		for(var i = 0 ; i < this.tempTables.length ; i++){
 
 			if(this.tempTables[i].used != -1){
@@ -394,7 +394,7 @@ class nuSelectObject{
 			var J	= this.justAlias(o.tables[1], o.aliases[1]);
 			
 			if(aList.indexOf(j) != -1 || aList.indexOf(J) != -1){
-console.log(j, J, aList);
+				
 				var r	= this.tempJoins.splice(i, 1);
 				
 				return [true,o];
