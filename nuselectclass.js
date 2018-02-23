@@ -896,17 +896,16 @@ function nuMove(e){
 	if(window.nuCurrentID == ''){return;}
 
 	var el						= $('#' + window.nuCurrentID);
-	var re						= parent.$('#sse_resize').val() / 100;
 
 	if(el.hasClass('nuTableName')){
 		
 		if(e.buttons == 1){
 			
 			if(e.clientY - window.nuY > 0){
-				el.parent().css('top', e.clientY - (window.nuY * re));
+				el.parent().css('top', e.clientY - window.nuY);
 			}
 			if(e.clientX - window.nuX > 0){
-				el.parent().css('left', e.clientX - (window.nuX * re));
+				el.parent().css('left', e.clientX - window.nuX);
 			}
 			
 			nuAngle();
