@@ -238,6 +238,7 @@ class nuSelectObject{
 		var THIS			= this;
 		this.tempTables		= this.usedTables();
 		this.tempJoins		= this.getJoinObjects();													//-- current visible joins
+parent.window.a=$.extend(true, {}, this.tempTables);
 
 		for(var i = 0 ; i < this.tempTables.length ; i++){
 
