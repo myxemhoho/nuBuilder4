@@ -1707,3 +1707,12 @@ function nuClosePopup(){
 }
 
 
+
+function nuStopClick(e){
+
+	if(window.nuCLICKER != ''){
+		$(e.target).prop('onclick',null).off('click');
+	}
+	
+}
+

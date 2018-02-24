@@ -17,6 +17,7 @@ function nuBuildForm(f){
 	}
 	
 	window.nuBeforeSave			= null;
+	window.nuBeforeDelete		= null;
 	window.nuOnClone			= null;
 	window.nuBrowseFunction		= window.nuDefaultBrowseFunction;
 	window.nuCLONE				= false;
@@ -954,7 +955,7 @@ function nuRUN(w, i, l, p, prop){
 		
 		var clicker					  	= '';
 		
-		if(O.run_type == 'F'){clicker 	= "nuForm('" + O.form_id + "','" + O.record_id + "','" + O.filter + "', '')"}
+		if(O.run_type == 'F'){clicker 	= "nuStopClick(event);nuForm('" + O.form_id + "','" + O.record_id + "','" + O.filter + "', '')"}
 		if(O.run_type == 'R'){clicker 	= "nuRunReport('" + O.record_id + "')";}
 		if(O.run_type == 'P'){
 			
