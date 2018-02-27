@@ -11,6 +11,7 @@ window.nuDRAGLINEVSTART			= '';
 window.nuDRAGLINEVID			= '';
 window.nuLASTRECORD				= '';
 window.nuMESSAGES				= [];
+window.nuSAVED					= false;
 window.nuImages					= [];
 window.nuOPENER					= [];
 window.nuSUBFORMROW				= [];
@@ -1716,3 +1717,6 @@ function nuStopClick(e){
 	
 }
 
+function nuIsSaved(){
+	return window.nuSAVED;
+}

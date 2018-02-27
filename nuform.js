@@ -144,6 +144,8 @@ function nuBuildForm(f){
 		window.nuMESSAGES	= [];
 		
 	}
+	
+	window.nuSAVED		= false;
 
 }
 
