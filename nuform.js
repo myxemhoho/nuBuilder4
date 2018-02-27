@@ -873,6 +873,8 @@ function nuIMAGE(w, i, l, p, prop){
 	.attr('src', atob(w.objects[i].src));
 	
 	nuSetAccess(id, prop.objects[i].read);
+
+	nuAddJSObjectEvents(id, prop.objects[i].js);
 	
 	return Number(prop.objects[i].width);
 
