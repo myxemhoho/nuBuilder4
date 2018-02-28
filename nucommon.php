@@ -841,12 +841,20 @@ function nuAddFormatting($v, $f){
 
 		$h			= nuAddThousandSpaces($o[0], $c);
 		
+		$ss			= substr($s, 0,2);
+		
+		if($ss == '10' || $ss == '1,' || $ss == '1.'){		// no sign
+			$s		= '';
+		}else{
+			$s		= $s . ' ';
+		}
+		
 		if($p == 0){ 									//-- no decimal numbers even if it has a decimal place
-			$m		= $s . ' ' . $h;
+			$m		= $s . $h;
 		}else{
 			
 			$suf	= substr($d . str_repeat('0', 20), 0, $p - 1);
-			$m		= $s . ' ' . $h . $dp . $suf;
+			$m		= $s . $h . $dp . $suf;
 			
 		}
 
@@ -895,8 +903,6 @@ function nuAddFormatting($v, $f){
 	return $v;
 	
 }
-
-
 
 
 function nuAddThousandSpaces($s, $c){
