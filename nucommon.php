@@ -888,7 +888,7 @@ function nuAddFormatting($v, $f){
 		$s 		= str_replace('yy',		$o->format('y'), $s);
 		$s 		= str_replace('mmmm',	$o->format('F'), $s);
 		$s 		= str_replace('mmm',	$o->format('M'), $s);
-		$s 		= str_replace('mm',		$o->format('n'), $s);
+		$s 		= str_replace('mm',		$o->format('m'), $s);
 		$s 		= str_replace('dddd',	$o->format('l'), $s);
 		$s 		= str_replace('ddd',	$o->format('D'), $s);
 		$s 		= str_replace('dd',		$o->format('d'), $s);
