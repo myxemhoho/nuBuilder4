@@ -144,8 +144,6 @@ function nuGetReport(f, r){
 
 function nuRunReport(f, iframe){
 
-	nuFORM.addBreadcrumb();
-
 	var current			= nuFORM.getCurrent();
 	var last	 		= $.extend(true, {}, current);
 

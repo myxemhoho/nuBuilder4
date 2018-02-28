@@ -15,6 +15,7 @@
 	$F										= $formAndSessionData->form_id;
 	$R										= $formAndSessionData->record_id;
 	$P										= $_POST['nuSTATE'];
+	$CT										= $P['call_type'];
 	
 	$_POST['FORM_ID'] 						= $F;
 	$_POST['nuHash']						= array_merge($U, nuSetHashList($P));
@@ -30,7 +31,6 @@
 	$_POST['nuCallback']					= '';
 	$_POST['nuAfterEvent']					= false;
 
-	$CT										= $P['call_type'];
 	$f->forms[0]							= new stdClass;
 
     if(count($formAndSessionData->errors) == 0){
