@@ -1674,13 +1674,13 @@ function nu_end_resize(){
 
     if (window.nuBROWSERESIZE.moving_element != ''){
 		
-        $("#"+window.nuBROWSERESIZE.moving_element).css("background-color", "#CCCCCC");
+        $("#"+window.nuBROWSERESIZE.moving_element).css("background-color", "");
         window.nuBROWSERESIZE.moving_element 		= '';
 		
     }
     
     if (window.nuBROWSERESIZE.last_moved_element != ''){
-        $("#"+window.nuBROWSERESIZE.last_moved_element).css("background-color", "#CCCCCC");
+        $("#"+window.nuBROWSERESIZE.last_moved_element).css("background-color", "");
     }
     
     nu_set_left_pos_array();
