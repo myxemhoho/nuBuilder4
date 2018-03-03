@@ -238,7 +238,6 @@ class nuSelectObject{
 		var THIS			= this;
 		this.tempTables		= this.usedTables();
 		this.tempJoins		= this.getJoinObjects();													//-- current visible joins
-parent.window.a=$.extend(true, {}, this.tempTables);
 
 		for(var i = 0 ; i < this.tempTables.length ; i++){
 
@@ -347,18 +346,17 @@ parent.window.a=$.extend(true, {}, this.tempTables);
 			var b		= $(this)[0].id;
 			var t		= $('#tablename' + b).html();
 			var a		= $('#alias' + b).val();
-			var al		= THIS.justAlias(t,a);
 			var u		= 0;
-
-			for (var k in this.joins){
 			
-				var o	= this.joins[k];
+			for (var k in THIS.joins){
+			
+				var o	= THIS.joins[k];
 				
-				if(o.tables.indexOf(al) > -1){u ++;}
+				if(o.fromalias == a || o.fromtable == t || o.toalias == a || o.totable == t){u ++;}
 				
 			}
 
-			T.push({'table' : t, 'alias' : al, 'used' : u, 'joins' : []});
+			T.push({'table' : t, 'alias' : THIS.justAlias(t,a), 'used' : u, 'joins' : []});
 			
 		});
 		
@@ -368,7 +366,7 @@ parent.window.a=$.extend(true, {}, this.tempTables);
 		}
 		
 		T.sort(uses);
-
+		
 		return T;
 		
 	}
