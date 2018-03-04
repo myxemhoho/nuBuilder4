@@ -177,7 +177,7 @@ class nuSelectObject{
 	}
 	
 	buildSelect(c, b){				//-- checkbox type, boxID
-		
+	
 		if(c == 'field'){
 			
 			$('#checkall' + b)
@@ -215,9 +215,16 @@ class nuSelectObject{
 						var f	= 'field' + $(this)[0].id.substr(6);
 						
 						if($(this).is(':checked')){
-							s.push(T + '.' + $('#' + f).html());
+							
+							var box 	= String($(this)[0].id).split('_')[2];
+							var alias 	= $('#alias' + box).val();
+							
+							if(alias == undefined || alias == ''){
+								s.push(T + '.' + $('#' + f).html());
+							}else{
+								s.push(T + '.' + $('#' + f).html() + ' AS ' + T + '_' + $('#' + f).html());
+							}
 						}
-						
 						
 					});
 
