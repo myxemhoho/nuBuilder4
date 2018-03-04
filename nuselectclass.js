@@ -838,6 +838,7 @@ console.log(j, J, aList);
 
 function nuUp(e){
 
+console.log(nuCurrentID);
 	var el						= $(e.target);
 	
 	if(el.hasClass('nuTableName')){
@@ -894,7 +895,7 @@ function nuDown(e){
 function nuMove(e){
 
 	if(window.nuCurrentID == ''){return;}
-
+console.log(nuCurrentID);
 	var el						= $('#' + window.nuCurrentID);
 
 	if(el.hasClass('nuTableName')){

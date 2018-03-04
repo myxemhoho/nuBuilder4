@@ -118,7 +118,7 @@ function nuGetFormObject($F, $R, $OBJS, $P = stdClass){
 			$o 						= nuDefaultObject($r, $tabs);
 			
 			if($R == '-1'){
-				$o->value			= nuGetSQLValue($r->sob_all_default_value_sql);
+				$o->value			= '';//nuGetSQLValue($r->sob_all_default_value_sql);
 			}else{
 				$o->value			= $A[$r->sob_all_id];
 			}
@@ -226,7 +226,7 @@ function nuGetFormObject($F, $R, $OBJS, $P = stdClass){
 				
 				$type				= $r->sob_run_zzzzsys_form_id;
 				$o->form_id			= $type;
-				$o->record_id		= $r->sob_run_id;
+				$o->record_id		= nuReplaceHashVariables($r->sob_run_id);
 				$o->parameters		= $r->sob_all_id;
 				
 				if(isProcedure($type)){
@@ -451,9 +451,16 @@ function nuGetOtherLookupValues($o){
 	$s								= "SELECT * FROM $f->sfo_table WHERE $f->sfo_primary_key  = ? ";
 	$t								= nuRunQuery($s, [$l]);
 	$_POST['lookup_row']			= db_fetch_object($t);
-
+	
 	if(db_num_rows($t) == 1){
 		$_POST['lookup_row']->ID	= $l;
+	}
+	
+	if(db_num_rows($t) == 0){
+
+		$_POST['lookup_row']		= new stdClass;
+		$_POST['lookup_row']->ID	= '';
+		
 	}
 	
 	$_POST['lookup_values']			= array();
@@ -577,7 +584,8 @@ function nuGetAllLookupList(){
 					SELECT $id, $code, $description
 					$SQL->from
 					$SQL->where
-					AND $code LIKE ? OR $description LIKE ?
+					AND ($code LIKE ? OR $description LIKE ?)
+					AND '$C' != ''
 					ORDER BY $code
 					";
 
@@ -590,6 +598,7 @@ function nuGetAllLookupList(){
 	$_POST['nuHash']['TABLE_ID'] = $was;
 	
 	while($r = db_fetch_row($t)){
+		nudebug($s, $C,$r);
 		$a[]		= $r;
 	}
 
@@ -597,7 +606,7 @@ function nuGetAllLookupList(){
 	$f->lookup_like			= $like;
 	$f->lookup_values		= $a;
 	$f->lookup_javascript	= $js;
-	
+
 	return $f;
 	
 }
@@ -819,7 +828,6 @@ function nuBrowseRows($f){
 		$rows		= 20;
 	}
 
-//if($f->form_id =='5a74d7d036a72ea'){nudebug($rowsw, $rows);}
 	$page_number	= $P['page_number'];
 	$start			= $page_number * $rows;
 	$search			= str_replace('&#39;', "'", $P['search']);
