@@ -255,7 +255,7 @@ class nuSelectObject{
 				var t		= this.tempTables[i].table;
 				var a		= this.tempTables[i].alias;
 				var A		= this.fromAlias(f[0].table, f[0].alias);
-				var defined	= [A];												//-- growing list of used tables
+				var defined	= [A, a];												//-- growing list of used tables
 				var ob		= {};
 				var s		= '';
 				var F		= [];
@@ -272,7 +272,7 @@ class nuSelectObject{
 						
 						var a		= this.justAlias(ob.tables[0], ob.aliases[0]);
 						
-						if(defined.indexOf(a) == -1){
+						if(defined.indexOf(A) == -1 || defined.indexOf(a) == -1){
 							
 							var a2	= this.buildAlias(ob.tables[0], ob.aliases[0]);
 							A		= this.justAlias(ob.tables[0], ob.aliases[0]);
@@ -285,11 +285,10 @@ class nuSelectObject{
 						}
 						
 						defined.push(A);
+						defined.push(a);
 							
-						this.markTableAsUsed(ob.aliases[0]);
-						this.markTableAsUsed(ob.aliases[1]);
-						this.markTableAsUsed(ob.tables[0]);
-						this.markTableAsUsed(ob.tables[1]);
+						this.markTableAsUsed(ob.tables[0], ob.aliases[0]);
+						this.markTableAsUsed(ob.tables[1], ob.aliases[1]);
 						
 						var a3		= ob.joins.join(' AND ');
 						
@@ -327,18 +326,20 @@ class nuSelectObject{
 		
 	}
 	
-	markTableAsUsed(t){
+	markTableAsUsed(t, a){
 
 		for(var i = 0 ; i < this.tempTables.length ; i++){
 			
-			if(this.tempTables[i].alias == t){
+			if(this.tempTables[i].table == t || this.tempTables[i].alias == a){
 				
 				this.tempTables[i].used	= -1;
 				
 				return;
 				
 			}
+			
 		}
+		
 	}
 
 
