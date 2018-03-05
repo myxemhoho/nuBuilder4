@@ -2209,7 +2209,7 @@ function nuBrowseTable(){
 			.attr('data-nu-row', rw)
 			.attr('data-nu-column', column)
 			.addClass(w == 0 ? '' : 'nuBrowseTable')
-			.addClass('nuDragNoSelect')
+			.addClass('nuCell' + ((r/2) == parseInt(r/2) ? 'Even' : 'Odd'))
 			.css({	'text-align'	: a,
 					'overflow'	: 'hidden',
 					'width'		: w-8,

@@ -1037,3 +1037,17 @@ input[type=range]::-webkit-slider-runnable-track {
 .nuButtonHover{
 	cursor:pointer;
 }
+
+
+.nuCellOdd{
+  background-color: #E6E6E6;
+}
+
+.nuCellEven{
+  background-color: #E6E6E6;
+}
+
+
+
+
+
