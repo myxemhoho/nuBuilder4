@@ -989,11 +989,19 @@ function nuBrowseWhereClause($searchFields, $searchString, $returnArray = false)
         $exclude = array();
         
         for ($SF = 0; $SF < count($searchFields); $SF++) {                                     //-- loop through searchable fields
-            if ($task[$i] == 'include') {
-                $include[] = $searchFields[$SF] . ' LIKE  ' . $SEARCHES[$i];
+
+//			if ($task[$i] == 'include') {
+//                $include[] = $searchFields[$SF] . ' LIKE  ' . $SEARCHES[$i];
+//            } else {
+//                $exclude[] = $searchFields[$SF] . ' NOT LIKE  ' . $SEARCHES[$i];
+//            }
+			
+            if ($task[$i] == 'include') {																	//-- changed by KEE
+                $include[] = 'CONVERT(' . $searchFields[$SF] . ' USING utf8) LIKE  ' . $SEARCHES[$i];
             } else {
-                $exclude[] = $searchFields[$SF] . ' NOT LIKE  ' . $SEARCHES[$i];
+                $exclude[] = 'CONVERT(' . $searchFields[$SF] . ' USING utf8) NOT LIKE  ' . $SEARCHES[$i];
             }
+			
         }
 		
 		
