@@ -1235,6 +1235,8 @@ function nuUserName(){
 
 
 function nuAddBrowseListeners(w){
+	
+	if(w[w.length-1] == 0){w.pop();}
     
     if(nuFormType() != 'browse'){return;}
 	
