@@ -601,6 +601,9 @@ function nuUpdateData(action, instruction){
 	
 	if(action == 'save' && window.nuBeforeSave){if(nuBeforeSave() === false ){return;}}
 	if(action != 'save' && window.nuBeforeDelete){if(nuBeforeDelete() === false ){return;}}
+	if(nuFORM.getCurrent().record_id == -1){nuSetProperty('NEW_RECORD', 1);}
+
+
 
 	var current				= window.nuFORM.getCurrent();
 	var last		 		= $.extend(true, {}, current);

@@ -5,6 +5,7 @@ function nuBuildForm(f){
     $('#nubody').off('.nuresizecolumn'); 				//removes (if exist) the cursormove/touchmove event listeners binded to nubody
 
 	nuSetProperty('CLONED_RECORD', 0);
+	nuSetProperty('NEW_RECORD', 0);
 	
 	if(f.tableSchema === null){  						//-- need to login again
 	
