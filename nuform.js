@@ -3,6 +3,8 @@
 function nuBuildForm(f){
 
     $('#nubody').off('.nuresizecolumn'); 				//removes (if exist) the cursormove/touchmove event listeners binded to nubody
+
+	nuSetProperty('CLONED_RECORD', 0);
 	
 	if(f.tableSchema === null){  						//-- need to login again
 	
@@ -2873,6 +2875,7 @@ function nuCloneAction(){
 	.css('visibility','visible');
 	
 	nuCLONE	= true;
+	nuSetProperty('CLONED_RECORD', 1);
 	
 	if(window.nuOnClone){
 		nuOnClone();
