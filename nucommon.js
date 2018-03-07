@@ -1655,15 +1655,29 @@ function nu_move_cells(col_number, left_value){
 
 function nu_resize_footer(){
     
+	var w	= 0;
+	
+	$('.nuBrowseTitle').each(function( index ) {
+		
+		if($(this)[0].id != 'nuBrowseFooter'){
+			w = w + parseInt($(this).css('width'));
+		}
+		
+	});
+
+    $('#nuBrowseFooter').width(w);
+
+/*
+	
     var hdrs 										= $("div[id^='nuBrowseTitle']").toArray();
     var k 											= hdrs.length - 1;
     var hdr_id 										= hdrs[k].id;
 	var hdr_left 									= $("#"+hdr_id).offset().left;
     var hdr_width 									= $("#"+hdr_id).width();
     var footer_width 								= hdr_left + hdr_width - 11;
-    
+console.log(hdr_left, hdr_width); 
     $('#nuBrowseFooter').width(footer_width);
-    
+*/    
 }
 
 function nu_end_resize(){

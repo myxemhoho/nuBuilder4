@@ -2298,7 +2298,6 @@ function nuBrowseTable(){
 	});
 	
 	nuHighlightSearch();
-	
 }
 
 
