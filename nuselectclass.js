@@ -885,6 +885,14 @@ function nuUp(e){
 function nuDown(e){
 
 	var el						= $(e.target);
+
+	if(el.hasClass('nuRelationships')){
+		
+		nuChangeJoin(e);		
+		return;
+
+	}
+
 	window.nuCurrentID			= e.target.id;
 	
 	if(el.hasClass('nuTableName')){
@@ -959,7 +967,7 @@ function nuAngle(){
 		var w	= Math.sqrt(Math.pow(f.top - t.top, 2) + Math.pow(f.left - t.left, 2));
 		var i	= 'joins' + nuID();
 		var jt	= nuSQL.joins[key].join;
-		var lm	= 10;
+		var lm	= 7;
 
 		var L = document.createElement('div');										//-- relationship box (line)
 		
@@ -976,13 +984,12 @@ function nuAngle(){
 			'text-align'    	: 'center',
 			'border'			: 'rgba(255, 153, 0, .5) 0px solid',
 			'border-left-width'	: jt == 'LEFT' ? lm : 0,
-			'border-left-color'	: 'rgba(255, 0, 0, 1)',
+			'border-left-color'	: 'purple',
 			'background-color'	: 'rgba(255, 153, 0, .5)',
 			'transform'			: 'rotate(' + d + 'deg)',
 		})
 		.attr('data-nu-join', key)
-		.attr('title', jt + ' JOIN ON ' + nuSQL.joins[key].fromfield + ' = ' + nuSQL.joins[key].tofield + ' (Double Click to Change Join)')
-		.attr('ondblclick', 'nuChangeJoin(event)')
+		.attr('title', jt + ' JOIN ON ' + nuSQL.joins[key].fromfield + ' = ' + nuSQL.joins[key].tofield + ' (Click to Change Join)')
 		.addClass('nuRelationships')
 		.hover(function(){
 			$(this).css('border-top-width', 2);
@@ -1026,6 +1033,8 @@ function nuChangeJoin(e){
 	var v			= parent.$('#sse_json').val();
 	var j			= JSON.parse(v);
 	var i			= $(e.target).attr('data-nu-join');
+
+console.log(j.joins[i]);
 	
 	if(j.joins[i] == ''){
 		j.joins[i] 	= 'LEFT';
