@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2018 at 08:06 PM
+-- Generation Time: Mar 11, 2018 at 01:34 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -224,7 +224,7 @@ INSERT INTO `zzzzsys_event` (`zzzzsys_event_id`, `sev_zzzzsys_object_id`, `sev_e
 ('nu5a54e24243c50db', 'nu5a54e2420fb7bf3', 'onclick', 'nuPopPHP(event, \'AB\');'),
 ('nu5a54e24243cdb64', 'nu5a54e24210ea3ef', 'onclick', 'nuPreview()'),
 ('nu5a54e24243d6945', 'nu5a54e241dc092a5', 'onkeydo', 'nuFORM.scrollList(event, nuFORM.tableFields($(\'#sfo_table\').val()))'),
-('nu5a54e2424437c8a', 'nu5a54e2422149775', 'onchange', '$(\'#sqlframe\').contents().find(\'body\').css(\'zoom\', this.value / 100)'),
+('nu5a54e2424437c8a', 'nu5a54e2422149775', 'onchange', '$(\'#sqlframe\').contents().find(\'body\').css(\'transform\', \'scale(\' + this.value / 100 + \')\')'),
 ('nu5a54e2424499732', 'nu5a54e24216a1233', 'onchange', 'nuSetFFTable();'),
 ('nu5a54e24243df6e6', 'nu5a54e242139a9b0', 'onchange', 'nuSetFormatType(1)'),
 ('nu5a54e24243f12e4', 'nu5a54e2421497b31', 'onclick', 'nuPreview(1)'),

@@ -53,9 +53,9 @@ body  {
         $(document).mouseup(function(event){
             nuUp(event);
         });
-        $('body').css('zoom', Number(parent.$('#sse_resize').val()) / 100)
-		.css('transform', Number(parent.$('#sse_resize').val()) / 100)
-		
+        $('body')//.css('zoom', Number(parent.$('#sse_resize').val()) / 100)
+		.css('transform', 'scale(' + Number(parent.$('#sse_resize').val()) / 100 + ')')
+//transform: scale(.55);		
 		parent.nuHasNotBeenEdited();
 		
 	}

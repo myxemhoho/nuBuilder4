@@ -849,8 +849,8 @@ function nuUp(e){
 	
 	if(el.hasClass('nuTableName')){
 
-		window.nuY	= parseInt($(event.target).parent().css('top'));
-		window.nuX	= parseInt($(event.target).parent().css('left'));
+		window.nuY	= parseInt($(e.target).parent().css('top'));
+		window.nuX	= parseInt($(e.target).parent().css('left'));
 
 	}
 
@@ -1034,8 +1034,6 @@ function nuChangeJoin(e){
 	var j			= JSON.parse(v);
 	var i			= $(e.target).attr('data-nu-join');
 
-console.log(j.joins[i]);
-	
 	if(j.joins[i] == ''){
 		j.joins[i] 	= 'LEFT';
 	}else{
