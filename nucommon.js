@@ -858,6 +858,8 @@ function nuShow(i){                 	//-- Show Edit Form Object
 		
 	}
 	
+	nuOpenTab($('.nuTabSelected')[0].id.substr(5));
+	
 }
 
 
