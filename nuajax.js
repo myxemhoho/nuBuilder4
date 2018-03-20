@@ -39,7 +39,11 @@ function nuAjax(w,successCallback,errorCallback){
 function nuForm(f, r, filter, search, n, like){
 	
 	if(n == 2){
+		
 		window.nuNEW	= 1;
+		filter			= '';
+		search			= '';
+		
 	}
 	
 	if(like==undefined){
@@ -59,13 +63,27 @@ function nuForm(f, r, filter, search, n, like){
 	}
 
 	var current			= window.nuFORM.getCurrent();
+	
+	if(current.filter == ''){
+		
+		if(filter != ''){
+			current.filter 	= filter;
+		}else{
+			
+			if(window.nuFILTER != ''){
+				current.filter 	= window.nuFILTER;
+			}
+			
+		}
+		
+	}
+	
 	var last	 		= $.extend(true, {}, current);
 
 	last.call_type		= 'getform';
 	last.form_id 		= f;
 	last.record_id		= r;
-	//last.filter 		= filter;
-	last.filter 		= window.nuFILTER;
+	last.filter 		= filter==''?window.nuFILTER:filter;
 	last.search 		= search;
     last.hash	 		= parent.nuHashFromEditForm();
     last.AAA	 		= 'hw';
@@ -125,8 +143,6 @@ function nuGetReport(f, r){
 
 
 function nuRunReport(f, iframe){
-
-	nuFORM.addBreadcrumb();
 
 	var current			= nuFORM.getCurrent();
 	var last	 		= $.extend(true, {}, current);
@@ -512,6 +528,7 @@ function nuGetLookupId(pk, id){
 
 function nuGetLookupCode(e){
 
+/*
 	if(e.target.value == ''){			//-- set to blank
 		
 		var id				= e.target.id.substr(0, e.target.id.length - 4);
@@ -526,6 +543,8 @@ function nuGetLookupCode(e){
 		return;
 		
 	}
+
+*/	
 	
 	var last				= window.nuFORM.getCurrent();
 
@@ -580,9 +599,11 @@ function nuPrintAction(){
 
 function nuUpdateData(action, instruction){
 	
-	if(window.nuBeforeSave){
-		if(nuBeforeSave() === false ){return;}
-	}
+	if(action == 'save' && window.nuBeforeSave){if(nuBeforeSave() === false ){return;}}
+	if(action != 'save' && window.nuBeforeDelete){if(nuBeforeDelete() === false ){return;}}
+	if(nuFORM.getCurrent().record_id == -1){nuSetProperty('NEW_RECORD', 1);}
+
+
 
 	var current				= window.nuFORM.getCurrent();
 	var last		 		= $.extend(true, {}, current);
@@ -607,13 +628,17 @@ function nuUpdateData(action, instruction){
 		
 		var fm 				= data;
 
-		$('.nuActionButton').show();
-		
 		if(nuDisplayError(fm)){
 			
+			$('.nuActionButton').show();
+		
 			nuAbortSave();
 			
 		}else{
+			
+			if(fm.after_event){
+				nuMESSAGES	= fm.errors;
+			}
 			
 			if($('#nuDelete').prop('checked')){
 				
@@ -637,7 +662,10 @@ function nuUpdateData(action, instruction){
 				}
 				
 			}else{
+
+				window.nuSAVED	= true;
 				nuForm(f, fm.record_id, fm.filter, fm.search, 1);		//-- go to saved or created record
+				
 			}
 			
 			nuSavingMessage();

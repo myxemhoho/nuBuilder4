@@ -44,18 +44,19 @@ body  {
 			return;
 		}
 
-        $(document).mousemove(function(){
+        $(document).mousemove(function(event){
             nuMove(event);
         });
-        $(document).mousedown(function(){
+        $(document).mousedown(function(event){
             nuDown(event);
         });
-        $(document).mouseup(function(){
+        $(document).mouseup(function(event){
             nuUp(event);
         });
+
         $('body').css('zoom', Number(parent.$('#sse_resize').val()) / 100)
-		.css('transform', Number(parent.$('#sse_resize').val()) / 100)
-		
+//		.css('transform', Number(parent.$('#sse_resize').val()) / 100)
+
 		parent.nuHasNotBeenEdited();
 		
 	}

@@ -3,6 +3,9 @@
 function nuBuildForm(f){
 
     $('#nubody').off('.nuresizecolumn'); 				//removes (if exist) the cursormove/touchmove event listeners binded to nubody
+
+	nuSetProperty('CLONED_RECORD', 0);
+	nuSetProperty('NEW_RECORD', 0);
 	
 	if(f.tableSchema === null){  						//-- need to login again
 	
@@ -17,6 +20,7 @@ function nuBuildForm(f){
 	}
 	
 	window.nuBeforeSave			= null;
+	window.nuBeforeDelete		= null;
 	window.nuOnClone			= null;
 	window.nuBrowseFunction		= window.nuDefaultBrowseFunction;
 	window.nuCLONE				= false;
@@ -136,6 +140,15 @@ function nuBuildForm(f){
 	}
 
 	$('#nuSearchField').focus();
+	
+	if(window.nuMESSAGES.length > 0){
+		
+		nuMessage(window.nuMESSAGES);
+		window.nuMESSAGES	= [];
+		
+	}
+	
+	window.nuSAVED		= false;
 
 }
 
@@ -863,6 +876,8 @@ function nuIMAGE(w, i, l, p, prop){
 	.attr('src', atob(w.objects[i].src));
 	
 	nuSetAccess(id, prop.objects[i].read);
+
+	nuAddJSObjectEvents(id, prop.objects[i].js);
 	
 	return Number(prop.objects[i].width);
 
@@ -947,7 +962,7 @@ function nuRUN(w, i, l, p, prop){
 		
 		var clicker					  	= '';
 		
-		if(O.run_type == 'F'){clicker 	= "nuForm('" + O.form_id + "','" + O.record_id + "','" + O.filter + "', '')"}
+		if(O.run_type == 'F'){clicker 	= "nuStopClick(event);nuForm('" + O.form_id + "','" + O.record_id + "','" + O.filter + "', '')"}
 		if(O.run_type == 'R'){clicker 	= "nuRunReport('" + O.record_id + "')";}
 		if(O.run_type == 'P'){
 			
@@ -1072,6 +1087,11 @@ function nuSELECT(w, i, l, p, prop){
 	nuAddJSObjectEvents(id, prop.objects[i].js);
 
 	nuSetAccess(id, prop.objects[i].read);
+
+	if(prop.objects[i].read == 1){
+		nuDisable(id);
+	}
+	
 	
 	return Number(prop.objects[i].width);
 	
@@ -1819,13 +1839,13 @@ function nuGetOptionsList(f, t, p, a, type){
 	
 	if(nuFormType() == 'edit'){
 
-		if(a == 1 || f == 'nuuserhome'){
+		if(a == 1){
 			
 			if(nuAllowChanges(f)){
 			
 				list.push([nuTranslate('Arrange Objects'), 		'nuPopup("' + f + '", "-2")', 			'graphics/nu_option_arrange.png', 		'Ctrl+Shft+A']);
 				list.push([nuTranslate('Form Properties'), 		'nuPopup("nuform", "' + f + '")', 		'graphics/nu_option_properties.png',	'Ctrl+Shft+F']);
-				list.push([nuTranslate('Form Object List'), 		'nuPopup("nuobject", "", "' + f + '")', 'graphics/nu_option_objects.png',		'Ctrl+Shft+O']);
+				list.push([nuTranslate('Form Object List'), 	'nuPopup("nuobject", "", "' + f + '")', 'graphics/nu_option_objects.png',		'Ctrl+Shft+O']);
 				
 			}
 			
@@ -1835,7 +1855,7 @@ function nuGetOptionsList(f, t, p, a, type){
 			
 		}else{
 			
-			list.push([nuTranslate('Change Login'), 				'nuPopup("nupassword", "' + u + '", "")', 	'graphics/nu_option_password.png', 	'Ctrl+Shft+L']);
+			list.push([nuTranslate('Change Login'), 			'nuPopup("nupassword", "' + u + '", "")', 	'graphics/nu_option_password.png', 	'Ctrl+Shft+L']);
 			
 		}
 
@@ -1846,8 +1866,8 @@ function nuGetOptionsList(f, t, p, a, type){
 			if(nuFORM.getCurrent().form_type != 'launch'){
 				
 				if(nuSERVERRESPONSE.buttons.Save == '1'){list.push([nuTranslate('Save'),					'nuSaveAction();', 							'graphics/nu_option_button.png',		'Ctrl+Shft+S']);}
-				if(nuSERVERRESPONSE.buttons.Delete == '1'){list.push([nuTranslate('Delete'),				'nuDeleteAction();', 						'graphics/nu_option_button.png',	'Ctrl+Shft+Y']);}
-				if(nuSERVERRESPONSE.buttons.Clone == '1'){list.push([nuTranslate('Clone'),				'nuCloneAction();', 						'graphics/nu_option_button.png',		'Ctrl+Shft+C']);}
+				if(nuSERVERRESPONSE.buttons.Delete == '1'){list.push([nuTranslate('Delete'),				'nuDeleteAction();', 						'graphics/nu_option_button.png',		'Ctrl+Shft+Y']);}
+				if(nuSERVERRESPONSE.buttons.Clone == '1'){list.push([nuTranslate('Clone'),					'nuCloneAction();', 						'graphics/nu_option_button.png',		'Ctrl+Shft+C']);}
 				
 			}
 			
@@ -2192,7 +2212,7 @@ function nuBrowseTable(){
 			.attr('data-nu-row', rw)
 			.attr('data-nu-column', column)
 			.addClass(w == 0 ? '' : 'nuBrowseTable')
-			.addClass('nuDragNoSelect')
+			.addClass('nuCell' + ((r/2) == parseInt(r/2) ? 'Even' : 'Odd'))
 			.css({	'text-align'	: a,
 					'overflow'	: 'hidden',
 					'width'		: w-8,
@@ -2281,7 +2301,6 @@ function nuBrowseTable(){
 	});
 	
 	nuHighlightSearch();
-	
 }
 
 
@@ -2857,6 +2876,7 @@ function nuCloneAction(){
 	.css('visibility','visible');
 	
 	nuCLONE	= true;
+	nuSetProperty('CLONED_RECORD', 1);
 	
 	if(window.nuOnClone){
 		nuOnClone();

@@ -1,12 +1,18 @@
 
 window.nuDialog 				= new nuCreateDialog('');
 window.nuFORM					= new nuFormObject();
-window.nuNEW					= '';
+window.nuHideMessage 			= true;
 window.nuDragID					= 1000;
+window.nuNEW					= '';
 window.nuColor					= '';
 window.nuImage					= '';
+window.nuSESSION				= '';
+window.nuDRAGLINEVSTART			= '';
+window.nuDRAGLINEVID			= '';
+window.nuLASTRECORD				= '';
+window.nuMESSAGES				= [];
+window.nuSAVED					= false;
 window.nuImages					= [];
-window.nuHideMessage 			= true;
 window.nuOPENER					= [];
 window.nuSUBFORMROW				= [];
 window.nuSUBFORMJSON			= [];
@@ -16,10 +22,6 @@ window.nuFIELD					= [];
 window.nuHASH					= [];
 window.nuBEFORE					= [];
 window.nuAFTER					= [];
-window.nuSESSION				= '';
-window.nuDRAGLINEVSTART			= '';
-window.nuDRAGLINEVID			= '';
-window.nuLASTRECORD				= '';
 window.nuBROWSERESIZE 			= {
 									x_position				: 0, 
 									mouse_down				: false, 
@@ -128,7 +130,7 @@ function nuDisplayError(e){
 
 	nuMessage(e.errors);
 
-	return true;
+	return e.after_event == false;								//-- errors are really just messages if from after save or after delete.
 	
 }
 
@@ -310,8 +312,8 @@ function nuCreateDialog(t){
 		this.startX = event.clientX;
 		this.startY = event.clientY;
 		
-		if(event.buttons == 1 && event.target.id == 'dialogTitleWords'){
-			this.moveDialog();
+		if(event.buttons == 1){					//} && event.target.id == 'dialogTitleWords'){
+			this.moveDialog(event);
 		}
 		
 		if(event.target.id == 'dialogClose'){
@@ -328,13 +330,35 @@ function nuCreateDialog(t){
 			
 			$('#nuDragDialog').remove();
 			$('#nuModal').remove();
+			$('body').off('.popup');
 			
 		}
 		
 	}
 
-	this.moveDialog = function() {
+	
+	this.down = function(event) {
+	
+		window.nuCurrentID	= event.target.id;
+		
+		if(event.target.id == 'dialogClose'){
+			
+			$('#nuDragDialog').remove();
+			$('#nuModal').remove();
+			$('body').off('.popup');
+			
+		}
+		
+		if(event.target.id == 'nuDragDialog'){
+			$('#nuDragDialog').append('<div id="nuPopupModal"></div>');
+		}
+		
+	}
 
+	this.moveDialog = function(e){
+		
+		if(window.nuCurrentID == 'nuModal'){return;}
+		
 		var s 	= document.getElementById('nuDragDialog');
 		var o 	= s.style;
 		var l 	= parseInt(o.left) + this.moveX;
@@ -353,10 +377,6 @@ function nuCreateDialog(t){
 		
 		var translation	= nuTranslate(title);
 
-//		if(opener != null){
-//			translation	= opener.nuTranslate(title);
-//		}
-
 		e.setAttribute('id', 'nuDragDialog');
 
 		$('body').append('<div id="nuModal"></div>')
@@ -372,10 +392,15 @@ function nuCreateDialog(t){
 			'z-index'			: 3000, 
 			'position'			: 'absolute'
 		})
-		.on('mousemove', 	function(event){nuDialog.move(event);})
-		.on('mouseout', 	function(event){$('#dialogClose').css('background-color','');})
-		.on('click',     	function(event){nuDialog.click(event);})
-		.html('<div id="dialogTitle" ondblclick="nuResizeWindow(event)" style="background-color:#CCCCCC ;position:absolute;width:100%;height:35px;font-size:16px;font-family:Helvetica"><div id="dialogTitleWords" style="padding-top: 9px;height:30px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+translation+'</div><img id="dialogClose" src="graphics/close.png" style="position:absolute; top:2px; left:0px"></div>')
+		.html('<div id="dialogTitle" style="background-color:#CCCCCC ;position:absolute;width:100%;height:35px;font-size:16px;font-family:Helvetica"><div id="dialogTitleWords" style="padding-top: 9px;height:30px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+translation+'</div><img id="dialogClose" src="graphics/close.png" style="position:absolute; top:2px; left:0px"></div>')
+//		.html('<div id="dialogTitle" ondblclick="nuResizeWindow(event)" style="background-color:#CCCCCC ;position:absolute;width:100%;height:35px;font-size:16px;font-family:Helvetica"><div id="dialogTitleWords" style="padding-top: 9px;height:30px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+translation+'</div><img id="dialogClose" src="graphics/close.png" style="position:absolute; top:2px; left:0px"></div>')
+
+		$('body')
+		.on('mousemove.popup', 	function(event){nuDialog.move(event);})
+		.on('click.popup',     	function(event){nuDialog.click(event);})
+		.on('mousedown.popup', 	function(event){nuDialog.down(event);})
+		.on('mouseup.popup', 	function(event){window.nuCurrentID='';$('#nuPopupModal').remove();})
+		.on('dblclick.popup', 	function(event){nuResizeWindow(event);})
 
 		this.startX = l;
 		this.startY = t;
@@ -383,6 +408,9 @@ function nuCreateDialog(t){
 	}
 	
 }
+
+
+
 
 function nuReformat(t){
 
@@ -423,19 +451,6 @@ function nuOpenAce(lang, obj){
 	window.open('nuace.html?' + ts);
 
 }
-/*
-function nuGetSFArrays(){
-
-	var s 	= window.nuSUBFORMJSON;
-	var j	= [];
-	
-	for(var i = 0 ; i < s.length ; i++){
-		j.push(nuSubformToArray(s[i], 1));
-	}
-	
-	return j;
-}
-*/
 
 
 function nuRunIt(t, email, type){
@@ -843,6 +858,8 @@ function nuShow(i){                 	//-- Show Edit Form Object
 		
 	}
 	
+	nuOpenTab($('.nuTabSelected')[0].id.substr(5));
+	
 }
 
 
@@ -912,6 +929,8 @@ function nuDuplicates(arr){
 
 
 function nuResizeWindow(e){
+
+	if(e.target.id != 'dialogTitleWords'){return;}
 
 	var d	= $('#nuDragDialog');
 	var D	= $('.nuDragOptionsBox');
@@ -1218,6 +1237,8 @@ function nuUserName(){
 
 
 function nuAddBrowseListeners(w){
+	
+	if(w[w.length-1] == 0){w.pop();}
     
     if(nuFormType() != 'browse'){return;}
 	
@@ -1636,15 +1657,29 @@ function nu_move_cells(col_number, left_value){
 
 function nu_resize_footer(){
     
+	var w	= 0;
+	
+	$('.nuBrowseTitle').each(function( index ) {
+		
+		if($(this)[0].id != 'nuBrowseFooter'){
+			w = w + parseInt($(this).css('width'));
+		}
+		
+	});
+
+    $('#nuBrowseFooter').width(w);
+
+/*
+	
     var hdrs 										= $("div[id^='nuBrowseTitle']").toArray();
     var k 											= hdrs.length - 1;
     var hdr_id 										= hdrs[k].id;
 	var hdr_left 									= $("#"+hdr_id).offset().left;
     var hdr_width 									= $("#"+hdr_id).width();
     var footer_width 								= hdr_left + hdr_width - 11;
-    
+console.log(hdr_left, hdr_width); 
     $('#nuBrowseFooter').width(footer_width);
-    
+*/    
 }
 
 function nu_end_resize(){
@@ -1657,13 +1692,13 @@ function nu_end_resize(){
 
     if (window.nuBROWSERESIZE.moving_element != ''){
 		
-        $("#"+window.nuBROWSERESIZE.moving_element).css("background-color", "#CCCCCC");
+        $("#"+window.nuBROWSERESIZE.moving_element).css("background-color", "");
         window.nuBROWSERESIZE.moving_element 		= '';
 		
     }
     
     if (window.nuBROWSERESIZE.last_moved_element != ''){
-        $("#"+window.nuBROWSERESIZE.last_moved_element).css("background-color", "#CCCCCC");
+        $("#"+window.nuBROWSERESIZE.last_moved_element).css("background-color", "");
     }
     
     nu_set_left_pos_array();
@@ -1691,3 +1726,15 @@ function nuClosePopup(){
 }
 
 
+
+function nuStopClick(e){
+
+	if(window.nuCLICKER != ''){
+		$(e.target).prop('onclick',null).off('click');
+	}
+	
+}
+
+function nuIsSaved(){
+	return window.nuSAVED;
+}

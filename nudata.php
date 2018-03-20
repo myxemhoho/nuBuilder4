@@ -52,7 +52,6 @@ function nuValidateSubforms(){
 							if($d == 0){
 								nuDisplayError("$label cannot be left blank");
 							}else{
-								nudebug($sf->rows[$i],$sf);
 								nuDisplayError("$label on row $noz cannot be left blank $slabel");
 							}
 							
@@ -138,7 +137,7 @@ function nuUpdateDatabase(){
 		for($r = 0 ; $r < count($rows) ; $r++){
 			
 			if(nuEditedRow($edited[$r])){
-nudebug(88)				;
+				
 				$F					= array();
 				$I					= array();
 				$V					= array();
@@ -335,6 +334,8 @@ nudebug(88)				;
 	}else{
 		nuEval($EFid . '_AS');
 	}
+
+	$_POST['nuAfterEvent'] = true;
 
 	return $_POST['nuHash']['RECORD_ID'];
 	

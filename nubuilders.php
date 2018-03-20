@@ -144,7 +144,7 @@ function nuBuildFastForm($table, $form_type){
 	$sql            = "CREATE TABLE $TT SELECT * FROM zzzzsys_object WHERE false";
 	
 	nuRunQuery($sql);
-	
+
 	for($i = 0 ; $i < count($SF->rows) ; $i++){
 		
 		if($SF->rows[$i][5] == 0){							//-- not ticked as deleted
@@ -240,6 +240,10 @@ function nuBuildFastForm($table, $form_type){
 		$create		= nuBuildTable($table, $a);
 			
 		nuRunQuery($create);
+
+		nuRunQuery("ALTER TABLE $table ENGINE = MyISAM;");
+		nuRunQuery("ALTER TABLE $table CONVERT TO CHARACTER SET UTF8 COLLATE utf8_general_ci");
+	
 
 	}else{
 		$mess		= 'Form has';
