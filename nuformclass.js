@@ -515,6 +515,15 @@ class nuFormObject {
 			row.pop();
 			
 			if(o.deleted[i] == 0){
+				
+				for(var ro = 0 ; ro < row.length ; ro++){
+					
+					if(ro != 0){
+						row[ro]	= Number(row[ro]);
+					}
+					
+				}
+				
 				o.chartData.push(row);
 			}
 			
