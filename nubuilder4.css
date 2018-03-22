@@ -686,8 +686,9 @@ input[type=range]::-webkit-slider-runnable-track {
   color: #666666;
   border: none;
   font-size: 16px;
-  height: 20px;
+  height: 18px;
   padding: 1px 1px 1px 4px;
+  margin-left: 1px;
 }
 
 #nuModal {
