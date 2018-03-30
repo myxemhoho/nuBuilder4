@@ -45,7 +45,7 @@ function nuForm(f, r, filter, search, n, like){
 		search			= '';
 		
 	}
-	
+
 	if(like==undefined){
 		like 			= '';
 	}else{
@@ -62,12 +62,13 @@ function nuForm(f, r, filter, search, n, like){
 		window.nuFORM.addBreadcrumb();
 	}
 
-	var current			= window.nuFORM.getCurrent();
+	var current					= window.nuFORM.getCurrent();
+	current.search				= search;
 	
 	if(current.filter == ''){
 		
 		if(filter != ''){
-			current.filter 	= filter;
+			current.filter 		= filter;
 		}else{
 			
 			if(window.nuFILTER != ''){
