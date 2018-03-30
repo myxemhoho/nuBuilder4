@@ -302,7 +302,7 @@ function nuAddActionButtons(form){
 		
 		$('#nuActionHolder').append("<input id='nuSearchField' type='text' class='nuSearch' onfocus='this.value = this.value;' onkeypress='nuSearchPressed(event)' onkeydown='nuArrowPressed(event)' value='" + s + "'>&nbsp;");
 		$('#nuActionHolder').append("<input id='nuFilter' style='visibility:hidden;width:0px' value='" + f + "'>");
-		$('#nuActionHolder').append("<input id='nuSearchButton' type='button' class='nuActionButton ' value='" + nuTranslate('Search') + "' onclick='nuSearchAction()'>&nbsp;");
+		$('#nuActionHolder').append("<input id='nuSearchButton' type='button' class='nuActionButton ' value='" + nuTranslate('Search') + "' onclick='nuSearchAction(1)'>&nbsp;");
 		
 		if(button.Add == 1){nuAddActionButton('Add');}
 		if(button.Print == 1){nuAddActionButton('Print');}
@@ -2423,13 +2423,17 @@ function nuArrowPressed(e){
     
 }
 
-function nuSearchAction(){
+function nuSearchAction(p){
 
 	var s	= String($('#nuSearchField').val()).replaceAll("'","&#39;", true);
 	var f	= String($('#nuFilter').val()).replaceAll("'","&#39;", true);
 	
 	window.nuFORM.setProperty('search', s);
 	window.nuFORM.setProperty('filter', f);
+	
+	if(arguments.length == 1){
+		window.nuFORM.setProperty('page_number', 0);
+	}
 
 	nuGetBreadcrumb();
 	
