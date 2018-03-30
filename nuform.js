@@ -2748,7 +2748,14 @@ function nuChangeFile(e){
 		var f	= btoa(r.result);
 		var o	= {'file' : f, 'name' : a.name, 'size' : a.size, 'type' : a.type};
 		var j	= JSON.stringify(o);
-
+		
+		if(j.length > 600000){
+			
+			alert('File is too large, cannot be saved. Must be under 300Kb');
+			return;
+			
+		}
+		
     	$('#' + theTextarea).val(j).addClass('nuEdited');
 
 	}
