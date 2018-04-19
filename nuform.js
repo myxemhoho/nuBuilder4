@@ -408,6 +408,7 @@ function nuAddJSObjectEvents(i, j){
 		
 		if(ev == 'beforeinsertrow')		{ev	= 'data-nu-' + ev;}
 		if(ev == 'afterinsertrow')		{ev	= 'data-nu-' + ev;}
+		if(ev == 'clickdelete')			{ev	= 'data-nu-' + ev;}
 		
 		o.setAttribute(ev, code + j[J].js);
 
@@ -2701,7 +2702,12 @@ function nuHighlightSearch(){
 function nuChange(e){
 
 	if(e.target.id.substr(-8) == 'nuDelete'){
-		
+
+		var sfid	= $(e.target).parent().parent().parent()[0].id;
+		var click	= $('#' + sfid).attr('data-nu-clickdelete');
+
+		eval(click);
+	
 		nuHasBeenEdited();
 		nuCalculateForm();
 		
@@ -2728,6 +2734,20 @@ function nuChange(e){
 	
 }
 
+
+function nuChooseEventList(){
+
+    if($('#sob_all_type').val() == 'subform'){
+        
+        return ['beforeinsertrow','afterinsertrow','clickdelete'];
+    
+    }else{
+        
+        return ['onblur','onclick','onchange','onfocus','onkeydown'];
+    
+    }
+
+}
 
 
 function nuChangeFile(e){

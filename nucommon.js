@@ -178,7 +178,7 @@ function nuLogin(nuconfigNuWelcomeBodyInnerHTML){
 	window.nuFORM 		= new nuFormObject();
 	
 	$('body').html('');
-	
+
 	var h 	= `	
 
 				<div id='login' class='nuLogin' style='background-color:#d8e4ff; width:330;position:absolute;top:50px;height:300px;left:50px;border-style:solid;border-width:1px;border-color: rgba(0, 0, 0, 0.08);'>
