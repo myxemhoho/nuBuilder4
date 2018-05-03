@@ -1,7 +1,7 @@
 <?php
 /* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
- * phpinfo() wrapper to allow displaying only when configured to do so.
+ * PHPINFO() wrapper to allow displaying only when configured to do so.
  *
  * @package PhpMyAdmin
  */
@@ -18,5 +18,4 @@ $response->getHeader()->sendHttpHeaders();
  * Displays PHP information
  */
 if ($GLOBALS['cfg']['ShowPhpInfo']) {
-    //phpinfo(INFO_GENERAL | INFO_CONFIGURATION | INFO_MODULES);
 }
