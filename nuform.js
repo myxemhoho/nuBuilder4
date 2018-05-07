@@ -1187,8 +1187,13 @@ function nuSUBFORM(w, i, l, p, prop){
 		nuAddEditTabs(id, SF.forms[0]);
 	}else{
 		
-		nuTABHELP[SFR.forms[0].tabs[0].id] 	= SFR.forms[0].tabs[0].help;
-		nuFORMHELP[prop.objects[i].id] 		= SFR.forms[0].tabs[0].help;
+		if(SFR.forms.length > 0){
+				
+			nuTABHELP[SFR.forms[0].tabs[0].id] 	= SFR.forms[0].tabs[0].help;
+			nuFORMHELP[prop.objects[i].id] 		= SFR.forms[0].tabs[0].help;
+			
+		}
+		
 	}
 	
 	nuOptions(id, SF.sf_form_id, 'subform', w.global_access);
