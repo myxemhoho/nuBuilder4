@@ -327,7 +327,12 @@ function nuCreateDialog(t){
 	this.click = function(event) {
 	
 		if(event.target.id == 'dialogClose'){
-			
+
+			if($('#nuWindow').contents().find('#nuSaveButton.nuSaveButtonEdited').length > 0){
+				if(!confirm('Leave this form without saving?')){
+					return false;
+				}
+			}
 			$('#nuDragDialog').remove();
 			$('#nuModal').remove();
 			$('body').off('.popup');
@@ -340,14 +345,6 @@ function nuCreateDialog(t){
 	this.down = function(event) {
 	
 		window.nuCurrentID	= event.target.id;
-		
-		if(event.target.id == 'dialogClose'){
-			
-			$('#nuDragDialog').remove();
-			$('#nuModal').remove();
-			$('body').off('.popup');
-			
-		}
 		
 		if(event.target.id == 'nuDragDialog'){
 			$('#nuDragDialog').append('<div id="nuPopupModal"></div>');
