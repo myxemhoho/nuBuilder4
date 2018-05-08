@@ -3239,7 +3239,8 @@ function nuMessage(o){
 	}
 
 	widest		= Math.min(widest + 200, 1000);
-	var l		= (screen.width - widest) / 2;
+//	var l		= (screen.width - widest) / 2;
+	var l		= ($(document).width() - widest) / 2;
 
 	$('body', par).append("<div id='nuMessageDiv' class='nuMessage' style='overflow:hidden;width:" + widest + "px;left:" + l + "px' ></div>")
 	
