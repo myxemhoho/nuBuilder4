@@ -329,9 +329,11 @@ function nuCreateDialog(t){
 		if(event.target.id == 'dialogClose'){
 
 			if($('#nuWindow').contents().find('#nuSaveButton.nuSaveButtonEdited').length > 0){
-				if(!confirm('Leave this form without saving?')){
+				
+				if(!confirm(nuTranslate('Leave this form without saving?'))){
 					return false;
 				}
+				
 			}
 			$('#nuDragDialog').remove();
 			$('#nuModal').remove();
