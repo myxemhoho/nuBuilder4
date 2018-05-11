@@ -1734,6 +1734,7 @@ function nuStopClick(e){
 	
 }
 
+
 function nuIsSaved(){
 	return window.nuSAVED;
 }
