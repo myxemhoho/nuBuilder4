@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2018 at 03:24 AM
+-- Generation Time: May 11, 2018 at 08:28 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -756,7 +756,7 @@ INSERT INTO `zzzzsys_php` (`zzzzsys_php_id`, `sph_code`, `sph_description`, `sph
 ('nuhome_BE', 'nuhome_BE', 'System PHP', 'nubuilder', '\n$a  = [\'LUJSTA\',\'FLOWB\',\'JSTA\',\'LUJS\',\'JS\',\'FLOW\',\'PB\',\'PE\',\'BB\',\'AB\',\'BE\',\'BS\',\'AS\',\'BD\',\'AD\',\'BBTA\',\'ABTA\',\'BETA\',\'BSTA\',\'ASTA\',\'BDTA\',\'ADTA\',\'DB\',\'SET\',\'F\',\'U\',\'KEY\',\'UH\',\'FF\',\'P\',\'FMT\',\'R\',\'BUT\',\'RR\',\'FILE\', \'RP\',\'FR\',\'OB\',\'SQL\', \'BRO\', \'BS\', \'AS\', \'BD\', \'AD\', \'TR\',\'DOWN\',\'HOR\', \'VER\',\'UP\',\'TALL\',\'SHORT\',\'TOP\',\'BOTTOM\',\'LEFT\',\'RIGHT\',\'THIN\',\'WIDE\',\'SU\',\'RD\'];\n$s  = nuGetJSONData(\'nufirsttime\');\n	\nif(is_null($s)){\n    \n    nuSetJSONData(\'nufirsttime\',\'non\');\n    nuPreloadImages($a);\n    \n}\n\n', '', '', '1', ''),
 ('nuphp_AD', 'nuphp_AD', 'System PHP', 'nubuilder', '', '', '', '1', ''),
 ('nuform_BE', 'nuform_BE', 'System PHP', 'nubuilder', '', '', '', '1', ''),
-('nuupdatesystemids', 'USI', 'Update System IDs', 'nubuilder', 'nuUpdateSystemIds();', 'window', 'nublank', '0', ''),
+('nuupdatesystemids', 'USI', 'Update System IDs', 'nubuilder', 'nuUpdateSystemIds();', 'window', 'nublank', '1', ''),
 ('nu5af39efef119768_AB', '570d9046964038e_AB', 'System PHP', '', '\n$s  = \"\n        SELECT * \n        FROM zzzzsys_tab \n        JOIN zzzzsys_form ON zzzzsys_form_id = syt_zzzzsys_form_id\n        WHERE zzzzsys_tab_id = \'#LOOKUP_RECORD_ID#\'\n        \n        \";\n\n$t  = nuRunQuery($s);\n$r  = db_fetch_object($t);\n\nnuSetFormValue(\'sob_all_zzzzsys_form_id\', $r->syt_zzzzsys_form_id);\nnuSetFormValue(\'sob_all_table\', $r->sfo_table);\n', '', '', '1', ''),
 ('nu5af39eff01f57b6_AB', '570da52f2828508_AB', '', '', '\n$s  = \"\n        SELECT * \n        FROM zzzzsys_form\n        WHERE zzzzsys_form_id = \'#LOOKUP_RECORD_ID#\'\n        \n        \";\n\n$t  = nuRunQuery($s);\n$r  = db_fetch_object($t);\n\nnuSetFormValue(\'sob_subform_table\', $r->sfo_table);\n', '', '', '1', ''),
 ('nu5af39eff04495d7_AB', '570dab25164b394_AB', '', '', '\n$s  = \"\n        SELECT * \n        FROM zzzzsys_form\n        WHERE zzzzsys_form_id = \'#LOOKUP_RECORD_ID#\'\n        \n        \";\n\n$t  = nuRunQuery($s);\n$r  = db_fetch_object($t);\n\nnuSetFormValue(\'sob_lookup_table\', $r->sfo_table);\n', '', '', '1', ''),
