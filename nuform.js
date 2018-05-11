@@ -1638,10 +1638,22 @@ function nuAddEditTabs(p, w){
 	
 	var l 		= 7;
 	
-    for(var i = 0 ; i < w.browse_columns.length ; i++){
-		l 		= nuBrowseTitle(w.browse_columns, i, l);
-    }
+//    for(var i = 0 ; i < w.browse_columns.length ; i++){
+//		l 		= nuBrowseTitle(w.browse_columns, i, l);
+ //   }
 
+
+	for(var i = 0 ; i < w.browse_columns.length ; i++){
+		l       = nuBrowseTitle(w.browse_columns, i, l);
+		
+		if (w.browse_columns[i].width != '0') {
+			p = i;
+		} 
+		
+	}
+	
+	
+	
 	var f 		= nuFORM.getProperty('nosearch_columns');
 
 	for(var i = 0 ; i < f.length ; i++){
@@ -1655,8 +1667,8 @@ function nuAddEditTabs(p, w){
 	if(w.browse_columns.length > 0){
 		
 		nuBrowseTable();
-		nuOptions('nuBrowseTitle' + (w.browse_columns.length - 1), w.form_id, 'browse', w.global_access);
-	
+		//nuOptions('nuBrowseTitle' + (w.browse_columns.length - 1), w.form_id, 'browse', w.global_access);
+		nuOptions('nuBrowseTitle' + p, w.form_id, 'browse', w.global_access);
 	}
     
 }
