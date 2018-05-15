@@ -31,7 +31,7 @@ if (@is_readable($filename)) {
 } else {
     printf(
         __(
-            'The %s file is not available on this system, please visit ' .
+            'The %s file is not available on this System, please visit ' .
             '%s for more information.'
         ),
         $filename,
