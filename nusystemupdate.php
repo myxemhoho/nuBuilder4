@@ -317,7 +317,7 @@ function nuRemoveNuRecords(){
     nuRunQuery($s);
 //    print "$s<br>";
     
-    $s  =  "DELETE FROM sys_zzzzsys_php WHERE sph_zzzzsys_form_id LIKE 'nu%' OR zzzzsys_php_id LIKE 'nu%' ";  		  					//-- delete records that start with ids starting with 'nu' or linked to forms starting with 'nu'
+    $s  =  "DELETE FROM sys_zzzzsys_php WHERE (sph_zzzzsys_form_id LIKE 'nu%' OR zzzzsys_php_id LIKE 'nu%') AND zzzzsys_php_id != 'nuuserhome_BE'";  		  					//-- delete records that start with ids starting with 'nu' or linked to forms starting with 'nu'
     nuRunQuery($s);
 //    print "$s<br>";
     

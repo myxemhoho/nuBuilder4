@@ -41,11 +41,11 @@ function nuForm(f, r, filter, search, n, like){
 	if(n == 2){
 		
 		window.nuNEW	= 1;
-		filter			= '';
+		//filter			= '';
 		search			= '';
 		
 	}
-	
+
 	if(like==undefined){
 		like 			= '';
 	}else{
@@ -62,12 +62,13 @@ function nuForm(f, r, filter, search, n, like){
 		window.nuFORM.addBreadcrumb();
 	}
 
-	var current			= window.nuFORM.getCurrent();
+	var current					= window.nuFORM.getCurrent();
+	current.search				= search;
 	
 	if(current.filter == ''){
 		
 		if(filter != ''){
-			current.filter 	= filter;
+			current.filter 		= filter;
 		}else{
 			
 			if(window.nuFILTER != ''){
@@ -96,6 +97,7 @@ function nuForm(f, r, filter, search, n, like){
 		if(nuDisplayError(fm)){
 
 			parent.$('#nuModal').remove();
+			nuFORM.breadcrumbs.pop();
 			
 			if(fm.log_again == 1){location.reload();}
 		

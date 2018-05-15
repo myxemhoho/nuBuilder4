@@ -369,6 +369,7 @@ function nuRunReport($report_id){
 	$ob									= db_fetch_object($t);
 	$_POST['nuHash']['code']			= $ob->sre_code;
 	$_POST['nuHash']['description']		= $ob->sre_description;
+	unset($_POST['nuHash']['pages']);
 	$_POST['nuHash']['sre_layout']		= nuReplaceHashVariables($ob->sre_layout);
 	$_POST['nuHash']['parentID']		= $ob->sre_zzzzsys_php_id;
 	$_POST['nuHash']['nuInstall']		= '0';

@@ -364,7 +364,7 @@ class nuSECTION{
 			
             
                 $O[$i]->LINES                   = $this->getObjectRows($O[$i], $stopGrow);
-                
+				
             }else if($O[$i]->objectType == 'image'){                                        //-- image
 			
 				$O[$i]->LINES                   = array('');
@@ -636,20 +636,17 @@ class nuSECTION{
             return array($rows[0]);
             
         }
-        
+
         if($O->minRows > 0){                                                           //-- must be a minimum size
 
             while (count($rows) < $O->minRows){
-            
                 $rows[] = ' ';
-                
             }
+			
         }
-        
-        if($O->maxRows > 0){                                                           //-- must not have more rows than this
-        
-            $rows      = array_splice($rows, 0, $O->maxRows);
 
+        if($O->maxRows > 0){                                                           //-- must not have more rows than this
+            $rows      = array_splice($rows, 0, $O->maxRows);
         }
         
 		if($O->minRows == -1 and $rows[0] == '' ){                                    //-- reduce height to zero 
@@ -657,7 +654,6 @@ class nuSECTION{
 		}
 
 		return $rows;
-        
         
     }
 
@@ -901,11 +897,15 @@ function nuPrintField($PDF, $S, $contents, $O, $LAY){
 	$t = implode("\n", $contents->lines);
 	$txt = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
+/*	
 	if($t == ''){
 		$PDF->Rect($left, $top, $width, $height, 'DF');
 	}else{
 	    $PDF->MultiCell($width, $height, $t, $hasBorder, $textAlign, 1, 0, '', '', true, 0, false, false); 
 	}
+*/
+	
+    $PDF->MultiCell($width, $height, $t, $hasBorder, $textAlign, 1, 0, '', '', true, 0, false, false); 
 	
 }
 
@@ -948,7 +948,6 @@ function nuReplaceLabelHashVariables($LAY, $hashData){
 				
                 for($l = 0 ; $l < count($GLOBALS['nu_report'][$i]->objects[$o]->lines) ; $l++){
                     $GLOBALS['nu_report'][$i]->objects[$o]->lines[$l] = nuReplaceHashes($GLOBALS['nu_report'][$i]->objects[$o]->lines[$l], $hashData);
-                    
                 }
             }
         }

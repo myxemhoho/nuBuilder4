@@ -4,7 +4,8 @@ function nuValidateSubforms(){
 	
 
 	$nudata		= $_POST['nuHash']['nuFORMdata'];
-	$nuDelAll	= $_POST['nuHash']['deleteAll'];
+
+	nuCheckAccessLevel($nudata[0]);
 	
 	for($d = 0 ; $d < count($nudata) ; $d++){
 		
@@ -79,6 +80,31 @@ function nuValidateSubforms(){
 				
 			}
 		}
+	}
+	
+}
+
+
+function nuCheckAccessLevel($data){
+	
+	$u		= $_POST['nuHash']['USER_GROUP_ID'];
+	$f		= $data->object_id;
+	$a		= $data->action;
+
+	if($u == ''){			//-- globeadmin
+		return;
+	}
+
+	$s		= "SELECT * FROM zzzzsys_access_form WHERE slf_zzzzsys_access_id = ? AND slf_zzzzsys_form_id = ?";
+	$t		= nuRunQuery($s, [$u, $f]);
+	$r		= db_fetch_object($t);
+	
+	if($a == 'save' and $r->slf_save_button != 1){
+		nuDisplayError("Save is disabled for this Access Level");
+	}
+	
+	if($a == 'delete' and $r->slf_delete_button != 1){
+		nuDisplayError("Delete is disabled for this Access Level");
 	}
 	
 }

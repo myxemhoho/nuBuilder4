@@ -178,7 +178,7 @@ function nuLogin(nuconfigNuWelcomeBodyInnerHTML){
 	window.nuFORM 		= new nuFormObject();
 	
 	$('body').html('');
-	
+
 	var h 	= `	
 
 				<div id='login' class='nuLogin' style='background-color:#d8e4ff; width:330;position:absolute;top:50px;height:300px;left:50px;border-style:solid;border-width:1px;border-color: rgba(0, 0, 0, 0.08);'>
@@ -327,7 +327,14 @@ function nuCreateDialog(t){
 	this.click = function(event) {
 	
 		if(event.target.id == 'dialogClose'){
-			
+
+			if($('#nuWindow').contents().find('#nuSaveButton.nuSaveButtonEdited').length > 0){
+				
+				if(!confirm(nuTranslate('Leave this form without saving?'))){
+					return false;
+				}
+				
+			}
 			$('#nuDragDialog').remove();
 			$('#nuModal').remove();
 			$('body').off('.popup');
@@ -340,14 +347,6 @@ function nuCreateDialog(t){
 	this.down = function(event) {
 	
 		window.nuCurrentID	= event.target.id;
-		
-		if(event.target.id == 'dialogClose'){
-			
-			$('#nuDragDialog').remove();
-			$('#nuModal').remove();
-			$('body').off('.popup');
-			
-		}
 		
 		if(event.target.id == 'nuDragDialog'){
 			$('#nuDragDialog').append('<div id="nuPopupModal"></div>');
@@ -1734,6 +1733,7 @@ function nuStopClick(e){
 	}
 	
 }
+
 
 function nuIsSaved(){
 	return window.nuSAVED;
