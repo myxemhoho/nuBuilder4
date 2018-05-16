@@ -530,7 +530,7 @@ function nuBindCtrlEvents(){
 				} else if(e.keyCode == 65 && window.global_access) {				//-- a		Add
 					nuCloneAction();
 				} else if(e.keyCode == 80 && window.global_access) {				//-- p		Print
-					nuDeleteAction();
+					nuPrintAction();
 				}
 
 			}
