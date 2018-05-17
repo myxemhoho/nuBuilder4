@@ -2941,6 +2941,19 @@ function nuEmptyNoClone(){
 	for(var i = 0 ; i < c.length ; i++){
 		
 		if(c[i].subform){
+/*			
+			debugger;
+			$('#' + 'sf' + 'scrollDiv' + ' > .nuSubform1').remove();
+			$('#' + 'sf' + 'scrollDiv' + ' > .nuSubform0').each(function( index ) {
+				
+				if($(this)[0].id == 'sf' + '000nuRECORD'){
+					$(this).html('');
+				}else{
+					$(this).remove();
+				}
+				
+			});
+*/		
 			
 		}else{
 			
