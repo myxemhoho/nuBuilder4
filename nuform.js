@@ -2925,12 +2925,36 @@ function nuCloneAction(){
 	
 	nuCLONE	= true;
 	nuSetProperty('CLONED_RECORD', 1);
+	nuEmptyNoClone();
 	
 	if(window.nuOnClone){
 		nuOnClone();
 	}
 	
 }
+
+
+function nuEmptyNoClone(){
+	
+	var c		= nuSERVERRESPONSE.noclone;
+	
+	for(var i = 0 ; i < c.length ; i++){
+		
+		if(c[i].subform){
+			
+		}else{
+			
+			if($('#' + c[i].id).length == 1){
+				$('#' + c[i].id).val('').change();
+			}
+			
+		}
+		
+	}
+	
+}
+
+
 
 function nuIsClone(){
 	return nuCLONE;

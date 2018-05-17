@@ -112,10 +112,15 @@ function nuGetFormObject($F, $R, $OBJS, $P = stdClass){
 		
 		$t 							= nuRunQuery($s, array($F));
 		$a 							= array();
+		$cloneable					= array();
 
 		while($r = db_fetch_object($t)){
 			
 			$o 						= nuDefaultObject($r, $tabs);
+			
+			if($r->sob_all_cloneable == '0'){
+				$cloneable[]		= array(subform => $r->sob_all_type == 'subform', id => $r->sob_all_id);
+			}
 			
 			if($R == '-1'){
 				$o->value			= '';//nuGetSQLValue($r->sob_all_default_value_sql);
@@ -311,6 +316,7 @@ function nuGetFormObject($F, $R, $OBJS, $P = stdClass){
 	}
 
     $f->tabs 				= nuRefineTabList($tabs);
+	$f->noclone				= $cloneable;
     $f->browse_columns		= nuBrowseColumns($f);
     $B						= nuBrowseRows($f);
     $f->browse_rows			= $B[0];
