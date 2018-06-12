@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2018 at 12:30 AM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Generation Time: Jun 12, 2018 at 11:05 AM
+-- Server version: 10.0.34-MariaDB-0ubuntu0.16.04.1
+-- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `nubuilder4`
+-- Database: `nu4_testv4blank`
 --
 
 -- --------------------------------------------------------
@@ -254,7 +254,7 @@ INSERT INTO `zzzzsys_event` (`zzzzsys_event_id`, `sev_zzzzsys_object_id`, `sev_e
 ('nu5b01f656ef115b8', 'nu5b01f656d132a9d', 'afterinsertrow', 'nuSetSFCB();'),
 ('nu5b01f656ef1d2c0', 'nu5b01f656d58776a', 'onclick', 'nuGetCSV();'),
 ('nu5b01f656ef2c0b4', 'nu5b01f656d6a522f', 'onclick', 'nuPopPHP(event, \'BB\');'),
-('nu5b01f656ed64e05', 'nu5b01f656d3c2c2f', 'onclick', 'window.open(\'nupmalogin.php\');'),
+('nu5b01f656ed64e05', 'nu5b01f656d3c2c2f', 'onclick', 'window.open(\"nupmalogin.php?sessid=\"+window.nuSESSION);'),
 ('nu5b01f656ed6e07b', 'nu5b01f656d7d767a', 'onclick', 'nuSystemUpdate();'),
 ('nu5b01f656ed526ec', 'nu5b01f656d7f94fc', 'onclick', 'window.open(\"http://wiki.nubuilder.net/nubuilderforte/index.php/\" + window.nuHelp);'),
 ('nu5b01f656ed5b7fb', 'nu5b01f656d81a965', 'onclick', 'window.open(\"http://wiki.nubuilder.net/nubuilderforte/index.php/\" + window.nuHelp);'),
@@ -3557,3 +3557,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
