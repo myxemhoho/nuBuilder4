@@ -20,34 +20,21 @@
 
                 if ( $_user == $nuConfigDBGlobeadminUsername AND $_extra_check == '1' ) {
 
-                        session_name('PHPSESSIDNUBUILDERFORTE4');
+                        session_name('PHPSESSIDNUBUILDER4');
                         session_start();
+
+			setcookie("DBName", $nuConfigDBName, time()+1800);
+                        setcookie("DBHost", $nuConfigDBHost, time()+1800);
+
                         $_SESSION['PMA_single_signon_user']             = $nuConfigDBUser;
                         $_SESSION['PMA_single_signon_password']         = $nuConfigDBPassword;
                         $_SESSION['PMA_single_signon_host']             = $nuConfigDBHost;
                         $_SESSION['PMA_single_signon_port']             = "3306";
 
-                        $page = 'nuphpmyadmin/index.php?server=1';
+                        $page = 'nudbadmin/index.php?server=1';
                         setcookie("DBName", $nuConfigDBName);
                         setcookie("DBHost", $nuConfigDBHost);
-
-                } else {
-
-                        @session_unset();
-                        @session_destroy();
-                        $page = 'index.php';
-                        setcookie("DBName",'');
-                        setcookie("DBHost",'');
-                }
-
-        } else {
-
-                @session_unset();
-                @session_destroy();
-                $page = 'index.php';
-                setcookie("DBName",'');
-                setcookie("DBHost",'');
-
+		}
         }
 
         header("Location: $page")
