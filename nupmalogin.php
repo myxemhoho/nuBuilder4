@@ -10,8 +10,8 @@
         $obj->execute($values);
         $recordObj      = $obj->fetch(PDO::FETCH_OBJ);
         $result         = $obj->rowCount();
-        $page           = 'index.php';
-
+	$page		= "nupmalogout.php";	
+	
         if ( $result == 1 ) {
 
                 $logon_info     = json_decode($recordObj->sss_access);
@@ -19,23 +19,12 @@
                 $_extra_check   = $logon_info->session->global_access;
 
                 if ( $_user == $nuConfigDBGlobeadminUsername AND $_extra_check == '1' ) {
-
-                        session_name('PHPSESSIDNUBUILDER4');
-                        session_start();
-
-			setcookie("DBName", $nuConfigDBName, time()+1800);
-                        setcookie("DBHost", $nuConfigDBHost, time()+1800);
-
-                        $_SESSION['PMA_single_signon_user']             = $nuConfigDBUser;
-                        $_SESSION['PMA_single_signon_password']         = $nuConfigDBPassword;
-                        $_SESSION['PMA_single_signon_host']             = $nuConfigDBHost;
-                        $_SESSION['PMA_single_signon_port']             = "3306";
-
-                        $page = 'nudbadmin/index.php?server=1';
-                        setcookie("DBName", $nuConfigDBName);
-                        setcookie("DBHost", $nuConfigDBHost);
+			$page = "nudb/";
+			setcookie("nupmalogin", "good");
+		} else {
+			 setcookie("nupmalogin", "bad");
 		}
-        }
-
-        header("Location: $page")
-?>
+        } else {
+		 setcookie("nupmalogin", "bad");
+	}
+	header("Location: $page");
