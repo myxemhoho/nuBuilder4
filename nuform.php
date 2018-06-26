@@ -604,7 +604,7 @@ function nuGetAllLookupList(){
 	$_POST['nuHash']['TABLE_ID'] = $was;
 	
 	while($r = db_fetch_row($t)){
-		nudebug($s, $C,$r);
+		//nudebug($s, $C,$r);
 		$a[]		= $r;
 	}
 
@@ -1099,7 +1099,7 @@ function nuGatherFormAndSessionData($home){
         if($formAndSessionData->call_type == 'getphp'){
 
 			$p 							= nuProcedureAccessList($access);
-			
+
             if(!in_array($formAndSessionData->record_id, $p)) { //form_id is record_id for getphp
 			
                 $nuT					= nuRunQuery("SELECT * FROM zzzzsys_php WHERE zzzzsys_php_id = '$formAndSessionData->record_id'");

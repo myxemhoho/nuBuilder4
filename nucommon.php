@@ -402,9 +402,22 @@ function nuInstall(){
 	
 }
 
+function nuAllowedActivities(){
+
+	$t 	= nuRunQuery("SELECT sss_access FROM zzzzsys_session WHERE zzzzsys_session_id = ? ", array($_SESSION['SESSION_ID']));
+	$r 	= db_fetch_object($t);
+	$a	= json_decode($r->sss_access);
+	
+	return $a;
+
+}
+
 
 
 function nuRunPHP($procedure_code){
+
+	$aa									= nuAllowedActivities();
+	$p 									= nuProcedureAccessList($aa);
 
 	$id									= nuID();
 	$s									= "SELECT * FROM zzzzsys_php WHERE sph_code = '$procedure_code'";
@@ -414,8 +427,10 @@ function nuRunPHP($procedure_code){
 	$_POST['nuHash']['description']		= $ob->sph_description;
 	$_POST['nuHash']['parentID']		= $ob->zzzzsys_php_id;
 	$j									= json_encode($_POST['nuHash']);
-	
 
+	if(!$_SESSION['isGlobeadmin'] and !in_array($ob->zzzzsys_php_id, $p)){
+		nuDisplayError("Access To Procedure Denied... ($procedure_code)");
+	}
 
 	nuSetJSONData($id, $j);
 	
@@ -425,12 +440,19 @@ function nuRunPHP($procedure_code){
 
 
 function nuRunPHPHidden($nuCode){
-	
+
+	$aa						= nuAllowedActivities();
+	$p 						= nuProcedureAccessList($aa);
+
 	$s						= "SELECT * FROM zzzzsys_php WHERE sph_code = ? ";
 	$t						= nuRunQuery($s, [$nuCode]);
 	$r						= db_fetch_object($t);
-	
-	nuEval($r->zzzzsys_php_id);
+
+	if($_SESSION['isGlobeadmin'] or in_array($r->zzzzsys_php_id, $p)){
+		nuEval($r->zzzzsys_php_id);
+	}else{
+		nuDisplayError("Access To Procedure Denied... ($nuCode)");
+	}
 
 	$f						= new stdClass;
 	$f->id					= 1;
