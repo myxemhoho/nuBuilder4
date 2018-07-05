@@ -19,7 +19,7 @@
                 $_extra_check   = $logon_info->session->global_access;
 
                 if ( $_user == $nuConfigDBGlobeadminUsername AND $_extra_check == '1' ) {
-			$page = "nudb/";
+			$page = "nudb/db_structure.php?server=1&db=$nuConfigDBName";
 			setcookie("nupmalogin", "good");
 		} else {
 			 setcookie("nupmalogin", "bad");
