@@ -24,43 +24,41 @@ nuCSSInclude('nudrag.css');
 
 <style>
 
-body  {
-    background-image: url("graphics/grid.png");
-}
+	body{
+		background-image: url("graphics/grid.png");
+	}
 
 </style>
 
 <script>
-
+	
 	window.nuSuffix				= 1000;
 	window.nuSQL				= new nuSelectObject();
 	window.nuCurrentID			= '';
-	window.nuY					= 0;
-	window.nuX					= 0;
-	
+	window.nuY				= 0;
+	window.nuX				= 0;
+
 	function nuLoad(){
-		
+
 		if(!nuSQL.rebuildGraphic()){
 			return;
 		}
 
-        $(document).mousemove(function(event){
-            nuMove(event);
-        });
-        $(document).mousedown(function(event){
-            nuDown(event);
-        });
-        $(document).mouseup(function(event){
-            nuUp(event);
-        });
+        	$(document).mousemove(function(event){
+	        	nuMove(event);
+        	});
 
-        $('body').css('zoom', Number(parent.$('#sse_resize').val()) / 100)
-//		.css('transform', Number(parent.$('#sse_resize').val()) / 100)
+	        $(document).mousedown(function(event){
+	            	nuDown(event);
+	        });
+
+	        $(document).mouseup(function(event){
+	            	nuUp(event);
+	        });
 
 		parent.nuHasNotBeenEdited();
-		
+
 	}
-	
 
 </script>
 </head><body onload='nuLoad()'></body></html>
