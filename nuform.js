@@ -1318,6 +1318,7 @@ function nuRecordHolderObject(t){
 	
 }
 
+
 function nuAddSubformRow(t, e){
 
 	if($('#' + t.id).parent().parent().parent().attr('data-nu-add') == 0){return;}
@@ -2941,19 +2942,38 @@ function nuEmptyNoClone(){
 	for(var i = 0 ; i < c.length ; i++){
 		
 		if(c[i].subform){
-/*			
-			debugger;
-			$('#' + 'sf' + 'scrollDiv' + ' > .nuSubform1').remove();
-			$('#' + 'sf' + 'scrollDiv' + ' > .nuSubform0').each(function( index ) {
+			
+			$('#' + c[i].id + 'scrollDiv' + ' > .nuSubform1').remove();
+			$('#' + c[i].id + 'scrollDiv' + ' > .nuSubform0').each(function( index ) {
 				
-				if($(this)[0].id == 'sf' + '000nuRECORD'){
-					$(this).html('');
-				}else{
+				if($(this)[0].id != c[i].id + '000nuRECORD'){
 					$(this).remove();
 				}
 				
 			});
-*/		
+		
+			var k	= $('#' + c[i].id + '000nuRECORD').children();
+			
+			for(var s = 0 ; s < k.length ; s ++){
+				
+				if($('#' + k[s].id).hasClass('nuEdited')){
+					
+					$('#' + k[s].id).val('');
+
+					if($('#' + k[s].id + 'button').length == 1){
+						
+						$('#' + k[s].id + 'code').val('');
+						$('#' + k[s].id + 'description').val('');
+						
+					}
+					
+					
+				}
+				
+			}
+
+			$('#' + c[i].id + '000nuDelete').prop('checked', true);
+			$('#' + c[i].id + '001nuRECORD').remove();
 			
 		}else{
 			

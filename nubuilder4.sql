@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2018 at 04:40 AM
+-- Generation Time: Jul 10, 2018 at 06:01 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -460,7 +460,7 @@ INSERT INTO `zzzzsys_object` (`zzzzsys_object_id`, `sob_all_zzzzsys_form_id`, `s
 ('nu5b01f6569dccf84', 'nubrowse', 'zzzzsys_browse', 'select', 'sbr_format', 'Format', 'nu5b01f656dcdbca3', 40, 86, 69, 100, 20, '1', 'left', '0', '0', '', '', '', '', '', '', '', '0', 'SELECT \n   CONCAT(LEFT(srm_type, 1), \'|\', TRIM(srm_format)) AS a, \n   srm_format AS b \nFROM zzzzsys_format\nORDER BY srm_type', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5b01f6569e92535', 'nubrowse', 'zzzzsys_browse', 'input', 'sbr_width', 'Width', 'nu5b01f656dcdbca3', 50, 112, 69, 50, 20, '1', 'right', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'number', '', '', '', '', '', '', '', ''),
 ('nu5b01f6569ebf14e', 'nubrowse', 'zzzzsys_browse', 'input', 'sbr_order', 'Order', 'nu5b01f656dcdbca3', 60, 138, 69, 50, 20, '1', 'right', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'number', '', '', '', '', '', '', '', ''),
-('nu5b01f6569ee1b2a', 'nuform', 'zzzzsys_form', 'subform', 'zzzzsys_tab_sf', 'Tabs', 'nu5b01f656dc131ec', 60, 142, 114, 608, 149, '0', 'left', '0', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'nutab', 'syt_zzzzsys_form_id', '1', '1', 'g', 'zzzzsys_tab', 0, '', '', '', '', '', '', '', '', '', ''),
+('nu5b01f6569ee1b2a', 'nuform', 'zzzzsys_form', 'subform', 'zzzzsys_tab_sf', 'Tabs', 'nu5b01f656dc131ec', 60, 142, 114, 608, 149, '1', 'left', '0', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'nutab', 'syt_zzzzsys_form_id', '1', '1', 'g', 'zzzzsys_tab', 0, '', '', '', '', '', '', '', '', '', ''),
 ('nu5b01f6569f06449', 'nutab', 'zzzzsys_tab', 'input', 'syt_title', 'Title', 'nu5b01f656e21220d', 10, 10, 100, 130, 18, '1', 'left', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5b01f6569f28f31', 'nutab', 'zzzzsys_tab', 'input', 'syt_order', 'Order', 'nu5b01f656e21220d', 20, 31, 100, 46, 18, '1', 'right', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'number', '', '', '', '', '', '', '', ''),
 ('nu5b01f6569f4de0e', 'nuform', 'zzzzsys_form', 'input', 'bb_event', 'Before Browse', 'nu5b01f656e54fe96', 130, 76, 79, 150, 29, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', ''),
