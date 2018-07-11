@@ -20,12 +20,12 @@ nuCSSInclude('nubuilder4.css');
 nuCSSInclude('nudrag.css');
 
 
-$f	= nuFormatList();
-$ft = nuFontList();
-$tt	= nuTTList($_GET['tt'], $_GET['launch']);				//-- Field list from Temp table
-$i	= nuImageList(json_decode($tt));
+$f		= nuFormatList();
+$ft 	= nuFontList();
+$tt		= nuTTList($_GET['tt'], $_GET['launch']);				//-- Field list from Temp table
+$i		= nuImageList(json_decode($tt));
 
-$h	= "
+$h		= "
 <script>
 
 	window.nuFormats	= $f;

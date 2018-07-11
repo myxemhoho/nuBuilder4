@@ -996,6 +996,7 @@ function nuTTList($id, $l){
 	nuBuildTempTable($id, $tt, 1);
 
 	$f										= db_field_names($tt);
+	$f[]									= 'KEEP EXACT HEIGHT';
 
 	nuRunQuery("DROP TABLE $tt");
 	
@@ -1077,7 +1078,7 @@ function nuImageList($f){
 		$a[]	= 'Image:' . $r->sfi_code;
 	}
 
-	$c								= json_encode(array_merge($a, $f));
+	$c								= json_encode(array_merge($a, $f,['KEEP EXACT HEIGHT']));
 
 	return $c . ";\n";
 	
