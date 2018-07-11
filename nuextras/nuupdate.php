@@ -299,7 +299,13 @@ class nuupdate extends nuextras {
 
 		echo "begin attemping download <br>";
 		
-		$result = file_put_contents($this->path, fopen($this->github_url, 'r'));
+		$fp = fopen($this->path, 'w+');
+		$ch = curl_init($this->github_url);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 50);
+		curl_setopt($ch, CURLOPT_FILE, $fp);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		$result = curl_exec($ch);
+		fclose($fp);
 
 		if ( $result === false ) {
 			echo "failed download <br>";
