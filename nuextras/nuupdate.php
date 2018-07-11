@@ -301,9 +301,9 @@ class nuupdate extends nuextras {
 		
 		$fp = fopen($this->path, 'w+');
 		$ch = curl_init($this->github_url);
-		curl_seopt($ch, CURLOPT_TIMEOUT, 50);
-		curl_seopt($ch, CURLOPT_FILE, $fp);
-		curl_seopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 50);
+		curl_setopt($ch, CURLOPT_FILE, $fp);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 		$result = curl_exec($ch);
 		fclose($fp);
 
