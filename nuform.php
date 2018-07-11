@@ -295,7 +295,8 @@ function nuGetFormObject($F, $R, $OBJS, $P = stdClass){
 			}
 
 			$o->js						= nuObjectEvents($r->zzzzsys_object_id);
-
+			$o->tab_order				= $r->sob_all_order;
+			
 			if($OBJS > 0){
 
 				unset($o->type);
