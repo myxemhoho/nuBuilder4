@@ -605,7 +605,6 @@ function nuGetAllLookupList(){
 	$_POST['nuHash']['TABLE_ID'] = $was;
 	
 	while($r = db_fetch_row($t)){
-		//nudebug($s, $C,$r);
 		$a[]		= $r;
 	}
 
@@ -1337,7 +1336,6 @@ function nuFormDimensions($f){
 
 		$h		= max($h, $r->sob_all_top + $r->sob_all_height);
 		$gh 	= max($r->sob_all_height, 25, $gh);
-		nudebug($r->sob_all_height, $r->sob_all_id, $h, $gh);
 
 	}
 
