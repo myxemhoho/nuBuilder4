@@ -576,7 +576,7 @@ function nuINPUT(w, i, l, p, prop){
 					'text-align': prop.objects[i].align,
 					'position'	: 'absolute'
 	})
-	.attr('tabindex', prop.objects[i].tab_order)
+	//.attr('tabindex', prop.objects[i].tab_order)
 	.attr('onchange', onChange)
 	.attr('data-nu-field', input_type == 'button' || input_type == 'file' ? null : prop.objects[i].id)
 	.attr('data-nu-object-id', w.objects[i].object_id)
@@ -704,7 +704,7 @@ function nuINPUT(w, i, l, p, prop){
 			    		'width'	: Number(prop.objects[i].width),
 						'height': Number(prop.objects[i].height)
 		})
-		.attr('tabindex', prop.objects[i].tab_order)
+	//	.attr('tabindex', prop.objects[i].tab_order)
 		.attr('data-nu-form-id', w.objects[i].form_id)
 		.attr('data-nu-object-id', w.objects[i].object_id)
 		.attr('data-nu-target', target)
@@ -1039,7 +1039,7 @@ function nuSELECT(w, i, l, p, prop){
 					'width'    : Number(prop.objects[i].width),
 					'position' : 'absolute'
 	})
-	.attr('tabindex', prop.objects[i].tab_order)
+	//.attr('tabindex', prop.objects[i].tab_order)
 	.attr('onchange', 'nuChange(event)')
 	.attr('data-nu-field', prop.objects[i].id)
 	.attr('data-nu-object-id', w.objects[i].object_id)
@@ -1132,7 +1132,7 @@ function nuSUBFORM(w, i, l, p, prop){
 					'overflow-x'	: 'hidden',
 					'overflow-y'	: 'hidden'
 	})
-	.attr('tabindex', SF.tab_order)
+	//.attr('tabindex', SF.tab_order)
 	.attr('data-nu-object-id', SF.object_id)
 	.attr('data-nu-foreign-key-name', SF.foreign_key_name)
 	.attr('data-nu-primary-key-name', SF.primary_key_name)
