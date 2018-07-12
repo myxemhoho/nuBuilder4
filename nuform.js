@@ -2826,10 +2826,10 @@ function nuChangeFile(e){
 
 function nuCalculateForm(setAsEdited){	//-- calculate subform 'calcs' first
 	
-    var subformFirst 	= function(b, a){
+    var subformFirst 	= function(a, b){
 
-		var A			= $('#' + a.id).hasClass('nuSubformObject') ? 1000 : 0;
-		var B			= $('#' + b.id).hasClass('nuSubformObject') ? 1000 : 0;
+		var A			= $('#' + a.id).hasClass('nuSubformObject') ? 0 : 1000;
+		var B			= $('#' + b.id).hasClass('nuSubformObject') ? 0 : 1000;
 		var a			= parseInt($('#' + a.id).attr('data-nu-calc-order'));
 		var b			= parseInt($('#' + b.id).attr('data-nu-calc-order'));
 		
