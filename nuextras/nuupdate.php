@@ -266,7 +266,7 @@ class nuupdate extends nuextras {
 
 	function makeTempFolder() {
 				
-		echo "begin tempary folder check <br>";
+		echo "begin temporary folder check <br>";
 		echo $this->dir;
                 echo "<br>";
 
@@ -289,7 +289,7 @@ class nuupdate extends nuextras {
 			}
 		}
 
-		echo "end tempory folder check <br>";
+		echo "end temporary folder check <br>";
 
 		return $result;
 
