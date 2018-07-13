@@ -69,44 +69,10 @@
 
 	function doSchemaAction($nuConfigDBHost, $nuConfigDBName, $nuConfigDBUser, $nuConfigDBPassword) {
 
-		if ( $_POST['engine'] == 's_innodb' ) {
-			$ENGINE	= 'InnoDB';
-		} else if ( $_POST['engine'] == 's_myisam' ) {
-                        $ENGINE = 'MyISAM';
-                } else {
-			echo "invalid request 3";
-			die();
-		}
-
-		if ( $_POST['char_set'] == 's_utf8mb4' ) {
-                        $CHARACTER = 'utf8mb4';
-                } else if ( $_POST['char_set'] == 's_utf8' ) {
-                        $CHARACTER = 'utf8';
-                } else {
-                        echo "invalid request 4";
-                        die();
-                }
-	
-		if ( $_POST['collation'] == 's_utf8mb4_general_ci' ) {
-                        $COLLATE = 'utf8mb4_general_ci';
-                } else if ( $_POST['collation'] == 's_utf8_general_ci' ) {
-                        $COLLATE = 'utf8_general_ci';
-                } else {
-                        echo "invalid request 5";
-                        die();
-                }
-
-		 $ROW_FORMAT = '';
-		if ( $ENGINE == 'innodb' ) {
-
-			if ( $_POST['row_format'] == 's_dynamic' ) {
-                        	$ROW_FORMAT = 'DYNAMIC';
-                	} else if ( $_POST['row_format'] == 's_compressed' ) {
-                        	$ROW_FORMAT = 'COMPRESSED';
-                	} else {
-				 $ROW_FORMAT = '';
-                	}	
-		}
+		$ENGINE 			= 'MyISAM';
+		$CHARACTER 			= 'utf8';
+		$COLLATE 			= 'utf8_general_ci';
+		$ROW_FORMAT 			= '';
 
 		$nuschema      		      = new nuschema();
         	$nuschema->DBHost             = $nuConfigDBHost;
@@ -122,10 +88,6 @@
 		echo "<b>ENGINE</b> :: $ENGINE <br> ";
 		echo "<b>CHARACTER</b> :: $CHARACTER <br> ";
 		echo "<b>COLLATE</b> :: $COLLATE  <br>";
-
-		if ( $ROW_FORMAT !== '' ) {
-			echo "<b>ROW_FORMAT</b> :: $ROW_FORMAT <br><br>";
-		}
 
 		$nuschema->update();
 
