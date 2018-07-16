@@ -264,10 +264,12 @@ window.nuHASH			= [];
 	$h3 = "
 	function nuResize(){
 
-	   $('#nuActionHolder').css('width', window.innerWidth);
-	   $('#nuBreadcrumbHolder').css('width', window.innerWidth);
-	   $('#nuTabHolder').css('width', window.innerWidth);
-	   
+		if($('#nuTabHolder').css('display') == 'block'){
+			$('#nuActionHolder').css('width', window.innerWidth);
+			$('#nuBreadcrumbHolder').css('width', window.innerWidth);
+			$('#nuTabHolder').css('width', window.innerWidth);
+		}
+		
 	}
 	
 	
