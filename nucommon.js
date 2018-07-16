@@ -362,8 +362,8 @@ function nuCreateDialog(t){
 		var o 	= s.style;
 		var l 	= parseInt(o.left) + this.moveX;
 		var t 	= parseInt(o.top)  + this.moveY;
-		
-		if(e.target.classList == ''){
+console.log(e.target.id);		
+		if(e.target.classList == '' && e.target.id != 'nuSelectBox'){
 			
 			o.left  = l + 'px';
 			o.top   = t + 'px';

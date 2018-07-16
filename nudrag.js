@@ -265,7 +265,7 @@ function nuCreateDrag(){
 		this.height    = parseInt(o.height);
 		
 		for(var i = 0 ; i < s.length ; i ++){
-console.log(s[i].id);		
+			
 			o                = s[i].style;
 			this.left        = Math.min(this.left,    parseInt(o.left));
 			this.right       = Math.max(this.right,   parseInt(o.left) + parseInt(o.width) + (parseInt(o.borderWidth) * 2))
