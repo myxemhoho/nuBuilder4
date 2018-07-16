@@ -355,7 +355,7 @@ function nuCreateDialog(t){
 	}
 
 	this.moveDialog = function(e){
-		
+
 		if(window.nuCurrentID == 'nuModal'){return;}
 		
 		var s 	= document.getElementById('nuDragDialog');
@@ -363,9 +363,13 @@ function nuCreateDialog(t){
 		var l 	= parseInt(o.left) + this.moveX;
 		var t 	= parseInt(o.top)  + this.moveY;
 		
-		o.left  = l + 'px';
-		o.top   = t + 'px';
-
+		if(e.target.classList == ''){
+			
+			o.left  = l + 'px';
+			o.top   = t + 'px';
+			
+		}
+		
 	}
 
 	this.createDialog = function(l, t, w, h, title) {
