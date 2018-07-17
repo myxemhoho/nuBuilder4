@@ -1132,7 +1132,6 @@ function nuSUBFORM(w, i, l, p, prop){
 					'overflow-x'	: 'hidden',
 					'overflow-y'	: 'hidden'
 	})
-	//.attr('tabindex', SF.tab_order)
 	.attr('data-nu-object-id', SF.object_id)
 	.attr('data-nu-foreign-key-name', SF.foreign_key_name)
 	.attr('data-nu-primary-key-name', SF.primary_key_name)
@@ -1467,23 +1466,28 @@ function nuGetWordWidth(w){
 
 function nuGetSubformRowSize(o, SF, id){
 
-    var l = 0;
+    var l = -3;
     var w = 0;
 
     for(var i = 0 ; i < o.length ; i++){
 
         var d = Number(o[i].description_width);
         var T = SF.subform_type 		== 'g'      ? 0     : Number(o[i].top);
-        var B = o[i].type          		== 'lookup' ? 30    : 0;                    //-- lookup button
+        var B = o[i].type          		== 'lookup' ? 26    : 0;                    //-- lookup button
         var D = o[i].type          		== 'lookup' ? d     : 0;                    //-- lookup description
         
-        w = 2 + Number(o[i].width) + B + D;
+		if(o[i].type == 'select'){
+			w = Number(o[i].width) + B + D - 4;
+		}else{
+			w = Number(o[i].width) + B + D;
+		}
         
         
         if(SF.subform_type == 'g'){                                             //-- grid
             
             nuBuildSubformTitle(o[i], l, w, id, i);
-            l = l + w;
+//            l = l + w;
+            l = l + w + 6;
             
         }
         
@@ -1502,7 +1506,7 @@ function nuBuildSubformTitle(o, l, w, id, col){
 	$('#' + id).append(div);
 	
 	$('#' + titleId).css({'top'     	: 0,
-					'left'          	: Number(l) + 5,
+					'left'          	: Number(l) + 9,
 					'width'         	: Number(w),
 					'height'        	: 50,
 					'text-align'    	: 'center',
