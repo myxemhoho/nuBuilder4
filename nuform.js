@@ -1486,7 +1486,6 @@ function nuGetSubformRowSize(o, SF, id){
         if(SF.subform_type == 'g'){                                             //-- grid
             
             nuBuildSubformTitle(o[i], l, w, id, i);
-//            l = l + w;
             l = l + w + 6;
             
         }
@@ -1497,10 +1496,14 @@ function nuGetSubformRowSize(o, SF, id){
 
 function nuBuildSubformTitle(o, l, w, id, col){
     
-	var titleId  = 'title_' + id + o.id;
-	
-	var div = document.createElement('div');
+	var titleId = 'title_' + id + o.id;
+	var div 	= document.createElement('div');
+	var label	= nuTranslate(o.label);
 
+	if(o.read == 2){
+		label	= '';
+	}
+	
 	div.setAttribute('id', titleId);
 
 	$('#' + id).append(div);
@@ -1512,7 +1515,7 @@ function nuBuildSubformTitle(o, l, w, id, col){
 					'text-align'    	: 'center',
 					'position'      	: 'absolute'
 	})
-	.html(nuTranslate(o.label))
+	.html(label)
 	.attr('data-nu-field', o.id)
 	.attr('data-nu-subform', id)
 	.attr('ondblclick', 'nuPopup("nuobject", "' + o.object_id + '")')
