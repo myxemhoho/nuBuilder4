@@ -13,8 +13,6 @@ if($J != 'valid'){
 	
 }
 
-//Update done. Please log out and back on again for the changes to take effect
-
 nuCopySystemFiles();
 nuImportSystemFiles();
 nuAddNewSystemTables();
@@ -36,11 +34,9 @@ function nuCopySystemFiles(){
 
 	$sql		= "DROP VIEW IF EXISTS zzzzsys_report_data";
 	nuRunQuery($sql);
-//	print "$sql<br>";
 
 	$sql		= "DROP VIEW IF EXISTS zzzzsys_run_list";
 	nuRunQuery($sql);
-//	print "$sql<br>";
 
     for($i = 0 ; $i < count($t) ; $i++){
         
@@ -48,24 +44,19 @@ function nuCopySystemFiles(){
 
 		$sql	= "DROP TABLE IF EXISTS sys_$table";
         nuRunQuery($sql);
-//		print "$sql<br>";
 
 		$sql	= "CREATE TABLE sys_$table SELECT * FROM $table";
         nuRunQuery($sql);
-//		print "$sql<br>";
 		
 		if($table != 'zzzzsys_debug'){
 
 			$sql= "DROP TABLE IF EXISTS $table";
 			nuRunQuery($sql);
-//			print "$sql<br>";
 			
 		}
         
     }
 	
-//	print "Done!<br>";
-    
 }
 
 
@@ -106,8 +97,6 @@ function nuImportSystemFiles(){
 
 			}
 				
-//			print "Done!<br>";
-
 		}else{
 			throw new nuInstallException("error opening the file: $file");
 		}
@@ -145,7 +134,6 @@ function nuInstallException($e){
 
 function nuUpdateSystemRecords(){									//-- after zzzzsys files have been imported
 
-//    print "<br>Update TEMP FILE table structure's to SYSTEM FILES <br></span>";
     print '<br><span style="font-family:Helvetica;padding:10px;">Updated TEMP FILE table structure\'s to SYSTEM FILES <br></span>';
 
 	$ts				= nuBuildTableSchema();
@@ -165,7 +153,6 @@ function nuUpdateSystemRecords(){									//-- after zzzzsys files have been imp
 
 				$sql= "ALTER TABLE sys_$table DROP COLUMN $field";
 				nuRunQuery($sql);
-//				print "<BR>$sql<br><br>";
 				
 			}
 			
@@ -195,7 +182,6 @@ function nuUpdateSystemRecords(){									//-- after zzzzsys files have been imp
 				
 				$sql= "ALTER TABLE sys_$table ADD COLUMN $nfield $ntype $lfield";
 				nuRunQuery($sql);
-//				print "$sql<br>";
 				$ts	= nuBuildTableSchema();
 				$c	= -1;											//-- start from the beginning again
 				
@@ -203,7 +189,6 @@ function nuUpdateSystemRecords(){									//-- after zzzzsys files have been imp
 				
 				$sql= "ALTER TABLE sys_$table MODIFY COLUMN $nfield $ntype";
 				nuRunQuery($sql);
-//				print "$sql<br>";
 				
 			}
 			
@@ -217,9 +202,6 @@ function nuUpdateSystemRecords(){									//-- after zzzzsys files have been imp
 		
 	}
 
-//	print "Done!<br>";
-
-	
 }
 
 
@@ -239,7 +221,6 @@ function nuAddNewSystemTables(){
 				
 				$sql	= "CREATE TABLE sys_$k SELECT * FROM $k";
 				nuRunQuery($sql);
-//				print "$sql<br>";
 				
 			}
 			
@@ -247,8 +228,6 @@ function nuAddNewSystemTables(){
 		
 	}
 	
-//	print "Done!<br>";
-
 }
 
 
@@ -258,29 +237,21 @@ function nuJustNuRecords(){
 
     $s  =  "DELETE FROM zzzzsys_event WHERE zzzzsys_event_id NOT LIKE 'nu%'"; 															
     nuRunQuery($s);
-//    print "$s<br>";
     
     $s  =  "DELETE FROM zzzzsys_file WHERE zzzzsys_file_id NOT LIKE 'nu%'"; 															
     nuRunQuery($s);
-//    print "$s<br>";
     
     $s  =  "DELETE FROM zzzzsys_format WHERE zzzzsys_format_id NOT LIKE 'nu%'"; 															
     nuRunQuery($s);
-//    print "$s<br>";
     
     $s  =  "DELETE FROM zzzzsys_php WHERE sph_zzzzsys_form_id NOT LIKE 'nu%' AND zzzzsys_php_id NOT LIKE 'nu%' ";  		  				//-- delete records that start with ids starting with 'nu' or linked to forms starting with 'nu'
     nuRunQuery($s);
-//    print "$s<br>";
     
     $s  =  "DELETE FROM zzzzsys_setup";
     nuRunQuery($s);
-//    print "$s<br>";
     
     $s  =  "DELETE FROM zzzzsys_tab WHERE  syt_zzzzsys_form_id NOT LIKE 'nu%' OR syt_zzzzsys_form_id = 'nuuserhome'"; 															//-- delete tabs with forms starting with 'nu'
     nuRunQuery($s);
-//    print "$s<br>";
-    
-//    print 'Done!<br>';
     
 }
 
@@ -295,45 +266,34 @@ function nuRemoveNuRecords(){
     
     $s  =  "DELETE FROM sys_zzzzsys_event WHERE zzzzsys_event_id LIKE 'nu%'";   				 										//-- delete if attached to objects on forms with ids starting with 'nu'
     nuRunQuery($s);
-//    print "$s<br>";
     
     $s  =  "DELETE FROM sys_zzzzsys_file WHERE zzzzsys_file_id LIKE 'nu%'"; 															
     nuRunQuery($s);
-//    print "$s<br>";
     
     $s  =  "DELETE FROM sys_zzzzsys_format WHERE zzzzsys_format_id LIKE 'nu%'"; 															
     nuRunQuery($s);
-//    print "$s<br>";
 
     $s  =  "DELETE FROM sys_zzzzsys_object WHERE sob_all_zzzzsys_form_id LIKE 'nu%'  AND sob_all_zzzzsys_form_id != 'nuuserhome'";   	//-- delete all objects on forms with ids that start with 'nu'
     nuRunQuery($s);
-//    print "$s<br>";
     
     $s  =  "DELETE FROM sys_zzzzsys_tab WHERE syt_zzzzsys_form_id LIKE 'nu%' AND syt_zzzzsys_form_id != 'nuuserhome'"; 					//-- delete tabs with forms starting with 'nu'
     nuRunQuery($s);
-//    print "$s<br>";
 	
     $s  =  "DELETE FROM sys_zzzzsys_form WHERE zzzzsys_form_id LIKE 'nu%' ";    														//-- delete all forms with ids that start with 'nu'
     nuRunQuery($s);
-//    print "$s<br>";
     
-    $s  =  "DELETE FROM sys_zzzzsys_php WHERE (sph_zzzzsys_form_id LIKE 'nu%' OR zzzzsys_php_id LIKE 'nu%') AND zzzzsys_php_id != 'nuuserhome_BE'";  		  					//-- delete records that start with ids starting with 'nu' or linked to forms starting with 'nu'
+//    $s  =  "DELETE FROM sys_zzzzsys_php WHERE (sph_zzzzsys_form_id LIKE 'nu%' OR zzzzsys_php_id LIKE 'nu%') AND zzzzsys_php_id != 'nuuserhome_BE'";  		  //-- delete records that start with ids starting with 'nu' or linked to forms starting with 'nu'
+    $s  =  "DELETE FROM sys_zzzzsys_php WHERE zzzzsys_php_id LIKE 'nu%' AND zzzzsys_php_id != 'nuuserhome_BE'";  		  				//-- delete records that start with ids starting with 'nu' or linked to forms starting with 'nu'
     nuRunQuery($s);
-//    print "$s<br>";
     
     $s  =  "DELETE FROM sys_zzzzsys_browse WHERE sbr_zzzzsys_form_id LIKE 'nu%'";  					  									//-- KEEP BROWSEs from FORMs with ids that start with 'nu'
     nuRunQuery($s);
-//    print "$s<br>";
     
     $s  =  "DELETE FROM sys_zzzzsys_translate WHERE zzzzsys_translate_id LIKE 'nu%'";  				  									//-- KEEP BROWSEs from FORMs with ids that start with 'nu'
     nuRunQuery($s);
-//    print "$s<br>";
     
     $s  =  "DELETE FROM sys_zzzzsys_timezone";									   				 										//-- delete if attached to objects on forms with ids starting with 'nu'
     nuRunQuery($s);
-//    print "$s<br>";
-    
-//    print 'Done!<br>';
     
 }
 
@@ -352,25 +312,20 @@ function nuAppendToSystemTables(){
 
 			$s		= "INSERT INTO $table SELECT * FROM sys_$table";
 			nuRunQuery($s);
-//			print "$s<br>";
 
 			$s		= "DROP TABLE sys_$table";
 			nuRunQuery($s);
-//			print "$s<br>";
 			
 		}
 
 		$s		= "DROP TABLE sys_zzzzsys_report_data";
 		nuRunQuery($s);
-//		print "$s<br>";
 		
 		$s		= "DROP TABLE sys_zzzzsys_run_list";
 		nuRunQuery($s);
-//		print "$s<br>";
 
 		$s		= "UPDATE zzzzsys_setup SET set_denied = '1'";
 		nuRunQuery($s);
-//		print "$s<br>";
 			
 	}catch (Throwable $e) {
 		nuInstallException($e);
