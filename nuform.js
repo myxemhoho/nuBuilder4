@@ -19,6 +19,7 @@ function nuBuildForm(f){
 		
 	}
 	
+	window.nuSubformRow			= -1;
 	window.nuBeforeSave			= null;
 	window.nuBeforeDelete		= null;
 	window.nuOnClone			= null;
@@ -576,7 +577,6 @@ function nuINPUT(w, i, l, p, prop){
 					'text-align': prop.objects[i].align,
 					'position'	: 'absolute'
 	})
-	//.attr('tabindex', prop.objects[i].tab_order)
 	.attr('onchange', onChange)
 	.attr('data-nu-field', input_type == 'button' || input_type == 'file' ? null : prop.objects[i].id)
 	.attr('data-nu-object-id', w.objects[i].object_id)
@@ -584,15 +584,8 @@ function nuINPUT(w, i, l, p, prop){
 	.attr('data-nu-prefix', p)
 	.attr('data-nu-type', w.objects[i].type)
 	.attr('data-nu-subform-sort', 1)
-	.attr('data-nu-label', w.objects[i].label);
-
-	if(prop.objects[i].type != 'textarea'){
-
-		$('#' + id)
-		.focus(function(){$( this ).select();})
-		
-	}
-
+	.attr('data-nu-label', w.objects[i].label)
+	.attr('onfocus', 'nuLookupFocus(event)')
 
 	if(input_type == 'nuScroll'){
 		
@@ -704,16 +697,16 @@ function nuINPUT(w, i, l, p, prop){
 			    		'width'	: Number(prop.objects[i].width),
 						'height': Number(prop.objects[i].height)
 		})
-	//	.attr('tabindex', prop.objects[i].tab_order)
 		.attr('data-nu-form-id', w.objects[i].form_id)
 		.attr('data-nu-object-id', w.objects[i].object_id)
+		.attr ("data-nu-prefix", p)
 		.attr('data-nu-target', target)
 		.attr('data-nu-type', 'lookup')
 		.attr('data-nu-subform-sort', 1)
 		.css('visibility', vis)
 		.addClass('nuLookupCode')
-		.focus(function(){$( this ).select();})
-		.attr('onchange', 'nuGetLookupCode(event)');
+		.attr('onchange', 'nuGetLookupCode(event)')
+		.attr('onfocus', 'nuLookupFocus(event)');
 		
 		w.objects[i].values[0][0]	= p + prop.objects[i].id;
 		w.objects[i].values[1][0]	= p + prop.objects[i].id + 'code';
@@ -739,9 +732,8 @@ function nuINPUT(w, i, l, p, prop){
 		.attr('data-nu-object-id', w.objects[i].object_id)
 		.attr('data-nu-target', target)
 		.attr('data-nu-subform-sort', 1)
-		.on( "click", function() {
-		  nuBuildLookup(this,"");
-		})
+		.attr('onfocus', 'nuLookupFocus(event)')
+		.attr('onclick', 'nuBuildLookup(this,"")')
 		.addClass('nuLookupButton')
 		.html('<img border="0" src="graphics/magnify.png" class="nuLookupImg">')
 		.css('visibility', vis);
@@ -785,6 +777,25 @@ function nuINPUT(w, i, l, p, prop){
 	}
 	
 }
+
+function nuLookupFocus(e){
+
+	var p				= $(e.target).attr('data-nu-prefix');
+	var t				= $(e.target).attr('data-nu-type');
+	
+	window.nuSubformRow	= Number(p.substr(p.length - 3));
+	
+	if(t != 'textarea'){
+		$(e.target).select();
+	}
+
+}
+
+
+function nuCurrentRow(){
+	return window.nuSubformRow;
+}
+	
 
 function nuSetAccess(i, r){
 
@@ -1039,7 +1050,7 @@ function nuSELECT(w, i, l, p, prop){
 					'width'    : Number(prop.objects[i].width),
 					'position' : 'absolute'
 	})
-	//.attr('tabindex', prop.objects[i].tab_order)
+	.attr('onfocus', 'nuLookupFocus(event)')
 	.attr('onchange', 'nuChange(event)')
 	.attr('data-nu-field', prop.objects[i].id)
 	.attr('data-nu-object-id', w.objects[i].object_id)

@@ -250,8 +250,10 @@ function nuSubmit(e){
 
 function nuBuildLookup(t, s, like){
 
-	var f			= $('#' + t.id).attr('data-nu-form-id');
-	var tar			= $('#' + t.id).attr('data-nu-target');
+	var f				= $('#' + t.id).attr('data-nu-form-id');
+	var tar				= $('#' + t.id).attr('data-nu-target');
+	var p				= $('#' + t.id).attr('data-nu-prefix');
+	window.nuSubformRow	= Number(p.substr(p.length - 3));
 	
 	if(arguments.length < 3){
 		like 		= '';
