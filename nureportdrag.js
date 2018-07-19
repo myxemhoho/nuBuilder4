@@ -46,8 +46,9 @@ function nuLoadReport(b){
 	$('body').on('mouseup.nudrag',   function(event){nuDrag.up(event);});
 	$('body').on('mousemove.nudrag', function(event){nuDrag.move(event);});
 	
-	$('body').on('keydown.nureport',   function(event){nuDragR.move(event);});
 	$('body').on('mousedown.nureport', function(event){nuDragR.down(event);});
+	$('body').on('keydown.nureport',   function(event){nuDragR.move(event);});
+	$('body').on('keyup.nureport',     function(event){nuDragR.up(event);});
 	$('body').on('mouseup.nureport',   function(event){nuDragR.up(event);});
 	$('body').on('mousemove.nureport', function(event){nuDragR.move(event);});
 
@@ -596,12 +597,12 @@ function nuDragReport(){
 			
 		}
 
-		if(this.dragging){
+		//if(this.dragging){
 			
 			this.adjustSectionForMovedObjects(event);
 			this.dragging   = false;
 			
-		}
+		//}
 
 	}
 
