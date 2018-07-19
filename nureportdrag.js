@@ -597,12 +597,13 @@ function nuDragReport(){
 			
 		}
 
-		//if(this.dragging){
+
+		if(this.dragging){
 			
 			this.adjustSectionForMovedObjects(event);
 			this.dragging   = false;
 			
-		//}
+		}
 
 	}
 
