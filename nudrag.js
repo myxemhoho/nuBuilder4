@@ -120,6 +120,7 @@ function nuCreateDrag(){
 		if(m || k == 37 || k == 38 || k == 39 || k == 40){
 			
 			if($('#nuDragDialog').is(":visible") == false){
+				
 				if(k == 38){
 					this.moveY = -1;
 					this.lastMoveY = 0;
@@ -136,6 +137,9 @@ function nuCreateDrag(){
 					this.moveX = -1;
 					this.lastMoveX = 0;
 				}
+				
+				nuDragR.dragging	= true;
+				
 			}
 
 			if(event.shiftKey){

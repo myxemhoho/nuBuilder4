@@ -597,9 +597,8 @@ function nuDragReport(){
 			
 		}
 
-
 		if(this.dragging){
-			
+	
 			this.adjustSectionForMovedObjects(event);
 			this.dragging   = false;
 			
@@ -840,7 +839,8 @@ function nuMoverAlignRightClick(){
 	
 	var s = document.getElementsByClassName('nuDragSelected');
 	var l = 0;
-	
+	nuDragR.dragging	= true;
+
 	for(var i = 0 ; i < s.length ; i ++){
 		
 		l = Math.max(l, parseInt(s[i].style.left) + parseInt(s[i].style.width));
@@ -861,6 +861,7 @@ function nuMoverAlignTopClick(){
 	
 	var s = document.getElementsByClassName('nuDragSelected');
 	var t = 100000;
+	nuDragR.dragging	= true;
 	
 	for(var i = 0 ; i < s.length ; i ++){
 		
@@ -869,6 +870,7 @@ function nuMoverAlignTopClick(){
 	}
 	
 	$('.nuDragSelected').css('top', t);
+	nuDragR.dragging	= true;
 	
 }
 
@@ -891,6 +893,8 @@ function nuMoverAlignBottomClick(){
 		s[i].style.top = String(l - parseInt(s[i].style.height)) + 'px';
 
 	}
+	
+	nuDragR.dragging	= true;
 	
 }
 
@@ -928,6 +932,7 @@ function nuMoverAdjustVerClick(){
 		newTop  = newTop + newGap + Number(s[i].height);
 	
 	}
+	nuDragR.dragging	= true;
 
 }
 
@@ -966,6 +971,8 @@ function nuMoverAdjustHorClick(){
 		newLeft  = newLeft + newGap + Number(s[i].width);
 	
 	}
+	
+	nuDragR.dragging	= true;
 
 }
 
@@ -995,6 +1002,7 @@ function nuResizeWidestClick(){
 	}
 	
 	nuDragR.resetObjectProperties('width', w);
+	nuDragR.dragging	= true;
 
 }
 
@@ -1021,6 +1029,7 @@ function nuResizeTallestClick(){
 	}
 	
 	nuDragR.resetObjectProperties('height', h);
+	nuDragR.dragging	= true;
 
 }
 
@@ -1045,6 +1054,7 @@ function nuResizeThinestClick(){
 	}
 	
 	nuDragR.resetObjectProperties('width', w);
+	nuDragR.dragging	= true;
 
 }
 
@@ -1070,6 +1080,7 @@ function nuResizeShortestClick(){
 	}
 	
 	nuDragR.resetObjectProperties('height', h);
+	nuDragR.dragging	= true;
 
 }
 
