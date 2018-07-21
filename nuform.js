@@ -2084,6 +2084,14 @@ function nuSelectTab(tab){
 	$("[data-nu-form='" + form + "'][data-nu-tab='"  + filt + "']").css('visibility','visible');
 	$("[data-nu-form='" + form + "'][data-nu-tab='"  + filt + "']").find("*").css('visibility','visible');
     $('#' + tab.id).addClass('nuTabSelected');
+	
+	$('.nuLookupDescription').each(function(index){
+		
+		if($(this).css('width') == '0px'){
+			$(this).css('visibility','hidden');
+		}
+		
+	});
 
 }
 
