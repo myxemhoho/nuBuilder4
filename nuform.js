@@ -149,7 +149,7 @@ function nuBuildForm(f){
 		
 	}
 	
-	window.nuSAVED		= false;
+	window.nuSAVED		= true;
 
 }
 
@@ -2763,6 +2763,8 @@ function nuChange(e){
 		return;
 		
 	}
+	
+	window.nuSAVED		= false;
 		
 	var t	= $('#' + e.target.id)[0];
 	var p	= $('#' + t.id).attr('data-nu-prefix');
@@ -2903,6 +2905,7 @@ function nuHasNotBeenEdited(){
 	
 	$('#nuSaveButton').removeClass('nuSaveButtonEdited');
 	nuFORM.edited	= false;
+	window.nuSAVED	= true;
 	
 }
 
