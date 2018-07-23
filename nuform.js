@@ -2076,22 +2076,13 @@ function nuSelectTab(tab){
 		}
 		
 	}
-	
-	// pdfs in iFrames on hidden tabs don't work if 'display: none', so changed to visibility: hidden instead of .show() .hide()
-	$("#nuRECORD").find("*").css('visibility','hidden');
-	$("[data-nu-form-filter='" + form + "']").removeClass('nuTabSelected');
 
-	$("[data-nu-form='" + form + "'][data-nu-tab='"  + filt + "']").css('visibility','visible');
-	$("[data-nu-form='" + form + "'][data-nu-tab='"  + filt + "']").find("*").css('visibility','visible');
-    $('#' + tab.id).addClass('nuTabSelected');
+	$("[data-nu-form='" + form + "']").hide();	
+	$("[data-nu-form='" + form + "'][data-nu-tab='"  + filt + "']:not([data-nu-lookup-id])").show();
 	
-	$('.nuLookupDescription').each(function(index){
-		
-		if($(this).css('width') == '0px'){
-			$(this).css('visibility','hidden');
-		}
-		
-	});
+	$("[data-nu-form-filter='" + form + "']").removeClass('nuTabSelected');	
+	$("[data-nu-form-filter='" + form + "'][data-nu-tab-filter='"  + filt + "']").show();	
+	$('#' + tab.id).addClass('nuTabSelected');
 
 }
 
