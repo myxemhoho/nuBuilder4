@@ -23,6 +23,9 @@ $_POST['nuHash']			= $hashData;
 $PDF                        = new TCPDF($LAYOUT->orientation, 'mm', $LAYOUT->paper, true, 'UTF-8', false);
 
 $PDF->SetAutoPageBreak(true);
+// The report writer makes the header and footer so dont need a print header or footer.
+$PDF->setPrintHeader(false);
+$PDF->setPrintFooter(false);
 $REPORT                     = nuSetPixelsToMM($LAYOUT);
 $PDF->SetMargins(1,1,1);
 $fl							= json_decode(nuFontList());
