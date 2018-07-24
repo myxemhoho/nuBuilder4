@@ -872,13 +872,13 @@ function nuMoverAlignRightClick(){
 function nuMoverAlignTopClick(){
 	
 	var s = document.getElementsByClassName('nuDragSelected');
-	var t = 100000;
+	var t = 0;
 	nuDragR.dragging	= true;
 	
 	for(var i = 0 ; i < s.length ; i ++){
 		
-		t = Math.min(t, parseInt(s[i].style.top));
-
+		t = Math.max(t, parseInt(s[i].style.top));
+console.log(t);
 	}
 	
 	$('.nuDragSelected').css('top', t);

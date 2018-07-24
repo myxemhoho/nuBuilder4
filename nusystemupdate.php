@@ -20,6 +20,7 @@ nuUpdateSystemRecords();
 nuRemoveNuRecords();
 nuJustNuRecords();
 nuAppendToSystemTables();
+nuSetCollation();
 
 print '<br><span style="font-family:Helvetica;font-style:italic;font-size:20px;font-weight:bold;padding:10px">You will need to log in again for the changes to take effect.</span><br>';
 
@@ -368,6 +369,30 @@ function nuSystemList(){
 }
 
 
+
+function nuSetCollation(){
+	
+	
+	$a			= [];
+	$t 			= nuRunQuery("SHOW TABLES");
+
+	nuRunQuery("ALTER DATABASE $D CHARACTER SET utf8 COLLATE utf8_general_ci");
+	
+	$T			= nuRunQuery("SELECT DATABASE()");
+	$D			= db_fetch_row($T)[0];
+
+	while($r = db_fetch_row($t)){
+
+		$tab 	= $r[0];
+	
+		nuRunQuery("ALTER TABLE $tab ENGINE = MyISAM");
+		nuRunQuery("ALTER TABLE $tab DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+		nuRunQuery("ALTER TABLE $tab CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci");
+
+	}
+		
+
+}
 
 
 
