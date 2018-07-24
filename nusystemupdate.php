@@ -373,17 +373,16 @@ function nuSystemList(){
 function nuSetCollation(){
 	
 	
-	$a			= [];
-	$t 			= nuRunQuery("SHOW TABLES");
+	$tbls		= nuRunQuery("SHOW TABLES");
+	$db			= nuRunQuery("SELECT DATABASE()");
+	$dbname		= db_fetch_row($db)[0];
 
-	nuRunQuery("ALTER DATABASE $D CHARACTER SET utf8 COLLATE utf8_general_ci");
+
+	nuRunQuery("ALTER DATABASE $dbname CHARACTER SET utf8 COLLATE utf8_general_ci");
 	
-	$T			= nuRunQuery("SELECT DATABASE()");
-	$D			= db_fetch_row($T)[0];
+	while($row = db_fetch_row($tbls)){
 
-	while($r = db_fetch_row($t)){
-
-		$tab 	= $r[0];
+		$tab 	= $row[0];
 	
 		nuRunQuery("ALTER TABLE $tab ENGINE = MyISAM");
 		nuRunQuery("ALTER TABLE $tab DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
