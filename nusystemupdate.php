@@ -61,6 +61,8 @@ function nuCopySystemFiles(){
 }
 
 
+
+
 function nuInstallException($e){
 
 	$ce		= $_POST['nuProcedureEval'];
