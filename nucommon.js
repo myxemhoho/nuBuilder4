@@ -1748,7 +1748,7 @@ function nuIsSaved(){
 
 
 function nuSortSubform(s, c, e){
-	
+	return;
 	window.nuSortSubformColumn	= c;
 	var sf						= nuSubformObject(s);
 	
