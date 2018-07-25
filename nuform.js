@@ -849,7 +849,7 @@ function nuHTML(w, i, l, p, prop){
 					'height'   : Number(prop.objects[i].height),
 					'position' : 'absolute'
 	})
-	.html(w.objects[i].html);
+	.addClass('nuHtml').html(w.objects[i].html);
 	
 	nuSetAccess(id, prop.objects[i].read);
 	
@@ -2077,11 +2077,15 @@ function nuSelectTab(tab){
 		
 	}
 
-	$("[data-nu-form='" + form + "']").hide();	
-	$("[data-nu-form='" + form + "'][data-nu-tab='"  + filt + "']:not([data-nu-lookup-id])").show();
-	
+	// Treating nuIframes and nuHtml differently as anything that needs to calculate size can't be display: none when the page loads 
+	$("[data-nu-form='" + form + "']:not('.nuIframe, .nuHtml')").hide();	
+	$(".nuIframe[data-nu-form='" + form + "']").css('visibility','hidden');
+	$(".nuHtml[data-nu-form='" + form + "']").css('visibility','hidden');
 	$("[data-nu-form-filter='" + form + "']").removeClass('nuTabSelected');	
-	$("[data-nu-form-filter='" + form + "'][data-nu-tab-filter='"  + filt + "']").show();	
+
+	$("[data-nu-form='" + form + "'][data-nu-tab='"  + filt + "']:not([data-nu-lookup-id]):not('.nuIframe, .nuHtml')").show();
+	$(".nuIframe[data-nu-form='" + form + "'][data-nu-tab='"  + filt + "']").css('visibility','visible');
+	$(".nuHtml[data-nu-form='" + form + "'][data-nu-tab='"  + filt + "']").css('visibility','visible');
 	$('#' + tab.id).addClass('nuTabSelected');
 
 }
