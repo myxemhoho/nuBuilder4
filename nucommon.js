@@ -1744,3 +1744,93 @@ function nuStopClick(e){
 function nuIsSaved(){
 	return window.nuSAVED;
 }
+
+
+
+function nuSortSubform(s, c, e){
+	
+	window.nuSortSubformColumn	= c;
+	var sf						= nuSubformObject(s);
+	
+	if($(e.target).attr('data-nu-order') == 'asc'){
+		
+		if($(e.target).hasClass('number')){
+			var rows				= sf.rows.sort(nuDecendingSortNumberColumn);
+		}else{
+			var rows				= sf.rows.sort(nuDecendingSortColumn);
+		}
+
+		$(e.target).attr('data-nu-order', 'desc');
+		
+	}else{
+		
+		if($(e.target).hasClass('number')){
+			var rows				= sf.rows.sort(nuAscendingSortNumberColumn);
+		}else{
+			var rows				= sf.rows.sort(nuAscendingSortColumn);
+		}
+
+		$(e.target).attr('data-nu-order', 'asc');
+		
+	}
+	
+	for(var i = 0 ; i < rows.length ; i++){
+	
+		$('#' + s + nuPad3(i) + 'nuRECORD').attr('data-nu-primary-key', rows[i][0]);
+		$('#' + s + nuPad3(i) + 'nuDelete').prop('checked', rows[i][rows[i].length - 1] == 1);
+
+		for(var I = 1 ; I < rows[i].length ; I++){
+			$('#' + s + nuPad3(i) + sf.fields[I]).val(rows[i][I]);
+		}
+		
+	}
+
+}
+
+
+function nuAscendingSortColumn(a, b) {
+	
+	if (a[window.nuSortSubformColumn] < b[window.nuSortSubformColumn]){return -1;}
+	if (a[window.nuSortSubformColumn] > b[window.nuSortSubformColumn]){return 1;}
+
+	return 0;
+
+}
+
+function nuDecendingSortColumn(b, a) {
+	
+	if (a[window.nuSortSubformColumn] < b[window.nuSortSubformColumn]){return -1;}
+	if (a[window.nuSortSubformColumn] > b[window.nuSortSubformColumn]){return 1;}
+
+	return 0;
+	
+}
+
+
+
+function nuAscendingSortNumberColumn(a, b) {
+	
+	if (Number(a[window.nuSortSubformColumn]) < Number(b[window.nuSortSubformColumn])){return -1;}
+	if (Number(a[window.nuSortSubformColumn]) > Number(b[window.nuSortSubformColumn])){return 1;}
+	
+	return 0;
+	
+}
+
+function nuDecendingSortNumberColumn(b, a) {
+	
+	if (Number(a[window.nuSortSubformColumn]) < Number(b[window.nuSortSubformColumn])){return -1;}
+	if (Number(a[window.nuSortSubformColumn]) > Number(b[window.nuSortSubformColumn])){return 1;}
+	
+	return 0;
+	
+}
+
+
+
+
+
+
+
+
+

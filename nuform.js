@@ -1529,8 +1529,11 @@ function nuBuildSubformTitle(o, l, w, id, col){
 	.html(label)
 	.attr('data-nu-field', o.id)
 	.attr('data-nu-subform', id)
+	.attr('onclick', 'nuSortSubform("' + id + '", "' + (col + 1) + '", event)')
+	.attr('data-nu-order', 'asc')
 	.attr('ondblclick', 'nuPopup("nuobject", "' + o.object_id + '")')
-	.addClass('nuTabHolder');
+	.addClass('nuTabHolder')
+	.addClass(o.input=='number'||o.input=='nuNumber'?'number':'text')
 	
 	if(o.valid == 1){$('#' + titleId).addClass('nuBlank');}
 	if(o.valid == 2){$('#' + titleId).addClass('nuDuplicate');}
