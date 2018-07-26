@@ -1748,40 +1748,62 @@ function nuIsSaved(){
 
 
 function nuSortSubform(s, c, e){
-	return;
-	window.nuSortSubformColumn	= c;
-	var sf						= nuSubformObject(s);
+	
+	var sf				= [];
+	var so				= nuSubformObject(s).fields[c];;
+	var h				= 0;
+	var t				= false;
+
+	$("[ID^='" + s + "'][ID$='nuRECORD']").each(function( index ){
+
+		var i = this.id;
+		var f = this.id.replaceAll('nuRECORD', '');
+		h     = parseInt($(this).css('height'));
+		t     = $('#' + f + so).hasClass('input_number') || $('#' + f + so).hasClass('input_nuNumber');
+		var v = $('#' + f + so).val();
+		console.log(f + so, v, t);
+		var m = $('#' + f + so).attr('data-nu-format')
+		
+		if(m != ''){
+			v = nuFORM.removeFormatting(v, m);
+		}
+		
+		var o = {'form' : i, 'value' : v};
+		
+		sf.push(o);
+
+	});	
+
+
 	
 	if($(e.target).attr('data-nu-order') == 'asc'){
 		
-		if($(e.target).hasClass('number')){
-			var rows				= sf.rows.sort(nuDecendingSortNumberColumn);
+		if(t){
+			var rows				= sf.sort(nuDecendingSortNumberColumn);
 		}else{
-			var rows				= sf.rows.sort(nuDecendingSortColumn);
+			var rows				= sf.sort(nuDecendingSortColumn);
 		}
 
 		$(e.target).attr('data-nu-order', 'desc');
 		
 	}else{
 		
-		if($(e.target).hasClass('number')){
-			var rows				= sf.rows.sort(nuAscendingSortNumberColumn);
+		if(t){
+			var rows				= sf.sort(nuAscendingSortNumberColumn);
 		}else{
-			var rows				= sf.rows.sort(nuAscendingSortColumn);
+			var rows				= sf.sort(nuAscendingSortColumn);
 		}
 
 		$(e.target).attr('data-nu-order', 'asc');
 		
 	}
 	
+	var top 	= 0;
+	
 	for(var i = 0 ; i < rows.length ; i++){
 	
-		$('#' + s + nuPad3(i) + 'nuRECORD').attr('data-nu-primary-key', rows[i][0]);
-		$('#' + s + nuPad3(i) + 'nuDelete').prop('checked', rows[i][rows[i].length - 1] == 1);
-
-		for(var I = 1 ; I < rows[i].length ; I++){
-			$('#' + s + nuPad3(i) + sf.fields[I]).val(rows[i][I]);
-		}
+		$('#' + rows[i].form).css('top', top);
+		top	= top + h;
 		
 	}
 
@@ -1790,8 +1812,8 @@ function nuSortSubform(s, c, e){
 
 function nuAscendingSortColumn(a, b) {
 	
-	if (a[window.nuSortSubformColumn] < b[window.nuSortSubformColumn]){return -1;}
-	if (a[window.nuSortSubformColumn] > b[window.nuSortSubformColumn]){return 1;}
+	if (a.value < b.value){return -1;}
+	if (a.value > b.value){return 1;}
 
 	return 0;
 
@@ -1799,8 +1821,8 @@ function nuAscendingSortColumn(a, b) {
 
 function nuDecendingSortColumn(b, a) {
 	
-	if (a[window.nuSortSubformColumn] < b[window.nuSortSubformColumn]){return -1;}
-	if (a[window.nuSortSubformColumn] > b[window.nuSortSubformColumn]){return 1;}
+	if (a.value < b.value){return -1;}
+	if (a.value > b.value){return 1;}
 
 	return 0;
 	
@@ -1810,8 +1832,8 @@ function nuDecendingSortColumn(b, a) {
 
 function nuAscendingSortNumberColumn(a, b) {
 	
-	if (Number(a[window.nuSortSubformColumn]) < Number(b[window.nuSortSubformColumn])){return -1;}
-	if (Number(a[window.nuSortSubformColumn]) > Number(b[window.nuSortSubformColumn])){return 1;}
+	if (Number(a.value) < Number(b.value)){return -1;}
+	if (Number(a.value) > Number(b.value)){return 1;}
 	
 	return 0;
 	
@@ -1819,8 +1841,8 @@ function nuAscendingSortNumberColumn(a, b) {
 
 function nuDecendingSortNumberColumn(b, a) {
 	
-	if (Number(a[window.nuSortSubformColumn]) < Number(b[window.nuSortSubformColumn])){return -1;}
-	if (Number(a[window.nuSortSubformColumn]) > Number(b[window.nuSortSubformColumn])){return 1;}
+	if (Number(a.value) < Number(b.value)){return -1;}
+	if (Number(a.value) > Number(b.value)){return 1;}
 	
 	return 0;
 	
