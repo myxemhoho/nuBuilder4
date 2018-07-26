@@ -1761,11 +1761,15 @@ function nuSortSubform(s, c, e){
 		h     = parseInt($(this).css('height'));
 		t     = $('#' + f + so).hasClass('input_number') || $('#' + f + so).hasClass('input_nuNumber');
 		var v = $('#' + f + so).val();
-		console.log(f + so, v, t);
 		var m = $('#' + f + so).attr('data-nu-format')
+		var l = $('#' + f + so).hasClass('nuHiddenLookup');
 		
 		if(m != ''){
 			v = nuFORM.removeFormatting(v, m);
+		}
+		
+		if(l){
+			v = $('#' + f + so + 'code').val();
 		}
 		
 		var o = {'form' : i, 'value' : v};
