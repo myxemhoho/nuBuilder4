@@ -553,7 +553,11 @@ function nuINPUT(w, i, l, p, prop){
 
 		inp.setAttribute('type', prop.objects[i].input);
 
-		$('#' + id).addClass('input_' + input_type);
+		if(prop.objects[i].type == 'lookup'){
+			$('#' + id).addClass('nuHiddenLookup');
+		}else{
+			$('#' + id).addClass('input_' + input_type);
+		}
 
 	}
 
