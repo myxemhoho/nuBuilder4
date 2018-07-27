@@ -1759,7 +1759,7 @@ function nuSortSubform(s, c, e){
 		var i = this.id;
 		var f = this.id.replaceAll('nuRECORD', '');
 		h     = parseInt($(this).css('height'));
-		t     = $('#' + f + so).hasClass('input_number') || $('#' + f + so).hasClass('input_nuNumber');
+		t     = $('#' + f + so).hasClass('input_number') || $('#' + f + so).hasClass('input_nuNumber') || $('#' + f + so).hasClass('nuCalculator');
 		var v = $('#' + f + so).val();
 		console.log(f + so, v, t);
 		var m = $('#' + f + so).attr('data-nu-format')
