@@ -210,7 +210,7 @@ function nuBuildFastForm($table, $form_type){
 	$t              = nuRunQuery("SELECT * FROM $TT");
 	$a              = Array();
 	$n              = 'number date';
-
+	
 	while($r = db_fetch_object($t)){
 		
 
@@ -218,7 +218,8 @@ function nuBuildFastForm($table, $form_type){
 		$y          = $r->sob_all_type;
 		$i          = $r->sob_input_type;
 		$id         = $r->sob_all_id;
-		$l          = count($a);
+
+//		$l          = count($a);
 		
 		$date       = ($i == 'date' || $i == 'nuDate');
 		$norm       = ($y == 'input' && $i != 'date' && $i != 'nuDate' && $i != 'nuNumber' && $i != 'number');
@@ -237,7 +238,7 @@ function nuBuildFastForm($table, $form_type){
 	if($newT){
 		
 		$mess		= 'Table and Form have';
-		$create		= nuBuildTable($table, $a);
+		$create		= nuBuildNewTable($table, $a, $newT);
 			
 		nuRunQuery($create);
 
@@ -382,12 +383,19 @@ function nuFastForms(){
 
 
 
-function nuBuildTable($tab, $array){
+function nuBuildNewTable($tab, $array, $newT){
 
 	$id			= $tab . '_id';
 	$start		= "CREATE TABLE $tab";
 	$a			= Array();
 	$a[] 		= "$id VARCHAR(25) NOT NULL";
+
+	$ff_type	= nuHash()['fastform_type'];
+	$ff_fk		= nuHash()['fastform_fk'];
+
+	if($ff_type == 'subform' && $newT){
+		$a[] 	= "$ff_fk VARCHAR(25) NOT NULL";
+	}
 
 	for($i = 0 ; $i < count($array) ; $i++){
 
