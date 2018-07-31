@@ -555,6 +555,7 @@ function nuBindCtrlEvents(){
 				} else if (e.keyCode == 82) {										//-- r		Refresh
 					nuGetBreadcrumb();
 				} else if(e.keyCode == 83) {										//-- s		Save
+					$(":focus").blur();
 					nuSaveAction();
 				} else if(e.keyCode == 67) {										//-- c		Clone
 					nuCloneAction();
@@ -1851,10 +1852,6 @@ function nuDecendingSortNumberColumn(b, a) {
 	return 0;
 	
 }
-
-
-
-
 
 
 

@@ -1132,6 +1132,11 @@ function nuGatherFormAndSessionData($home){
 function nuFormAccessList($j){
 	
 	$a			= array();
+	$t			= nuRunQuery("SELECT zzzzsys_form_id FROM zzzzsys_form WHERE sfo_type = 'subform'");
+	
+	while($r = db_fetch_row($t)){
+		$a[]	= $r[0];
+	}
 	
 	for($i = 0 ; $i < count($j->forms) ; $i++){
 		$a[]	= $j->forms[$i][0];
