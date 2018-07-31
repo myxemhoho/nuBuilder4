@@ -87,7 +87,7 @@ function nuImportSystemFiles(){
 					if(substr($line, -1) == ";"){
 
 							$temp	= rtrim($temp,';');
-							$temp	= str_replace('ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER','', $temp);
+//							$temp	= str_replace('ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER','', $temp);
 							
 							nuRunQuery($temp);
 							$temp	= "";
@@ -373,7 +373,8 @@ function nuSystemList(){
 function nuSetCollation(){
 	
 	
-	$tbls		= nuRunQuery("SHOW TABLES");
+	$tbls      = nuRunQuery("SHOW FULL Tables WHERE Table_type = 'BASE TABLE'");
+//	$tbls		= nuRunQuery("SHOW TABLES");
 	$db			= nuRunQuery("SELECT DATABASE()");
 	$dbname		= db_fetch_row($db)[0];
 
