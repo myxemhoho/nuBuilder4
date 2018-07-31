@@ -226,7 +226,7 @@ function nuBuildFastForm($table, $form_type){
 		
 		if($y == 'lookup'){                         $a[] = Array('name'=>$id, 'type'=>'id');}
 		if($y == 'select'){                         $a[] = Array('name'=>$id, 'type'=>'varchar');}
-		if($y == 'calc'){                           $a[] = Array('name'=>$id, 'type'=>'varchar');}
+		if($y == 'calc'){                           $a[] = Array('name'=>$id, 'type'=>'decimal');}
 		if($y == 'textarea'){                       $a[] = Array('name'=>$id, 'type'=>'textarea');}
 		if($y == 'input' && $norm){                 $a[] = Array('name'=>$id, 'type'=>'varchar');}
 		if($y == 'input' && $date){                 $a[] = Array('name'=>$id, 'type'=>'date');}
