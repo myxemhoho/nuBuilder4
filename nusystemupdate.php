@@ -87,7 +87,7 @@ function nuImportSystemFiles(){
 					if(substr($line, -1) == ";"){
 
 							$temp	= rtrim($temp,';');
-//							$temp	= str_replace('ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER','', $temp);
+							$temp	= str_replace('ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER','', $temp);
 							
 							nuRunQuery($temp);
 							$temp	= "";

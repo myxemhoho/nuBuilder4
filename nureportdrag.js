@@ -880,6 +880,7 @@ function nuMoverAlignTopClick(){
 		t = Math.max(t, parseInt(s[i].style.top));
 console.log(t);
 	}
+console.log('--', t);
 	
 	$('.nuDragSelected').css('top', t);
 
@@ -1484,7 +1485,6 @@ function nuUpdateProperties(t){
 		var o 		= nuDragR.getObject(sel[i].id);
 		
 		o[$(t).attr('id')]  = $(t).val();
-		
 		nuDragR.setObject(o);
 		
 	}
