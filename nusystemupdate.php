@@ -283,7 +283,6 @@ function nuRemoveNuRecords(){
     $s  =  "DELETE FROM sys_zzzzsys_form WHERE zzzzsys_form_id LIKE 'nu%' ";    														//-- delete all forms with ids that start with 'nu'
     nuRunQuery($s);
     
-//    $s  =  "DELETE FROM sys_zzzzsys_php WHERE (sph_zzzzsys_form_id LIKE 'nu%' OR zzzzsys_php_id LIKE 'nu%') AND zzzzsys_php_id != 'nuuserhome_BE'";  		  //-- delete records that start with ids starting with 'nu' or linked to forms starting with 'nu'
     $s  =  "DELETE FROM sys_zzzzsys_php WHERE zzzzsys_php_id LIKE 'nu%' AND zzzzsys_php_id != 'nuuserhome_BE'";  		  				//-- delete records that start with ids starting with 'nu' or linked to forms starting with 'nu'
     nuRunQuery($s);
     
@@ -293,7 +292,7 @@ function nuRemoveNuRecords(){
     $s  =  "DELETE FROM sys_zzzzsys_translate WHERE zzzzsys_translate_id LIKE 'nu%'";  				  									//-- KEEP BROWSEs from FORMs with ids that start with 'nu'
     nuRunQuery($s);
     
-    $s  =  "DELETE FROM sys_zzzzsys_timezone";									   				 										//-- delete if attached to objects on forms with ids starting with 'nu'
+    $s  =  "DELETE FROM sys_zzzzsys_timezone";									   				 										//-- delete all timezones
     nuRunQuery($s);
     
 }

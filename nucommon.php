@@ -796,6 +796,18 @@ function nuGetUserAccess(){
 	$A['GLOBAL_ACCESS']			= $j->session->global_access;
 	$A['ACCESS_LEVEL_CODE']		= $j->access_level_code;
 	
+	$f							= db_field_names('zzzzsys_session');
+	$s							= time();
+
+	//-- update session time
+	
+	if (in_array("sss_time", $f)){
+		
+		nuRunQuery("UPDATE zzzzsys_session SET sss_time = $s WHERE zzzzsys_session_id = ? ", array($_SESSION['SESSION_ID']));
+		nuRunQuery("DELETE FROM zzzzsys_session WHERE sss_time < $s - 18000");					//-- 5 hours
+//nudebug("DELETE FROM zzzzsys_session WHERE sss_time < $s - 18000");		
+	}
+
 	return $A;
 	
 }

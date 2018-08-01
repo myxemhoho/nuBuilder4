@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.8.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 31, 2018 at 05:09 AM
+-- Generation Time: Aug 01, 2018 at 04:10 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -867,7 +867,8 @@ CREATE TABLE `zzzzsys_select_clause` (
 
 CREATE TABLE `zzzzsys_session` (
   `zzzzsys_session_id` varchar(25) NOT NULL DEFAULT '',
-  `sss_access` mediumtext NOT NULL
+  `sss_access` mediumtext NOT NULL,
+  `sss_time` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
