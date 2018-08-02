@@ -904,24 +904,33 @@ function nuMoverAlignTopClick(){
 
 function nuMoverAlignBottomClick(){
 	
-	var s = document.getElementsByClassName('nuDragSelected');
-	var l = 0;
+	var s 				= document.getElementsByClassName('nuDragSelected');
+	var b 				= 0;
 	nuDragR.dragging	= true;
+	var gs				= nuDragR.getGroupAndSection(s[0].id);
 	
 	for(var i = 0 ; i < s.length ; i ++){
 		
-		l = Math.max(l, parseInt(s[i].style.top) + parseInt(s[i].style.height));
-
+		if(JSON.stringify(nuDragR.getGroupAndSection(s[i].id)) != JSON.stringify(gs)){
+			return;
+		}
+		
+		var o 			= nuDragR.getObject(s[i].id);
+		b				= Math.max(b, o.top + o.height - (o.borderWidth * 2));
+		
 	}
-	
 	
 	for(var i = 0 ; i < s.length ; i ++){
 		
-		s[i].style.top = String(l - parseInt(s[i].style.height)) + 'px';
-
+		var o 			= nuDragR.getObject(s[i].id);
+		o.top			= b - o.height - (o.borderWidth * 2);
+		
+		nuDragR.setObject(o);
+		
 	}
 	
-	
+	nuLoadReport();
+
 }
 
 
