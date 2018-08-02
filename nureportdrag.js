@@ -871,19 +871,31 @@ function nuMoverAlignRightClick(){
 
 function nuMoverAlignTopClick(){
 	
-	var s = document.getElementsByClassName('nuDragSelected');
-	var t = 0;
+	var s 				= document.getElementsByClassName('nuDragSelected');
+	var t 				= 100000;
 	nuDragR.dragging	= true;
+	var gs				= nuDragR.getGroupAndSection(s[0].id);
 	
 	for(var i = 0 ; i < s.length ; i ++){
 		
-		t = Math.max(t, parseInt(s[i].style.top));
-console.log(t);
+		if(JSON.stringify(nuDragR.getGroupAndSection(s[i].id)) != JSON.stringify(gs)){
+			return;
+		}
+		
+		var o 			= nuDragR.getObject(s[i].id);
+		t				= Math.min(t, o.top);
+		
 	}
-console.log('--', t);
 	
-	$('.nuDragSelected').css('top', t);
-
+	for(var i = 0 ; i < s.length ; i ++){
+		
+		var o 			= nuDragR.getObject(s[i]);
+		s[i].top		= t;
+		
+		nuDragR.getObject(s[i]);
+		
+	}
+	
 	nuDragR.resetObjectProperties('top', t);
 	
 }
