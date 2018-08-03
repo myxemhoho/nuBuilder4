@@ -849,23 +849,29 @@ function nuMoverAlignLeftClick(){
 
 function nuMoverAlignRightClick(){
 	
-	var s = document.getElementsByClassName('nuDragSelected');
-	var l = 0;
+	var s 				= document.getElementsByClassName('nuDragSelected');
+	var r 				= 0;
 	nuDragR.dragging	= true;
-
-	for(var i = 0 ; i < s.length ; i ++){
-		
-		l = Math.max(l, parseInt(s[i].style.left) + parseInt(s[i].style.width));
-
-	}
-	
+	var gs				= nuDragR.getGroupAndSection(s[0].id);
 	
 	for(var i = 0 ; i < s.length ; i ++){
 		
-		s[i].style.left = String(l - parseInt(s[i].style.width)) + 'px';
-
+		var o 			= nuDragR.getObject(s[i].id);
+		r				= Math.max(r, o.left + o.width - (o.borderWidth * 2));
+		
 	}
 	
+	for(var i = 0 ; i < s.length ; i ++){
+		
+		var o 			= nuDragR.getObject(s[i].id);
+		o.left			= r - o.width - (o.borderWidth * 2);
+		
+		nuDragR.setObject(o);
+		
+	}
+	
+	nuLoadReport();
+
 }
 
 
