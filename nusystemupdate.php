@@ -310,7 +310,9 @@ function nuAppendToSystemTables(){
 			
 			$table  = $t[$i];
 
-			$s		= "INSERT INTO $table SELECT * FROM sys_$table";
+
+//			$s		= "INSERT INTO $table SELECT * FROM sys_$table";
+			$s		= "REPLACE INTO $table SELECT * FROM sys_$table";
 			nuRunQuery($s);
 
 			$s		= "DROP TABLE sys_$table";
