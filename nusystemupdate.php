@@ -310,13 +310,15 @@ function nuAppendToSystemTables(){
 			
 			$table  = $t[$i];
 
+			if($table == 'zzzzsys_object'){				//-- if duplicate records, use latest record from zzzzsys_object
+				
+				nuRunQuery("REPLACE INTO sys_zzzzsys_object SELECT * FROM zzzzsys_object");
+				nuRunQuery("DELETE FROM zzzzsys_object");
 
-//			$s		= "INSERT INTO $table SELECT * FROM sys_$table";
-			$s		= "REPLACE INTO $table SELECT * FROM sys_$table";
-			nuRunQuery($s);
+			}
 
-			$s		= "DROP TABLE sys_$table";
-			nuRunQuery($s);
+			nuRunQuery("REPLACE INTO $table SELECT * FROM sys_$table");
+			nuRunQuery("DROP TABLE sys_$table");
 			
 		}
 
