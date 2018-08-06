@@ -9,6 +9,62 @@
 
 <?php
 
+
+function nuImportNewDB($nuDB){
+
+	$r = $nuDB->query("SHOW TABLES");
+
+	if($r->num_rows > 0){return;}
+
+	try{
+
+		$file						= realpath(dirname(__FILE__))."/nubuilder4.sql";
+		@$handle					= fopen($file, "r");
+		$temp						= "";
+
+		if($handle){
+			
+			$nuDB->exec("DROP TABLE IF EXISTS zzzzsys_debug");
+			
+			while(($line = fgets($handle)) !== false){
+
+				if($line[0] != "-" AND $line[0] != "/"  AND $line[0] != "\n"){
+				
+					$line 			= trim($line);
+
+					$temp 			.= $line;
+
+					if(substr($line, -1) == ";"){
+
+							$temp	= rtrim($temp,';');
+							$temp	= str_replace('ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER','', $temp);
+							
+							$nuDB->exec($temp);
+							$temp	= "";
+							
+					}
+
+				}
+
+			}
+				
+		}else{
+		}
+
+	}catch (Throwable $e) {
+	}catch (Exception $e) {
+	}
+
+}
+
+
+
+
+
+
+
+
+
 function nuJSIndexInclude($pfile){
 
     $timestamp = date("YmdHis", filemtime($pfile));                                         //-- Add timestamp so javascript changes are effective immediately
@@ -33,6 +89,8 @@ function nuHeader(){
     $nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $nuDB->exec("SET CHARACTER SET utf8");
 
+	nuImportNewDB($nuDB);
+	
     $getHTMLHeaderSQL  	= "
         SELECT set_header
         FROM zzzzsys_setup
@@ -285,7 +343,9 @@ $nuHeader
 
 	$h = $h1.$h2.$h3;
 	print $h;
-	
+
+
+
 ?>
 
 </script>
