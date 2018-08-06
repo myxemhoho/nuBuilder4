@@ -13,8 +13,9 @@
 function nuImportNewDB($nuDB){
 
 	$r = $nuDB->query("SHOW TABLES");
+	$t = $r->fetch(PDO::FETCH_NUM)[0];
 
-	if($r->num_rows > 0){return;}
+	if($t != ''){return;}
 
 	try{
 
