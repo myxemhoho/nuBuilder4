@@ -24,8 +24,6 @@ function nuImportNewDB($nuDB){
 
 		if($handle){
 			
-			$nuDB->exec("DROP TABLE IF EXISTS zzzzsys_debug");
-			
 			while(($line = fgets($handle)) !== false){
 
 				if($line[0] != "-" AND $line[0] != "/"  AND $line[0] != "\n"){
