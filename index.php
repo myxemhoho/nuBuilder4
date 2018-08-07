@@ -17,41 +17,34 @@ function nuImportNewDB($nuDB){
 
 	if($t != ''){return;}
 
-	try{
+	$file						= realpath(dirname(__FILE__))."/nubuilder4.sql";
+	@$handle					= fopen($file, "r");
+	$temp						= "";
 
-		$file						= realpath(dirname(__FILE__))."/nubuilder4.sql";
-		@$handle					= fopen($file, "r");
-		$temp						= "";
+	if($handle){
+		
+		while(($line = fgets($handle)) !== false){
 
-		if($handle){
+			if($line[0] != "-" AND $line[0] != "/"  AND $line[0] != "\n"){
 			
-			while(($line = fgets($handle)) !== false){
+				$line 			= trim($line);
 
-				if($line[0] != "-" AND $line[0] != "/"  AND $line[0] != "\n"){
-				
-					$line 			= trim($line);
+				$temp 			.= $line;
 
-					$temp 			.= $line;
+				if(substr($line, -1) == ";"){
 
-					if(substr($line, -1) == ";"){
-
-							$temp	= rtrim($temp,';');
-							$temp	= str_replace('ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER','', $temp);
-							
-							$nuDB->exec($temp);
-							$temp	= "";
-							
-					}
-
+						$temp	= rtrim($temp,';');
+						$temp	= str_replace('ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER','', $temp);
+						
+						$nuDB->exec($temp);
+						$temp	= "";
+						
 				}
 
 			}
-				
-		}else{
-		}
 
-	}catch (Throwable $e) {
-	}catch (Exception $e) {
+		}
+			
 	}
 
 }
