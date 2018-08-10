@@ -19,6 +19,12 @@ function nuBuildForm(f){
 		
 	}
 	
+	if(nuFormType() == 'browse'){
+		window.nuTimesSaved		= -1;
+	}else{
+		window.nuTimesSaved		= window.nuTimesSaved + 1;
+	}
+
 	window.nuSubformRow			= -1;
 	window.nuBeforeSave			= null;
 	window.nuBeforeDelete		= null;
@@ -3652,6 +3658,10 @@ function nuSetVerticalTabs(){
 }
 
 
+function nuHasBeenSaved(){
+	
+	return window.nuTimesSaved;	
 
+}
 
 

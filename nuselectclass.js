@@ -854,7 +854,6 @@ function nuUp(e){
 
 	}
 
-	
 	if(el.hasClass('nuBoxField')){
 		
 		var id				= String(window.nuCurrentID);
