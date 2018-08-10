@@ -3,6 +3,7 @@ window.nuDialog 				= new nuCreateDialog('');
 window.nuFORM					= new nuFormObject();
 window.nuHideMessage 			= true;
 window.nuDragID					= 1000;
+window.nuLastForm				= '';
 window.nuNEW					= '';
 window.nuColor					= '';
 window.nuImage					= '';

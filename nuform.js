@@ -22,9 +22,16 @@ function nuBuildForm(f){
 	if(nuFormType() == 'browse'){
 		window.nuTimesSaved		= -1;
 	}else{
+		
 		window.nuTimesSaved		= window.nuTimesSaved + 1;
+		
+		if(window.nuLastForm != f.form_id){
+			window.nuTimesSaved	= 0;
+		}
+		
 	}
-
+	
+	window.nuLastForm			= f.form_id;
 	window.nuSubformRow			= -1;
 	window.nuBeforeSave			= null;
 	window.nuBeforeDelete		= null;
