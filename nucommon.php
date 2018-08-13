@@ -418,7 +418,6 @@ function nuRunPHP($procedure_code){
 
 	$aa									= nuAllowedActivities();
 	$p 									= nuProcedureAccessList($aa);
-
 	$id									= nuID();
 	$s									= "SELECT * FROM zzzzsys_php WHERE sph_code = '$procedure_code'";
 	$t									= nuRunQuery($s);
@@ -805,7 +804,6 @@ function nuGetUserAccess(){
 		
 		nuRunQuery("UPDATE zzzzsys_session SET sss_time = $s WHERE zzzzsys_session_id = ? ", array($_SESSION['SESSION_ID']));
 		nuRunQuery("DELETE FROM zzzzsys_session WHERE sss_time < $s - 18000");					//-- 5 hours
-//nudebug("DELETE FROM zzzzsys_session WHERE sss_time < $s - 18000");		
 	}
 
 	return $A;
@@ -1187,21 +1185,35 @@ function nuUpdateFormSchema(){
 }
 
 
-
-function nuUpdateTableSchema(){
-
-	$s 		= nuGetJSONData('clientTableSchema');
+function nuUpdateTableSchema($call_type){
 	
-	if(is_null($s)){
+	if($call_type == 'runhiddenphp' or $call_type == 'runphp'){
 		
-		$s	= nuBuildTableSchema();
+		nuSetJSONData('clientTableSchema', []);			//-- force updating Table Schema
+		return;
+		
+	}
 
-		nuSetJSONData('clientTableSchema', $s);
+	$was	= nuGetJSONData('clientTableSchema');
+	$is		= nuBuildTableSchema();
+	
+	if(is_null($was)){
 		
-		return $s;
+		nuSetJSONData('clientTableSchema', $is);
+		
+		return $is;
 		
 	}else{
-		return [];
+		
+		if(json_encode($was) == json_encode($is)){
+			return [];
+		}else{
+			
+			nuSetJSONData('clientTableSchema', $is);
+			return $is;
+			
+		}
+		
 	}
 	
 }

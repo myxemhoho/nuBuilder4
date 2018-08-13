@@ -60,7 +60,7 @@
 	$f->forms[0]->database					= $nuConfigDBName;
 	$f->forms[0]->dimensions				= $formAndSessionData->dimensions;
 	$f->forms[0]->translation				= $formAndSessionData->translation;
-	$f->forms[0]->tableSchema				= nuUpdateTableSchema();
+	$f->forms[0]->tableSchema				= nuUpdateTableSchema($CT);
 	$f->forms[0]->formSchema				= nuUpdateFormSchema();
 	$f->forms[0]->session_id				= $_SESSION['SESSION_ID'];
 	$f->forms[0]->callback					= $_POST['nuCallback'];
