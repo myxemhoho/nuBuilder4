@@ -2952,6 +2952,8 @@ function nuDeleteAllAction(){
 
 function nuCloneAction(){
 	
+	window.nuTimesSaved	= 0;
+
 	$('[data-nu-primary-key]').each(function(index){
 		
 			$(this).attr('data-nu-primary-key','-1');
