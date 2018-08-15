@@ -97,6 +97,12 @@ function nuGetBreadcrumb(bc){
 		var b		= bc;
 	}
 	
+	if(window.nuTimesSaved > 0){	
+		window.nuTimesSaved 	= window.nuTimesSaved - 1;
+	}
+
+
+	
 	if(e && nuFORM.getCurrent().form_type != 'launch'){
 		
 		if(!confirm(nuTranslate('Leave this form without saving?'))){
