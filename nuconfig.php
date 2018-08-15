@@ -11,13 +11,13 @@
 /*    $nuWelcomeBodyInnerHTML			= " 
 	
 	
-			<div id="outer" style="width:100%">
+			<div id='outer' style='width:100%'>
 
 				<div id='login' class='nuLogin'>
 					<table>
 						<tr>
 							<td align='center' style='text-align:center;height:50px' colspan='2'>
-								<div id='nulogo' style='margin:50px 0px 20px 50px;background-size:100% 100%;background-image:url("graphics/logo.png");width:200px;height:80px;'></div>
+								<div id='nulogo' style='margin:50px 0px 20px 65px;background-size:100% 100%;background-image:url(\"graphics/logo.png\");width:200px;height:80px;'></div>
 							</td>
 						</tr>
 						<tr>
@@ -30,7 +30,7 @@
 						</tr>
 						<tr>
 							<td style='text-align:center' colspan='2'>
-								<input id='submit' type='button' class='nuButton'  style='margin:20px 0px 0px 0px;width:90px;height:30px;' onclick='nuLoginRequest()' value='Log in'/>
+								<input id='submit' type='button' class='nuButton'  style='margin:20px 0px 0px 50px;width:90px;height:30px;' onclick='nuLoginRequest()' value='Log in'/>
 							</td>
 						</tr>
 					</table>
@@ -38,7 +38,6 @@
 				
 			</div>
 				
-
 									";
 */
 									
