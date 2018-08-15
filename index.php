@@ -12,11 +12,12 @@
 
 function nuImportNewDB($nuDB){
 
-	$r = $nuDB->query("SHOW TABLES");
-	$t = $r->fetch(PDO::FETCH_NUM)[0];
-
-	if($t != ''){return;}
-
+	$t = $nuDB->query("SHOW TABLES");
+	
+	while($r = $t->fetch(PDO::FETCH_NUM)){
+		if($r[0] == 'zzzzsys_object'){return;}
+	}
+	
 	$file						= realpath(dirname(__FILE__))."/nubuilder4.sql";
 	@$handle					= fopen($file, "r");
 	$temp						= "";
