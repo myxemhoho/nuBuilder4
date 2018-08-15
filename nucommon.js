@@ -98,7 +98,7 @@ function nuGetBreadcrumb(bc){
 	}
 	
 	if(window.nuTimesSaved > 0){	
-		window.nuTimesSaved 	= window.nuTimesSaved - 1;
+		window.nuTimesSaved 	= -1;
 	}
 
 
