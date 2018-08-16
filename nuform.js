@@ -2636,6 +2636,8 @@ function nuPopulateLookup(fm, target){
 		}
 		
 	}
+	
+	nuCalculateForm();
 
 	eval(fm.lookup_javascript);
 	
