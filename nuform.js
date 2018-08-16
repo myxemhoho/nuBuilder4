@@ -2622,7 +2622,7 @@ function nuPopulateLookup(fm, target){
 			}
 			
 		}else{
-			$('#' + id).val(f[i][1]);
+			$('#' + id).val(f[i][1]).change();
 			
 //			if(id != target + 'code'){
 //				$('#' + id).change();
