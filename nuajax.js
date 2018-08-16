@@ -512,7 +512,7 @@ function nuGetLookupId(pk, id){
 			nuPopulateLookup(data, id);
 			$('#' + id).addClass('nuEdited');
 			nuHasBeenEdited();
-
+			
 			var o		= $('#' + id);
 
 			if(o.attr('data-nu-prefix') == ''){return;}

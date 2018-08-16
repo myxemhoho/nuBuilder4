@@ -2622,15 +2622,19 @@ function nuPopulateLookup(fm, target){
 			}
 			
 		}else{
-			$('#' + id).val(f[i][1]).change();
 			
-//			if(id != target + 'code'){
-//				$('#' + id).change();
-//			}
+			$('#' + id).val(f[i][1]);
+
+			if($('#' + id).attr('data-nu-format') !== undefined){
+				
+				nuReformat($('#' + id)[0]);
+				$('#' + id).addClass('nuEdited')
+				$('#' + p + 'nuDelete').prop('checked', false);
+				
+			}
 			
 		}
 		
-
 	}
 
 	eval(fm.lookup_javascript);
