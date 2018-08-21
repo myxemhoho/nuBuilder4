@@ -365,6 +365,7 @@ function nuBuildFastForm($table, $form_type){
 	nuRunQuery("DROP TABLE $TT");
 		
 	nuSetJSONData('clientFormSchema', nuBuildFormSchema());
+
 	
 }
 

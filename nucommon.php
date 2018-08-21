@@ -1186,7 +1186,7 @@ function nuUpdateFormSchema(){
 
 function nuUpdateTableSchema($call_type){
 	
-	if($call_type == 'runhiddenphp' or $call_type == 'runphp'){
+	if($call_type == 'runhiddenphp' and nuHash()['form_code'] == 'nufflaunch'){
 		
 		nuSetJSONData('clientTableSchema', []);			//-- force updating Table Schema
 		return;
