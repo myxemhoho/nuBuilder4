@@ -1875,4 +1875,25 @@ function nuDecendingSortNumberColumn(b, a) {
 
 
 
+function nuEmbedObject(f, t){
+    
+	if(f == ''){return;}
+	
+	var ob	= JSON.parse(f);
+	var ty	= ob.type;
+	var ur	= atob(ob.file);
+    var x   = document.createElement("EMBED");
+    
+    x.setAttribute("type", ty);
+    x.setAttribute("src", ur);
+    x.setAttribute("width", "300px");
+    x.setAttribute("height", "300px");
+
+    $('#' + t).html('');
+    document.getElementById(t).appendChild(x);
+        
+}
+
+
+
 

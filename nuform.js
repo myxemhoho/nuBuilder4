@@ -537,7 +537,8 @@ function nuINPUT(w, i, l, p, prop){
 		.attr('data-nu-field', id)
 		.attr('data-nu-prefix', p)
 		.attr('data-nu-data', '')
-		.attr('onchange', 'this.className = "nuEdited"');
+		.attr('onchange', 'this.className = "nuEdited"')
+		.val(prop.objects[i].value);
 
 		id			= id + '_file';
 		
