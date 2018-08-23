@@ -3676,8 +3676,15 @@ function nuSetVerticalTabs(){
 
 function nuHasBeenSaved(){
 	
+	if(nuIsNewRecord()){
+		window.nuTimesSaved = 0;
+	}
+	
 	return window.nuTimesSaved;	
 
 }
+
+
+
 
 
