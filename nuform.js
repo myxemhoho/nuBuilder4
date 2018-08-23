@@ -537,7 +537,8 @@ function nuINPUT(w, i, l, p, prop){
 		.attr('data-nu-field', id)
 		.attr('data-nu-prefix', p)
 		.attr('data-nu-data', '')
-		.attr('onchange', 'this.className = "nuEdited"');
+		.attr('onchange', 'this.className = "nuEdited"')
+		.val(prop.objects[i].value);
 
 		id			= id + '_file';
 		
@@ -2622,16 +2623,22 @@ function nuPopulateLookup(fm, target){
 			}
 			
 		}else{
-			$('#' + id).val(f[i][1]);
 			
-//			if(id != target + 'code'){
-//				$('#' + id).change();
-//			}
+			$('#' + id).val(f[i][1]);
+
+			if($('#' + id).attr('data-nu-format') !== undefined){
+				
+				nuReformat($('#' + id)[0]);
+				$('#' + id).addClass('nuEdited')
+				$('#' + p + 'nuDelete').prop('checked', false);
+				
+			}
 			
 		}
 		
-
 	}
+	
+	nuCalculateForm();
 
 	eval(fm.lookup_javascript);
 	
@@ -2952,6 +2959,8 @@ function nuDeleteAllAction(){
 
 function nuCloneAction(){
 	
+	window.nuTimesSaved	= 0;
+
 	$('[data-nu-primary-key]').each(function(index){
 		
 			$(this).attr('data-nu-primary-key','-1');

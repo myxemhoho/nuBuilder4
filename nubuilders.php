@@ -218,11 +218,8 @@ function nuBuildFastForm($table, $form_type){
 		$y          = $r->sob_all_type;
 		$i          = $r->sob_input_type;
 		$id         = $r->sob_all_id;
-
-//		$l          = count($a);
-		
 		$date       = ($i == 'date' || $i == 'nuDate');
-		$norm       = ($y == 'input' && $i != 'date' && $i != 'nuDate' && $i != 'nuNumber' && $i != 'number');
+		$norm       = ($y == 'input' && $i != 'date' && $i != 'nuDate' && $i != 'nuNumber' && $i != 'number' && $i != 'file');
 		
 		if($y == 'lookup'){                         $a[] = Array('name'=>$id, 'type'=>'id');}
 		if($y == 'select'){                         $a[] = Array('name'=>$id, 'type'=>'varchar');}
@@ -232,6 +229,7 @@ function nuBuildFastForm($table, $form_type){
 		if($y == 'input' && $date){                 $a[] = Array('name'=>$id, 'type'=>'date');}
 		if($y == 'input' && $i == 'number'){        $a[] = Array('name'=>$id, 'type'=>'int');}
 		if($y == 'input' && $i == 'nuNumber'){      $a[] = Array('name'=>$id, 'type'=>'decimal');}
+		if($y == 'input' && $i == 'file'){      	$a[] = Array('name'=>$id, 'type'=>'longtext');}
 		
 	}
 
@@ -365,7 +363,7 @@ function nuBuildFastForm($table, $form_type){
 	nuRunQuery("DROP TABLE $TT");
 		
 	nuSetJSONData('clientFormSchema', nuBuildFormSchema());
-	nuSetJSONData('clientTableSchema', nuBuildTableSchema());
+
 	
 }
 
