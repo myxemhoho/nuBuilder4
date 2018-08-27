@@ -523,11 +523,14 @@ function nuRunHTML(){
 	$id								= nuID();
 	$P								= $_POST['nuSTATE'];
 	$o								= new stdClass;
-	$o->sql							= $P['browse_sql'];
+	$o->sql							= nuFormProperties(nuHash()['form_id'])->sfo_browse_sql;
 	$o->columns						= $P['browse_columns'];
-	$j								= json_encode($o);
+	$o->hash						= nuHash();
+	$o->form_id						= nuHash()['form_id'];
+	$j								= json_encode($o, true);
 	
 	$nuS							= "INSERT INTO zzzzsys_debug (zzzzsys_debug_id, deb_message) VALUES (?, ?)";
+	
 	nuRunQuery($nuS, array($id, $j));
 
 	return $id;

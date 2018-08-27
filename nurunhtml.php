@@ -4,13 +4,17 @@ require_once('nudata.php');
 
 print "<meta charset='utf-8'>";
 
-$table_id			= nuTT();
-$s					= "SELECT deb_message AS json FROM zzzzsys_debug WHERE zzzzsys_debug_id = ? ";		//-- created by nuRunHTML()
-$t					= nuRunQuery($s, array($_GET['i']));
-$r					= db_fetch_object($t);
-$j					= json_decode($r->json);
-$q					= $j->sql;
-$c					= $j->columns;
+$table_id						= nuTT();
+$s								= "SELECT deb_message AS json FROM zzzzsys_debug WHERE zzzzsys_debug_id = ? ";		//-- created by nuRunHTML()
+$t								= nuRunQuery($s, array($_GET['i']));
+$r								= db_fetch_object($t);
+$j								= json_decode($r->json);
+$_POST['nuHash'] 				=  (array) $j->hash;
+$c								= $j->columns;
+$form_id						= $j->form_id;
+$sql							= nuReplaceHashVariables($j->sql);
+
+nuEval($form_id . '_BB');
 
 print "<style>\n";
 
@@ -43,7 +47,7 @@ for($col = 0 ; $col < count($c) ; $col++){
 
 $h	= "</TR>";
 
-$t				= nuRunQuery($j->sql);
+$t				= nuRunQuery($sql);
 
 while($r = db_fetch_array($t)){
 		
