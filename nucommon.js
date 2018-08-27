@@ -533,13 +533,7 @@ function nuBindCtrlEvents(){
 	}
 	
 	$(document).keydown(function(e) {
-
-		var u			= '';
 		
-		if(nuFORM.breadcrumbs.length > 0){
-			u			= nuFORM.getProperty('user_id');
-		}
-
         if (e.ctrlKey && e.shiftKey) {
 			
 			window.nuNEW = 0;
@@ -558,9 +552,9 @@ function nuBindCtrlEvents(){
 					nuPopup("nudebug", "");
 				} else if(e.keyCode == 83) {										//-- s		Search
 					nuGetSearchList();
-				} else if(e.keyCode == 65) {										//-- a		Add
+				} else if(e.keyCode == 65 && window.global_access) {				//-- a		Add
 					nuCloneAction();
-				} else if(e.keyCode == 80) {										//-- p		Print
+				} else if(e.keyCode == 80 && window.global_access) {				//-- p		Print
 					nuPrintAction();
 				}
 
@@ -582,12 +576,7 @@ function nuBindCtrlEvents(){
 				} else if(e.keyCode == 83) {										//-- s		Save
 					$(":focus").blur();
 					nuSaveAction();
-				} else if(e.keyCode == 76) {    			                        //-- l      Change Password
-				   nuPopup("nupassword", u, "");
-				} else if(e.keyCode == 191) { 			                            //-- ?      Help
-				debugger;
-				   eval(nuFORMHELP[p]);
-			    } else if(e.keyCode == 67) {										//-- c		Clone
+				} else if(e.keyCode == 67) {										//-- c		Clone
 					nuCloneAction();
 				} else if(e.keyCode == 98) {										//-- y		Delete
 					nuDeleteAction();
