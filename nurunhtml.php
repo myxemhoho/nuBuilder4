@@ -28,7 +28,7 @@ for($col = 0 ; $col < count($c) ; $col++){
 	if($c[$col]->align == 'r'){$align = 'right';}
 	if($c[$col]->align == 'c'){$align = 'center';}
 	
-	$class[$col]	= "style='width:$wd;text-align:$align'";
+	$class[$col]	= "style='font-size:12px;width:$wd;text-align:$align'";
 		
 }
 
