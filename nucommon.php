@@ -525,6 +525,8 @@ function nuRunHTML(){
 	$o								= new stdClass;
 	$o->sql							= $P['browse_sql'];
 	$o->columns						= $P['browse_columns'];
+	$o->hash						= nuHash();
+
 	$j								= json_encode($o);
 	
 	$nuS							= "INSERT INTO zzzzsys_debug (zzzzsys_debug_id, deb_message) VALUES (?, ?)";

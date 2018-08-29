@@ -323,6 +323,7 @@ function nuGetFormObject($F, $R, $OBJS, $P = stdClass){
     $f->browse_rows			= $B[0];
     $f->browse_height		= $B[1];
     $f->browse_sql			= $B[2];
+    $f->browse_table_id		= nuHash()['TABLE_ID'];
     $f->pages				= ceil($B[1]/$f->rows);
     $f->objects 			= $a;
     $O 						= new stdClass();

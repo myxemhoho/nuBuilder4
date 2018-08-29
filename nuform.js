@@ -84,6 +84,8 @@ function nuBuildForm(f){
 	b.form_type					= f.form_type;
 	b.run_code					= f.run_code;
 	b.run_description			= f.run_description;
+	b.browse_table_id			= f.browse_table_id;
+	
 	
 	nuAddHolder('nuActionHolder');
 	nuAddHolder('nuBreadcrumbHolder');

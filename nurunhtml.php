@@ -11,6 +11,11 @@ $r					= db_fetch_object($t);
 $j					= json_decode($r->json);
 $q					= $j->sql;
 $c					= $j->columns;
+$_POST['nuHash']	= (array) $j->hash;
+
+$_POST['nuHash']['TABLE_ID'] = nuHash()['browse_table_id'];
+
+nuEval(nuHash()['form_id'] . '_BB');
 
 print "<style>\n";
 
@@ -23,7 +28,7 @@ for($col = 0 ; $col < count($c) ; $col++){
 	if($c[$col]->align == 'r'){$align = 'right';}
 	if($c[$col]->align == 'c'){$align = 'center';}
 	
-	$class[$col]	= "style='width:$wd;text-align:$align'";
+	$class[$col]	= "style='font-size:12px;width:$wd;text-align:$align'";
 		
 }
 
@@ -65,7 +70,9 @@ $h	.= "</TABLE>";
 
 print $h;
 
-//nuRunQuery("DELETE FROM zzzzsys_debug WHERE zzzzsys_debug_id = ? ", array($jsonID));
+nuRunQuery("DELETE FROM zzzzsys_debug WHERE zzzzsys_debug_id = ? ", array($_GET['i']));
+nuRunQuery("DROP TABLE IF EXISTS " . nuHash()['browse_table_id']);
+
 
 ?>
 

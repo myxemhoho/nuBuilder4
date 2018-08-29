@@ -75,6 +75,7 @@
 	$f->forms[0]->buttons					= $b[0];
 	$f->forms[0]->run_code					= $b[1];
 	$f->forms[0]->run_description			= $b[2];
+	
 
 	$j								    	= json_encode($f->forms[0]);
 	
