@@ -3678,7 +3678,9 @@ function nuSetVerticalTabs(){
 
 function nuHasBeenSaved(){
 	
-	return window.nuTimesSaved;	
+	if(nuIsNewRecord()){
+		return window.nuTimesSaved;	
+	}
 
 }
 
