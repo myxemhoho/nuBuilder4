@@ -797,6 +797,7 @@ function  nuGetLookupFields(id){
 	
 }
 
+/*
 function nuEnable(i){                 //-- Enable Edit Form Object
 
 	var o	= [i, i + 'code', i + 'button', i + 'description'];
@@ -820,6 +821,36 @@ function nuEnable(i){                 //-- Enable Edit Form Object
 	}
 
 }
+
+*/
+
+
+
+function nuEnable(i) {            //-- Enable Edit Form Object
+
+    var o = [i, i + 'code', i + 'button', i + 'description'];
+
+    for (var c = 0; c < o.length; c++) {
+
+        $('#' + o[c])
+            .removeClass('nuReadonly')
+            .prop('readonly', false)
+            .prop('disabled', false);
+
+        if (c == 2) { //-- button
+
+            $('#' + o[c])
+                .on("click", function () {
+                    nuBuildLookup(this, "");
+                })
+
+        }
+    }
+}
+
+
+
+
 
 function nuReadonly(i){  			               //-- set Edit Form Object to readonly
 
