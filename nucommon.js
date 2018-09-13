@@ -295,6 +295,8 @@ function nuBuildLookup(t, s, like){
 }
 
 function nuPopup(f, r, filter){
+	
+	if(nuSERVERRESPONSE.global_access == '0' && f == 'nuobject'){return;}
 
 	$('#nuCalendar').remove();
 	
