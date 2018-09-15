@@ -586,12 +586,17 @@ function nuINPUT(w, i, l, p, prop){
 	if(prop.objects[i].type == 'lookup'){
 		onChange	= 'nuGetLookupId(this.value, this.id)';
 	}
-	
+		
+	var bump		= 0;
+
+	if(input_type == 'button' && p != ''){
+		var bump	= 3;
+	}
 	
 	nuAddDataTab(id, prop.objects[i].tab, p);
 
 	$('#' + id).css({'top'      : Number(prop.objects[i].top),
-					'left'		: Number(prop.objects[i].left),
+					'left'		: Number(prop.objects[i].left) + bump,
 					'width'		: Number(prop.objects[i].width),
 					'height'	: Number(prop.objects[i].height),
 					'text-align': prop.objects[i].align,

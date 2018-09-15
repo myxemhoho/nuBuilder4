@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2018 at 05:05 AM
+-- Generation Time: Sep 13, 2018 at 01:12 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -3418,7 +3418,15 @@ INSERT INTO `zzzzsys_translate` (`zzzzsys_translate_id`, `trl_language`, `trl_en
 ('nu5b45e27f9846393', 'German', 'Delete This Row When Saved', 'Lösche diese Zeile beim Speichern'),
 ('nu5b45e29bc1c4c29', 'German', 'Logout', 'Logout'),
 ('nu5b45e2d69844888', 'German', 'Update system? Be sure to backup first.', 'System aktualisieren? Stellen Sie sicher, dass Sie zuerst ein Backup erstellen.'),
-('nu5b45e31f00e6d2c', 'German', 'Login Name', 'Login Name');
+('nu5b45e31f00e6d2c', 'German', 'Login Name', 'Login Name'),
+('nu5b987fb03625dc6', 'Arabic', 'cannot be left blank', 'لا يمكن تركه فارغًا'),
+('nu5b987fcf1a74dc1', 'Chinese', 'cannot be left blank', '不能留空'),
+('nu5b987fea1087028', 'French', 'cannot be left blank', 'ne peut pas être laissé en blanc'),
+('nu5b987ff6e3757a0', 'German', 'cannot be left blank', 'ne peut pas être laissé en blanc'),
+('nu5b98809503427be', 'Greek', 'cannot be left blank', 'δεν μπορεί να αφεθεί κενό'),
+('nu5b9880beef18d92', 'Hindi', 'cannot be left blank', 'खाली नहीं छोड़ा जा सकता है'),
+('nu5b9880d6178790b', 'Italian', 'cannot be left blank', 'non può essere lasciato in bianco'),
+('nu5b9880f421726e0', 'Vietnamese', 'cannot be left blank', 'không được để trống');
 
 -- --------------------------------------------------------
 
