@@ -169,7 +169,13 @@ function nuLoginRequest(){
                 last.record_id      = data.record_id;
                 last.filter         = data.filter;
                 last.search         = data.search;
-                last.hash           = parent.nuHashFromEditForm();
+
+				if(parent['nuHashFromEditForm']===undefined){
+					last.hash           = [];
+				}else{
+					last.hash           = parent.nuHashFromEditForm();
+				}
+				
                 last.FORM           = data.form;
                 nuBuildForm(data);
             }
