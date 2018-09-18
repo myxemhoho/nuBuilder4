@@ -86,7 +86,14 @@ function nuForm(f, r, filter, search, n, like){
 	last.record_id		= r;
 	last.filter 		= filter==''?window.nuFILTER:filter;
 	last.search 		= search;
-    last.hash	 		= parent.nuHashFromEditForm();
+
+	if(parent['nuHashFromEditForm']===undefined){
+		last.hash           = [];
+	}else{
+		last.hash           = parent.nuHashFromEditForm();
+	}
+
+//    last.hash	 		= parent.nuHashFromEditForm();
     last.AAA	 		= 'hw';
     last.like	 		= like;
 
@@ -127,7 +134,14 @@ function nuGetReport(f, r){
 	last.call_type 		= 'getreport';
 	last.form_id 		= f;
 	last.record_id		= r;
-	last.hash 			= parent.nuHashFromEditForm();
+
+	if(parent['nuHashFromEditForm']===undefined){
+		last.hash           = [];
+	}else{
+		last.hash           = parent.nuHashFromEditForm();
+	}
+	
+//	last.hash 			= parent.nuHashFromEditForm();
 
 	var successCallback = function(data,textStatus,jqXHR){
 	
@@ -215,7 +229,14 @@ function nuGetPHP(f, r){
 	last.call_type 		= 'getphp';
 	last.form_id 		= f;
 	last.record_id		= r;
-	last.hash 			= parent.nuHashFromEditForm();
+
+	if(parent['nuHashFromEditForm']===undefined){
+		last.hash           = [];
+	}else{
+		last.hash           = parent.nuHashFromEditForm();
+	}
+	
+//	last.hash 			= parent.nuHashFromEditForm();
 
 	var successCallback = function(data,textStatus,jqXHR){
 		
@@ -257,7 +278,14 @@ function nuRunPHP(pCode, iframe, rbs){
 	if(nuFORM.getCurrent() === undefined){
 		
 		last.record_id 		= parent.nuFORM.getCurrent().record_id;
-		last.hash 			= parent.nuHashFromEditForm();
+
+		if(parent['nuHashFromEditForm']===undefined){
+			last.hash       = [];
+		}else{
+			last.hash       = parent.nuHashFromEditForm();
+		}
+		
+//		last.hash 			= parent.nuHashFromEditForm();
 		
 	}else{
 
