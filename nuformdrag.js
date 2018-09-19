@@ -921,7 +921,9 @@ function nuSaveNuDrag(){
         return;
 	}
 	
-	parent.nuFORM.edited = false;
+	if(parent['nuFORM'] !== undefined){
+		parent.nuFORM.edited = false;
+	}
 
 	nuSaveAfterDrag();
 	
