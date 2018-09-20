@@ -342,8 +342,8 @@ function nuAddActionButtons(form){
 		}
 		
 	}
-
-	if(window.parent.length == 0){ //-- only if Main Form
+	
+	if(window.parent.length == 0 || parent['nuHashFromEditForm']===undefined){ //-- only if Main Form
 		$('#nuActionHolder').append("<img id='nulogo' width='120px' src='graphics/logo.png' style='position:absolute;right:20px'>");
 	}
 	
