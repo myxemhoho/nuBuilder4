@@ -7,6 +7,39 @@ mb_internal_encoding('UTF-8');
 $_POST['RunQuery']			= 0;
 
 if ( strpos($_SERVER['PHP_SELF'], 'wp-content/plugins' ) !== false) {
+<<<<<<< HEAD
+=======
+
+	require_once('../../../wp-config.php');
+	$DBHost         = DB_HOST;
+        $DBName         = DB_NAME;
+        $DBUser         = DB_USER;
+        $DBPassword     = DB_PASSWORD;
+	$DBCharset	= DB_CHARSET;
+
+} else {
+
+	$DBHost		= $nuConfigDBHost;
+	$DBName		= $nuConfigDBName;
+	$DBUser		= $nuConfigDBUser;
+	$DBPassword 	= $nuConfigDBPassword;
+	$DBCharset      = 'utf8';
+
+}
+
+/*
+echo $DBHost.'<br>';
+echo $DBName.'<br>';
+echo $DBUser.'<br>';
+echo $DBPassword.'<br>';
+echo $DBCharset.'<br>';
+echo die();
+*/
+
+$nuDB = new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+$nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$nuDB->exec("SET CHARACTER SET utf8");
+>>>>>>> 6d2ea03a4e1c1e3e0cec94c21e32f8d9f7464ec7
 
 	require_once('../../../wp-config.php');
 	$DBHost         = DB_HOST;
