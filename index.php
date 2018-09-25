@@ -1,3 +1,33 @@
+<?php
+
+        $wp                     = array();
+        $wp['plugin']           = false;
+        $wp['globeadmin']       = false;
+        $wp['user_login']       = '';
+        $wp['user_pass']        = '';
+        $wp['user_email']       = '';
+        $wp['display_name']     = '';
+
+        if ( isset($_REQUEST['wp']) ) {
+
+                $wp['plugin'] = true;
+                $decode       = base64_decode($_REQUEST['wp']);
+                $wp_object    = json_decode($decode);
+
+                //check if are giving globeadmin access
+                if ( in_array('administrator',$wp_object->roles) ) {
+                        $wp['globeadmin'] = true;
+                }
+
+                $wp['user_login']       = $wp_object->data->user_login;
+                $wp['user_pass']        = $wp_object->data->user_pass;
+                $wp['user_email']       = $wp_object->data->user_email;
+                $wp['display_name']     = $wp_object->data->display_name;
+        }
+        //echo "<pre>";
+        //print_r($wp);
+        //die();
+?>
 <!DOCTYPE html>
 <html onclick="nuClick(event)">
 
@@ -76,9 +106,29 @@ function nuCSSIndexInclude($pfile){
 
 function nuHeader(){
 
-    require('nuconfig.php');
+	require('nuconfig.php');
 
-    $nuDB 				= new PDO("mysql:host=$nuConfigDBHost;dbname=$nuConfigDBName;charset=utf8", $nuConfigDBUser, $nuConfigDBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+        if ( strpos($_SERVER['PHP_SELF'], 'wp-content/plugins' ) !== false) {
+
+                require_once('../../../wp-config.php');
+                $DBHost         = DB_HOST;
+                $DBName         = DB_NAME;
+                $DBUser         = DB_USER;
+                $DBPassword     = DB_PASSWORD;
+                $DBCharset      = DB_CHARSET;
+
+        } else {
+
+                $DBHost         = $nuConfigDBHost;
+                $DBName         = $nuConfigDBName;
+                $DBUser         = $nuConfigDBUser;
+                $DBPassword     = $nuConfigDBPassword;
+                $DBCharset      = 'utf8';
+
+        }
+
+    $nuDB                               = new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+
     $nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $nuDB->exec("SET CHARACTER SET utf8");
 
