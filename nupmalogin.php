@@ -1,16 +1,16 @@
 <?php
 
-        require_once('nuconfig.php');
+        require_once('nudatabase.php');
+		
+		
+		$nuConfigDBName	= nuRunQuery('')[1];
         $session_id     = $_REQUEST['sessid'];
-        $db             = new PDO("mysql:host=$nuConfigDBHost;dbname=$nuConfigDBName;charset=utf8", $nuConfigDBUser, $nuConfigDBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $values         = array($session_id);
         $sql            = "SELECT * FROM zzzzsys_session WHERE zzzzsys_session_id = ?";
-        $obj            = $db->prepare($sql);
-        $obj->execute($values);
-        $recordObj      = $obj->fetch(PDO::FETCH_OBJ);
-        $result         = $obj->rowCount();
-	$page		= "nupmalogout.php";	
+        $obj            = nuRunQuery($sql, $values);
+        $recordObj      = db_fetch_object($obj);
+        $result         = db_num_rows($obj);
+		$page			= "nupmalogout.php";	
 	
         if ( $result == 1 ) {
 
@@ -24,7 +24,8 @@
 		} else {
 			 setcookie("nupmalogin", "bad");
 		}
-        } else {
+    } else {
 		 setcookie("nupmalogin", "bad");
 	}
+
 	header("Location: $page");
