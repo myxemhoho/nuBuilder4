@@ -26,19 +26,8 @@ if ( strpos($_SERVER['PHP_SELF'], 'wp-content/plugins' ) !== false) {
 
 }
 
-/*
-echo $DBHost.'<br>';
-echo $DBName.'<br>';
-echo $DBUser.'<br>';
-echo $DBPassword.'<br>';
-echo $DBCharset.'<br>';
-echo die();
-*/
-
 $nuDB = new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES $DBCharset"));
 $nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$nuDB->exec("SET CHARACTER SET $DBCharset");
-
 
 function nuRunQuery($s, $a = array(), $isInsert = false){
 
@@ -47,6 +36,7 @@ function nuRunQuery($s, $a = array(), $isInsert = false){
 	global $DBUser;
 	global $DBPassword;
 	global $nuDB;
+	global $DBCharset;
 	
 	if($s == ''){
 		$a           = array();
@@ -238,21 +228,15 @@ function nuUpdateTables(){
 
 function nuDebugResult($t){
 	
-    global $nuDB;
-	
 	if(is_object($t)){
 		$t	= print_r($t,1);
 	}
 
     $i		= nuID();
-    $s		= $nuDB->prepare("INSERT INTO zzzzsys_debug (zzzzsys_debug_id, deb_message, deb_added) VALUES (? , ?, ?)");
+    $s		= "INSERT INTO zzzzsys_debug (zzzzsys_debug_id, deb_message, deb_added) VALUES (? , ?, ?)";
 
-    $s->execute(array($i, $t, time()));
-    
-    if($nuDB->errorCode() !== '00000'){
-        error_log($nuDB->errorCode() . ": Could not establish nuBuilder database connection");
-    }
-
+    nuRunQuery($s, array($i, $t, time()));
+	
 	return $i;
 }
 
@@ -309,7 +293,7 @@ function nuID(){
 
 
 function nuGetWPConfig($file = '../../../wp-config.php') {
-
+	
         $result                         = false;
         $strings                        = array();
         $strings[0]                     = "define('DB_NAME";
@@ -325,7 +309,7 @@ function nuGetWPConfig($file = '../../../wp-config.php') {
                 for ( $x=0; $x<count($lines); $x++ ) {
                         for ( $y=0; $y<count($strings); $y++ ) {
                                 if (strpos(trim($lines[$x]), $strings[$y]) !== false) {
-                                        $parts = explode("'",trim($lines[$x]));
+									    $parts = explode("'",trim($lines[$x]));
                                         $result[$parts[1]] = $parts[3];
                                 }
                         }

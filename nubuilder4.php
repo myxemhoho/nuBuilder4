@@ -21,13 +21,6 @@ function nuSetMenu() {
 	
 }
 
-function nuAdJS() {
-
-	wp_register_script('nubuilder4', plugins_url('nubuilder4.js', __FILE__)); 
-	wp_enqueue_script('nubuilder4');
-
-}
-
 class nuBuilderForte{
 	
 	function __construct() {
@@ -58,9 +51,7 @@ register_deactivation_hook( __FILE__, array( $nuBuilderForte, 'deactivate' ) );
 
 function admin_login() {
 	
-	add_action('wp_enqueue_scripts', 'nuAdJS');
-
-	$iframe_url		= constructUrl();
+	$iframe_url		= nuConstructUrl();
 
 	$j	= "
 	<iframe id='nubuilder4_iframe' style='margin:20px;border-style:solid;border-width:2px;border-color:lightgrey;width:1300px;height:1000px' src='$iframe_url'></iframe>
@@ -79,10 +70,11 @@ function admin_login() {
 	</script>
 	";
 	
+	//echo $iframe_url;
 	echo $j;
 }
 
-function constructUrl() {
+function nuConstructUrl() {
 
 	$auth_info 	= get_currentuserinfo();
 	$json		= json_encode($auth_info);
@@ -105,3 +97,7 @@ function constructUrl() {
 	return $this_server;
 }
 
+
+	
+
+	

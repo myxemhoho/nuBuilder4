@@ -26,9 +26,7 @@
                 $wp['user_email']       = $wp_object->data->user_email;
                 $wp['display_name']     = $wp_object->data->display_name;
         }
-        //echo "<pre>";
-        //print_r($wp);
-        //die();
+		
 ?>
 <!DOCTYPE html>
 <html onclick="nuClick(event)">
@@ -78,6 +76,35 @@ function nuImportNewDB(){
 
 		}
 			
+	}
+	
+	if ( isset($_REQUEST['wp']) ) {
+		nuAddAccessLevels();
+	}	
+}
+
+function nuAddAccessLevels(){
+
+	$s 	= "SELECT * FROM zzzzsys_access WHERE zzzzsys_access = ? ";
+	$i 	= "INSERT INTO `zzzzsys_access` (`zzzzsys_access_id`, `sal_code`, `sal_description`, `sal_zzzzsys_form_id`) VALUES (?, ?, ?, 'nuuserhome')";
+	$a	= 	[
+				['wpadministrator','ADMIN','Administrator'],
+				['wpeditor','EDIT','Editor'],
+				['wpauthor','AUTH','Author'],
+				['wpcontributor','CONT','Contributor'],
+				['wpsubscriber','SUBS','Subscriber']
+			];
+		nudebug($a);
+
+
+	for($c = 0 ; $c < count($a) ; $c++){
+		
+		$t	= nuRunQuery($s, [$a[$c][0]]);
+		
+		if(db_num_rows($t) == 0){
+			nuRunQuery($i, [$a[$c][0], $a[$c][1], $a[$c][2]]);
+		}
+		
 	}
 
 }
