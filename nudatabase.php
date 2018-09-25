@@ -8,18 +8,19 @@ $_POST['RunQuery']			= 0;
 
 if ( strpos($_SERVER['PHP_SELF'], 'wp-content/plugins' ) !== false) {
 
-	require_once('../../../wp-config.php');
-	$DBHost         = DB_HOST;
-        $DBName         = DB_NAME;
-        $DBUser         = DB_USER;
-        $DBPassword     = DB_PASSWORD;
-	$DBCharset	= DB_CHARSET;
+	$result 		= nuGetWPConfig();
+
+	$DBHost         = $result['DB_HOST'];
+	$DBName         = $result['DB_NAME'];
+	$DBUser         = $result['DB_USER'];
+	$DBPassword     = $result['DB_PASSWORD'];
+	$DBCharset		= $result['DB_CHARSET'];
 
 } else {
 
-	$DBHost		= $nuConfigDBHost;
-	$DBName		= $nuConfigDBName;
-	$DBUser		= $nuConfigDBUser;
+	$DBHost			= $nuConfigDBHost;
+	$DBName			= $nuConfigDBName;
+	$DBUser			= $nuConfigDBUser;
 	$DBPassword 	= $nuConfigDBPassword;
 	$DBCharset      = 'utf8';
 
@@ -34,9 +35,9 @@ echo $DBCharset.'<br>';
 echo die();
 */
 
-$nuDB = new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+$nuDB = new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES $DBCharset"));
 $nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$nuDB->exec("SET CHARACTER SET utf8");
+$nuDB->exec("SET CHARACTER SET $DBCharset");
 
 
 function nuRunQuery($s, $a = array(), $isInsert = false){
@@ -231,6 +232,33 @@ function nuUpdateTables(){
 		
 }
 
+
+
+function nuGetWPConfig($file = '../../../wp-config.php') {
+
+        $result                         = false;
+        $strings                        = array();
+        $strings[0]                     = "define('DB_NAME";
+        $strings[1]                     = "define('DB_USER";
+        $strings[2]                     = "define('DB_PASSWORD";
+        $strings[3]                     = "define('DB_HOST";
+        $strings[4]                     = "define('DB_CHARSET";
+
+        if ( is_readable($file) ) {
+                $result                 = array();
+                $contents               = file_get_contents($file);
+                $lines                  = explode(PHP_EOL, $contents);
+                for ( $x=0; $x<count($lines); $x++ ) {
+                        for ( $y=0; $y<count($strings); $y++ ) {
+                                if (strpos(trim($lines[$x]), $strings[$y]) !== false) {
+                                        $parts = explode("'",trim($lines[$x]));
+                                        $result[$parts[1]] = $parts[3];
+                                }
+                        }
+                }
+        }
+        return $result;
+}
 
 
 ?>
