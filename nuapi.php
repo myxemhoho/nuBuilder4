@@ -6,7 +6,7 @@
 	require_once('nuform.php');
 	require_once('nudata.php');
     require_once('nudrag.php');
-    require_once('nuconfig.php');
+    require_once('nudatabase.php');
 
 	$_POST['nuCounter']						= rand(0, 999);
 	$_POST['nuErrors']						= array();

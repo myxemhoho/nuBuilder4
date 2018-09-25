@@ -1,5 +1,7 @@
 <?php
 
+    require_once('nudatabase.php');
+
         $wp                     = array();
         $wp['plugin']           = false;
         $wp['globeadmin']       = false;
@@ -40,11 +42,11 @@
 <?php
 
 
-function nuImportNewDB($nuDB){
-
-	$t = $nuDB->query("SHOW TABLES");
+function nuImportNewDB(){
 	
-	while($r = $t->fetch(PDO::FETCH_NUM)){
+	$t = nuRunQuery("SHOW TABLES");
+	
+	while($r = db_fetch_row($t)){
 		if($r[0] == 'zzzzsys_object'){return;}
 	}
 	
@@ -67,7 +69,7 @@ function nuImportNewDB($nuDB){
 						$temp	= rtrim($temp,';');
 						$temp	= str_replace('ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER','', $temp);
 						
-						$nuDB->exec($temp);
+						nuRunQuery($temp);
 						$temp	= "";
 						
 				}
@@ -106,33 +108,7 @@ function nuCSSIndexInclude($pfile){
 
 function nuHeader(){
 
-	require('nuconfig.php');
-
-        if ( strpos($_SERVER['PHP_SELF'], 'wp-content/plugins' ) !== false) {
-
-                require_once('../../../wp-config.php');
-                $DBHost         = DB_HOST;
-                $DBName         = DB_NAME;
-                $DBUser         = DB_USER;
-                $DBPassword     = DB_PASSWORD;
-                $DBCharset      = DB_CHARSET;
-
-        } else {
-
-                $DBHost         = $nuConfigDBHost;
-                $DBName         = $nuConfigDBName;
-                $DBUser         = $nuConfigDBUser;
-                $DBPassword     = $nuConfigDBPassword;
-                $DBCharset      = 'utf8';
-
-        }
-
-    $nuDB                               = new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-
-    $nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $nuDB->exec("SET CHARACTER SET utf8");
-
-	nuImportNewDB($nuDB);
+	nuImportNewDB();
 	
     $getHTMLHeaderSQL  	= "
         SELECT set_header
@@ -140,18 +116,9 @@ function nuHeader(){
         WHERE zzzzsys_setup_id = 1
     ";
 
-    $getHTMLHeaderQRY 	= $nuDB->prepare($getHTMLHeaderSQL);
+    nuRunQuery($getHTMLHeaderSQL);
     $HTMLHeader 		= '';
 	
-    try {
-		
-        $getHTMLHeaderQRY->execute();
-        $HTMLHeader 	= $getHTMLHeaderQRY->fetch(PDO::FETCH_OBJ)->set_header;
-		
-    }catch(PDOException $ex){
-        die('nuBuilder cannot access the database. Please check your database configuration in nuconfig.php.');
-    }
-
     $j  = "\n\n" . $HTMLHeader . "\n\n";
     
     return $j;

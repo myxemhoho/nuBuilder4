@@ -47,6 +47,7 @@ function nuRunQuery($s, $a = array(), $isInsert = false){
 	global $DBUser;
 	global $DBPassword;
 	global $nuDB;
+	
 	if($s == ''){
 		$a           = array();
 		$a[0]        = $DBHost;
