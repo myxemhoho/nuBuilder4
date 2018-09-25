@@ -5,46 +5,29 @@ require_once('nuconfig.php');
 mb_internal_encoding('UTF-8');
 
 $_POST['RunQuery']			= 0;
-$DBHost						= $nuConfigDBHost;
-$DBName						= $nuConfigDBName;
-$DBUser						= $nuConfigDBUser;
-$DBPassword					= $nuConfigDBPassword;
 
-$nuDB = new PDO("mysql:host=$DBHost;dbname=$DBName;charset=utf8", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-$nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$nuDB->exec("SET CHARACTER SET utf8");
+if ( strpos($_SERVER['PHP_SELF'], 'wp-content/plugins' ) !== false) {
 
-$GLOBALS['nuSetup']			= db_setup();
+	$result 		= nuGetWPConfig();
 
+	$DBHost         = $result['DB_HOST'];
+	$DBName         = $result['DB_NAME'];
+	$DBUser         = $result['DB_USER'];
+	$DBPassword     = $result['DB_PASSWORD'];
+	$DBCharset		= $result['DB_CHARSET'];
 
-function db_setup(){
-    
-	static $setup;
-	
-    if (empty($setup)) {                                          			//check if setup has already been called
-	
-		$s					= "
-								SELECT 
-									zzzzsys_setup.*, 
-									zzzzsys_timezone.stz_timezone AS set_timezone 
-								FROM zzzzsys_setup 
-								LEFT JOIN zzzzsys_timezone ON zzzzsys_timezone_id = set_zzzzsys_timezone_id
-							";
-		
-		
-		$rs					= nuRunQuery($s);						        //get setup info from db
-		$setup				= db_fetch_object($rs);
-	}
-	
-	$gcLifetime				= 60 * $setup->set_time_out_minutes;             //setup garbage collect timeouts
-	
-	ini_set("session.gc_maxlifetime", $gcLifetime);
-		
-    return $setup;
-	
+} else {
+
+	$DBHost			= $nuConfigDBHost;
+	$DBName			= $nuConfigDBName;
+	$DBUser			= $nuConfigDBUser;
+	$DBPassword 	= $nuConfigDBPassword;
+	$DBCharset      = 'utf8';
+
 }
 
-
+$nuDB = new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES $DBCharset"));
+$nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 function nuRunQuery($s, $a = array(), $isInsert = false){
 
@@ -53,6 +36,8 @@ function nuRunQuery($s, $a = array(), $isInsert = false){
 	global $DBUser;
 	global $DBPassword;
 	global $nuDB;
+	global $DBCharset;
+	
 	if($s == ''){
 		$a           = array();
 		$a[0]        = $DBHost;
@@ -238,6 +223,100 @@ function nuUpdateTables(){
 		
 }
 
+
+
+
+function nuDebugResult($t){
+	
+	if(is_object($t)){
+		$t	= print_r($t,1);
+	}
+
+    $i		= nuID();
+    $s		= "INSERT INTO zzzzsys_debug (zzzzsys_debug_id, deb_message, deb_added) VALUES (? , ?, ?)";
+
+    nuRunQuery($s, array($i, $t, time()));
+	
+	return $i;
+}
+
+
+function nuDebug($a){
+	
+	$date				= date("Y-m-d H:i:s");
+	$b					= debug_backtrace();
+	$f					= $b[0]['file'];
+	$l					= $b[0]['line'];
+	$m					= "$date  -  $f line $l\n\n<br>\n";
+	$nuSystemEval		= $_POST['nuSystemEval'];
+	$nuProcedureEval	= $_POST['nuProcedureEval'];
+
+	if($_POST['RunQuery'] == 1){
+		$m				= "$date - SQL Error in <b>nuRunQuery</b>\n\n<br>\n" ;
+	}else{
+		$m				= "$date - $nuProcedureEval $nuSystemEval line $l\n\n<br>\n" ;
+	}
+
+	for($i = 0 ; $i < count(func_get_args()) ; $i++){
+
+		$p				= func_get_arg($i);
+
+		$m				.= "\n[$i] : ";
+
+		if(gettype($p) == 'object' or gettype($p) == 'array'){
+			$m			.= print_r($p,1);
+		}else{
+			$m			.= $p;
+		}
+
+		$m				.= "\n";
+
+	}
+	
+	nuDebugResult($m);
+
+}
+
+
+
+function nuID(){
+
+	$i   = uniqid();
+	$s   = md5($i);
+
+    while($i == uniqid()){}
+
+    return uniqid().$s[0].$s[1];
+
+}
+
+
+
+function nuGetWPConfig($file = '../../../wp-config.php') {
+	
+        $result                         = false;
+        $strings                        = array();
+        $strings[0]                     = "define('DB_NAME";
+        $strings[1]                     = "define('DB_USER";
+        $strings[2]                     = "define('DB_PASSWORD";
+        $strings[3]                     = "define('DB_HOST";
+        $strings[4]                     = "define('DB_CHARSET";
+
+        if ( is_readable($file) ) {
+                $result                 = array();
+                $contents               = file_get_contents($file);
+                $lines                  = explode(PHP_EOL, $contents);
+                for ( $x=0; $x<count($lines); $x++ ) {
+                        for ( $y=0; $y<count($strings); $y++ ) {
+                                if (strpos(trim($lines[$x]), $strings[$y]) !== false) {
+									    $parts = explode("'",trim($lines[$x]));
+                                        $result[$parts[1]] = $parts[3];
+                                }
+                        }
+                }
+        }
+        return $result;
+}
 
 
 ?>

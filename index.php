@@ -1,3 +1,33 @@
+<?php
+
+    require_once('nudatabase.php');
+
+        $wp                     = array();
+        $wp['plugin']           = false;
+        $wp['globeadmin']       = false;
+        $wp['user_login']       = '';
+        $wp['user_pass']        = '';
+        $wp['user_email']       = '';
+        $wp['display_name']     = '';
+
+        if ( isset($_REQUEST['wp']) ) {
+
+                $wp['plugin'] = true;
+                $decode       = base64_decode($_REQUEST['wp']);
+                $wp_object    = json_decode($decode);
+
+                //check if are giving globeadmin access
+                if ( in_array('administrator',$wp_object->roles) ) {
+                        $wp['globeadmin'] = true;
+                }
+
+                $wp['user_login']       = $wp_object->data->user_login;
+                $wp['user_pass']        = $wp_object->data->user_pass;
+                $wp['user_email']       = $wp_object->data->user_email;
+                $wp['display_name']     = $wp_object->data->display_name;
+        }
+		
+?>
 <!DOCTYPE html>
 <html onclick="nuClick(event)">
 
@@ -10,11 +40,11 @@
 <?php
 
 
-function nuImportNewDB($nuDB){
-
-	$t = $nuDB->query("SHOW TABLES");
+function nuImportNewDB(){
 	
-	while($r = $t->fetch(PDO::FETCH_NUM)){
+	$t = nuRunQuery("SHOW TABLES");
+	
+	while($r = db_fetch_row($t)){
 		if($r[0] == 'zzzzsys_object'){return;}
 	}
 	
@@ -37,7 +67,7 @@ function nuImportNewDB($nuDB){
 						$temp	= rtrim($temp,';');
 						$temp	= str_replace('ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER','', $temp);
 						
-						$nuDB->exec($temp);
+						nuRunQuery($temp);
 						$temp	= "";
 						
 				}
@@ -46,6 +76,35 @@ function nuImportNewDB($nuDB){
 
 		}
 			
+	}
+	
+	if ( isset($_REQUEST['wp']) ) {
+		nuAddAccessLevels();
+	}	
+}
+
+function nuAddAccessLevels(){
+
+	$s 	= "SELECT * FROM zzzzsys_access WHERE zzzzsys_access = ? ";
+	$i 	= "INSERT INTO `zzzzsys_access` (`zzzzsys_access_id`, `sal_code`, `sal_description`, `sal_zzzzsys_form_id`) VALUES (?, ?, ?, 'nuuserhome')";
+	$a	= 	[
+				['wpadministrator','ADMIN','Administrator'],
+				['wpeditor','EDIT','Editor'],
+				['wpauthor','AUTH','Author'],
+				['wpcontributor','CONT','Contributor'],
+				['wpsubscriber','SUBS','Subscriber']
+			];
+		nudebug($a);
+
+
+	for($c = 0 ; $c < count($a) ; $c++){
+		
+		$t	= nuRunQuery($s, [$a[$c][0]]);
+		
+		if(db_num_rows($t) == 0){
+			nuRunQuery($i, [$a[$c][0], $a[$c][1], $a[$c][2]]);
+		}
+		
 	}
 
 }
@@ -76,13 +135,7 @@ function nuCSSIndexInclude($pfile){
 
 function nuHeader(){
 
-    require('nuconfig.php');
-
-    $nuDB 				= new PDO("mysql:host=$nuConfigDBHost;dbname=$nuConfigDBName;charset=utf8", $nuConfigDBUser, $nuConfigDBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-    $nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $nuDB->exec("SET CHARACTER SET utf8");
-
-	nuImportNewDB($nuDB);
+	nuImportNewDB();
 	
     $getHTMLHeaderSQL  	= "
         SELECT set_header
@@ -90,18 +143,9 @@ function nuHeader(){
         WHERE zzzzsys_setup_id = 1
     ";
 
-    $getHTMLHeaderQRY 	= $nuDB->prepare($getHTMLHeaderSQL);
+    nuRunQuery($getHTMLHeaderSQL);
     $HTMLHeader 		= '';
 	
-    try {
-		
-        $getHTMLHeaderQRY->execute();
-        $HTMLHeader 	= $getHTMLHeaderQRY->fetch(PDO::FETCH_OBJ)->set_header;
-		
-    }catch(PDOException $ex){
-        die('nuBuilder cannot access the database. Please check your database configuration in nuconfig.php.');
-    }
-
     $j  = "\n\n" . $HTMLHeader . "\n\n";
     
     return $j;
@@ -169,7 +213,13 @@ function nuLoginRequest(){
                 last.record_id      = data.record_id;
                 last.filter         = data.filter;
                 last.search         = data.search;
-                last.hash           = parent.nuHashFromEditForm();
+
+				if(parent['nuHashFromEditForm']===undefined){
+					last.hash           = [];
+				}else{
+					last.hash           = parent.nuHashFromEditForm();
+				}
+				
                 last.FORM           = data.form;
                 nuBuildForm(data);
             }

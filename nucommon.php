@@ -11,7 +11,10 @@ require_once('nudatabase.php');
 set_time_limit(0);
 mb_internal_encoding('UTF-8');
 
-$setup								= $GLOBALS['nuSetup'];                                   //--  setup php code just used for this database
+$GLOBALS['nuSetup']			= db_setup();
+
+$setup						= $GLOBALS['nuSetup'];                                   //--  setup php code just used for this database
+
 
 nuClientTimeZone();
 
@@ -46,65 +49,6 @@ function nuClientTimeZone(){
 }
 
 
-function nuDebugResult($t){
-	
-    global $nuDB;
-	
-	if(is_object($t)){
-		$t	= print_r($t,1);
-	}
-
-    $i		= nuID();
-    $s		= $nuDB->prepare("INSERT INTO zzzzsys_debug (zzzzsys_debug_id, deb_message, deb_added) VALUES (? , ?, ?)");
-
-    $s->execute(array($i, $t, time()));
-    
-    if($nuDB->errorCode() !== '00000'){
-        error_log($nuDB->errorCode() . ": Could not establish nuBuilder database connection");
-    }
-
-	return $i;
-}
-
-
-function nuDebug($a){
-	
-	$date				= date("Y-m-d H:i:s");
-	$b					= debug_backtrace();
-	$f					= $b[0]['file'];
-	$l					= $b[0]['line'];
-	$m					= "$date  -  $f line $l\n\n<br>\n";
-	$nuSystemEval		= $_POST['nuSystemEval'];
-	$nuProcedureEval	= $_POST['nuProcedureEval'];
-
-	if($_POST['RunQuery'] == 1){
-		$m				= "$date - SQL Error in <b>nuRunQuery</b>\n\n<br>\n" ;
-	}else{
-		$m				= "$date - $nuProcedureEval $nuSystemEval line $l\n\n<br>\n" ;
-	}
-
-	for($i = 0 ; $i < count(func_get_args()) ; $i++){
-
-		$p				= func_get_arg($i);
-
-		$m				.= "\n[$i] : ";
-
-		if(gettype($p) == 'object' or gettype($p) == 'array'){
-			$m			.= print_r($p,1);
-		}else{
-			$m			.= $p;
-		}
-
-		$m				.= "\n";
-
-	}
-	
-	nuDebugResult($m);
-
-}
-
-
-
 function nuTT(){
 
 	$fn	= '___nu'.uniqid('1').'___';
@@ -124,18 +68,6 @@ function nuErrorFound(){
     
 }
 
-
-
-function nuID(){
-
-	$i   = uniqid();
-	$s   = md5($i);
-
-    while($i == uniqid()){}
-
-    return uniqid().$s[0].$s[1];
-
-}
 
 
 class nuSqlString{
@@ -1623,6 +1555,35 @@ function nuUser(){
 
 	return db_fetch_object($t);
 
+}
+
+
+
+function db_setup(){
+    
+	static $setup;
+	
+    if (empty($setup)) {                                          			//check if setup has already been called
+	
+		$s					= "
+								SELECT 
+									zzzzsys_setup.*, 
+									zzzzsys_timezone.stz_timezone AS set_timezone 
+								FROM zzzzsys_setup 
+								LEFT JOIN zzzzsys_timezone ON zzzzsys_timezone_id = set_zzzzsys_timezone_id
+							";
+		
+		
+		$rs					= nuRunQuery($s);						        //get setup info from db
+		$setup				= db_fetch_object($rs);
+	}
+	
+	$gcLifetime				= 60 * $setup->set_time_out_minutes;             //setup garbage collect timeouts
+	
+	ini_set("session.gc_maxlifetime", $gcLifetime);
+		
+    return $setup;
+	
 }
 
 
