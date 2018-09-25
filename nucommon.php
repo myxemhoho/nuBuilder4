@@ -11,10 +11,7 @@ require_once('nudatabase.php');
 set_time_limit(0);
 mb_internal_encoding('UTF-8');
 
-
-$GLOBALS['nuSetup']			= db_setup();
-
-$setup						= $GLOBALS['nuSetup'];                                   //--  setup php code just used for this database
+$setup								= $GLOBALS['nuSetup'];                                   //--  setup php code just used for this database
 
 nuClientTimeZone();
 
@@ -1628,33 +1625,6 @@ function nuUser(){
 
 }
 
-
-function db_setup(){
-    
-	static $setup;
-	
-    if (empty($setup)) {                                          			//check if setup has already been called
-	
-		$s					= "
-								SELECT 
-									zzzzsys_setup.*, 
-									zzzzsys_timezone.stz_timezone AS set_timezone 
-								FROM zzzzsys_setup 
-								LEFT JOIN zzzzsys_timezone ON zzzzsys_timezone_id = set_zzzzsys_timezone_id
-							";
-		
-		
-		$rs					= nuRunQuery($s);						        //get setup info from db
-		$setup				= db_fetch_object($rs);
-	}
-	
-	$gcLifetime				= 60 * $setup->set_time_out_minutes;             //setup garbage collect timeouts
-	
-	ini_set("session.gc_maxlifetime", $gcLifetime);
-		
-    return $setup;
-	
-}
 
 
 

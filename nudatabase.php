@@ -7,8 +7,6 @@ mb_internal_encoding('UTF-8');
 $_POST['RunQuery']			= 0;
 
 if ( strpos($_SERVER['PHP_SELF'], 'wp-content/plugins' ) !== false) {
-<<<<<<< HEAD
-=======
 
 	require_once('../../../wp-config.php');
 	$DBHost         = DB_HOST;
@@ -39,37 +37,37 @@ echo die();
 $nuDB = new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 $nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $nuDB->exec("SET CHARACTER SET utf8");
->>>>>>> 6d2ea03a4e1c1e3e0cec94c21e32f8d9f7464ec7
 
-	require_once('../../../wp-config.php');
-	$DBHost         = DB_HOST;
-        $DBName         = DB_NAME;
-        $DBUser         = DB_USER;
-        $DBPassword     = DB_PASSWORD;
-	$DBCharset	= DB_CHARSET;
+$GLOBALS['nuSetup']			= db_setup();
 
-} else {
 
-	$DBHost		= $nuConfigDBHost;
-	$DBName		= $nuConfigDBName;
-	$DBUser		= $nuConfigDBUser;
-	$DBPassword 	= $nuConfigDBPassword;
-	$DBCharset      = 'utf8';
-
+function db_setup(){
+    
+	static $setup;
+	
+    if (empty($setup)) {                                          			//check if setup has already been called
+	
+		$s					= "
+								SELECT 
+									zzzzsys_setup.*, 
+									zzzzsys_timezone.stz_timezone AS set_timezone 
+								FROM zzzzsys_setup 
+								LEFT JOIN zzzzsys_timezone ON zzzzsys_timezone_id = set_zzzzsys_timezone_id
+							";
+		
+		
+		$rs					= nuRunQuery($s);						        //get setup info from db
+		$setup				= db_fetch_object($rs);
+	}
+	
+	$gcLifetime				= 60 * $setup->set_time_out_minutes;             //setup garbage collect timeouts
+	
+	ini_set("session.gc_maxlifetime", $gcLifetime);
+		
+    return $setup;
+	
 }
 
-/*
-echo $DBHost.'<br>';
-echo $DBName.'<br>';
-echo $DBUser.'<br>';
-echo $DBPassword.'<br>';
-echo $DBCharset.'<br>';
-echo die();
-*/
-
-$nuDB = new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-$nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$nuDB->exec("SET CHARACTER SET utf8");
 
 
 function nuRunQuery($s, $a = array(), $isInsert = false){
