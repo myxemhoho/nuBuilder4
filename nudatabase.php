@@ -38,37 +38,6 @@ $nuDB = new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser,
 $nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $nuDB->exec("SET CHARACTER SET utf8");
 
-$GLOBALS['nuSetup']			= db_setup();
-
-
-function db_setup(){
-    
-	static $setup;
-	
-    if (empty($setup)) {                                          			//check if setup has already been called
-	
-		$s					= "
-								SELECT 
-									zzzzsys_setup.*, 
-									zzzzsys_timezone.stz_timezone AS set_timezone 
-								FROM zzzzsys_setup 
-								LEFT JOIN zzzzsys_timezone ON zzzzsys_timezone_id = set_zzzzsys_timezone_id
-							";
-		
-		
-		$rs					= nuRunQuery($s);						        //get setup info from db
-		$setup				= db_fetch_object($rs);
-	}
-	
-	$gcLifetime				= 60 * $setup->set_time_out_minutes;             //setup garbage collect timeouts
-	
-	ini_set("session.gc_maxlifetime", $gcLifetime);
-		
-    return $setup;
-	
-}
-
-
 
 function nuRunQuery($s, $a = array(), $isInsert = false){
 
