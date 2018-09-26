@@ -83,35 +83,35 @@ function nuImportNewDB(){
 			
 	}
 	
-	if ( isset($_REQUEST['wp']) ) {
-		nuAddAccessLevels();
-	}	
 }
 
 function nuAddAccessLevels(){
 
-	$s 	= "SELECT * FROM zzzzsys_access WHERE zzzzsys_access = ? ";
-	$i 	= "INSERT INTO `zzzzsys_access` (`zzzzsys_access_id`, `sal_code`, `sal_description`, `sal_zzzzsys_form_id`) VALUES (?, ?, ?, 'nuuserhome')";
-	$a	= 	[
-				['wpadministrator','ADMIN','Administrator'],
-				['wpeditor','EDIT','Editor'],
-				['wpauthor','AUTH','Author'],
-				['wpcontributor','CONT','Contributor'],
-				['wpsubscriber','SUBS','Subscriber']
-			];
-		nudebug($a);
+	if ( isset($_SESSION['nuWPSessionData']) ) {				//-- inside wordpress
+
+		$s 	= "SELECT * FROM zzzzsys_access WHERE zzzzsys_access = ? ";
+		$i 	= "INSERT INTO `zzzzsys_access` (`zzzzsys_access_id`, `sal_code`, `sal_description`, `sal_zzzzsys_form_id`) VALUES (?, ?, ?, 'nuuserhome')";
+		$a	= 	[
+					['wpadministrator','ADMIN','Administrator'],
+					['wpeditor','EDIT','Editor'],
+					['wpauthor','AUTH','Author'],
+					['wpcontributor','CONT','Contributor'],
+					['wpsubscriber','SUBS','Subscriber']
+				];
 
 
-	for($c = 0 ; $c < count($a) ; $c++){
-		
-		$t	= nuRunQuery($s, [$a[$c][0]]);
-		
-		if(db_num_rows($t) == 0){
-			nuRunQuery($i, [$a[$c][0], $a[$c][1], $a[$c][2]]);
+		for($c = 0 ; $c < count($a) ; $c++){
+			
+			$t	= nuRunQuery($s, [$a[$c][0]]);
+			
+			if(db_num_rows($t) == 0){
+				nuRunQuery($i, [$a[$c][0], $a[$c][1], $a[$c][2]]);
+			}
+			
 		}
-		
-	}
 
+	}
+	
 }
 
 
@@ -141,6 +141,8 @@ function nuCSSIndexInclude($pfile){
 function nuHeader(){
 
 	nuImportNewDB();
+	nuAddAccessLevels();
+
 	
     $getHTMLHeaderSQL  	= "
         SELECT set_header
