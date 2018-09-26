@@ -15,31 +15,44 @@ Text Domain: nubuilder4
 
 defined( 'ABSPATH' ) or die();
 
-function nuSetMenu() {
-	
-	add_menu_page('nuBuilder Forte', 'nuBuilder Forte', 'manage_options', 'nubuilder4-slug', 'admin_login');
-	
+function nu_set_menu() {
+	add_menu_page('nuBuilder Forte', 'nuBuilder', 'manage_options', 'nubuilder4-slug', 'nu_menu_function');
+
+}
+
+function nu_start_session() {
+    if(!session_id()) {
+        session_start();
+    }
+
+}
+
+function nu_end_session() {
+    session_destroy();
+
 }
 
 class nuBuilderForte{
 	
 	function __construct() {
-		add_action('auth_redirect', 'nuSetMenu');
-	}
 
+		add_action('auth_redirect', 'nu_set_menu');
+		add_action('init', 'nu_start_session', 1);
+		add_action('wp_logout', 'nu_end_session');
+		add_action('wp_login', 'nu_end_session');
+	}
 	
 	function activate() {
 		
 		flush_rewrite_rules();
-		wp_register_script('nubuilder4', plugins_url('nubuilder4.js', __FILE__)); 
-		wp_enqueue_script('nubuilder4');
-
+		//wp_register_script('nubuilder4', plugins_url('nubuilder4.js', __FILE__));
+		wp_register_script('nubuilder4'); 
+		//wp_enqueue_script('nubuilder4');
 	}
 
 	function deactivate() {
 		flush_rewrite_rules();
 	}
-
 }
 
 if ( class_exists( 'nuBuilderForte' ) ) {
@@ -49,9 +62,10 @@ if ( class_exists( 'nuBuilderForte' ) ) {
 register_activation_hook( __FILE__, array( $nuBuilderForte, 'activate' ) );
 register_deactivation_hook( __FILE__, array( $nuBuilderForte, 'deactivate' ) );
 
-function admin_login() {
+function nu_menu_function() {
 	
-	$iframe_url		= nuConstructUrl();
+	$iframe_url			= nu_construct_url();
+	$_SESSION['nuWPSessionData'] 	= nu_construct_session_data();
 
 	$j	= "
 	<iframe id='nubuilder4_iframe' style='margin:20px;border-style:solid;border-width:2px;border-color:lightgrey;width:1300px;height:1000px' src='$iframe_url'></iframe>
@@ -70,34 +84,19 @@ function admin_login() {
 	</script>
 	";
 	
-	//echo $iframe_url;
 	echo $j;
 }
 
-function nuConstructUrl() {
+function nu_construct_url() {
 
-	$auth_info 	= get_currentuserinfo();
-	$json		= json_encode($auth_info);
-	$encode		= base64_encode($json);
-	$explosion 	= explode('/', $_SERVER['PHP_SELF']);
-        array_splice($explosion, 0, 1);
-        array_splice($explosion, count($explosion) - 1, 1);
-        $server_path = '/';
-        for ( $x=0; $x < count($explosion); $x++ ) {
-                if ( $explosion[$x] !== 'wp-admin' ) {
-                        $server_path .= $explosion[$x];
-                }
-                if ( $server_path !== '/' ) {
-                        $server_path .= '/';
-                }
-        }
-	//$this_server    = '../wp-content/plugins/nuBuilder4/index.php?wp='.$encode;
-        $this_server    = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$server_path.'/wp-content/plugins/nuBuilder4/index.php?wp='.$encode;
-
+	$this_server    = '../wp-content/plugins/nuBuilder4/index.php';
 	return $this_server;
 }
 
+function nu_construct_session_data() {
 
-	
-
-	
+	$auth_info      = get_currentuserinfo();
+        $json           = json_encode($auth_info);
+        $encode         = base64_encode($json);
+	return $encode;
+}
