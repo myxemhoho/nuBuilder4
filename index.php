@@ -1,6 +1,10 @@
 <?php
 
-    require_once('nudatabase.php');
+	require_once('nudatabase.php');
+
+	if(!session_id()) {
+                session_start();
+        }
 
         $wp                     = array();
         $wp['plugin']           = false;
@@ -10,10 +14,10 @@
         $wp['user_email']       = '';
         $wp['display_name']     = '';
 
-        if ( isset($_REQUEST['wp']) ) {
+        if ( isset($_SESSION['nuWPSessionData']) ) {
 
                 $wp['plugin'] = true;
-                $decode       = base64_decode($_REQUEST['wp']);
+                $decode       = base64_decode($_SESSION['nuWPSessionData']);
                 $wp_object    = json_decode($decode);
 
                 //check if are giving globeadmin access
@@ -26,7 +30,7 @@
                 $wp['user_email']       = $wp_object->data->user_email;
                 $wp['display_name']     = $wp_object->data->display_name;
         }
-		
+        //echo '<pre>'.print_r($wp).'</pre>';die();
 ?>
 
 <!DOCTYPE html>
