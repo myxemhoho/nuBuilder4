@@ -45,7 +45,8 @@ class nuBuilderForte{
 	function activate() {
 		
 		flush_rewrite_rules();
-		wp_register_script('nubuilder4', plugins_url('nubuilder4.js', __FILE__));
+		//wp_register_script('nubuilder4', plugins_url('nubuilder4.js', __FILE__));
+		wp_register_script('nubuilder4', plugins_url('nubuilder4.php', __FILE__));
 		//wp_register_script('nubuilder4'); 
 		wp_enqueue_script('nubuilder4');
 	}
