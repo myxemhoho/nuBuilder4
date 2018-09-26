@@ -1968,6 +1968,7 @@ function nuGetOptionsList(f, t, p, a, type){
 	.addClass('nuOptionsList');
 
 	nuBuildOptionsList(list, p, type);
+	$('[data-nu-option-title]').css('padding', 3);
 	
 }
 
