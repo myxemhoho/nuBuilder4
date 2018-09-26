@@ -85,7 +85,7 @@ function nuImportNewDB(){
 	
 }
 
-function nuAddAccessLevels(){
+function nuAddWPAccessLevels(){
 
 	if ( isset($_SESSION['nuWPSessionData']) ) {				//-- inside wordpress
 
@@ -141,7 +141,7 @@ function nuCSSIndexInclude($pfile){
 function nuHeader(){
 
 	nuImportNewDB();
-	nuAddAccessLevels();
+	nuAddWPAccessLevels();
 
 	
     $getHTMLHeaderSQL  	= "
