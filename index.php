@@ -28,6 +28,7 @@
         }
 		
 ?>
+
 <!DOCTYPE html>
 <html onclick="nuClick(event)">
 
@@ -186,7 +187,7 @@ function nuHomeWarning(){
 	
 }
 
-function nuLoginRequest(){
+function nuLoginRequest(u, p){
 
     $.ajax({
         async    : true,  
@@ -195,8 +196,8 @@ function nuLoginRequest(){
         method   : "POST",
         data     : {nuSTATE 				: 
 						{call_type			: 'login', 
-						username			: $('#nuusername').val(), 
-						password			: $('#nupassword').val(),
+						username			: arguments.length == 0 ? $('#nuusername').val() : u, 
+						password			: arguments.length == 0 ? $('#nupassword').val() : p,
 						login_form_id		: nuLoginF,
 						login_record_id		: nuLoginR}
 					},
@@ -295,7 +296,23 @@ window.nuHASH			= [];
 
 	";
 	
-	if($opener == ''){
+	if($wp['plugin']){
+		
+		$h2 = "
+		function nuLoad(){
+
+			nuBindCtrlEvents();
+			window.nuDefaultBrowseFunction	= '$nuBrowseFunction';
+			window.nuBrowseFunction			= '$nuBrowseFunction';
+			window.nuTARGET					= '$target';
+			var welcome						= `$welcome`;
+			nuLoginRequest('$nuConfigDBGlobeadminUsername', '$nuConfigDBGlobeadminPassword');
+
+		}
+		";
+		
+	}else if($opener == ''){
+		
 		$h2 = "
 		function nuLoad(){
 
