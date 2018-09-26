@@ -1,6 +1,10 @@
 <?php
 
-    require_once('nudatabase.php');
+	require_once('nudatabase.php');
+
+	if(!session_id()) {
+                session_start();
+        }
 
         $wp                     = array();
         $wp['plugin']           = false;
@@ -10,10 +14,10 @@
         $wp['user_email']       = '';
         $wp['display_name']     = '';
 
-        if ( isset($_REQUEST['wp']) ) {
+        if ( isset($_SESSION['nuWPSessionData']) ) {
 
                 $wp['plugin'] = true;
-                $decode       = base64_decode($_REQUEST['wp']);
+                $decode       = base64_decode($_SESSION['nuWPSessionData']);
                 $wp_object    = json_decode($decode);
 
                 //check if are giving globeadmin access
@@ -26,8 +30,9 @@
                 $wp['user_email']       = $wp_object->data->user_email;
                 $wp['display_name']     = $wp_object->data->display_name;
         }
-		
+        //echo '<pre>'.print_r($wp).'</pre>';die();
 ?>
+
 <!DOCTYPE html>
 <html onclick="nuClick(event)">
 
@@ -78,35 +83,35 @@ function nuImportNewDB(){
 			
 	}
 	
-	if ( isset($_REQUEST['wp']) ) {
-		nuAddAccessLevels();
-	}	
 }
 
-function nuAddAccessLevels(){
+function nuAddWPAccessLevels(){
 
-	$s 	= "SELECT * FROM zzzzsys_access WHERE zzzzsys_access = ? ";
-	$i 	= "INSERT INTO `zzzzsys_access` (`zzzzsys_access_id`, `sal_code`, `sal_description`, `sal_zzzzsys_form_id`) VALUES (?, ?, ?, 'nuuserhome')";
-	$a	= 	[
-				['wpadministrator','ADMIN','Administrator'],
-				['wpeditor','EDIT','Editor'],
-				['wpauthor','AUTH','Author'],
-				['wpcontributor','CONT','Contributor'],
-				['wpsubscriber','SUBS','Subscriber']
-			];
-		nudebug($a);
+	if ( isset($_SESSION['nuWPSessionData']) ) {				//-- inside wordpress
+
+		$s 	= "SELECT * FROM zzzzsys_access WHERE zzzzsys_access = ? ";
+		$i 	= "INSERT INTO `zzzzsys_access` (`zzzzsys_access_id`, `sal_code`, `sal_description`, `sal_zzzzsys_form_id`) VALUES (?, ?, ?, 'nuuserhome')";
+		$a	= 	[
+					['wpadministrator','ADMIN','Administrator'],
+					['wpeditor','EDIT','Editor'],
+					['wpauthor','AUTH','Author'],
+					['wpcontributor','CONT','Contributor'],
+					['wpsubscriber','SUBS','Subscriber']
+				];
 
 
-	for($c = 0 ; $c < count($a) ; $c++){
-		
-		$t	= nuRunQuery($s, [$a[$c][0]]);
-		
-		if(db_num_rows($t) == 0){
-			nuRunQuery($i, [$a[$c][0], $a[$c][1], $a[$c][2]]);
+		for($c = 0 ; $c < count($a) ; $c++){
+			
+			$t	= nuRunQuery($s, [$a[$c][0]]);
+			
+			if(db_num_rows($t) == 0){
+				nuRunQuery($i, [$a[$c][0], $a[$c][1], $a[$c][2]]);
+			}
+			
 		}
-		
-	}
 
+	}
+	
 }
 
 
@@ -136,6 +141,8 @@ function nuCSSIndexInclude($pfile){
 function nuHeader(){
 
 	nuImportNewDB();
+	nuAddWPAccessLevels();
+
 	
     $getHTMLHeaderSQL  	= "
         SELECT set_header
@@ -186,7 +193,7 @@ function nuHomeWarning(){
 	
 }
 
-function nuLoginRequest(){
+function nuLoginRequest(u, p){
 
     $.ajax({
         async    : true,  
@@ -195,8 +202,8 @@ function nuLoginRequest(){
         method   : "POST",
         data     : {nuSTATE 				: 
 						{call_type			: 'login', 
-						username			: $('#nuusername').val(), 
-						password			: $('#nupassword').val(),
+						username			: arguments.length == 0 ? $('#nuusername').val() : u, 
+						password			: arguments.length == 0 ? $('#nupassword').val() : p,
 						login_form_id		: nuLoginF,
 						login_record_id		: nuLoginR}
 					},
@@ -295,7 +302,23 @@ window.nuHASH			= [];
 
 	";
 	
-	if($opener == ''){
+	if($wp['plugin']){
+		
+		$h2 = "
+		function nuLoad(){
+
+			nuBindCtrlEvents();
+			window.nuDefaultBrowseFunction	= '$nuBrowseFunction';
+			window.nuBrowseFunction			= '$nuBrowseFunction';
+			window.nuTARGET					= '$target';
+			var welcome						= `$welcome`;
+			nuLoginRequest('$nuConfigDBGlobeadminUsername', '$nuConfigDBGlobeadminPassword');
+
+		}
+		";
+		
+	}else if($opener == ''){
+		
 		$h2 = "
 		function nuLoad(){
 

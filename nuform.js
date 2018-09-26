@@ -1968,6 +1968,7 @@ function nuGetOptionsList(f, t, p, a, type){
 	.addClass('nuOptionsList');
 
 	nuBuildOptionsList(list, p, type);
+	$('[data-nu-option-title]').css('padding', 3);
 	
 }
 
@@ -3683,9 +3684,7 @@ function nuSetVerticalTabs(){
 
 function nuHasBeenSaved(){
 	
-	if(nuIsNewRecord()){
-		return window.nuTimesSaved;	
-	}
+	return window.nuTimesSaved;	
 
 }
 
