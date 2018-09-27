@@ -1,5 +1,6 @@
 <?php
 
+require_once('wordpress.php');
 require_once('nudatabase.php');
 require_once('nuconfig.php');
 require_once('nucommon.php');

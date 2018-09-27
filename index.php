@@ -1,36 +1,6 @@
 <?php
-
+	require_once('wordpress.php');
 	require_once('nudatabase.php');
-
-	if(!session_id()) {
-                session_start();
-        }
-
-        $wp                     = array();
-        $wp['plugin']           = false;
-        $wp['globeadmin']       = false;
-        $wp['user_login']       = '';
-        $wp['user_pass']        = '';
-        $wp['user_email']       = '';
-        $wp['display_name']     = '';
-
-        if ( isset($_SESSION['nuWPSessionData']) ) {
-
-                $wp['plugin'] = true;
-                $decode       = base64_decode($_SESSION['nuWPSessionData']);
-                $wp_object    = json_decode($decode);
-
-                //check if are giving globeadmin access
-                if ( in_array('administrator',$wp_object->roles) ) {
-                        $wp['globeadmin'] = true;
-                }
-
-                $wp['user_login']       = $wp_object->data->user_login;
-                $wp['user_pass']        = $wp_object->data->user_pass;
-                $wp['user_email']       = $wp_object->data->user_email;
-                $wp['display_name']     = $wp_object->data->display_name;
-        }
-        //echo '<pre>'.print_r($wp).'</pre>';die();
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +57,7 @@ function nuImportNewDB(){
 
 function nuAddWPAccessLevels(){
 
-	if ( isset($_SESSION['nuWPSessionData']) ) {				//-- inside wordpress
+	if ( isset($_SESSION['wp']) ) {				//-- inside wordpress
 
 		$s 	= "SELECT * FROM zzzzsys_access WHERE zzzzsys_access = ? ";
 		$i 	= "INSERT INTO `zzzzsys_access` (`zzzzsys_access_id`, `sal_code`, `sal_description`, `sal_zzzzsys_form_id`) VALUES (?, ?, ?, 'nuuserhome')";
@@ -254,7 +224,7 @@ if(parent.window.nuDocumentID == window.nuDocumentID){
 window.nuHASH			= [];
 
 <?php
-    require('nuconfig.php');
+    require_once('nuconfig.php');
 
 	$nuWelcomeBodyInnerHTML	= (isset($nuWelcomeBodyInnerHTML)?$nuWelcomeBodyInnerHTML:'');
 	$welcome				= addslashes($nuWelcomeBodyInnerHTML);
@@ -302,20 +272,26 @@ window.nuHASH			= [];
 
 	";
 	
-	if($wp['plugin']){
+	if( isset($_SESSION['wp']) ) {
 		
-		$h2 = "
-		function nuLoad(){
+		if ( $_SESSION['wp']->GLOBEADMIN ) {			
 
-			nuBindCtrlEvents();
-			window.nuDefaultBrowseFunction	= '$nuBrowseFunction';
-			window.nuBrowseFunction			= '$nuBrowseFunction';
-			window.nuTARGET					= '$target';
-			var welcome						= `$welcome`;
-			nuLoginRequest('$nuConfigDBGlobeadminUsername', '$nuConfigDBGlobeadminPassword');
+			// do wordpress globadmin login
+			$h2 = "
+			function nuLoad(){
 
+				nuBindCtrlEvents();
+				window.nuDefaultBrowseFunction	= '$nuBrowseFunction';
+				window.nuBrowseFunction		= '$nuBrowseFunction';
+				window.nuTARGET			= '$target';
+				var welcome			= `$welcome`;
+				nuLoginRequest('$nuConfigDBGlobeadminUsername', '$nuConfigDBGlobeadminPassword');
+			}
+			";
+		} else {
+			// do wordpress non-globadmin login
+			// TODO
 		}
-		";
 		
 	}else if($opener == ''){
 		

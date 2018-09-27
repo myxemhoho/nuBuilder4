@@ -6,24 +6,20 @@ mb_internal_encoding('UTF-8');
 
 $_POST['RunQuery']			= 0;
 
-if ( strpos($_SERVER['PHP_SELF'], 'wp-content/plugins' ) !== false) {
+if ( isset($_SESSION['wp']) ) {
 
-	$result 		= nuGetWPConfig();
-
-	$DBHost         = $result['DB_HOST'];
-	$DBName         = $result['DB_NAME'];
-	$DBUser         = $result['DB_USER'];
-	$DBPassword     = $result['DB_PASSWORD'];
-	$DBCharset		= $result['DB_CHARSET'];
-
+	$DBHost         = $_SESSION['wp']->DB_HOST;
+	$DBName         = $_SESSION['wp']->DB_NAME;
+	$DBUser         = $_SESSION['wp']->DB_USER;
+	$DBPassword     = $_SESSION['wp']->DB_PASSWORD;
+	$DBCharset	= $_SESSION['wp']->DB_CHARSET;
 } else {
 
-	$DBHost			= $nuConfigDBHost;
-	$DBName			= $nuConfigDBName;
-	$DBUser			= $nuConfigDBUser;
+	$DBHost		= $nuConfigDBHost;
+	$DBName		= $nuConfigDBName;
+	$DBUser		= $nuConfigDBUser;
 	$DBPassword 	= $nuConfigDBPassword;
 	$DBCharset      = 'utf8';
-
 }
 
 $nuDB = new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES $DBCharset"));
@@ -290,33 +286,6 @@ function nuID(){
 
 }
 
-
-
-function nuGetWPConfig($file = '../../../wp-config.php') {
-	
-        $result                         = false;
-        $strings                        = array();
-        $strings[0]                     = "define('DB_NAME";
-        $strings[1]                     = "define('DB_USER";
-        $strings[2]                     = "define('DB_PASSWORD";
-        $strings[3]                     = "define('DB_HOST";
-        $strings[4]                     = "define('DB_CHARSET";
-
-        if ( is_readable($file) ) {
-                $result                 = array();
-                $contents               = file_get_contents($file);
-                $lines                  = explode(PHP_EOL, $contents);
-                for ( $x=0; $x<count($lines); $x++ ) {
-                        for ( $y=0; $y<count($strings); $y++ ) {
-                                if (strpos(trim($lines[$x]), $strings[$y]) !== false) {
-									    $parts = explode("'",trim($lines[$x]));
-                                        $result[$parts[1]] = $parts[3];
-                                }
-                        }
-                }
-        }
-        return $result;
-}
 
 
 ?>
