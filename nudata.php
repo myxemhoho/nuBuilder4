@@ -51,9 +51,9 @@ function nuValidateSubforms(){
 						if($sf->rows[$i][$I] == '' and $notDeleted){
 
 							if($d == 0){
-								nuDisplayError("$label cannot be left blank");
+								nuDisplayError("$label " . nuTranslate('cannot be left blank'));
 							}else{
-								nuDisplayError("$label on row $noz cannot be left blank $slabel");
+								nuDisplayError("$label on row $noz " . nuTranslate('cannot be left blank') . " $slabel");
 							}
 							
 						}

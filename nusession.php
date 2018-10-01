@@ -53,6 +53,8 @@ if(array_key_exists('nuSTATE', $_POST)){
                     $sessionIds->global_access 				= '1';
                     $storeSessionInTable 					= new stdClass;
                     $storeSessionInTable->session 			= $sessionIds;
+					$storeSessionInTable->nuLanguage   		= db_setup()->set_language;
+					
                     // setup globeadmin access ids
                     // form ids
                     $getAllFormsQRY 						= nuRunQuery("SELECT zzzzsys_form_id AS id FROM zzzzsys_form");
@@ -120,6 +122,7 @@ if(array_key_exists('nuSTATE', $_POST)){
                     $storeSessionInTable                    = new stdClass;
                     $storeSessionInTable->session           = $sessionIds;
                     $storeSessionInTable->access_level_code	= nuAccessLevelCode($checkLoginDetailsOBJ->zzzzsys_user_id);
+					$storeSessionInTable->nuLanguage		= $checkLoginDetailsOBJ->sus_language;
 
                     // form ids
                     $getFormsQRY 							= nuRunQuery("

@@ -1588,6 +1588,24 @@ function db_setup(){
 
 
 
+function nuTranslate($t){
+	
+	$l	= nuGetJSONData('nuLanguage');
+	$s	= "
+			SELECT *
+			FROM zzzzsys_translate
+			WHERE trl_language = ?
+			AND trl_english = ?
+			
+		";
+				
+	$t	= nuRunQuery($s, [$l, $t]);
+	
+	return db_fetch_object($t)->trl_translation;
+
+}
+
+
 
 
 ?>
