@@ -1,28 +1,16 @@
 <?php 
 
-require_once('nuconfig.php');
+//require_once('nuconfig.php');
 
 mb_internal_encoding('UTF-8');
 
-$_POST['RunQuery']			= 0;
-
-if ( isset($_SESSION['wp']) ) {
-
-	$DBHost         = $_SESSION['wp']->DB_HOST;
-	$DBName         = $_SESSION['wp']->DB_NAME;
-	$DBUser         = $_SESSION['wp']->DB_USER;
-	$DBPassword     = $_SESSION['wp']->DB_PASSWORD;
-	$DBCharset	= $_SESSION['wp']->DB_CHARSET;
-} else {
-
-	$DBHost		= $nuConfigDBHost;
-	$DBName		= $nuConfigDBName;
-	$DBUser		= $nuConfigDBUser;
-	$DBPassword 	= $nuConfigDBPassword;
-	$DBCharset      = 'utf8';
-}
-
-$nuDB = new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES $DBCharset"));
+$_POST['RunQuery'] 	= 0;
+$DBHost         	= $_SESSION['nuconfig']->DB_HOST;
+$DBName         	= $_SESSION['nuconfig']->DB_NAME;
+$DBUser         	= $_SESSION['nuconfig']->DB_USER;
+$DBPassword     	= $_SESSION['nuconfig']->DB_PASSWORD;
+$DBCharset      	= $_SESSION['nuconfig']->DB_CHARSET;
+$nuDB 			= new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES $DBCharset"));
 $nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 function nuRunQuery($s, $a = array(), $isInsert = false){
@@ -244,8 +232,15 @@ function nuDebug($a){
 	$f					= $b[0]['file'];
 	$l					= $b[0]['line'];
 	$m					= "$date  -  $f line $l\n\n<br>\n";
-	$nuSystemEval		= $_POST['nuSystemEval'];
-	$nuProcedureEval	= $_POST['nuProcedureEval'];
+
+	$nuSystemEval				= '';
+	if ( isset($_POST['nuSystemEval']) ) {
+		$nuSystemEval			= $_POST['nuSystemEval'];
+	}
+	$nuProcedureEval			= '';
+	if ( isset($_POST['nuProcedureEval']) ) { 
+		$nuProcedureEval		= $_POST['nuProcedureEval'];
+	}
 
 	if($_POST['RunQuery'] == 1){
 		$m				= "$date - SQL Error in <b>nuRunQuery</b>\n\n<br>\n" ;

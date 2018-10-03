@@ -1,132 +1,45 @@
-<?php
-	require_once('wordpress.php');
-	require_once('nudatabase.php');
-?>
+<?php	
+	require_once('nuchoosesetup.php');
+	require_once('nuindexlibs.php');
 
+	if ( !$_SESSION['nuconfig']->PLUGIN ) {
+		require_once('nustandalonesetuplibs.php'); 
+		nuStandaloneImportNewDB();
+	}
+
+	if ( $_SESSION['nuconfig']->PLUGIN && !isset($_SESSION['SESSION_ID']) ) {
+                require_once('nuwordpresssetuplibs.php');
+		nuCheckWPUser();
+        }
+?>
 <!DOCTYPE html>
 <html onclick="nuClick(event)">
-
 <head>
 <title>nuBuilder 4</title>
 <meta http-equiv='Content-type' content='text/html;charset=UTF-8'>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-
 <?php
-
-
-function nuImportNewDB(){
-	
-	$t = nuRunQuery("SHOW TABLES");
-	
-	while($r = db_fetch_row($t)){
-		if($r[0] == 'zzzzsys_object'){return;}
-	}
-	
-	$file						= realpath(dirname(__FILE__))."/nubuilder4.sql";
-	@$handle					= fopen($file, "r");
-	$temp						= "";
-
-	if($handle){
-		
-		while(($line = fgets($handle)) !== false){
-
-			if($line[0] != "-" AND $line[0] != "/"  AND $line[0] != "\n"){
-			
-				$line 			= trim($line);
-
-				$temp 			.= $line;
-
-				if(substr($line, -1) == ";"){
-
-						$temp	= rtrim($temp,';');
-						$temp	= str_replace('ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER','', $temp);
-						
-						nuRunQuery($temp);
-						$temp	= "";
-						
-				}
-
-			}
-
-		}
-			
-	}
-	
-}
-
-function nuAddWPAccessLevels(){
-
-	if ( isset($_SESSION['wp']) ) {				//-- inside wordpress
-
-		$s 	= "SELECT * FROM zzzzsys_access WHERE zzzzsys_access = ? ";
-		$i 	= "INSERT INTO `zzzzsys_access` (`zzzzsys_access_id`, `sal_code`, `sal_description`, `sal_zzzzsys_form_id`) VALUES (?, ?, ?, 'nuuserhome')";
-		$a	= 	[
-					['wpadministrator','ADMIN','Administrator'],
-					['wpeditor','EDIT','Editor'],
-					['wpauthor','AUTH','Author'],
-					['wpcontributor','CONT','Contributor'],
-					['wpsubscriber','SUBS','Subscriber']
-				];
-
-
-		for($c = 0 ; $c < count($a) ; $c++){
-			
-			$t	= nuRunQuery($s, [$a[$c][0]]);
-			
-			if(db_num_rows($t) == 0){
-				nuRunQuery($i, [$a[$c][0], $a[$c][1], $a[$c][2]]);
-			}
-			
-		}
-
-	}
-	
-}
-
-
-
-
-
-
-
-
 
 function nuJSIndexInclude($pfile){
 
-    $timestamp = date("YmdHis", filemtime($pfile));                                         //-- Add timestamp so javascript changes are effective immediately
-    print "<script src='$pfile?ts=$timestamp' type='text/javascript'></script>\n";
-    
+    	$timestamp = date("YmdHis", filemtime($pfile));                                         //-- Add timestamp so javascript changes are effective immediately
+    	print "<script src='$pfile?ts=$timestamp' type='text/javascript'></script>\n";
 }
-
-
 
 function nuCSSIndexInclude($pfile){
 
-    $timestamp = date("YmdHis", filemtime($pfile));                                         //-- Add timestamp so javascript changes are effective immediately
-    print "<link rel='stylesheet' href='$pfile?ts=$timestamp' />\n";
-    
+	$timestamp = date("YmdHis", filemtime($pfile));                                         //-- Add timestamp so javascript changes are effective immediately
+	print "<link rel='stylesheet' href='$pfile?ts=$timestamp' />\n";
 }
 
 function nuHeader(){
 
-	nuImportNewDB();
-	nuAddWPAccessLevels();
-
-	
-    $getHTMLHeaderSQL  	= "
-        SELECT set_header
-        FROM zzzzsys_setup
-        WHERE zzzzsys_setup_id = 1
-    ";
-
-    nuRunQuery($getHTMLHeaderSQL);
-    $HTMLHeader 		= '';
-	
-    $j  = "\n\n" . $HTMLHeader . "\n\n";
-    
-    return $j;
-    
+	$getHTMLHeaderSQL 	= "SELECT set_header FROM zzzzsys_setup WHERE zzzzsys_setup_id = 1 ";
+	$rs 			= nuRunQuery($getHTMLHeaderSQL);
+    	$obj 			= db_fetch_object($rs);
+    	$HTMLHeader 		= $obj->set_header;
+    	$j  			= "\n\n" . $HTMLHeader . "\n\n";
+    	return $j;
 }
 
 nuJSIndexInclude('jquery/jquery.js');
@@ -137,20 +50,14 @@ nuJSIndexInclude('nucalendar.js');
 nuJSIndexInclude('nucommon.js');
 nuJSIndexInclude('nureportjson.js');
 nuJSIndexInclude('nuajax.js');       //-- calls to server
-
 nuCSSIndexInclude('nubuilder4.css');
-
 ?>
 
 <script>
-
-
 function nuValidCaller(o){
 	
 	if(o === null){return false;}
-	
 	return o.hasOwnProperty('nuVersion');
-	
 }
   
 function nuHomeWarning(){
@@ -158,9 +65,7 @@ function nuHomeWarning(){
 	if(window.nuEDITED){
 		return nuTranslate('Leave this form without saving ?')+'  '+nuTranslate('Doing this will return you to the login screen.');
 	}
-	
 	return nuTranslate('Doing this will return you to the login screen.');
-	
 }
 
 function nuLoginRequest(u, p){
@@ -211,7 +116,6 @@ function nuLoginRequest(u, p){
             
         },
     }); 
-
 }
 
 window.nuVersion 		= 'nuBuilder4';
@@ -220,146 +124,69 @@ window.nuDocumentID		= Date.now();
 if(parent.window.nuDocumentID == window.nuDocumentID){
 	window.onbeforeunload	= nuHomeWarning;
 }
-
 window.nuHASH			= [];
 
 <?php
-    require_once('nuconfig.php');
-
-	$nuWelcomeBodyInnerHTML	= (isset($nuWelcomeBodyInnerHTML)?$nuWelcomeBodyInnerHTML:'');
+	$nuWelcomeBodyInnerHTML			= (isset($nuWelcomeBodyInnerHTML)?$nuWelcomeBodyInnerHTML:'');
 	$welcome				= addslashes($nuWelcomeBodyInnerHTML);
 	$nuHeader				= nuHeader();
-    $opener         	    = '';
-    $search             	= '';
-    $iframe					= '';
-    $target					= '';
-	$l 						= scandir('graphics');
+    	$opener         	    		= '';
+    	$search             			= '';
+    	$iframe					= '';
+    	$target					= '';
+	$l 					= scandir('graphics');
 	$f  					= JSON_encode($l);
-    $nuBrowseFunction 		= 'browse';
+    	$nuBrowseFunction 			= 'browse';
 	$like					= '';
-
 	$nuUser					= '';
 	$nuPassword				= '';
 	$nuForm					= '';
 	$nuRecord				= '';
 	$nuHome					= '';
 
-    if(isset($_GET['u']))				{$nuUser 			= $_GET['u'];}
-    if(isset($_GET['p']))				{$nuPassword 		= $_GET['p'];}
-    if(isset($_GET['f']))				{$nuForm 			= $_GET['f'];}
-    if(isset($_GET['r']))				{$nuRecord 			= $_GET['r'];}
-    if(isset($_GET['h']))				{$nuHome 			= $_GET['h'];}
+    	if(isset($_GET['u']))			{$nuUser 		= $_GET['u'];}
+    	if(isset($_GET['p']))			{$nuPassword 		= $_GET['p'];}
+    	if(isset($_GET['f']))			{$nuForm 		= $_GET['f'];}
+    	if(isset($_GET['r']))			{$nuRecord 		= $_GET['r'];}
+    	if(isset($_GET['h']))			{$nuHome 		= $_GET['h'];}
 
-
-    if(isset($_GET['opener']))			{$opener 			= $_GET['opener'];}
-    if(isset($_GET['search']))			{$search 			= $_GET['search'];}
-    if(isset($_GET['iframe']))			{$iframe 			= $_GET['iframe'];}
-    if(isset($_GET['target']))			{$target 			= $_GET['target'];}
-    if(isset($_GET['like']))			{$like	 			= $_GET['like'];}
-    if(isset($_GET['browsefunction']))	{$nuBrowseFunction 	= $_GET['browsefunction'];}
+    	if(isset($_GET['opener']))		{$opener 		= $_GET['opener'];}
+    	if(isset($_GET['search']))		{$search 		= $_GET['search'];}
+    	if(isset($_GET['iframe']))		{$iframe 		= $_GET['iframe'];}
+    	if(isset($_GET['target']))		{$target 		= $_GET['target'];}
+    	if(isset($_GET['like']))		{$like	 		= $_GET['like'];}
+    	if(isset($_GET['browsefunction']))	{$nuBrowseFunction 	= $_GET['browsefunction'];}
 	
-	$h1			= "
-	
+	$h1								= "
 	window.nuLoginU							= '$nuUser';
 	window.nuLoginP							= '$nuPassword';
 	window.nuLoginF							= '$nuForm';
 	window.nuLoginR							= '$nuRecord';
 	window.nuLoginH							= '$nuHome';
-
 	window.nuGraphics						= $f;
 	window.nuIsWindow						= '$iframe';
 	window.nuImages							= [];
-
 	";
-	
-	if( isset($_SESSION['wp']) ) {
+
+	// Choose h2	
+	if( $_SESSION['nuconfig']->PLUGIN && isset($_SESSION['SESSION_ID']) ) {
+
+		$h2 = nuGetJS_action_screen($nuBrowseFunction, $target, $welcome, $opener, $search, $like);
+
+	} else if( $_SESSION['nuconfig']->PLUGIN && !isset($_SESSION['SESSION_ID']) ) {
+
+		$h2 = nuGetJS_plugin_login($nuBrowseFunction, $target);
+
+	} else if ( $opener == '' ){
 		
-		if ( $_SESSION['wp']->GLOBEADMIN ) {			
+		$h2 = nuGetJS_standalone_login($nuBrowseFunction, $target, $welcome);
 
-			// do wordpress globadmin login
-			$h2 = "
-			function nuLoad(){
+	} else {
 
-				nuBindCtrlEvents();
-				window.nuDefaultBrowseFunction	= '$nuBrowseFunction';
-				window.nuBrowseFunction		= '$nuBrowseFunction';
-				window.nuTARGET			= '$target';
-				var welcome			= `$welcome`;
-				nuLoginRequest('$nuConfigDBGlobeadminUsername', '$nuConfigDBGlobeadminPassword');
-			}
-			";
-		} else {
-			// do wordpress non-globadmin login
-			// TODO
-		}
+		$h2 = nuGetJS_action_screen($nuBrowseFunction, $target, $welcome, $opener, $search, $like);
 		
-	}else if($opener == ''){
-		
-		$h2 = "
-		function nuLoad(){
-
-			nuBindCtrlEvents();
-			window.nuDefaultBrowseFunction	= '$nuBrowseFunction';
-			window.nuBrowseFunction			= '$nuBrowseFunction';
-			window.nuTARGET					= '$target';
-			var welcome						= `$welcome`;
-			nuLogin(welcome);
-
-		}
-		";
-		
-	}else{
-		$h2 = "
-		function nuLoad(){
-
-			if(nuIsOpener(window)){
-				var from					= window.opener;
-			}else{
-				var from					= window.parent;
-			}
-
-			window.nuFORM.caller			= from.nuFORM.getCurrent();
-			nuFORM.tableSchema				= from.nuFORM.tableSchema;
-			nuFORM.formSchema				= from.nuFORM.formSchema;
-			window.nuDefaultBrowseFunction	= '$nuBrowseFunction';
-			window.nuBrowseFunction			= '$nuBrowseFunction';
-			window.nuTARGET					= '$target';
-			window.nuSESSION				= from.nuSESSION;
-			window.nuSuffix					= 1000;
-			
-			if('$opener' != '') {
-				
-				var p						= nuGetOpenerById(from.nuOPENER, Number($opener));
-				nuRemoveOpenerById(from.nuOPENER, Number($opener));
-
-			} else {
-				
-				var p						= from.nuOPENER[from.nuOPENER.length -1];
-				nuRemoveOpenerById(from.nuOPENER, from.nuOPENER[from.nuOPENER.length -1]);
-				
-			}
-			
-			nuBindCtrlEvents();
-
-			if(p.type == 'R') {
-				nuRunReport(p.record_id, p.parameters);
-			} else if(p.type == 'P') {
-				nuRunPHP(p.record_id, p.parameters);
-			} else {
-				window.filter				= p.filter;
-				window.nuFILTER				= p.filter;
-				nuForm(p.form_id, p.record_id, p.filter, '$search', 0, '$like');
-				
-			}
-			
-			if(p.record_id == '-2'){
-				nuBindDragEvents();		
-			}
-			
-		}
-		";	
-		
-	}
+	} 
+	// end choose h2
 	
 	$h3 = "
 	function nuResize(){
@@ -371,33 +198,21 @@ window.nuHASH			= [];
 		}
 		
 	}
-	
-	
 	</script>
 	<script id='nuheader'>
-$nuHeader
-
-
+		$nuHeader
 	</script>
 	<script>
-	
 	";
 
 	$h = $h1.$h2.$h3;
 	print $h;
-
-
-
 ?>
-
 </script>
-
 </head>
-
-
-<body id='nubody' onload="nuLoad()" onresize="nuResize()">
-
+<?php
+	nuLoadBody();
+	//nuLoadBody(true);
+?>
 </body>
-
 </html>
-

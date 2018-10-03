@@ -15,6 +15,8 @@ Text Domain: nubuilder4
 
 defined( 'ABSPATH' ) or die();
 
+require_once('nuwordpresssetuplibs.php');
+
 function nu_set_menu() {
 
 	add_menu_page('nuBuilder Forte', 'nuBuilder', 'read', 'nubuilder4-slug', 'nu_menu_function', 'dashicons-chart-bar');
@@ -22,15 +24,19 @@ function nu_set_menu() {
 
 function nu_start_session() {
 
-    if(!session_id()) {
-        session_start();
-    }
+	 if(!session_id()) {
+		// start a session if there is no session
+        	session_start();
+	} else {
+		// if there is a session the destroy and start a new one
+		session_destroy();
+		session_start();
+	}		
 }
 
-function nu_end_session() {
-
-    session_destroy();
-}
+//function nu_end_session() {
+//	session_destroy();
+//}
 
 class nuBuilderForte{
 	
@@ -38,11 +44,15 @@ class nuBuilderForte{
 
 		add_action('auth_redirect', 'nu_set_menu');
 		add_action('init', 'nu_start_session', 1);
-		add_action('wp_logout', 'nu_end_session');
-		add_action('wp_login', 'nu_end_session');
+		//add_action('wp_logout', 'nu_end_session');
+		//add_action('wp_login', 'nu_end_session');
 	}
 	
 	function activate() {
+
+		nuWPImportNewDB();
+		nuWPSetWPFlagDB();
+		nu_construct_access_levels_WPcoupled();
 		
 		flush_rewrite_rules();
 		wp_register_script('nubuilder4', plugins_url('nubuilder4.php', __FILE__));
@@ -63,9 +73,15 @@ register_activation_hook(   __FILE__, array( $nuBuilderForte, 'activate' ) );
 register_deactivation_hook( __FILE__, array( $nuBuilderForte, 'deactivate' ) );
 
 function nu_menu_function() {
-	
+
+	nu_start_session();
+
 	$iframe_url			= plugin_dir_url( __FILE__ ).'index.php';
-	$_SESSION['nuWPSessionData'] 	= nu_construct_session_data();
+
+	nu_construct_session_data_WPcoupled();
+	nu_construct_access_levels_WPcoupled();
+
+
 	$j	= "
 	<iframe id='nubuilder4_iframe' style='margin:20px;border-style:solid;border-width:2px;border-color:lightgrey;width:1300px;height:1000px' src='$iframe_url'></iframe>
 	<script>
@@ -86,30 +102,4 @@ function nu_menu_function() {
 	echo $j;
 }
 
-function nu_construct_session_data() {
-
-	$auth_info					= wp_get_current_user();
-	$nubuilder_session_data 			= new stdClass;
-	$nubuilder_session_data->PLUGIN			= true;
-	$nubuilder_session_data->GLOBEADMIN             = false;
-	if ( in_array('administrator',$auth_info->roles) ) {
-		$nubuilder_session_data->GLOBEADMIN    	= true;
-	}
-	$nubuilder_session_data->USER_LOGIN   		= $auth_info->user_login;
-	$nubuilder_session_data->USER_PASS 		= $auth_info->user_pass;
-	$nubuilder_session_data->USER_EMAIL             = $auth_info->user_email;
-	$nubuilder_session_data->USER_DISPLAY_NAME     	= $auth_info->display_name;
-	$nubuilder_session_data->USER_ROLES		= $auth_info->roles;
-	$nubuilder_session_data->DB_NAME 		= DB_NAME;
-	$nubuilder_session_data->DB_USER 		= DB_USER;
-	$nubuilder_session_data->DB_PASSWORD 		= DB_PASSWORD;
-	$nubuilder_session_data->DB_HOST 		= DB_HOST;
-	$nubuilder_session_data->DB_CHARSET 		= DB_CHARSET;	
-	$nubuilder_session_data->NU_SITE_URL 		= plugin_dir_url( __FILE__ );
-	$nubuilder_session_data->WP_ADMIN_URL		= admin_url();
-	$nubuilder_session_data->USER_LOGGED_IN		= is_user_logged_in();
-        $json           				= json_encode($nubuilder_session_data);
-        $encode         				= base64_encode($json);
-
-	return $encode;
-}
+?>

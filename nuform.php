@@ -1292,7 +1292,7 @@ function nuFormAccess($s, $a){
 
     require('nuconfig.php');
 
-	if($_POST['session']->zzzzsys_user_id == $nuConfigDBGlobeadminUsername){
+	if( $_POST['session']->zzzzsys_user_id == $_SESSION['nuconfig']->GLOBEADMIN_NAME ){
 		return array('1', '1', '1', '1', '1');
 	}
 

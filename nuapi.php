@@ -1,12 +1,14 @@
 <?php
 	header("Content-Type: application/json");
-	header("Cache-Control: no-cache, must-revalidate");
-    require_once('nusession.php');
+        header("Cache-Control: no-cache, must-revalidate");
+
+	require_once('nuconfig.php');
+    	require_once('nusession.php');
 	require_once('nucommon.php');
-	require_once('nuform.php');
+	require_once('nuform.php'); 
 	require_once('nudata.php');
-    require_once('nudrag.php');
-    require_once('nudatabase.php');
+    	require_once('nudrag.php');
+    	require_once('nudatabase.php');
 
 	$_POST['nuCounter']						= rand(0, 999);
 	$_POST['nuErrors']						= array();
@@ -78,7 +80,6 @@
 	
 
 	$j								    	= json_encode($f->forms[0]);
-	
+
 	print $j;
-	
 ?>
