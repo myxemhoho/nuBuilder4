@@ -2,19 +2,16 @@
 
 error_reporting( error_reporting() & ~E_NOTICE );
 
-require_once('nuconfig.php'); 
+require_once('nuchoosesetup.php');
 require_once('nubuilders.php'); 
 require_once dirname(__FILE__) . '/nusqlclass.php';
 require_once dirname(__FILE__) . '/nusearchclass.php';
-require_once('nudatabase.php');
 
 set_time_limit(0);
 mb_internal_encoding('UTF-8');
 
 $GLOBALS['nuSetup']			= db_setup();
-
-$setup						= $GLOBALS['nuSetup'];                                   //--  setup php code just used for this database
-
+$setup					= $GLOBALS['nuSetup'];                                   //--  setup php code just used for this database
 
 nuClientTimeZone();
 
@@ -1586,26 +1583,22 @@ function db_setup(){
 	
 }
 
-
-
 function nuTranslate($t){
-	
-	$l	= nuGetJSONData('nuLanguage');
-	$s	= "
-			SELECT *
-			FROM zzzzsys_translate
-			WHERE trl_language = ?
-			AND trl_english = ?
-			
-		";
-				
-	$t	= nuRunQuery($s, [$l, $t]);
-	
-	return db_fetch_object($t)->trl_translation;
+
+        $l      = nuGetJSONData('nuLanguage');
+        $s      = "
+                        SELECT *
+                        FROM zzzzsys_translate
+                        WHERE trl_language = ?
+                        AND trl_english = ?
+
+                ";
+
+        $t      = nuRunQuery($s, [$l, $t]);
+
+        return db_fetch_object($t)->trl_translation;
 
 }
-
-
 
 
 ?>
