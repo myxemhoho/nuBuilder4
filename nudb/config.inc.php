@@ -32,19 +32,14 @@ $i = 0;
  */
 $i++;
 
-require_once("../nuconfig.php");
-
-    //$nuConfigDBName                 = "nubuilder4";
-
-
 /* Authentication type */
-$cfg['Servers'][$i]['auth_type'] = 'config';
+$cfg['Servers'][$i]['auth_type'] 	= 'config';
 /* Server parameters */
-$cfg['Servers'][$i]['host'] = $nuConfigDBHost;
-$cfg['Servers'][$i]['user'] = $nuConfigDBUser;
-$cfg['Servers'][$i]['password'] = $nuConfigDBPassword;
-$cfg['Servers'][$i]['compress'] = false;
-$cfg['Servers'][$i]['AllowNoPassword'] = true;
+$cfg['Servers'][$i]['host'] 		= $_COOKIE["nuConfigDBHost"];
+$cfg['Servers'][$i]['user'] 		= $_COOKIE["nuConfigDBUser"];
+$cfg['Servers'][$i]['password'] 	= $_COOKIE["nuConfigDBPassword"];
+$cfg['Servers'][$i]['compress'] 	= false;
+$cfg['Servers'][$i]['AllowNoPassword'] 	= true;
 
 /**
  * phpMyAdmin configuration storage settings.
