@@ -3361,7 +3361,7 @@ function nuMessage(o){
 	
 	window.nuHideMessage	= false;
 
-	var par		= window.parent.document;
+	var par		= window.document;
 	
 	$('#nuMessageDiv', par).remove();
 
