@@ -156,7 +156,7 @@ window.nuHASH			= [];
     	if(isset($_GET['target']))		{$target 		= $_GET['target'];}
     	if(isset($_GET['like']))		{$like	 		= $_GET['like'];}
     	if(isset($_GET['browsefunction']))	{$nuBrowseFunction 	= $_GET['browsefunction'];}
-	
+
 	$h1								= "
 	window.nuLoginU							= '$nuUser';
 	window.nuLoginP							= '$nuPassword';
@@ -168,8 +168,14 @@ window.nuHASH			= [];
 	window.nuImages							= [];
 	";
 
+	if ( $_SESSION['nuconfig']->PLUGIN ) {
+                $h1 .= "\nwindow.nuWordpress = true;\n";
+        } else {
+                $h1 .= "\nwindow.nuWordpress = false;\n";
+        }
+
 	// Choose h2	
-	if( $_SESSION['nuconfig']->PLUGIN && isset($_SESSION['SESSION_ID']) ) {
+	if ( $_SESSION['nuconfig']->PLUGIN && isset($_SESSION['SESSION_ID']) ) {
 
 		$h2 = nuGetJS_action_screen($nuBrowseFunction, $target, $welcome, $opener, $search, $like);
 
