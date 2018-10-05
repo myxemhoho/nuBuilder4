@@ -170,6 +170,12 @@ function nuWPSetWPFlagDB() {
 	nu_WP_RunQuery($sql);
 }
 
+function nuWPSetDeniedFlagDB() {
+
+	$sql = "UPDATE zzzzsys_setup SET set_denied = '1' ";
+        nu_WP_RunQuery($sql);
+}
+
 // this function runs during loading index.php and requires $_SESSION['nuconfig'] to be loaded
 // NOTE this function uses the normal nubuilder nuRunQuery instead of nu_WP_RunQuery because it is executed inside nubuilder's eco system
 function nuCheckWPUser() {

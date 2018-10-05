@@ -52,6 +52,7 @@ class nuBuilderForte{
 
 		nuWPImportNewDB();
 		nuWPSetWPFlagDB();
+		nuWPSetDeniedFlagDB();
 		nu_construct_access_levels_WPcoupled();
 		
 		flush_rewrite_rules();
@@ -80,7 +81,6 @@ function nu_menu_function() {
 
 	nu_construct_session_data_WPcoupled();
 	nu_construct_access_levels_WPcoupled();
-
 
 	$j	= "
 	<iframe id='nubuilder4_iframe' style='margin:20px;border-style:solid;border-width:2px;border-color:lightgrey;width:1300px;height:1000px' src='$iframe_url'></iframe>
