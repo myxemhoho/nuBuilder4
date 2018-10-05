@@ -7,7 +7,7 @@
 /*
 Plugin Name: nuBuilder Forte
 Plugin URI: https://www.nubuilder.com/
-Description: nuBuilder Database Application Builder
+Description: nuBuilder Database Application Builder. Build reports and forms using wordpress tables and any other table created in the Wordpress database.
 Author: nuSoftware
 Version: 1.0
 Text Domain: nubuilder4
