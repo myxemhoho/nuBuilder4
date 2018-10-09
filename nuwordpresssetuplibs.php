@@ -61,7 +61,7 @@ function nu_WP_db_num_rows($o) {
 
 }
 
-// this function will only work inside nubuilder4.php as it depends on wordpress libs
+// this function will only work inside nubuilder-forte.php as it depends on wordpress libs
 // WPcoupled = wordpress coupled
 function nu_construct_session_data_WPcoupled() {
 
@@ -119,7 +119,7 @@ function _derrive_code($key){
 	return $nu_wp_role_code;
 }
 
-// this function will only work inside nubuilder4.php as it depends on wordpress libs
+// this function will only work inside nubuilder-forte.php as it depends on wordpress libs
 // WPcoupled = wordpress coupled
 function nu_construct_roles_WPcoupled() {
 	
@@ -223,7 +223,7 @@ function nuCheckWPUser() {
 	$_SESSION['nuCheckWPUser'] = $sus_login_name;
 }
 
-// this function will only work inside nubuilder4.php as it depends on wordpress libs
+// this function will only work inside nubuilder-forte.php as it depends on wordpress libs
 // WPcoupled = wordpress coupled
 function nu_construct_access_levels_WPcoupled() {
 
