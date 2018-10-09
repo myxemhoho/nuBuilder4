@@ -41,8 +41,11 @@ function pmaGood() {
 	setcookie("nuConfigDBHost",     $_SESSION['nuconfig']->DB_HOST);
 	setcookie("nuConfigDBUser",     $_SESSION['nuconfig']->DB_USER);
 	setcookie("nuConfigDBPassword", $_SESSION['nuconfig']->DB_PASSWORD);
-	return $page;
 
+	if ( $_SESSION['nuconfig']->DB_PASSWORD == '' ) {
+		setcookie("nuConfigDBPasswordBlank", 'BLANK');
+	}
+	return $page;
 }
 
 function pmaBad() {

@@ -38,6 +38,11 @@ $cfg['Servers'][$i]['auth_type'] 	= 'config';
 $cfg['Servers'][$i]['host'] 		= $_COOKIE["nuConfigDBHost"];
 $cfg['Servers'][$i]['user'] 		= $_COOKIE["nuConfigDBUser"];
 $cfg['Servers'][$i]['password'] 	= $_COOKIE["nuConfigDBPassword"];
+
+if ( $_COOKIE["nuConfigDBPasswordBlank"] == 'BLANK' ) {
+	$cfg['Servers'][$i]['password'] = '';
+}
+
 $cfg['Servers'][$i]['compress'] 	= false;
 $cfg['Servers'][$i]['AllowNoPassword'] 	= true;
 

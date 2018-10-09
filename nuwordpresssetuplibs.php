@@ -164,6 +164,22 @@ function nuWPImportNewDB() {
         }
 }
 
+function nuWPSetNewHeaderAndButtonsDB() {
+
+	$sql = "
+	UPDATE zzzzsys_setup SET set_header = \"function nuHeaderTest() {
+	    console.log('Functions placed here before a closing script tag are available anywhere in nuBuilder Forte');
+	}
+	</script>
+	<style>    
+	.nuActionButton {background-color:#0073aa;}
+	.nuButton {background-color:#0073aa;}
+	</style>
+	<script>\"
+	";
+	nu_WP_RunQuery($sql);
+}
+
 function nuWPSetWPFlagDB() {
 
 	$sql = "ALTER TABLE `zzzzsys_setup` ADD `set_wp` CHAR(1) NOT NULL DEFAULT '1' ";

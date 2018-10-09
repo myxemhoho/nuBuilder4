@@ -53,6 +53,7 @@ class nuBuilderForte{
 		nuWPImportNewDB();
 		nuWPSetWPFlagDB();
 		nuWPSetDeniedFlagDB();
+		nuWPSetNewHeaderAndButtonsDB();
 		nu_construct_access_levels_WPcoupled();
 		
 		flush_rewrite_rules();
