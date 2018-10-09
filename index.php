@@ -124,19 +124,19 @@ window.nuDocumentID		= Date.now();
 if(parent.window.nuDocumentID == window.nuDocumentID){
 	window.onbeforeunload	= nuHomeWarning;
 }
-window.nuHASH			= [];
+window.nuHASH				= [];
 
 <?php
-	$nuWelcomeBodyInnerHTML			= (isset($nuWelcomeBodyInnerHTML)?$nuWelcomeBodyInnerHTML:'');
+	$nuWelcomeBodyInnerHTML	= (isset($nuWelcomeBodyInnerHTML)?$nuWelcomeBodyInnerHTML:'');
 	$welcome				= addslashes($nuWelcomeBodyInnerHTML);
 	$nuHeader				= nuHeader();
-    	$opener         	    		= '';
-    	$search             			= '';
-    	$iframe					= '';
-    	$target					= '';
-	$l 					= scandir('graphics');
+    $opener         		= '';
+    $search             	= '';
+    $iframe					= '';
+    $target					= '';
+	$l 						= scandir('graphics');
 	$f  					= JSON_encode($l);
-    	$nuBrowseFunction 			= 'browse';
+    $nuBrowseFunction 		= 'browse';
 	$like					= '';
 	$nuUser					= '';
 	$nuPassword				= '';
@@ -145,7 +145,7 @@ window.nuHASH			= [];
 	$nuHome					= '';
 
     	if(isset($_GET['u']))			{$nuUser 		= $_GET['u'];}
-    	if(isset($_GET['p']))			{$nuPassword 		= $_GET['p'];}
+    	if(isset($_GET['p']))			{$nuPassword 	= $_GET['p'];}
     	if(isset($_GET['f']))			{$nuForm 		= $_GET['f'];}
     	if(isset($_GET['r']))			{$nuRecord 		= $_GET['r'];}
     	if(isset($_GET['h']))			{$nuHome 		= $_GET['h'];}
