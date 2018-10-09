@@ -54,13 +54,18 @@ nuBuilder is a enterprise level application builder but with no limitations on d
 
 == Installation ==
 
+If you are using nuBuilder as a Wordpress plugin, then follow these instructions:
 1. Upload the plugin files to the `/wp-content/plugins/nuBuilder4` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress
+
+If you are using nuBuilder as a standalone application, then follow these instructions:
+1. Upload the unzipped nuBuilder files to your webroot 
+2. Edit nuconfig.php to set you database credentials and globeadmin credentials
 
 == Changelog ==
 
 = 1.0 =
-* This is the first version of nuBuilder Forte which has been converted to a Wordpress plugin.
+* This is the first version of nuBuilder Forte which has been converted to work as both a Wordpress plugin and the original mode as a standalone application.
 
 == Documentation ==
 
