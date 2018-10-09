@@ -6,7 +6,7 @@
 	$sql            = "SELECT * FROM zzzzsys_session WHERE zzzzsys_session_id = ?";
 	$obj            = nuRunQuery($sql, $values);
 	$result         = db_num_rows($obj);
-
+	
 	if ( $result == 1 ) {
 
 		$recordObj      = db_fetch_object($obj);
@@ -26,9 +26,17 @@
 
 	header("Location: $page");
 
+	//echo "<a href='$page'>$page</a>";
+	//echo "<pre>";
+	//print_r($_REQUEST);
+	//print_r($_SESSION);
+	//echo "</pre>";	
+
+
 function pmaGood() {
 
-	$page = "nudb/db_structure.php?server=1&db=".$_SESSION['nuconfig']->DB_NAME;
+	$time = time();
+	$page = "nudb/db_structure.php?server=1&db=".$_SESSION['nuconfig']->DB_NAME."&$time=$time";
 	setcookie("nupmalogin",         "good");
 	setcookie("nuConfigDBHost",     $_SESSION['nuconfig']->DB_HOST);
 	setcookie("nuConfigDBUser",     $_SESSION['nuconfig']->DB_USER);
@@ -39,7 +47,8 @@ function pmaGood() {
 
 function pmaBad() {
 
-	$page                           = "nupmalogout.php";
+	$time = time();
+	$page                           = "nupmalogout.php?$time=$time";
 	setcookie("nupmalogin",         "bad");
 	setcookie("nuConfigDBHost",     null);
 	setcookie("nuConfigDBUser",     null);

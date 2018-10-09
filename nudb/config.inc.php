@@ -41,6 +41,10 @@ $cfg['Servers'][$i]['password'] 	= $_COOKIE["nuConfigDBPassword"];
 $cfg['Servers'][$i]['compress'] 	= false;
 $cfg['Servers'][$i]['AllowNoPassword'] 	= true;
 
+$cfg['CheckConfigurationPermissions'] = false;
+$cfg['Servers'][$i]['CheckConfigurationPermissions'] = false;
+
+
 /**
  * phpMyAdmin configuration storage settings.
  */
