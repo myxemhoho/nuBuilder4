@@ -1,7 +1,8 @@
 === nuBuilder Forte ===
+Name: nuBuilder Forte
 Contributors: nubuilder
 Donate link: https://www.nubuilder.com/#donate
-Tags: reports, manage data, inventory
+Tags: reports, manage data, inventory, statistics, report, customer report, user report, custom application, build application
 Requires at least: 4.9.8
 Tested up to: 4.9.8
 Stable tag: 4.9.8
@@ -9,7 +10,7 @@ Requires PHP: 5.2.4
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-nuBuilder is the world's best: open-source, low-code application builder.
+nuBuilder is the world's best: open-source, low-code application and report builder.
 
 == Description ==
 
