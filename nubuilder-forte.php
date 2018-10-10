@@ -29,14 +29,15 @@ function nu_start_session() {
         	session_start();
 	} else {
 		// if there is a session the destroy and start a new one
-		session_destroy();
-		session_start();
+		//session_destroy();
+		//session_start();
+		session_reset();
 	}		
 }
 
-//function nu_end_session() {
-//	session_destroy();
-//}
+function nu_end_session() {
+	session_destroy();
+}
 
 class nuBuilderForte{
 	
@@ -44,8 +45,8 @@ class nuBuilderForte{
 
 		add_action('auth_redirect', 'nu_set_menu');
 		add_action('init', 'nu_start_session', 1);
-		//add_action('wp_logout', 'nu_end_session');
-		//add_action('wp_login', 'nu_end_session');
+		add_action('wp_logout', 'nu_end_session');
+		add_action('wp_login', 'nu_end_session');
 	}
 	
 	function activate() {
