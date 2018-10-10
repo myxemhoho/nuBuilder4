@@ -24,15 +24,16 @@ function nu_set_menu() {
 
 function nu_start_session() {
 
-	//if(!session_id()) {
+	if(!session_id()) {
 		// start a session if there is no session
-        //	session_start();
-	//} else {
+        	session_start();
+	} else {
 		// if there is a session the destroy and start a new one
-		session_destroy();
-		session_start();
 		//session_reset();
-	//}		
+		//session_destroy();
+		//session_start();
+		$_SESSION = array();	
+	}		
 }
 
 class nuBuilderForte{

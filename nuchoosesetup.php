@@ -1,9 +1,19 @@
 <?php
-	if ( !session_id() ) {
-                session_start();
-        }
-	
 	require_once('nuconfig.php');  // nuconfig must be loaded before using nubuilder_session_data
+	
+	if ( !session_id() ) {
+		
+		// the garbage collector setting
+		if ( isset($nuConfigTimeOut) ) {
+			if ( is_int($nuConfigTimeOut) ) {
+				$gcLifetime	= 60 * $nuConfigTimeOut;
+				ini_set("session.gc_maxlifetime", $gcLifetime);
+			}
+		}
+		
+		session_start();
+	}
+	
 	require_once('nubuilder_session_data.php');
 
         $nubuilder_session_data = new nubuilder_session_data();
@@ -15,7 +25,7 @@
                 $nubuilder_session_data->construct_wordpress($wpdata);
 
         } else {
-		nuDieIfWeAreInsideWordpress();	
+				nuDieIfWeAreInsideWordpress();	
                 $nubuilder_session_data->construct_standalone($nuConfigDBHost,$nuConfigDBName,$nuConfigDBUser,$nuConfigDBPassword,$nuConfigDBGlobeadminUsername,$nuConfigDBGlobeadminPassword,$nuConfigIsDemo);
         }
 

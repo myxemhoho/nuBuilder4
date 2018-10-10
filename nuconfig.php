@@ -8,6 +8,7 @@
     $nuConfigDBGlobeadminPassword   = "nu";             //-- globeadmin password
     $nuConfigTitle                  = "nuBuilder 4";
     $nuConfigIsDemo                 = false;
+	$nuConfigTimeOut             	= 1440;
 /*    $nuWelcomeBodyInnerHTML			= " 
 	
 	
