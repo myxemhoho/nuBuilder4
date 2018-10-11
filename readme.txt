@@ -1,7 +1,7 @@
 === nuBuilder Forte ===
 Name: nuBuilder Forte
 Contributors: nubuilder
-Donate link: https://www.nubuilder.com/#donate
+Donate link: https://www.nubuilder.com/wordpress
 Tags: reports, manage data, inventory, statistics, report, customer report, user report, custom application, build application
 Requires at least: 4.9.8
 Tested up to: 4.9.8
