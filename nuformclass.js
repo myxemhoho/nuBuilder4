@@ -308,6 +308,25 @@ class nuFormObject {
 		
 	}
 	
+	getJustTables(){
+	
+		var tables	= [];
+		
+		for (var key in nuFORM.tableSchema) {
+
+			if (nuFORM.tableSchema.hasOwnProperty(key)) {
+				
+				if(nuSERVERRESPONSE.viewSchema.indexOf(key) == -1){
+					tables.push(key);
+				}
+			}
+			
+		}
+		
+		return tables;
+		
+	}
+	
 	calc(field){
 		
 		if(field.split('.').length == 2){

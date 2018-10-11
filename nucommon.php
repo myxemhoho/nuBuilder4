@@ -1099,6 +1099,21 @@ function nuBuildTableSchema(){
 
 
 
+function nuBuildViewSchema(){
+
+	$a				= array();
+	$t				= nuRunQuery("SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'VIEW' AND table_schema = DATABASE()");
+
+	while($r = db_fetch_object($t)){
+		$a[]		= $r->table_name;
+	}
+	
+	return $a;
+
+}
+
+
+
 function nuUpdateFormSchema(){
 
 	$s 		= nuGetJSONData('clientFormSchema');
