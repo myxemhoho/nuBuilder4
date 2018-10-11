@@ -167,15 +167,34 @@ function nuWPImportNewDB() {
 function nuWPSetNewHeaderAndButtonsDB() {
 
 	$sql = "
-	UPDATE zzzzsys_setup SET set_header = \"function nuHeaderTest() {
+	UPDATE zzzzsys_setup SET set_header = \"
+	
+	function nuHeaderTest() {
 	    console.log('Functions placed here before a closing script tag are available anywhere in nuBuilder Forte');
 	}
+	
 	</script>
 	<style>    
 	.nuActionButton {background-color:#0073aa;}
 	.nuButton {background-color:#0073aa;}
+	.nuSaveButtonEdited {background-color:red;}
+    .nuUserHomeButton{
+      color: white;
+      background-color: #88cb51;
+      display: inline;
+      border-style: solid;
+      font-size: 14px;
+      height: 40px;
+      padding: 0px 6px 0px 6px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+      border-color: #87A96B;
+      border-width: 0px 0px 1px 0px;
+    }
+    
 	</style>
-	<script>\"
+	<script>
+
+	\"
 	";
 	nu_WP_RunQuery($sql);
 }

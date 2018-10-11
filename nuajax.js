@@ -375,14 +375,8 @@ function nuSystemUpdate(){
 		
 		if(!nuDisplayError(fm)){
 			
-			if(window.nuWordpress){
-				nuMessage(['Not applicable inside Wordpress.']);
-			}else{
-				
-				var pdfUrl		= 'nusystemupdate.php?i=' + fm.id;
-				window.open(pdfUrl);
-					
-			}
+			var pdfUrl		= 'nusystemupdate.php?i=' + fm.id;
+			window.open(pdfUrl);
 			
 		}
 		
