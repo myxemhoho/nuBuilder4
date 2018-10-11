@@ -196,6 +196,7 @@ function nuWPSetNewHeaderAndButtonsDB() {
 
 	\"
 	";
+	
 	nu_WP_RunQuery($sql);
 }
 
