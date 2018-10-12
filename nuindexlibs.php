@@ -40,6 +40,21 @@ function nuGetJS_standalone_login($nuBrowseFunction, $target, $welcome) {
 	return $h2;
 }
 
+
+function nuUseUP($nuBrowseFunction, $target, $welcome, $u, $p) {
+
+	$h2 = "function nuLoad(){
+		nuBindCtrlEvents();
+		window.nuDefaultBrowseFunction  = '$nuBrowseFunction';
+		window.nuBrowseFunction       	= '$nuBrowseFunction';
+		window.nuTARGET               	= '$target';
+		var welcome                   	= `$welcome`;
+		nuLoginRequest('$u', '$p');
+	}";
+	
+	return $h2;
+}
+
 function nuGetJS_action_screen($nuBrowseFunction, $target, $welcome, $opener, $search, $like) {
 
 	$h2 = "function nuLoad(){

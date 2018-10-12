@@ -183,6 +183,10 @@ window.nuHASH				= [];
 
 		$h2 = nuGetJS_plugin_login($nuBrowseFunction, $target);
 
+	} else if ( $nuUser != ''  &&  $nuPassword != '' ){
+		
+		$h2 = nuUseUP($nuBrowseFunction, $target, $welcome, $nuUser, $nuPassword);
+
 	} else if ( $opener == '' ){
 		
 		$h2 = nuGetJS_standalone_login($nuBrowseFunction, $target, $welcome);
