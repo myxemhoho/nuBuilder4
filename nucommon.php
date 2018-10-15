@@ -1198,14 +1198,15 @@ function nuFontList(){
                 if ( !in_array($list[$x], $exclude) )  {
 
                         $item           = trim($folder . DIRECTORY_SEPARATOR . $list[$x]);
-                        $path_parts     = pathinfo($item);
-                        $font_name      = $path_parts['filename'];
-                        $font_name      = explode('.', $path_parts['filename'])[0];
 
-                        if ( !in_array($font_name, $result) )  {
-                                array_push($result, $font_name);
-
-                        }
+			if ( is_file($item) )  {
+                        	$path_parts     = pathinfo($item);
+                        	$font_name      = $path_parts['filename'];
+                        	$font_name      = explode('.', $path_parts['filename'])[0];
+                        	if ( !in_array($font_name, $result) )  {
+                                	array_push($result, $font_name);
+                        	}	
+			}
                 }
         }
 
