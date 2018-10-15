@@ -1186,24 +1186,38 @@ function nuListSystemTables(){
 
 
 function nuFontList(){
-	
 
-	$l					= [['Helvetica','Helvetica'],['Courier','Courier'],['Times','Times'],['Symbol','Symbol'],['aealarabiya','aealarabiya'],['aefurat','aefurat'],['dejavusans','dejavusans'],['dejavusanscondensed','dejavusanscondensed'],['dejavusansextralight','dejavusansextralight'],['dejavusansmono','dejavusansmono'],['dejavuserif','dejavuserif'],['dejavuserifcondensed','dejavuserifcondensed'],['freemono','freemono'],['freesans','freesans'],['freeserif','freeserif'],['pdfacourier','pdfacourier'],['pdfahelvetica','pdfahelvetica'],['pdfasymbol','pdfasymbol'],['pdfatimes','pdfatimes'],['cid0cs','cid0cs'],['cid0jp','cid0jp'],['cid0kr','cid0kr']];
-	$fonts      		= [];						//-- nuGetFonts(); 
+	$result         = array();
+        $fonts          = array(['Helvetica','Helvetica'],['Courier','Courier'],['Times','Times'],['Symbol','Symbol']);
+        $exclude        = array('..', '.',DIRECTORY_SEPARATOR);
+        $folder         = __DIR__ . DIRECTORY_SEPARATOR . 'tcpdf' . DIRECTORY_SEPARATOR . 'fonts';
+        $list           = scandir($folder);
 
-	for($i = 0 ; $i < count($fonts) ; $i ++){
+        for ( $x=0; $x<count($list); $x++) {
 
-		if(trim($fonts[$i]) != ''){
-			
-			$font   	= $fonts[$i];
-			$l[] 		= [$font,$font];
-			
-		}
+                if ( !in_array($list[$x], $exclude) )  {
 
-	}
+                        $item           = trim($folder . DIRECTORY_SEPARATOR . $list[$x]);
+                        $path_parts     = pathinfo($item);
+                        $font_name      = $path_parts['filename'];
+                        $font_name      = explode('.', $path_parts['filename'])[0];
 
-	return json_encode($l);
-	
+                        if ( !in_array($font_name, $result) )  {
+                                array_push($result, $font_name);
+
+                        }
+                }
+        }
+
+        for ( $x=0; $x<count($result); $x++) {
+
+                $element    = array();
+                $element[0] = $result[$x];
+                $element[1] = $result[$x];
+                array_push($fonts, $element);
+        }
+
+	return json_encode($fonts);
 }
 
 function nuEventName($e){
