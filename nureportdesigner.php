@@ -1,3 +1,8 @@
+<?php
+	if ( !session_id() ) {
+                session_start();
+        }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,7 +10,8 @@
 
 require_once('nucommon.php');	
 
-nuJSInclude('jquery/jquery.js');
+nuJSInclude($_SESSION['nuconfig']->JQ_PATH);
+
 nuJSInclude('nuformclass.js');
 nuJSInclude('nuform.js');
 nuJSInclude('nuformdrag.js');
@@ -21,13 +27,14 @@ nuCSSInclude('nudrag.css');
 
 
 $f		= nuFormatList();
-$ft 	= nuFontList();
+$ft 		= nuFontList();
 $tt		= nuTTList($_GET['tt'], $_GET['launch']);				//-- Field list from Temp table
 $i		= nuImageList(json_decode($tt));
 
+echo $_SESSION['nuconfig']->PLUGIN ? '<script> var $ = jQuery; </script>' : '';
+
 $h		= "
 <script>
-
 	window.nuFormats	= $f;
 	window.nuFonts		= $ft;
 	window.nuTT			= $tt;
@@ -36,6 +43,7 @@ $h		= "
 </script>
 
 ";
+
 
 print $h;
 

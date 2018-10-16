@@ -85,6 +85,7 @@ function nu_construct_session_data_WPcoupled() {
         $nubuilder_session_data->NU_SITE_URL            = plugin_dir_url( __FILE__ );
         $nubuilder_session_data->WP_ADMIN_URL           = admin_url();
 	$nubuilder_session_data->WP_ROLES		= nu_construct_roles_WPcoupled();
+	$nubuilder_session_data->WP_SITE_URL            = site_url();
 
         $json                                           = json_encode($nubuilder_session_data);
         $encode                                         = base64_encode($json);

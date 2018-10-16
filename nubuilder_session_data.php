@@ -20,6 +20,8 @@ class nubuilder_session_data {
 	var $WP_ADMIN_URL       = '';
 	var $IS_DEMO		= false;
 	var $WP_ROLES		= '';
+	var $WP_SITE_URL	= '';
+	var $JQ_PATH		= '';
 
 	function __construct() {
         }
@@ -46,6 +48,8 @@ class nubuilder_session_data {
 		$this->WP_ADMIN_URL		= $wpdata->WP_ADMIN_URL;
 		$this->IS_DEMO			= false;
 		$this->WP_ROLES			= $wpdata->WP_ROLES;
+		$this->WP_SITE_URL              = $wpdata->WP_SITE_URL;
+		$this->JQ_PATH			= $this->WP_SITE_URL.'/wp-includes/js/jquery/jquery.js';
         }
 
         function construct_standalone($nuConfigDBHost, $nuConfigDBName, $nuConfigDBUser, $nuConfigDBPassword, $nuConfigDBGlobeadminUsername, $nuConfigDBGlobeadminPassword, $nuConfigIsDemo = false) {
@@ -59,6 +63,7 @@ class nubuilder_session_data {
 		$this->GLOBEADMIN_NAME	= $nuConfigDBGlobeadminUsername;
 		$this->GLOBEADMIN_PASS	= $nuConfigDBGlobeadminPassword;
 		$this->IS_DEMO         	= $nuConfigIsDemo;
+		$this->JQ_PATH          = 'jquery/jquery.js';
         }
 }
 

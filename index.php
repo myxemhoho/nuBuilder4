@@ -42,7 +42,8 @@ function nuHeader(){
     	return $j;
 }
 
-nuJSIndexInclude('jquery/jquery.js');
+nuJSIndexInclude($_SESSION['nuconfig']->JQ_PATH);
+
 nuJSIndexInclude('nuformclass.js');
 nuJSIndexInclude('nuform.js');
 nuJSIndexInclude('nuformdrag.js');
@@ -54,6 +55,9 @@ nuCSSIndexInclude('nubuilder4.css');
 ?>
 
 <script>
+
+<?php echo $_SESSION['nuconfig']->PLUGIN ? 'var $ = jQuery;' : ''; ?>
+
 function nuValidCaller(o){
 	
 	if(o === null){return false;}
