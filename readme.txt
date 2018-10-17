@@ -7,8 +7,8 @@ Requires at least: 4.9.8
 Tested up to: 4.9.8
 Stable tag: 4.9.8
 Requires PHP: 5.2.4
-License: GPLv2
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3
+License URI: https://www.gnu.org/licenses/old-licenses/gpl-3.0.html
 
 nuBuilder is the world's best: open-source, low-code application and report builder.
 

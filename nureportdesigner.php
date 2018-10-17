@@ -2,6 +2,10 @@
 	if ( !session_id() ) {
                 session_start();
         }
+
+	//Sanitize All Input
+        require_once('nusanitize.php');
+        nu_sanitize();
 ?>
 <!DOCTYPE html>
 <html>
