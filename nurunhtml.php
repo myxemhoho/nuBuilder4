@@ -1,4 +1,9 @@
 <?php 
+
+//Sanitize All Input
+require_once('nusanitize.php');
+nu_sanitize();
+
 require_once('nucommon.php'); 
 require_once('nudata.php'); 
 

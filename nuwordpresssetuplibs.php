@@ -86,6 +86,7 @@ function nu_construct_session_data_WPcoupled() {
         $nubuilder_session_data->WP_ADMIN_URL           = admin_url();
 	$nubuilder_session_data->WP_ROLES		= nu_construct_roles_WPcoupled();
 	$nubuilder_session_data->WP_SITE_URL            = site_url();
+	$nubuilder_session_data->WP_BLOG_CHARSET	= get_option('blog_charset');
 
         $json                                           = json_encode($nubuilder_session_data);
         $encode                                         = base64_encode($json);
