@@ -4,6 +4,7 @@ error_reporting( error_reporting() & ~E_NOTICE );
 
 require_once('nuchoosesetup.php');
 require_once('nubuilders.php'); 
+require_once('nuemailer.php');
 require_once dirname(__FILE__) . '/nusqlclass.php';
 require_once dirname(__FILE__) . '/nusearchclass.php';
 
@@ -1457,114 +1458,11 @@ function nuGetFonts(){
 	
 }
 
-require_once("phpmailer/PHPMailer.php");
-require_once("phpmailer/SMTP.php");
-require_once("phpmailer/Exception.php");
-use PHPMailer\PHPMailer\PHPMailer;
 function nuSendEmail($to, $from, $fromname, $content, $subject, $filelist, $html = false, $cc = "", $bcc = "", $reply_to_addresses = array()) {
 
-    $toname = '';
-    $wordWrap = 120;
-
-    $errorText = "";
-
-    $getSetupQRY = nuRunQuery("SELECT * FROM zzzzsys_setup  ");
-    $setup = db_fetch_object($getSetupQRY);
-
-    if (!empty($setup->set_smtp_username)) 		        { $SMTPuser = trim($setup->set_smtp_username);}                        else{$errorText .= "SMTP Username not set.\n";}
-    if (!empty($setup->set_smtp_password)) 		        { $SMTPpass = trim($setup->set_smtp_password);}                        else{$errorText .= "SMTP Password not set.\n";}
-    if (!empty($setup->set_smtp_host)) 		            { $SMTPhost = trim($setup->set_smtp_host);}                            else{$errorText .= "SMTP Host not set.\n";}
-    if (!empty($setup->set_smtp_from_address)) 	        { $SMTPfrom = trim($setup->set_smtp_from_address);}                    else{$errorText .= "SMTP From Address not set.\n";}
-    if (!empty($setup->set_smtp_port)) 		            { $SMTPport = intval($setup->set_smtp_port);}                          else{$errorText .= "SMTP PORT not set.\n";}
-    if (!empty($setup->set_smtp_use_ssl)) 		        { $SMTPssl  = (intval($setup->set_smtp_use_ssl) == 1) ? true : false;} else{$SMTPssl  = false;}
-    if (!empty($setup->set_smtp_from_name)) 	        { $SMTPname = trim($setup->set_smtp_from_name);}	                   else{$SMTPname = "nuBuilder";}
-    if (!empty($setup->set_smtp_use_authentication)) 	{ $SMTPauth = (intval($setup->set_smtp_use_authentication) == 1) ? true : false;} else{$SMTPauth  = false;}
-    if ($errorText != '') {
-        nuDisplayError("Unable to send SMTP Email, the following error(s) occured:\n" . $errorText);
-        return;
-    }
-
-    try{
-        $mail                        = new PHPMailer();
-        $mail->isSMTP();
-        $mail->CharSet               = 'UTF-8';
-        $mail->Host                  = $SMTPhost;
-        $mail->Port                  = $SMTPport;
-        $mail->SMTPAuth              = $SMTPauth;
-        /*
-        // Check for issues: https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting
-        $mail->SMTPDebug = 4;
-        $mail->SMTPOptions = array(
-            'ssl' => array(
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-            )
-        );*/
-        if ($SMTPauth) {
-            $mail->SMTPSecure        = $SMTPssl ? 'ssl' : false;
-            $mail->Username          = $SMTPuser;
-            $mail->Password          = $SMTPpass;
-        }
-        if(is_array($reply_to_addresses)){
-            if(count($reply_to_addresses) > 0) {
-                foreach ($reply_to_addresses as $key => $value) {
-                    $mail->AddReplyTo($key, $value);
-                }
-            } else {
-            $mail->AddReplyTo($from,$fromname);
-            }
-        } else {
-            $mail->AddReplyTo($from,$fromname);
-        }
-        $mail->FromName = $fromname;
-        $mail->From                  = $from;
-        $tonameArray                 = explode(',',$toname);
-        $toArray                     = explode(',',$to);
-        for ($i = 0; $i < count($toArray); $i++){
-            if ($toArray[$i]) {
-                if (isset($tonameArray[$i])) {
-                    $thisToName      = $tonameArray[$i];
-                } else {
-                    $thisToName      = "";
-                }
-                $mail->AddAddress($toArray[$i], $thisToName);
-            }
-        }
-        if($cc != ""){
-            $ccArray = explode(',',$cc);
-            foreach($ccArray as $ccAddress){
-                $mail->AddCC($ccAddress);
-            }
-        }
-        if($bcc != ""){
-            $bccArray = explode(',',$bcc);
-            foreach($bccArray as $bccAddress){
-                $mail->AddBCC($bccAddress);
-            }
-        }
-        $mail->WordWrap              = $wordWrap;
-        $mail->IsHTML($html);
-        foreach($filelist as $filename=>$filesource) {
-            $mail->AddAttachment($filesource,$filename);
-        }
-
-        $mail->Subject               = $subject;
-        $mail->Body                  = $content;
-        $result[0]                   = $mail->Send();
-        $result[1]                   = "Message sent successfully";
-    }catch(phpmailerException $e) {
-        $result[0]                   = false;
-        $result[1]                   = $e->errorMessage();                                    //-- Pretty error messages from PHPMailer
-    }catch(Exception $e){
-        $result[0]                   = false;
-        $result[1]                   = $e->errorMessage();                                    //-- Boring error messages from anything else!
-    }
-    foreach($filelist as $filename=>$filesource) {
-        @unlink($filesource);
-    }
-    return $result;
-
+	// nuSendEmail function is being retired and replaced with nuSendEmail
+	$to_list	= explode(',',$to);
+	return nuEmail($to_list,$from,$fromname,$content,$subject,$filelist,$html,$reply_to_addresses);
 }
 
 

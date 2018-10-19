@@ -1,6 +1,6 @@
 <?php
 
-function nuEmail($to_list=array(),$from_address='',$from_name='',$content='',$subject='',$file_list=array(),$html=false,$carbon_copy_list=array(),$blind_carbon_copy_list=array(),$reply_to_list=array(),$debug=0,$method='SMTP') {
+function nuEmail($to_list=array(),$from_address='',$from_name='',$content='',$subject='',$file_list=array(),$html=false,$reply_to_list=array(),$debug=0,$method='SMTP') {
 
 	ob_start();
 
@@ -35,19 +35,26 @@ function nuEmail($to_list=array(),$from_address='',$from_name='',$content='',$su
 
         _nuEmailHelperAdd($mail, $to_list,                              'AddAddress');
         _nuEmailHelperAdd($mail, $nuEmailSettings->reply_to_list, 	'AddReplyTo');
-        _nuEmailHelperAdd($mail, $carbon_copy_list,                     'AddCC');
-        _nuEmailHelperAdd($mail, $blind_carbon_copy_list,               'AddBCC');
-
         _nuEmailHelperAttach($mail, $file_list);
 
-        $mail->Send();
+	$result = array();
+
+	try {
+
+        	$result[0]	= $mail->Send();
+		$result[1]     	= "Message sent successfully";
+		$result[2]      = $mail->ErrorInfo;	
+
+	} catch(Exception $e) {
+
+		$result[0]      = false;
+                $result[1]      = $e->errorMessage();
+		$result[2]      = $mail->ErrorInfo;
+	}
 
         _nuEmailHelperClean($file_list);
 
-	$result = array();
-	$result[0] = "\n".ob_get_contents();
-	$result[1] = $mail->ErrorInfo;
-
+	$result[3]		= ob_get_contents();
 	ob_end_clean();
         return $result;
 }
