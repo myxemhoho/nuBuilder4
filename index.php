@@ -26,7 +26,8 @@
 
 function nuJSIndexInclude($pfile){
 
-    	$timestamp = date("YmdHis", filemtime($pfile));                                         //-- Add timestamp so javascript changes are effective immediately
+    	//$timestamp = date("YmdHis", filemtime($pfile));                                         //-- Add timestamp so javascript changes are effective immediately
+	$timestamp = date("YmdHis");
     	print "<script src='$pfile?ts=$timestamp' type='text/javascript'></script>\n";
 }
 

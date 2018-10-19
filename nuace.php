@@ -1,10 +1,16 @@
+<?php
+	require_once('nuchoosesetup.php');
+	$jquery = $_SESSION['nuconfig']->JQ_PATH;
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
 <title>Ace Editor</title>
 
+<script src="<?php echo $jquery; ?>" type="text/javascript"></script>
 
-<script src="jquery/jquery.js" type="text/javascript"></script>
+<?php echo $_SESSION['nuconfig']->PLUGIN ? '<script> var $ = jQuery; </script>' : ''; ?>
+
 <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="ace/src-min-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
