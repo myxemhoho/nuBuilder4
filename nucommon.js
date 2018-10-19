@@ -474,7 +474,7 @@ function nuOpenAce(lang, obj){
 	var ts			= new Date().getTime();
 	window.nuAce	= [lang, obj];
 	
-	window.open('nuace.html?' + ts);
+	window.open('nuace.php?' + ts);
 
 }
 

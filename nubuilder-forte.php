@@ -25,14 +25,16 @@ function nu_set_menu() {
 function nu_start_session() {
 
 	if(!session_id()) {
-		// start a session if there is no session
         	session_start();
 	} else {
-		// if there is a session the destroy and start a new one
-		//session_reset();
-		//session_destroy();
-		//session_start();
-		$_SESSION = array();	
+		unset($_SESSION['nuWPSessionData']);
+		unset($_SESSION['nuconfig']);
+		unset($_SESSION['nuCheckWPUser']);
+		unset($_SESSION['SESSION_ID']);
+		unset($_SESSION['SESSION_TIMESTAMP']);
+		unset($_SESSION['IsDemo']);
+		unset($_SESSION['isGlobeadmin']);
+		unset($_SESSION['translation']);
 	}		
 }
 
