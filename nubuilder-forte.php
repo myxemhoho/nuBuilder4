@@ -27,14 +27,8 @@ function nu_start_session() {
 	if(!session_id()) {
         	session_start();
 	} else {
-		unset($_SESSION['nuWPSessionData']);
-		unset($_SESSION['nuconfig']);
-		unset($_SESSION['nuCheckWPUser']);
-		unset($_SESSION['SESSION_ID']);
-		unset($_SESSION['SESSION_TIMESTAMP']);
-		unset($_SESSION['IsDemo']);
-		unset($_SESSION['isGlobeadmin']);
-		unset($_SESSION['translation']);
+		unset($_SESSION['nubuilder_wordpress_session_data']);
+		unset($_SESSION['nubuilder_session_data']);
 	}		
 }
 
@@ -88,8 +82,14 @@ function nu_menu_function() {
 		nuResize();
 	});
 	function nuResize(){
-
-		document.getElementById('nubuilder4_iframe').style.width     = String(Number(window.innerWidth)  - 255)	+ 'px';
+		
+		var w = parseInt(jQuery('#adminmenuback').css('width')) ;
+		
+		if(w == 190){
+			w = 0;
+		}
+		
+		document.getElementById('nubuilder4_iframe').style.width     = String(Number(window.innerWidth) - w - 100)	+ 'px';
 		document.getElementById('nubuilder4_iframe').style.height    = String(Number(window.innerHeight) - 95) 	+ 'px';
 		
 	}
