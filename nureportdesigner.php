@@ -1,11 +1,5 @@
 <?php
-	if ( !session_id() ) {
-                session_start();
-        }
-
-	//Sanitize All Input
-        require_once('nusanitize.php');
-        nu_sanitize();
+	require_once('nuchoosesetup.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,7 +8,7 @@
 
 require_once('nucommon.php');	
 
-nuJSInclude($_SESSION['nuconfig']->JQ_PATH);
+nuJSInclude($_SESSION['nubuilder_session_data']['JQ_PATH']);
 
 nuJSInclude('nuformclass.js');
 nuJSInclude('nuform.js');
@@ -35,7 +29,7 @@ $ft 		= nuFontList();
 $tt		= nuTTList($_GET['tt'], $_GET['launch']);				//-- Field list from Temp table
 $i		= nuImageList(json_decode($tt));
 
-echo $_SESSION['nuconfig']->PLUGIN ? '<script> var $ = jQuery; </script>' : '';
+echo $_SESSION['nubuilder_session_data']['PLUGIN'] ? '<script> var $ = jQuery; </script>' : '';
 
 $h		= "
 <script>

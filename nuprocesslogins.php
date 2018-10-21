@@ -1,10 +1,10 @@
 <?php
 
 function nuCheckExistingSession() {
-        if ( !isset($_SESSION['SESSION_ID']) ) {
+        if ( !isset($_SESSION['nubuilder_session_data']['SESSION_ID']) ) {
         	nuDie('You must be logged into nuBuilder..');
        	}
-	if ( !isset($_SESSION['nuconfig']) ) {
+	if ( !isset($_SESSION['nubuilder_session_data']) ) {
                  nuDie('You must be logged into nuBuilder...');
         }
 }
@@ -12,7 +12,7 @@ function nuCheckExistingSession() {
 //Check for Wordpress Globeadmin login
 function nuCheckWordpressGlobeadminLoginRequest() {
 
-	if ( $_SESSION['nuconfig']->PLUGIN && $_SESSION['nuconfig']->GLOBEADMIN ) {
+	if ( $_SESSION['nubuilder_session_data']['PLUGIN'] && $_SESSION['nubuilder_session_data']['GLOBEADMIN'] ) {
 		return true;
 	}
 	return false;
@@ -21,7 +21,7 @@ function nuCheckWordpressGlobeadminLoginRequest() {
 //Check for Wordpress User login
 function nuCheckWordpressUserLoginRequest() {
 
-	if ( $_SESSION['nuconfig']->PLUGIN && !$_SESSION['nuconfig']->GLOBEADMIN ) {
+	if ( $_SESSION['nubuilder_session_data']['PLUGIN'] && !$_SESSION['nubuilder_session_data']['GLOBEADMIN'] ) {
                 return true;
         }
         return false;
@@ -30,7 +30,7 @@ function nuCheckWordpressUserLoginRequest() {
 //Check for Standalone Globeadmin login
 function nuCheckStandaloneGlobeadminLoginRequest() {
 	
-	if ( $_POST['nuSTATE']['username'] == $_SESSION['nuconfig']->GLOBEADMIN_NAME && $_POST['nuSTATE']['password'] == $_SESSION['nuconfig']->GLOBEADMIN_PASS ) {
+	if ( $_POST['nuSTATE']['username'] == $_SESSION['nubuilder_session_data']['GLOBEADMIN_NAME'] && $_POST['nuSTATE']['password'] == $_SESSION['nubuilder_session_data']['GLOBEADMIN_PASS'] ) {
 		return true;
 	}
 	return false;
@@ -62,74 +62,77 @@ function nuCheckIsLoginRequest() {
 
 function nuLoginSetupGlobeadmin() {
 
-	$_SESSION['SESSION_ID']         = nuIDTEMP();
-        $_SESSION['SESSION_TIMESTAMP']  = time();
-        $_SESSION['IsDemo']             = $_SESSION['nuconfig']->IS_DEMO;
-	$_SESSION['isGlobeadmin'] 	= true;
-	$_SESSION['translation']        = nuGetTranslation(db_setup()->set_language);
-        $sessionIds 			= new stdClass;
-        $sessionIds->zzzzsys_access_id 	= '';
-        $sessionIds->zzzzsys_user_id 	= $_SESSION['nuconfig']->GLOBEADMIN_NAME;
-        $sessionIds->zzzzsys_form_id 	= 'nuhome';
-        $sessionIds->global_access 	= '1';
-        $storeSessionInTable 		= new stdClass;
-        $storeSessionInTable->session 	= $sessionIds;
+	$_SESSION['nubuilder_session_data']['SESSION_ID']         	= nuIDTEMP();
+        $_SESSION['nubuilder_session_data']['SESSION_TIMESTAMP']  	= time();
+        $_SESSION['nubuilder_session_data']['IsDemo']             	= $_SESSION['nubuilder_session_data']['IS_DEMO'];
+	$_SESSION['nubuilder_session_data']['isGlobeadmin'] 		= true;
+	$_SESSION['nubuilder_session_data']['translation']       	= nuGetTranslation(db_setup()->set_language);
+        $sessionIds 							= new stdClass;
+        $sessionIds->zzzzsys_access_id 					= '';
+        $sessionIds->zzzzsys_user_id 					= $_SESSION['nubuilder_session_data']['GLOBEADMIN_NAME'];
+        $sessionIds->zzzzsys_form_id 					= 'nuhome';
+        $sessionIds->global_access 					= '1';
+        $storeSessionInTable 						= new stdClass;
+        $storeSessionInTable->session 					= $sessionIds;
        
 	// forms 
-	$getAllFormsQRY 		= nuRunQuery("SELECT zzzzsys_form_id AS id FROM zzzzsys_form");
-        $formAccess 			= array();
-	while( $getAllFormsOBJ 		= db_fetch_object($getAllFormsQRY) ) {
-		$formAccess[] 		= [$getAllFormsOBJ->id];
+	$getAllFormsQRY 						= nuRunQuery("SELECT zzzzsys_form_id AS id FROM zzzzsys_form");
+        $formAccess 							= array();
+	while( $getAllFormsOBJ 						= db_fetch_object($getAllFormsQRY) ) {
+		$formAccess[] 						= [$getAllFormsOBJ->id];
         }
-        $storeSessionInTable->forms 	= $formAccess;
+        $storeSessionInTable->forms 					= $formAccess;
 
 	// reports
-        $getAllReportsQRY 		= nuRunQuery("SELECT zzzzsys_report_id AS id, sre_zzzzsys_form_id AS form_id FROM zzzzsys_report");
-        $reportAccess 			= array();
-        while( $getAllReportsOBJ 	= db_fetch_object($getAllReportsQRY) ){
-        	$reportAccess[] 	= [$getAllReportsOBJ->id, $getAllReportsOBJ->form_id];
+        $getAllReportsQRY 						= nuRunQuery("SELECT zzzzsys_report_id AS id, sre_zzzzsys_form_id AS form_id FROM zzzzsys_report");
+        $reportAccess 							= array();
+        while( $getAllReportsOBJ 					= db_fetch_object($getAllReportsQRY) ){
+        	$reportAccess[] 					= [$getAllReportsOBJ->id, $getAllReportsOBJ->form_id];
         }
-	$storeSessionInTable->reports 	= $reportAccess;
+	$storeSessionInTable->reports 					= $reportAccess;
 
 	// procedures
-        $getAllPHPsQRY 			= nuRunQuery("SELECT zzzzsys_php_id AS id, sph_zzzzsys_form_id AS form_id FROM zzzzsys_php");
-        $phpAccess 			= array();
-	while ( $getAllPHPsOBJ 		= db_fetch_object($getAllPHPsQRY) ){
-		$phpAccess[] 		= [$getAllPHPsOBJ->id, $getAllPHPsOBJ->form_id];
+        $getAllPHPsQRY 							= nuRunQuery("SELECT zzzzsys_php_id AS id, sph_zzzzsys_form_id AS form_id FROM zzzzsys_php");
+        $phpAccess 							= array();
+	while ( $getAllPHPsOBJ 						= db_fetch_object($getAllPHPsQRY) ){
+		$phpAccess[] 						= [$getAllPHPsOBJ->id, $getAllPHPsOBJ->form_id];
 	}
-	$storeSessionInTable->procedures = $phpAccess;
-	$storeSessionInTable->access_level_code	= '';
-       	$storeSessionInTableJSON 	= json_encode($storeSessionInTable);
+	$storeSessionInTable->procedures 				= $phpAccess;
+	$storeSessionInTable->access_level_code				= '';
+       	$storeSessionInTableJSON 					= json_encode($storeSessionInTable);
+
+	$sql								= "INSERT INTO zzzzsys_session SET sss_access = ?, zzzzsys_session_id = ?";
+	$values								= array($storeSessionInTableJSON, $_SESSION['nubuilder_session_data']['SESSION_ID'] );
 	
-	nuRunQuery("INSERT INTO zzzzsys_session SET sss_access = ?, zzzzsys_session_id = ?", array($storeSessionInTableJSON, $_SESSION['SESSION_ID']));
+	nuRunQuery($sql, $values);
 }
 
 function nuLoginSetupNOTGlobeadmin($standalone = true) {
 
-	$_SESSION['SESSION_ID']         = nuIDTEMP();
-        $_SESSION['SESSION_TIMESTAMP']  = time();
-        $_SESSION['IsDemo']             = $_SESSION['nuconfig']->IS_DEMO;
-	$checkLoginDetailsSQL 		= "SELECT * FROM zzzzsys_user JOIN zzzzsys_access ON zzzzsys_access_id = sus_zzzzsys_access_id WHERE sus_login_name = ? AND sus_login_password = ? ";
+	$_SESSION['nubuilder_session_data']['SESSION_ID']         	= nuIDTEMP();
+        $_SESSION['nubuilder_session_data']['SESSION_TIMESTAMP']  	= time();
+        $_SESSION['nubuilder_session_data']['IsDemo']             	= $_SESSION['nubuilder_session_data']['IS_DEMO'];
+	$checkLoginDetailsSQL 						= "SELECT * FROM zzzzsys_user JOIN zzzzsys_access ON zzzzsys_access_id = sus_zzzzsys_access_id WHERE sus_login_name = ? AND sus_login_password = ? ";
 	
 	if ( $standalone ) {
-		$this_username 		= $_POST['nuSTATE']['username'];
-		$this_password 		= md5($_POST['nuSTATE']['password']);	
+		$this_username 						= $_POST['nuSTATE']['username'];
+		$this_password 						= md5($_POST['nuSTATE']['password']);	
 	} else {
-		$this_username 		= $_SESSION['nuconfig']->USER_LOGIN;
-                $this_password 		= $_SESSION['nuconfig']->USER_PASS; // no need to md5 as it is already done 
+		$this_username 						= $_SESSION['nubuilder_session_data']['USER_LOGIN'];
+                $this_password 						= $_SESSION['nubuilder_session_data']['USER_PASS']; // no need to md5 as it is already done 
 	}
 
-	$checkLoginDetailsValues 	= array($this_username, $this_password);
-	$checkLoginDetailsQRY 		= nuRunQuery($checkLoginDetailsSQL, $checkLoginDetailsValues);
-	$checkLoginDetailsOBJ 		= db_fetch_object($checkLoginDetailsQRY);
-	$_SESSION['translation'] 	= nuGetTranslation($checkLoginDetailsOBJ->sus_language);
-        $_SESSION['isGlobeadmin'] 	= false;
-        $translationQRY 		= nuRunQuery("SELECT * FROM zzzzsys_translate WHERE trl_language = '$checkLoginDetailsOBJ->sus_language' ORDER BY trl_english");
-        $getAccessLevelSQL 		= "SELECT zzzzsys_access_id, zzzzsys_user_id, sal_zzzzsys_form_id AS zzzzsys_form_id FROM zzzzsys_user ";
+	$checkLoginDetailsValues 					= array($this_username, $this_password);
+	$checkLoginDetailsQRY 						= nuRunQuery($checkLoginDetailsSQL, $checkLoginDetailsValues);
+	$checkLoginDetailsOBJ 						= db_fetch_object($checkLoginDetailsQRY);
+	$_SESSION['nubuilder_session_data']['translation'] 		= nuGetTranslation($checkLoginDetailsOBJ->sus_language);
+        $_SESSION['nubuilder_session_data']['isGlobeadmin'] 		= false;
+        $translationQRY 						= nuRunQuery("SELECT * FROM zzzzsys_translate WHERE trl_language = '$checkLoginDetailsOBJ->sus_language' ORDER BY trl_english");
+        $getAccessLevelSQL 						= "SELECT zzzzsys_access_id, zzzzsys_user_id, sal_zzzzsys_form_id AS zzzzsys_form_id FROM zzzzsys_user ";
 	$getAccessLevelSQL	       .= "INNER JOIN zzzzsys_access ON zzzzsys_access_id = sus_zzzzsys_access_id ";
         $getAccessLevelSQL             .= "WHERE zzzzsys_user_id = '$checkLoginDetailsOBJ->zzzzsys_user_id' ";
         $getAccessLevelSQL             .= "GROUP BY sus_zzzzsys_access_id ";
-        $getAccessLevelQRY 		= nuRunQuery($getAccessLevelSQL);
+        $getAccessLevelQRY 						= nuRunQuery($getAccessLevelSQL);
         			
         if(db_num_rows($getAccessLevelQRY) == 0){
        		nuDie($msg = 'No access levels setup.');				
@@ -197,14 +200,14 @@ function nuLoginSetupNOTGlobeadmin($standalone = true) {
         $storeSessionInTable->procedures 	= $phpAccess;
         $storeSessionInTableJSON 		= json_encode($storeSessionInTable);
 
-	nuRunQuery("INSERT INTO zzzzsys_session SET sss_access = ?, zzzzsys_session_id = ?", array($storeSessionInTableJSON, $_SESSION['SESSION_ID']));
+	nuRunQuery("INSERT INTO zzzzsys_session SET sss_access = ?, zzzzsys_session_id = ?", array($storeSessionInTableJSON, $_SESSION['nubuilder_session_data']['SESSION_ID']));
 }
 
 function nuTempAnonReport() {
 	// only let the user have 1 temporary report run
-        $_SESSION['SESSION_ID'] = null;
-        $_SESSION['SESSION_TIMESTAMP'] = null;
-        $_SESSION['TEMPORARY_SESSION'] = true;
+        $_SESSION['nubuilder_session_data']['SESSION_ID'] 		= null;
+        $_SESSION['nubuilder_session_data']['SESSION_TIMESTAMP'] 	= null;
+        $_SESSION['nubuilder_session_data']['TEMPORARY_SESSION'] 	= true;
 }
 
 function nuUpdateExistingSession() {
@@ -212,8 +215,8 @@ function nuUpdateExistingSession() {
 	$t = nuRunQuery("SELECT * FROM zzzzsys_setup");
         $r = db_fetch_object($t);
 		
-	if( ( ($r->set_time_out_minutes * 60) + $_SESSION['SESSION_TIMESTAMP'] ) >= time() ) {
-		$_SESSION['SESSION_TIMESTAMP'] = time();
+	if( ( ($r->set_time_out_minutes * 60) + $_SESSION['nubuilder_session_data']['SESSION_TIMESTAMP'] ) >= time() ) {
+		$_SESSION['nubuilder_session_data']['SESSION_TIMESTAMP'] = time();
         } else {
 		nuDie('Your nuBuilder session has timed out.');
         }
@@ -221,8 +224,8 @@ function nuUpdateExistingSession() {
 
 function nuDie($msg = 'Invalid login!') {
 
-        $_SESSION['SESSION_ID']                 = null;
-        $_SESSION['SESSION_TIMESTAMP']          = null;
+        $_SESSION['nubuilder_session_data']['SESSION_ID']                 = null;
+        $_SESSION['nubuilder_session_data']['SESSION_TIMESTAMP']          = null;
         header("Content-Type: text/html");
         header('HTTP/1.0 403 Forbidden');
         die($msg);

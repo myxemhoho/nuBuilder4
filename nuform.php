@@ -1069,16 +1069,16 @@ function nuGatherFormAndSessionData($home){
 		
     }
 
-	$formAndSessionData->session_id 	= $_SESSION['SESSION_ID'];
+	$formAndSessionData->session_id 	= $_SESSION['nubuilder_session_data']['SESSION_ID'];
 	$formAndSessionData->call_type 		= $_POST['nuSTATE']['call_type'];
 	$formAndSessionData->filter 		= $_POST['nuFilter'];
 	$formAndSessionData->errors 		= array();
-	$formAndSessionData->translation 	= $_SESSION['translation'];
+	$formAndSessionData->translation 	= $_SESSION['nubuilder_session_data']['translation'];
 	$formAndSessionData->dimensions 	= nuFormDimensions($formAndSessionData->form_id);
 
-	if(!$_SESSION['isGlobeadmin'] && $formAndSessionData->form_id != 'nuhome') {
+	if(!$_SESSION['nubuilder_session_data']['isGlobeadmin'] && $formAndSessionData->form_id != 'nuhome') {
 
-        $getAccessFromSessionTableQRY 	= nuRunQuery("SELECT sss_access FROM zzzzsys_session WHERE zzzzsys_session_id = ? ", array($_SESSION['SESSION_ID']));
+        $getAccessFromSessionTableQRY 	= nuRunQuery("SELECT sss_access FROM zzzzsys_session WHERE zzzzsys_session_id = ? ", array($_SESSION['nubuilder_session_data']['SESSION_ID']));
         $getAccessFromSessionTableOBJ 	= db_fetch_object($getAccessFromSessionTableQRY);
         $access 						= json_decode($getAccessFromSessionTableOBJ->sss_access);
 
@@ -1188,7 +1188,7 @@ function nuReportAccessList($j){
 
 function nuButtons($formid, $POST){
 	
-	$t						= nuRunQuery("SELECT * FROM zzzzsys_session WHERE zzzzsys_session_id = ? ", array($_SESSION['SESSION_ID']));		
+	$t						= nuRunQuery("SELECT * FROM zzzzsys_session WHERE zzzzsys_session_id = ? ", array($_SESSION['nubuilder_session_data']['SESSION_ID']));		
 	$r 						= db_fetch_object($t);
 	$nuJ 					= json_decode($r->sss_access);
 	$_POST['forms']			= $nuJ->forms;
@@ -1292,9 +1292,7 @@ function nuRunDescription($P){
 
 function nuFormAccess($s, $a){
 
-    require('nuconfig.php');
-
-	if( $_POST['session']->zzzzsys_user_id == $_SESSION['nuconfig']->GLOBEADMIN_NAME ){
+	if( $_POST['session']->zzzzsys_user_id == $_SESSION['nubuilder_session_data']['GLOBEADMIN_NAME'] ){
 		return array('1', '1', '1', '1', '1');
 	}
 

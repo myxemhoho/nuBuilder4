@@ -27,14 +27,8 @@ function nu_start_session() {
 	if(!session_id()) {
         	session_start();
 	} else {
-		unset($_SESSION['nuWPSessionData']);
-		unset($_SESSION['nuconfig']);
-		unset($_SESSION['nuCheckWPUser']);
-		unset($_SESSION['SESSION_ID']);
-		unset($_SESSION['SESSION_TIMESTAMP']);
-		unset($_SESSION['IsDemo']);
-		unset($_SESSION['isGlobeadmin']);
-		unset($_SESSION['translation']);
+		unset($_SESSION['nubuilder_wordpress_session_data']);
+		unset($_SESSION['nubuilder_session_data']);
 	}		
 }
 

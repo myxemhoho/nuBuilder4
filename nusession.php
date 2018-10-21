@@ -34,17 +34,17 @@ if ( nuCheckIsLoginRequest() ) {
 
 } else {
 
-	// die if $_SESSION['SESSION_ID'] AND $_SESSION['config'] does not exists
+	// die if $_SESSION['nubuilder_session_data']['SESSION_ID'] AND $_SESSION['nubuilder_session_data'] does not exists
 	nuCheckExistingSession();
 } 
 
 
-if ( $_SESSION['SESSION_ID'] == 'tempanonreport' ) {
+if ( $_SESSION['nubuilder_session_data']['SESSION_ID'] == 'tempanonreport' ) {
 
 	// only let the user have 1 temporary report run
 	nuTempAnonReport();
 
-} else if ( isset($_SESSION['SESSION_TIMESTAMP']) ) {
+} else if ( isset($_SESSION['nubuilder_session_data']['SESSION_TIMESTAMP']) ) {
 
 	nuUpdateExistingSession();
 

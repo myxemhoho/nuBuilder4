@@ -1,39 +1,57 @@
 <?php
-	require_once('nuconfig.php');  // nuconfig must be loaded before using nubuilder_session_data
+	require_once('nuconfig.php');  // nuconfig must be loaded before using nubuilder_session_dat
+	require_once('nubuilder_session_data.php');
+	require_once('nusanitize.php');
 	
 	if ( !session_id() ) {
-		
-		// the garbage collector setting
-		if ( isset($nuConfigTimeOut) ) {
-			if ( is_int($nuConfigTimeOut) ) {
-				$gcLifetime	= 60 * $nuConfigTimeOut;
-				ini_set("session.gc_maxlifetime", $gcLifetime);
-			}
-		}
-		
+
+		nuCheckGarbageCollector();
 		session_start();
 	}
+
+	if ( !isset($_SESSION['nubuilder_session_data']) ) {
 	
-	require_once('nubuilder_session_data.php');
+		nuLoadNewSession();
+	}
 
-        $nubuilder_session_data = new nubuilder_session_data();
+	//Sanitize All Input
+        nu_sanitize();
 
-        if ( isset($_SESSION['nuWPSessionData']) ) {
-
-                $decode = base64_decode($_SESSION['nuWPSessionData']);
-                $wpdata = json_decode($decode);
-                $nubuilder_session_data->construct_wordpress($wpdata);
-
-        } else {
-				nuDieIfWeAreInsideWordpress();	
-                $nubuilder_session_data->construct_standalone($nuConfigDBHost,$nuConfigDBName,$nuConfigDBUser,$nuConfigDBPassword,$nuConfigDBGlobeadminUsername,$nuConfigDBGlobeadminPassword,$nuConfigIsDemo);
-        }
-
-        $_SESSION['nuconfig'] = $nubuilder_session_data;
-
-	// nudatabase will not work without $_SESSION['nuconfig'] loaded
+	// nudatabase will not work without $_SESSION['nubuilder_session_data'] loaded
 	require_once('nudatabase.php');
 
+function nuLoadNewSession() {
+
+	global $nuConfigDBHost, $nuConfigDBName, $nuConfigDBUser, $nuConfigDBPassword, $nuConfigDBGlobeadminUsername, $nuConfigDBGlobeadminPassword, $nuConfigIsDemo;
+
+	$nubuilder_session_data = new nubuilder_session_data();
+
+	if ( isset($_SESSION['nubuilder_wordpress_session_data']) ) {
+
+		$decode = base64_decode($_SESSION['nubuilder_wordpress_session_data']);
+                $wpdata = json_decode($decode);
+               	$nubuilder_session_data->construct_wordpress($wpdata);
+		unset($_SESSION['nubuilder_wordpress_session_data']);
+
+	} else {
+       		nuDieIfWeAreInsideWordpress();
+             	$nubuilder_session_data->construct_standalone($nuConfigDBHost,$nuConfigDBName,$nuConfigDBUser,$nuConfigDBPassword,$nuConfigDBGlobeadminUsername,$nuConfigDBGlobeadminPassword,$nuConfigIsDemo);
+	}
+       
+	$_SESSION['nubuilder_session_data'] = $nubuilder_session_data->get_nubuilder_session_data();
+}
+
+function nuCheckGarbageCollector() {
+
+	global $nuConfigTimeOut;
+	
+	if ( isset($nuConfigTimeOut) ) {
+		if ( is_int($nuConfigTimeOut) ) {
+                	$gcLifetime     = 60 * $nuConfigTimeOut;
+                       	ini_set("session.gc_maxlifetime", $gcLifetime);
+    		}
+	}
+}
 
 function nuDieIfWeAreInsideWordpress() {
 

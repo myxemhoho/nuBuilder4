@@ -1,15 +1,13 @@
 <?php 
 
-//require_once('nuconfig.php');
-
 mb_internal_encoding('UTF-8');
 
 $_POST['RunQuery'] 	= 0;
-$DBHost         	= $_SESSION['nuconfig']->DB_HOST;
-$DBName         	= $_SESSION['nuconfig']->DB_NAME;
-$DBUser         	= $_SESSION['nuconfig']->DB_USER;
-$DBPassword     	= $_SESSION['nuconfig']->DB_PASSWORD;
-$DBCharset      	= $_SESSION['nuconfig']->DB_CHARSET;
+$DBHost         	= $_SESSION['nubuilder_session_data']['DB_HOST'];
+$DBName         	= $_SESSION['nubuilder_session_data']['DB_NAME'];
+$DBUser         	= $_SESSION['nubuilder_session_data']['DB_USER'];
+$DBPassword     	= $_SESSION['nubuilder_session_data']['DB_PASSWORD'];
+$DBCharset      	= $_SESSION['nubuilder_session_data']['DB_CHARSET'];
 $nuDB 			= new PDO("mysql:host=$DBHost;dbname=$DBName;charset=$DBCharset", $DBUser, $DBPassword, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES $DBCharset"));
 $nuDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

@@ -1,17 +1,13 @@
 <?php	
-	//Sanitize All Input
-	require_once('nusanitize.php');
-	nu_sanitize();
-
 	require_once('nuchoosesetup.php');
 	require_once('nuindexlibs.php');
 
-	if ( !$_SESSION['nuconfig']->PLUGIN ) {
+	if ( !$_SESSION['nubuilder_session_data']['PLUGIN'] ) {
 		require_once('nustandalonesetuplibs.php'); 
 		nuStandaloneImportNewDB();
 	}
 
-	if ( $_SESSION['nuconfig']->PLUGIN && !isset($_SESSION['SESSION_ID']) ) {
+	if ( $_SESSION['nubuilder_session_data']['PLUGIN'] && !isset($_SESSION['nubuilder_session_data']['SESSION_ID']) ) {
                 require_once('nuwordpresssetuplibs.php');
 		nuCheckWPUser();
         }
@@ -47,7 +43,7 @@ function nuHeader(){
     	return $j;
 }
 
-nuJSIndexInclude($_SESSION['nuconfig']->JQ_PATH);
+nuJSIndexInclude($_SESSION['nubuilder_session_data']['JQ_PATH']);
 
 nuJSIndexInclude('nuformclass.js');
 nuJSIndexInclude('nuform.js');
@@ -61,7 +57,7 @@ nuCSSIndexInclude('nubuilder4.css');
 
 <script>
 
-<?php echo $_SESSION['nuconfig']->PLUGIN ? 'var $ = jQuery;' : ''; ?>
+<?php echo $_SESSION['nubuilder_session_data']['PLUGIN'] ? 'var $ = jQuery;' : ''; ?>
 
 function nuValidCaller(o){
 	
@@ -177,18 +173,18 @@ window.nuHASH				= [];
 	window.nuImages							= [];
 	";
 
-	if ( $_SESSION['nuconfig']->PLUGIN ) {
+	if ( $_SESSION['nubuilder_session_data']['PLUGIN'] ) {
                 $h1 .= "\nwindow.nuWordpress = true;\n";
         } else {
                 $h1 .= "\nwindow.nuWordpress = false;\n";
         }
 
 	// Choose h2	
-	if ( $_SESSION['nuconfig']->PLUGIN && isset($_SESSION['SESSION_ID']) ) {
+	if ( $_SESSION['nubuilder_session_data']['PLUGIN'] && isset($_SESSION['nubuilder_session_data']['SESSION_ID']) ) {
 
 		$h2 = nuGetJS_action_screen($nuBrowseFunction, $target, $welcome, $opener, $search, $like);
 
-	} else if( $_SESSION['nuconfig']->PLUGIN && !isset($_SESSION['SESSION_ID']) ) {
+	} else if( $_SESSION['nubuilder_session_data']['PLUGIN'] && !isset($_SESSION['nubuilder_session_data']['SESSION_ID']) ) {
 
 		$h2 = nuGetJS_plugin_login($nuBrowseFunction, $target);
 

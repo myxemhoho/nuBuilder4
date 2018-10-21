@@ -127,7 +127,7 @@ function nuDuplicate($S, $R, $F){
 
 function nuUpdateDatabase(){
 
-	if($_SESSION['IsDemo']){
+	if($_SESSION['nubuilder_session_data']['IsDemo']){
 		
 		nuDisplayError('Not available in the Demo...');
 		return;
@@ -679,7 +679,7 @@ function nuGetFile(){
 
 function nuLogout(){
 	
-	$i		= $_SESSION['SESSION_ID'];
+	$i		= $_SESSION['nubuilder_session_data']['SESSION_ID'];
 	$s		= "DELETE FROM zzzzsys_session WHERE zzzzsys_session_id = ? ";
 	
 	nuRunQuery($s, [$i]);

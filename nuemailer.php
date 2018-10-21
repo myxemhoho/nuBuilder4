@@ -116,7 +116,7 @@ function nuMarshallEmailSettings( $from_address = '', $from_name = '', $html = f
         }
 
 	if ( isset($_SESSION) ) {
-		if ( $_SESSION['nuconfig']->PLUGIN ) {
+		if ( $_SESSION['nubuilder_session_data']['PLUGIN'] ) {
 			if ( file_exists($word_press_path) ) { 
 				$nuEmailSettings->phpmailer_path = $word_press_path;
 			} else {

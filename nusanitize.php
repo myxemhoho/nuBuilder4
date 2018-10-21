@@ -100,7 +100,7 @@ function nu_wp_check_invalid_utf8( $string, $strip = false ) {
         // Store the site charset as a static to avoid multiple calls to get_option()
         static $is_utf8 = null;
         if ( ! isset( $is_utf8 ) ) {
-                $is_utf8 = in_array( $_SESSION['nuconfig']->WP_BLOG_CHARSET , array( 'utf8', 'utf-8', 'UTF8', 'UTF-8' ) );
+                $is_utf8 = in_array( $_SESSION['nubuilder_session_data']['WP_BLOG_CHARSET'] , array( 'utf8', 'utf-8', 'UTF8', 'UTF-8' ) );
         }
         if ( ! $is_utf8 ) {
                 return $string;

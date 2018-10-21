@@ -334,7 +334,7 @@ function nuInstall(){
 
 function nuAllowedActivities(){
 
-	$t 	= nuRunQuery("SELECT sss_access FROM zzzzsys_session WHERE zzzzsys_session_id = ? ", array($_SESSION['SESSION_ID']));
+	$t 	= nuRunQuery("SELECT sss_access FROM zzzzsys_session WHERE zzzzsys_session_id = ? ", array($_SESSION['nubuilder_session_data']['SESSION_ID']));
 	$r 	= db_fetch_object($t);
 	$a	= json_decode($r->sss_access);
 	
@@ -357,7 +357,7 @@ function nuRunPHP($procedure_code){
 	$_POST['nuHash']['parentID']		= $ob->zzzzsys_php_id;
 	$j									= json_encode($_POST['nuHash']);
 
-	if(!$_SESSION['isGlobeadmin'] and !in_array($ob->zzzzsys_php_id, $p)){
+	if(!$_SESSION['nubuilder_session_data']['isGlobeadmin'] and !in_array($ob->zzzzsys_php_id, $p)){
 		nuDisplayError("Access To Procedure Denied... ($procedure_code)");
 	}
 
@@ -377,7 +377,7 @@ function nuRunPHPHidden($nuCode){
 	$t						= nuRunQuery($s, [$nuCode]);
 	$r						= db_fetch_object($t);
 
-	if($_SESSION['isGlobeadmin'] or in_array($r->zzzzsys_php_id, $p)){
+	if($_SESSION['nubuilder_session_data']['isGlobeadmin'] or in_array($r->zzzzsys_php_id, $p)){
 		nuEval($r->zzzzsys_php_id);
 	}else{
 		nuDisplayError("Access To Procedure Denied... ($nuCode)");
@@ -399,7 +399,7 @@ function nuJavascriptCallback($js){
 function nuSetJSONData($i, $nj){
 	
 	$s					= "SELECT * FROM zzzzsys_session WHERE zzzzsys_session_id = ? ";
-	$t					= nuRunQuery($s, array($_SESSION['SESSION_ID']));			 
+	$t					= nuRunQuery($s, array($_SESSION['nubuilder_session_data']['SESSION_ID']));			 
 	$r					= db_fetch_object($t);
 	$j					= json_decode($r->sss_access, true);
 
@@ -407,7 +407,7 @@ function nuSetJSONData($i, $nj){
 	$J					= json_encode($j);
 	
 	$s					= "UPDATE zzzzsys_session SET sss_access = ? WHERE zzzzsys_session_id = ? ";
-	$t					= nuRunQuery($s, array($J, $_SESSION['SESSION_ID']));
+	$t					= nuRunQuery($s, array($J, $_SESSION['nubuilder_session_data']['SESSION_ID']));
 	
 }
 
@@ -417,7 +417,7 @@ function nuSetJSONData($i, $nj){
 function nuGetJSONData($i){
 	
 	$s					= "SELECT * FROM zzzzsys_session WHERE zzzzsys_session_id = ? ";
-	$t					= nuRunQuery($s, array($_SESSION['SESSION_ID']));			 
+	$t					= nuRunQuery($s, array($_SESSION['nubuilder_session_data']['SESSION_ID']));			 
 	$r					= db_fetch_object($t);
 
 	$j					= json_decode($r->sss_access, true);
@@ -717,7 +717,7 @@ function nuGetUserAccess(){
 	$A					= array();
 
 	$s					= "SELECT * FROM zzzzsys_session WHERE zzzzsys_session_id = ? ";
-	$t					= nuRunQuery($s, array($_SESSION['SESSION_ID']));			 
+	$t					= nuRunQuery($s, array($_SESSION['nubuilder_session_data']['SESSION_ID']));			 
 	$r					= db_fetch_object($t);
 	$j					= json_decode($r->sss_access);
 	
@@ -734,7 +734,7 @@ function nuGetUserAccess(){
 	
 	if (in_array("sss_time", $f)){
 		
-		nuRunQuery("UPDATE zzzzsys_session SET sss_time = $s WHERE zzzzsys_session_id = ? ", array($_SESSION['SESSION_ID']));
+		nuRunQuery("UPDATE zzzzsys_session SET sss_time = $s WHERE zzzzsys_session_id = ? ", array($_SESSION['nubuilder_session_data']['SESSION_ID']));
 		nuRunQuery("DELETE FROM zzzzsys_session WHERE sss_time < $s - 18000");					//-- 5 hours
 	}
 

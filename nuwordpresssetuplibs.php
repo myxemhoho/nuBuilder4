@@ -13,6 +13,7 @@ function nu_WP_RunQuery( $sql, $values = array() ) {
 	$rs = null;
 
 	try {
+
 		$db = new PDO("mysql:host=".$DBHost.";dbname=".$DBName.";charset=$DBCharset", $DBUserID, $DBPassWord, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$db->exec("USE $DBName");
@@ -20,11 +21,10 @@ function nu_WP_RunQuery( $sql, $values = array() ) {
 		$rs->execute($values);
 
 	} catch(Exception $e) {
-		if( session_id() ) {
-			$_SESSION['sql_info']		= "DBHost :: $DBHost, DBName :: $DBName, DBUserID :: $DBUserID, :: DBPassWord :: $DBPassWord, DBCharset :: $DBCharset";	
-			$_SESSION['sql_errors'][] 	= print_r($e, true);
-		}
+
+		//
 	}
+
         return $rs;
 }
 
@@ -91,7 +91,7 @@ function nu_construct_session_data_WPcoupled() {
         $json                                           = json_encode($nubuilder_session_data);
         $encode                                         = base64_encode($json);
 
-	$_SESSION['nuWPSessionData']			= $encode;
+	$_SESSION['nubuilder_wordpress_session_data']	= $encode;
         return $encode;
 }
 
@@ -214,18 +214,18 @@ function nuWPSetDeniedFlagDB() {
         nu_WP_RunQuery($sql);
 }
 
-// this function runs during loading index.php and requires $_SESSION['nuconfig'] to be loaded
+// this function runs during loading index.php and requires $_SESSION['nubuilder_session_data'] to be loaded
 // NOTE this function uses the normal nubuilder nuRunQuery instead of nu_WP_RunQuery because it is executed inside nubuilder's eco system
 function nuCheckWPUser() {
 
 	$zzzzsys_user_id	= nuID();	
-	$key			= $_SESSION['nuconfig']->USER_ROLES[0];
+	$key			= $_SESSION['nubuilder_session_data']['USER_ROLES'][0];
 	$sus_zzzsys_access_id	=  _derrive_id($key);
 	$sus_language		= '';	
-	$sus_name		= $_SESSION['nuconfig']->USER_DISPLAY_NAME;	
-	$sus_email		= $_SESSION['nuconfig']->USER_EMAIL;
-	$sus_login_name		= $_SESSION['nuconfig']->USER_LOGIN;
-	$sus_login_password	= $_SESSION['nuconfig']->USER_PASS;
+	$sus_name		= $_SESSION['nubuilder_session_data']['USER_DISPLAY_NAME'];	
+	$sus_email		= $_SESSION['nubuilder_session_data']['USER_EMAIL'];
+	$sus_login_name		= $_SESSION['nubuilder_session_data']['USER_LOGIN'];
+	$sus_login_password	= $_SESSION['nubuilder_session_data']['USER_PASS'];
 	$select 		= "SELECT * FROM zzzzsys_user WHERE sus_login_name = ? ";
 	$insert 		= "INSERT INTO zzzzsys_user (zzzzsys_user_id, sus_zzzzsys_access_id, sus_language, sus_name, sus_email, sus_login_name, sus_login_password)  VALUES (?,?,?,?,?,?,?) ";
 	$update 		= "UPDATE zzzzsys_user SET sus_name = ?,  sus_email = ?, sus_login_password = ? WHERE sus_login_name = ? "; // notice we do not update the access level
@@ -241,8 +241,6 @@ function nuCheckWPUser() {
 
 		 nuRunQuery($insert, $insert_values);
 	}
-
-	$_SESSION['nuCheckWPUser'] = $sus_login_name;
 }
 
 // this function will only work inside nubuilder-forte.php as it depends on wordpress libs

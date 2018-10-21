@@ -14,7 +14,7 @@
 		$_user          = $logon_info->session->zzzzsys_user_id;
 		$_extra_check   = $logon_info->session->global_access;
 
-		if ( $_user == $_SESSION['nuconfig']->GLOBEADMIN_NAME AND $_extra_check == '1' ) {
+		if ( $_user == $_SESSION['nubuilder_session_data']['GLOBEADMIN_NAME'] AND $_extra_check == '1' ) {
 			$page	= pmaGood();		
 		} else {
 			$page	= pmaBad();
@@ -26,23 +26,16 @@
 
 	header("Location: $page");
 
-	//echo "<a href='$page'>$page</a>";
-	//echo "<pre>";
-	//print_r($_REQUEST);
-	//print_r($_SESSION);
-	//echo "</pre>";	
-
-
 function pmaGood() {
 
 	$time = time();
-	$page = "nudb/db_structure.php?server=1&db=".$_SESSION['nuconfig']->DB_NAME."&$time=$time";
+	$page = "nudb/db_structure.php?server=1&db=".$_SESSION['nubuilder_session_data']['DB_NAME']."&$time=$time";
 	setcookie("nupmalogin",         "good");
-	setcookie("nuConfigDBHost",     $_SESSION['nuconfig']->DB_HOST);
-	setcookie("nuConfigDBUser",     $_SESSION['nuconfig']->DB_USER);
-	setcookie("nuConfigDBPassword", $_SESSION['nuconfig']->DB_PASSWORD);
+	setcookie("nuConfigDBHost",     $_SESSION['nubuilder_session_data']['DB_HOST']);
+	setcookie("nuConfigDBUser",     $_SESSION['nubuilder_session_data']['DB_USER']);
+	setcookie("nuConfigDBPassword", $_SESSION['nubuilder_session_data']['DB_PASSWORD']);
 
-	if ( $_SESSION['nuconfig']->DB_PASSWORD == '' ) {
+	if ( $_SESSION['nubuilder_session_data']['DB_PASSWORD'] == '' ) {
 		setcookie("nuConfigDBPasswordBlank", 'BLANK');
 	}
 	return $page;

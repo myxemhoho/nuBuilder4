@@ -2,70 +2,80 @@
 
 class nubuilder_session_data {
 
-	var $PLUGIN		= false;
-	var $GLOBEADMIN         = false;
-	var $GLOBEADMIN_NAME	= '';
-	var $GLOBEADMIN_PASS    = '';
-	var $USER_LOGIN         = '';
-	var $USER_PASS          = '';
-	var $USER_EMAIL         = '';
-	var $USER_DISPLAY_NAME 	= '';
-	var $USER_ROLES         = '';
-	var $DB_NAME            = '';
-	var $DB_USER            = '';
-	var $DB_PASSWORD        = '';
-	var $DB_HOST            = '';
-	var $DB_CHARSET         = '';
-	var $NU_SITE_URL        = '';
-	var $WP_ADMIN_URL       = '';
-	var $IS_DEMO		= false;
-	var $WP_ROLES		= '';
-	var $WP_SITE_URL	= '';
-	var $JQ_PATH		= '';
-	var $WP_BLOG_CHARSET	= 'UTF-8';
+	var $nubuilder		= array(
+	'PLUGIN'		=> false,
+	'GLOBEADMIN'         	=> false,
+	'GLOBEADMIN_NAME'	=> '',
+	'GLOBEADMIN_PASS'    	=> '',
+	'USER_LOGIN'         	=> '',
+	'USER_PASS'          	=> '',
+	'USER_EMAIL'         	=> '',
+	'USER_DISPLAY_NAME' 	=> '',
+	'USER_ROLES'         	=> '',
+	'DB_NAME'            	=> '',
+	'DB_USER'            	=> '',
+	'DB_PASSWORD'        	=> '',
+	'DB_HOST'            	=> '',
+	'DB_CHARSET'         	=> '',
+	'NU_SITE_URL'        	=> '',
+	'WP_ADMIN_URL'       	=> '',
+	'IS_DEMO'		=> false,
+	'WP_ROLES'		=> '',
+	'WP_SITE_URL'		=> '',
+	'JQ_PATH'		=> '',
+	'WP_BLOG_CHARSET'	=> 'UTF-8',
+	'SESSION_ID'		=> null,
+	'SESSION_TIMESTAMP'	=> null,
+	'IsDemo'		=> null,
+	'translation'		=> null);
 
 	function __construct() {
         }
 
+	function get_nubuilder_session_data() {
+		
+		return $this->nubuilder;
+	}
+
         function construct_wordpress($wpdata) {
 		
-		$this->PLUGIN           	= true;
-                $this->DB_NAME          	= $wpdata->DB_NAME;
-                $this->DB_USER          	= $wpdata->DB_USER;
-                $this->DB_PASSWORD      	= $wpdata->DB_PASSWORD;
-                $this->DB_HOST          	= $wpdata->DB_HOST;
-                $this->DB_CHARSET       	= $wpdata->DB_CHARSET;
+		$this->nubuilder['PLUGIN']           	= true;
+                $this->nubuilder['DB_NAME']          	= $wpdata->DB_NAME;
+                $this->nubuilder['DB_USER']          	= $wpdata->DB_USER;
+                $this->nubuilder['DB_PASSWORD']      	= $wpdata->DB_PASSWORD;
+                $this->nubuilder['DB_HOST']          	= $wpdata->DB_HOST;
+                $this->nubuilder['DB_CHARSET']       	= $wpdata->DB_CHARSET;
 		if ( $wpdata->GLOBEADMIN === true ) {
-                	$this->GLOBEADMIN_NAME  = $wpdata->USER_LOGIN;
-                	$this->GLOBEADMIN_PASS  = $wpdata->USER_PASS;
-			$this->GLOBEADMIN	= true;
+                	$this->nubuilder['GLOBEADMIN_NAME']  = $wpdata->USER_LOGIN;
+                	$this->nubuilder['GLOBEADMIN_PASS']  = $wpdata->USER_PASS;
+			$this->nubuilder['GLOBEADMIN']	= true;
 		}
-		$this->USER_LOGIN		= $wpdata->USER_LOGIN;
-		$this->USER_PASS		= $wpdata->USER_PASS;
-		$this->USER_EMAIL		= $wpdata->USER_EMAIL;
-		$this->USER_DISPLAY_NAME 	= $wpdata->USER_DISPLAY_NAME;
-		$this->USER_ROLES		= $wpdata->USER_ROLES;
-		$this->NU_SITE_URL		= $wpdata->NU_SITE_URL;
-		$this->WP_ADMIN_URL		= $wpdata->WP_ADMIN_URL;
-		$this->IS_DEMO			= false;
-		$this->WP_ROLES			= $wpdata->WP_ROLES;
-		$this->WP_SITE_URL              = $wpdata->WP_SITE_URL;
-		$this->JQ_PATH			= $this->WP_SITE_URL.'/wp-includes/js/jquery/jquery.js';
-		$this->WP_BLOG_CHARSET		= $wpdata->WP_BLOG_CHARSET;
+		$this->nubuilder['USER_LOGIN']		= $wpdata->USER_LOGIN;
+		$this->nubuilder['USER_PASS']		= $wpdata->USER_PASS;
+		$this->nubuilder['USER_EMAIL']		= $wpdata->USER_EMAIL;
+		$this->nubuilder['USER_DISPLAY_NAME'] 	= $wpdata->USER_DISPLAY_NAME;
+		$this->nubuilder['USER_ROLES']		= $wpdata->USER_ROLES;
+		$this->nubuilder['NU_SITE_URL']		= $wpdata->NU_SITE_URL;
+		$this->nubuilder['WP_ADMIN_URL']	= $wpdata->WP_ADMIN_URL;
+		$this->nubuilder['IS_DEMO']		= false;
+		$this->nubuilder['WP_ROLES']		= $wpdata->WP_ROLES;
+		$this->nubuilder['WP_SITE_URL']       	= $wpdata->WP_SITE_URL;
+		$this->nubuilder['JQ_PATH']		= '../../../wp-includes/js/jquery/jquery.js';
+		$this->nubuilder['WP_BLOG_CHARSET']	= $wpdata->WP_BLOG_CHARSET;
         }
 
         function construct_standalone($nuConfigDBHost, $nuConfigDBName, $nuConfigDBUser, $nuConfigDBPassword, $nuConfigDBGlobeadminUsername, $nuConfigDBGlobeadminPassword, $nuConfigIsDemo = false) {
 
-		$this->PLUGIN		= false;
-		$this->DB_NAME		= $nuConfigDBName;
-		$this->DB_USER		= $nuConfigDBUser;
-		$this->DB_PASSWORD	= $nuConfigDBPassword;
-		$this->DB_HOST		= $nuConfigDBHost;
-		$this->DB_CHARSET	= 'utf8';
-		$this->GLOBEADMIN_NAME	= $nuConfigDBGlobeadminUsername;
-		$this->GLOBEADMIN_PASS	= $nuConfigDBGlobeadminPassword;
-		$this->IS_DEMO         	= $nuConfigIsDemo;
-		$this->JQ_PATH          = 'jquery/jquery.js';
+		$this->nubuilder['PLUGIN']		= false;
+		$this->nubuilder['DB_NAME']		= $nuConfigDBName;
+		$this->nubuilder['DB_USER']		= $nuConfigDBUser;
+		$this->nubuilder['DB_PASSWORD']		= $nuConfigDBPassword;
+		$this->nubuilder['DB_HOST']		= $nuConfigDBHost;
+		$this->nubuilder['DB_CHARSET']		= 'utf8';
+		$this->nubuilder['GLOBEADMIN_NAME']	= $nuConfigDBGlobeadminUsername;
+		$this->nubuilder['GLOBEADMIN_PASS']	= $nuConfigDBGlobeadminPassword;
+		$this->nubuilder['IS_DEMO']         	= $nuConfigIsDemo;
+		$this->nubuilder['JQ_PATH']          	= 'jquery/jquery.js';
         }
 }
 
