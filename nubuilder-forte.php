@@ -38,9 +38,7 @@ class nuBuilderForte{
 
 		add_action('auth_redirect', 'nu_set_menu');
 		add_action('init', 'nu_start_session', 1);
-		
 		add_shortcode( 'nubuilder-forte', 'nubuilder_forte_shortcode' );
-		
 	}
 	
 	function activate() {
@@ -104,7 +102,6 @@ function nu_menu_function() {
 	echo $j;
 }
 
-
 function nubuilder_forte_shortcode($atts){
 	
 
@@ -114,7 +111,7 @@ function nubuilder_forte_shortcode($atts){
 	$h	= isset($atts['height'])		 	? intval($atts['height'])			: 300 . 'px';
 	$t	= isset($atts['top']) 				? intval($atts['top']) 				: 0   . 'px';
 	$l	= isset($atts['left']) 				? intval($atts['left'])			 	: 0   . 'px';
-	$b	= isset($atts['border-width']) 		? intval($atts['border-width']) 	: 0   . 'px';
+	$b	= isset($atts['border-width']) 			? intval($atts['border-width']) 	: 0   . 'px';
 	$u	= isset($atts['username'])			? $atts['username']					: 0;
 	$p	= isset($atts['password'])			? $atts['password'] 				: 0;
 	
@@ -122,9 +119,7 @@ function nubuilder_forte_shortcode($atts){
 
 	$j	= "<iframe id='nubuilder4_iframe' style='top:$t;left:$l;border-style:solid;border-width:$b;border-color:lightgrey;width:$w;height:$h' src='$iframe_url'></iframe>";
 
-   return  $j;
-   
+   	return  $j;
 }
-
 
 ?>
