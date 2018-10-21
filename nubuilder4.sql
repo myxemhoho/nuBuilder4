@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2018 at 03:50 AM
+-- Generation Time: Oct 19, 2018 at 04:07 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -425,10 +425,10 @@ CREATE TABLE `zzzzsys_object` (
   `sob_lookup_code` varchar(300) NOT NULL,
   `sob_lookup_description` varchar(300) NOT NULL,
   `sob_lookup_description_width` varchar(300) NOT NULL,
-  `sob_lookup_autocomplete` varchar(300) NOT NULL,
+  `sob_lookup_autocomplete` varchar(300) DEFAULT NULL,
   `sob_lookup_zzzzsys_form_id` varchar(300) NOT NULL,
   `sob_lookup_javascript` text NOT NULL,
-  `sob_lookup_php` varchar(25) NOT NULL,
+  `sob_lookup_php` varchar(25) DEFAULT NULL,
   `sob_lookup_table` varchar(500) NOT NULL,
   `sob_subform_zzzzsys_form_id` varchar(300) NOT NULL,
   `sob_subform_foreign_key` varchar(300) NOT NULL,
@@ -736,11 +736,11 @@ CREATE TABLE `zzzzsys_php` (
   `sph_code` varchar(300) NOT NULL,
   `sph_description` varchar(300) NOT NULL,
   `sph_group` varchar(100) NOT NULL,
-  `sph_php` longtext NOT NULL,
-  `sph_run` varchar(20) NOT NULL,
-  `sph_zzzzsys_form_id` varchar(25) NOT NULL,
+  `sph_php` longtext,
+  `sph_run` varchar(20) DEFAULT NULL,
+  `sph_zzzzsys_form_id` varchar(25) DEFAULT NULL,
   `sph_system` varchar(1) NOT NULL,
-  `sph_hide` varchar(1) NOT NULL
+  `sph_hide` varchar(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
