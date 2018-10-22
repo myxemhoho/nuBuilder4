@@ -1,4 +1,5 @@
 <?php	
+
 	require_once('nuchoosesetup.php');
 	require_once('nuindexlibs.php');
 
@@ -149,18 +150,20 @@ window.nuHASH				= [];
 	$nuRecord				= '';
 	$nuHome					= '';
 
-    	if(isset($_GET['u']))			{$nuUser 		= $_GET['u'];}
-    	if(isset($_GET['p']))			{$nuPassword 	= $_GET['p'];}
-    	if(isset($_GET['f']))			{$nuForm 		= $_GET['f'];}
-    	if(isset($_GET['r']))			{$nuRecord 		= $_GET['r'];}
-    	if(isset($_GET['h']))			{$nuHome 		= $_GET['h'];}
+//-- $_GETS are sanitized in nuchoosesetup.php
 
-    	if(isset($_GET['opener']))		{$opener 		= $_GET['opener'];}
-    	if(isset($_GET['search']))		{$search 		= $_GET['search'];}
-    	if(isset($_GET['iframe']))		{$iframe 		= $_GET['iframe'];}
-    	if(isset($_GET['target']))		{$target 		= $_GET['target'];}
-    	if(isset($_GET['like']))		{$like	 		= $_GET['like'];}
-    	if(isset($_GET['browsefunction']))	{$nuBrowseFunction 	= $_GET['browsefunction'];}
+	if(isset($_GET['u']))				{$nuUser 		= $_GET['u'];}
+	if(isset($_GET['p']))				{$nuPassword 	= $_GET['p'];}
+	if(isset($_GET['f']))				{$nuForm 		= $_GET['f'];}
+	if(isset($_GET['r']))				{$nuRecord 		= $_GET['r'];}
+	if(isset($_GET['h']))				{$nuHome 		= $_GET['h'];}
+
+	if(isset($_GET['opener']))			{$opener 		= $_GET['opener'];}
+	if(isset($_GET['search']))			{$search 		= $_GET['search'];}
+	if(isset($_GET['iframe']))			{$iframe 		= $_GET['iframe'];}
+	if(isset($_GET['target']))			{$target 		= $_GET['target'];}
+	if(isset($_GET['like']))			{$like	 		= $_GET['like'];}
+	if(isset($_GET['browsefunction']))	{$nuBrowseFunction 	= $_GET['browsefunction'];}
 
 	$h1								= "
 	window.nuLoginU							= '$nuUser';
