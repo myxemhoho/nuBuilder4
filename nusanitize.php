@@ -2,18 +2,18 @@
 
 function nu_sanitize() {
 
-	nu_sanitize_get_variables();
-	nu_sanitize_post_variables();
+	//nu_sanitize_get_variables();
+	//nu_sanitize_post_variables();
 }
 
 function nu_sanitize_get_variables() {	
 
-	_nu_sanitize_array($_GET);
+	//_nu_sanitize_array($_GET);
 }
 
 function nu_sanitize_post_variables() {
 
-	_nu_sanitize_array($_POST);
+	//_nu_sanitize_array($_POST);
 }
 
 function _nu_sanitize_array(&$_array) {
