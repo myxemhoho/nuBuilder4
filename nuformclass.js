@@ -659,10 +659,13 @@ class nuFormObject {
 		if(f[0] == 'N'){									//-- number  '456.789','N|€ 1,000.00'
 
 			var F		= nuNumberFormat(f);
-			v			= v.replace(F.decimal, '.');
-
+			
+			if(F.decimal.length == 1){
+				v	= v.replace(F.decimal, '.')
+			}
+			
 			if(isNaN(Number(v))){return '';}
-
+			
 			var o		= v.split('.');
 			var h		= nuAddThousandSpaces(o[0], F.separator);
 			
