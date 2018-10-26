@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2018 at 02:55 AM
+-- Generation Time: Oct 26, 2018 at 06:42 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -623,7 +623,7 @@ INSERT INTO `zzzzsys_object` (`zzzzsys_object_id`, `sob_all_zzzzsys_form_id`, `s
 ('nu5bad6cb3528f51c', 'nuobject', 'zzzzsys_object', 'input', 'sob_subform_table', 'Code', 'nu5bad6cb36a1c024', 330, 3, 3, 50, 18, '1', 'left', '0', '2', '', '', '', '', '', '', '', '', '', 'syt_title', 'sfo_description', '200', '', 'nutab', '', '', 'zzzzsys_tab', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb352b1230', 'nufflaunch', 'zzzzsys_form', 'word', 'ffwrd', 'New Fast Form', 'nu5bad6cb36f36433', 80, 89, 447, 490, 20, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb352dce42', 'nufflaunch', 'zzzzsys_form', 'input', 'fastform_table', 'Table Name', 'nu5bad6cb36f36433', 20, 47, 99, 180, 18, '1', 'left', '1', '0', '', '', '', '', '', '', '', '', 'browse|Browse|edit|Edit|browseedit|Browse and Edit|criteria|Criteria or Home|procedure|Procedure|report|Report', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'nuScroll', 'nuFORM.getJustTables()', '', '', '', '', '', '', ''),
-('nu5bad6cb35304ffd', 'nufastformobjects', 'zzzzsys_object', 'input', 'ff_id', ' ', 'nu5bad6cb36f72f8e', 20, 20, 30, 5, 18, '1', 'left', '1', '2', '', '', '', '', '', '', '', '', '', 'syt_title', 'sfo_description', '200', '', 'nutab', '', '', 'zzzzsys_tab', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
+('nu5bad6cb35304ffd', 'nufastformobjects', 'zzzzsys_object', 'input', 'ff_id', ' ', 'nu5bad6cb36f72f8e', 30, 20, 30, 5, 18, '1', 'left', '1', '2', '', '', '', '', '', '', '', '', '', 'syt_title', 'sfo_description', '200', '', 'nutab', '', '', 'zzzzsys_tab', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb3532d677', 'nufflaunch', 'zzzzsys_form', 'input', 'new_id', 'New ID', 'nu5bad6cb36f36433', 50, 12, 1, 10, 18, '1', 'left', '0', '2', '', '', '', '', '', '', '', '', 'browse|Browse|edit|Edit|browseedit|Browse and Edit|criteria|Criteria or Home|procedure|Procedure|report|Report', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu59e446589a1fc46', 'nusample', '', 'html', 'htmlsample', 'HTML', 'nu5bad6cb370eb06a', 120, 224, 261, 176, 31, '1', 'right', '0', '0', '', '', '', '', '', '', 'SELECT COUNT(*) FROM zzzzsys_debug', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 'N|$ 1,000.00', '', '', '<div id=\'adiv\' style=\'text-align:center;width:117px;border:1px solid red;\' class=\'nuBreadcrumb\'>\n    Hello World\n</div>', '', '', '', '', '', ''),
 ('nu59e446589a370ca', 'nusample', '', 'input', 'inputtextsample', 'Input:text', 'nu5bad6cb373c384f', 10, 198, 249, 311, 20, '1', 'left', '0', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
@@ -675,7 +675,7 @@ INSERT INTO `zzzzsys_object` (`zzzzsys_object_id`, `sob_all_zzzzsys_form_id`, `s
 ('nu5bad6cb35cf61c0', 'nuform', 'zzzzsys_form', 'input', 'br_sql', 'SQL Builder', 'nu5bad6cb36757b92', 120, 4, 591, 150, 30, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb35d26e8f', 'nuobject', 'zzzzsys_object', 'input', 'di_sql', 'SQL Builder', 'nu5bad6cb36974818', 210, 12, 410, 150, 30, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb35d48819', 'nuobject', 'zzzzsys_object', 'input', 'se_sql', 'SQL Builder', 'nu5bad6cb369a6ee3', 220, 12, 410, 150, 30, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', ''),
-('nu5bad6cb35d6b273', 'nufastformobjects', 'zzzzsys_object', 'input', 'ff_browse', 'Browse<br>Column', 'nu5bad6cb36f72f8e', 30, 20, 10, 58, 15, '1', 'left', '0', '0', '', '', 'nuobject', '', 'b', '#ff_id#', '', '0', '1|Yes', 'syt_title', 'sfo_description', '200', '', 'nutab', '', '', 'zzzzsys_tab', '', '', '', '', '', '', 0, '', 'checkbox', '', '', '', '', '', '', '', ''),
+('nu5bad6cb35d6b273', 'nufastformobjects', 'zzzzsys_object', 'input', 'ff_browse', 'Browse<br>Column', 'nu5bad6cb36f72f8e', 40, 20, 10, 58, 15, '1', 'left', '0', '0', '', '', 'nuobject', '', 'b', '#ff_id#', '', '0', '1|Yes', 'syt_title', 'sfo_description', '200', '', 'nutab', '', '', 'zzzzsys_tab', '', '', '', '', '', '', 0, '', 'checkbox', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb35d8ed3e', 'nufile', 'zzzzsys_file', 'textarea', 'sfi_json', 'Upload File ', 'nu5bad6cb3719774c', 70, 45, 1, 121, 50, '1', 'left', '0', '2', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'file', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb35dadfc5', 'nufflaunch', '', 'select', 'fastform_type', 'Form Type', 'nu5bad6cb36f36433', 10, 23, 100, 120, 16, '1', 'left', '1', '0', '', '', '', '', '', '', '', '0', 'browse|Browse|\nedit|Edit|browseedit|\nBrowse and Edit|\nlaunch|Launch|\nsubform|Subform Only', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb35dd12bb', 'nufflaunch', 'zzzzsys_form', 'word', 'wrdaddable', 'Addable Objects', 'nu5bad6cb36f36433', 40, 89, 23, 383, 20, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', ''),
@@ -1030,9 +1030,6 @@ CREATE TABLE `zzzzsys_table` (
 --
 
 INSERT INTO `zzzzsys_table` (`zzzzsys_table_id`) VALUES
-('a___nu15bd11180bc8a5___'),
-('a___nu15bd1123def1c5___'),
-('wp_users'),
 ('zzzzsys_access'),
 ('zzzzsys_access_form'),
 ('zzzzsys_access_php'),
