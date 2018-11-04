@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 31, 2018 at 03:01 AM
--- Server version: 10.1.33-MariaDB
--- PHP Version: 7.2.6
+-- Generation Time: Nov 04, 2018 at 01:46 AM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -32,8 +32,8 @@ CREATE TABLE `zzzzsys_access` (
   `zzzzsys_access_id` varchar(25) NOT NULL DEFAULT '',
   `sal_code` varchar(50) DEFAULT NULL,
   `sal_description` varchar(200) DEFAULT NULL,
-  `sal_anonymous` varchar(1) NOT NULL,
-  `sal_zzzzsys_form_id` varchar(25) NOT NULL
+  `sal_anonymous` varchar(1) DEFAULT NULL,
+  `sal_zzzzsys_form_id` varchar(25) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -46,12 +46,12 @@ CREATE TABLE `zzzzsys_access_form` (
   `zzzzsys_access_form_id` varchar(25) NOT NULL DEFAULT '',
   `slf_zzzzsys_access_id` varchar(25) DEFAULT NULL,
   `slf_zzzzsys_form_id` varchar(25) DEFAULT NULL,
-  `slf_add_button` varchar(1) NOT NULL,
-  `slf_save_button` varchar(1) NOT NULL,
-  `slf_delete_button` varchar(1) NOT NULL,
-  `slf_clone_button` varchar(1) NOT NULL,
-  `slf_new_button` varchar(1) NOT NULL,
-  `slf_print_button` varchar(1) NOT NULL
+  `slf_add_button` varchar(1) DEFAULT NULL,
+  `slf_save_button` varchar(1) DEFAULT NULL,
+  `slf_delete_button` varchar(1) DEFAULT NULL,
+  `slf_clone_button` varchar(1) DEFAULT NULL,
+  `slf_new_button` varchar(1) DEFAULT NULL,
+  `slf_print_button` varchar(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -191,7 +191,7 @@ INSERT INTO `zzzzsys_browse` (`zzzzsys_browse_id`, `sbr_zzzzsys_form_id`, `sbr_t
 CREATE TABLE `zzzzsys_debug` (
   `zzzzsys_debug_id` varchar(25) NOT NULL,
   `deb_message` longtext,
-  `deb_added` int(11) NOT NULL
+  `deb_added` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -202,9 +202,9 @@ CREATE TABLE `zzzzsys_debug` (
 
 CREATE TABLE `zzzzsys_event` (
   `zzzzsys_event_id` varchar(25) NOT NULL,
-  `sev_zzzzsys_object_id` varchar(25) NOT NULL,
-  `sev_event` varchar(100) NOT NULL,
-  `sev_javascript` varchar(3000) NOT NULL
+  `sev_zzzzsys_object_id` varchar(25) DEFAULT NULL,
+  `sev_event` varchar(100) DEFAULT NULL,
+  `sev_javascript` varchar(3000) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -280,11 +280,11 @@ INSERT INTO `zzzzsys_event` (`zzzzsys_event_id`, `sev_zzzzsys_object_id`, `sev_e
 
 CREATE TABLE `zzzzsys_file` (
   `zzzzsys_file_id` varchar(25) NOT NULL,
-  `sfi_code` varchar(300) NOT NULL,
-  `sfi_description` varchar(300) NOT NULL,
-  `sfi_group` varchar(300) NOT NULL,
-  `sfi_json` longtext NOT NULL,
-  `sfi_system` char(1) NOT NULL
+  `sfi_code` varchar(300) DEFAULT NULL,
+  `sfi_description` varchar(300) DEFAULT NULL,
+  `sfi_group` varchar(300) DEFAULT NULL,
+  `sfi_json` longtext,
+  `sfi_system` char(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -302,16 +302,16 @@ INSERT INTO `zzzzsys_file` (`zzzzsys_file_id`, `sfi_code`, `sfi_description`, `s
 
 CREATE TABLE `zzzzsys_form` (
   `zzzzsys_form_id` varchar(25) NOT NULL,
-  `sfo_type` varchar(300) NOT NULL,
-  `sfo_code` varchar(300) NOT NULL,
-  `sfo_description` varchar(300) NOT NULL,
-  `sfo_table` varchar(300) NOT NULL,
-  `sfo_primary_key` varchar(300) NOT NULL,
-  `sfo_browse_redirect_form_id` varchar(300) NOT NULL,
-  `sfo_browse_row_height` int(11) NOT NULL,
-  `sfo_browse_rows_per_page` int(11) NOT NULL,
-  `sfo_browse_sql` text NOT NULL,
-  `sfo_javascript` longtext NOT NULL
+  `sfo_type` varchar(300) DEFAULT NULL,
+  `sfo_code` varchar(300) DEFAULT NULL,
+  `sfo_description` varchar(300) DEFAULT NULL,
+  `sfo_table` varchar(300) DEFAULT NULL,
+  `sfo_primary_key` varchar(300) DEFAULT NULL,
+  `sfo_browse_redirect_form_id` varchar(300) DEFAULT NULL,
+  `sfo_browse_row_height` int(11) DEFAULT NULL,
+  `sfo_browse_rows_per_page` int(11) DEFAULT NULL,
+  `sfo_browse_sql` text,
+  `sfo_javascript` longtext
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -370,8 +370,8 @@ INSERT INTO `zzzzsys_form` (`zzzzsys_form_id`, `sfo_type`, `sfo_code`, `sfo_desc
 
 CREATE TABLE `zzzzsys_format` (
   `zzzzsys_format_id` varchar(25) NOT NULL,
-  `srm_type` varchar(10) NOT NULL,
-  `srm_format` varchar(300) NOT NULL
+  `srm_type` varchar(10) DEFAULT NULL,
+  `srm_format` varchar(300) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -389,55 +389,55 @@ INSERT INTO `zzzzsys_format` (`zzzzsys_format_id`, `srm_type`, `srm_format`) VAL
 
 CREATE TABLE `zzzzsys_object` (
   `zzzzsys_object_id` varchar(25) NOT NULL,
-  `sob_all_zzzzsys_form_id` varchar(300) NOT NULL,
-  `sob_all_table` varchar(300) NOT NULL,
-  `sob_all_type` varchar(300) NOT NULL,
-  `sob_all_id` varchar(300) NOT NULL,
-  `sob_all_label` varchar(1000) NOT NULL,
-  `sob_all_zzzzsys_tab_id` varchar(300) NOT NULL,
-  `sob_all_order` int(11) NOT NULL,
-  `sob_all_top` int(11) NOT NULL,
-  `sob_all_left` int(11) NOT NULL,
-  `sob_all_width` int(11) NOT NULL,
-  `sob_all_height` int(11) NOT NULL,
-  `sob_all_cloneable` varchar(300) NOT NULL,
-  `sob_all_align` varchar(10) NOT NULL,
-  `sob_all_validate` varchar(1) NOT NULL,
-  `sob_all_access` varchar(1) NOT NULL,
-  `sob_calc_formula` varchar(300) NOT NULL,
-  `sob_calc_format` varchar(300) NOT NULL,
-  `sob_run_zzzzsys_form_id` varchar(300) NOT NULL,
-  `sob_run_filter` varchar(300) NOT NULL,
-  `sob_run_method` varchar(1) NOT NULL,
-  `sob_run_id` varchar(300) NOT NULL,
-  `sob_display_sql` text NOT NULL,
-  `sob_select_multiple` varchar(300) NOT NULL,
-  `sob_select_sql` text NOT NULL,
-  `sob_lookup_code` varchar(300) NOT NULL,
-  `sob_lookup_description` varchar(300) NOT NULL,
-  `sob_lookup_description_width` varchar(300) NOT NULL,
+  `sob_all_zzzzsys_form_id` varchar(300) DEFAULT NULL,
+  `sob_all_table` varchar(300) DEFAULT NULL,
+  `sob_all_type` varchar(300) DEFAULT NULL,
+  `sob_all_id` varchar(300) DEFAULT NULL,
+  `sob_all_label` varchar(1000) DEFAULT NULL,
+  `sob_all_zzzzsys_tab_id` varchar(300) DEFAULT NULL,
+  `sob_all_order` int(11) DEFAULT NULL,
+  `sob_all_top` int(11) DEFAULT NULL,
+  `sob_all_left` int(11) DEFAULT NULL,
+  `sob_all_width` int(11) DEFAULT NULL,
+  `sob_all_height` int(11) DEFAULT NULL,
+  `sob_all_cloneable` varchar(300) DEFAULT NULL,
+  `sob_all_align` varchar(10) DEFAULT NULL,
+  `sob_all_validate` varchar(1) DEFAULT NULL,
+  `sob_all_access` varchar(1) DEFAULT NULL,
+  `sob_calc_formula` varchar(300) DEFAULT NULL,
+  `sob_calc_format` varchar(300) DEFAULT NULL,
+  `sob_run_zzzzsys_form_id` varchar(300) DEFAULT NULL,
+  `sob_run_filter` varchar(300) DEFAULT NULL,
+  `sob_run_method` varchar(1) DEFAULT NULL,
+  `sob_run_id` varchar(300) DEFAULT NULL,
+  `sob_display_sql` text,
+  `sob_select_multiple` varchar(300) DEFAULT NULL,
+  `sob_select_sql` text,
+  `sob_lookup_code` varchar(300) DEFAULT NULL,
+  `sob_lookup_description` varchar(300) DEFAULT NULL,
+  `sob_lookup_description_width` varchar(300) DEFAULT NULL,
   `sob_lookup_autocomplete` varchar(300) DEFAULT NULL,
-  `sob_lookup_zzzzsys_form_id` varchar(300) NOT NULL,
-  `sob_lookup_javascript` text NOT NULL,
+  `sob_lookup_zzzzsys_form_id` varchar(300) DEFAULT NULL,
+  `sob_lookup_javascript` text,
   `sob_lookup_php` varchar(25) DEFAULT NULL,
-  `sob_lookup_table` varchar(500) NOT NULL,
-  `sob_subform_zzzzsys_form_id` varchar(300) NOT NULL,
-  `sob_subform_foreign_key` varchar(300) NOT NULL,
-  `sob_subform_add` varchar(300) NOT NULL,
-  `sob_subform_delete` varchar(300) NOT NULL,
-  `sob_subform_type` varchar(300) NOT NULL,
-  `sob_subform_table` varchar(300) NOT NULL,
-  `sob_input_count` bigint(20) NOT NULL,
-  `sob_input_format` varchar(300) NOT NULL,
-  `sob_input_type` varchar(300) NOT NULL,
-  `sob_input_javascript` text NOT NULL,
-  `sob_html_code` text NOT NULL,
-  `sob_html_chart_type` varchar(1000) NOT NULL,
-  `sob_html_javascript` varchar(1000) NOT NULL,
-  `sob_html_title` varchar(1000) NOT NULL,
-  `sob_html_vertical_label` varchar(1000) NOT NULL,
-  `sob_html_horizontal_label` varchar(1000) NOT NULL,
-  `sob_image_zzzzsys_file_id` varchar(25) NOT NULL
+  `sob_lookup_table` varchar(500) DEFAULT NULL,
+  `sob_subform_zzzzsys_form_id` varchar(300) DEFAULT NULL,
+  `sob_subform_foreign_key` varchar(300) DEFAULT NULL,
+  `sob_subform_add` varchar(300) DEFAULT NULL,
+  `sob_subform_delete` varchar(300) DEFAULT NULL,
+  `sob_subform_type` varchar(300) DEFAULT NULL,
+  `sob_subform_table` varchar(300) DEFAULT NULL,
+  `sob_input_count` bigint(20) DEFAULT NULL,
+  `sob_input_format` varchar(300) DEFAULT NULL,
+  `sob_input_type` varchar(300) DEFAULT NULL,
+  `sob_input_javascript` text,
+  `sob_html_code` text,
+  `sob_html_chart_type` varchar(1000) DEFAULT NULL,
+  `sob_html_javascript` varchar(1000) DEFAULT NULL,
+  `sob_html_title` varchar(1000) DEFAULT NULL,
+  `sob_html_vertical_label` varchar(1000) DEFAULT NULL,
+  `sob_html_horizontal_label` varchar(1000) DEFAULT NULL,
+  `sob_image_zzzzsys_file_id` varchar(25) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -725,13 +725,13 @@ INSERT INTO `zzzzsys_object` (`zzzzsys_object_id`, `sob_all_zzzzsys_form_id`, `s
 
 CREATE TABLE `zzzzsys_php` (
   `zzzzsys_php_id` varchar(25) NOT NULL,
-  `sph_code` varchar(300) NOT NULL,
-  `sph_description` varchar(300) NOT NULL,
-  `sph_group` varchar(100) NOT NULL,
+  `sph_code` varchar(300) DEFAULT NULL,
+  `sph_description` varchar(300) DEFAULT NULL,
+  `sph_group` varchar(100) DEFAULT NULL,
   `sph_php` longtext,
   `sph_run` varchar(20) DEFAULT NULL,
   `sph_zzzzsys_form_id` varchar(25) DEFAULT NULL,
-  `sph_system` varchar(1) NOT NULL,
+  `sph_system` varchar(1) DEFAULT NULL,
   `sph_hide` varchar(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -799,12 +799,12 @@ INSERT INTO `zzzzsys_php` (`zzzzsys_php_id`, `sph_code`, `sph_description`, `sph
 
 CREATE TABLE `zzzzsys_report` (
   `zzzzsys_report_id` varchar(25) NOT NULL,
-  `sre_code` varchar(300) NOT NULL,
-  `sre_description` varchar(300) NOT NULL,
-  `sre_group` varchar(100) NOT NULL,
-  `sre_zzzzsys_php_id` varchar(25) NOT NULL,
-  `sre_zzzzsys_form_id` varchar(25) NOT NULL,
-  `sre_layout` longtext NOT NULL
+  `sre_code` varchar(300) DEFAULT NULL,
+  `sre_description` varchar(300) DEFAULT NULL,
+  `sre_group` varchar(100) DEFAULT NULL,
+  `sre_zzzzsys_php_id` varchar(25) DEFAULT NULL,
+  `sre_zzzzsys_form_id` varchar(25) DEFAULT NULL,
+  `sre_layout` longtext
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -848,12 +848,12 @@ CREATE TABLE `zzzzsys_run_list` (
 --
 
 CREATE TABLE `zzzzsys_select` (
-  `zzzzsys_select_id` varchar(25) NOT NULL,
-  `sse_description` varchar(300) NOT NULL,
-  `sse_json` mediumtext NOT NULL,
-  `sse_sql` mediumtext NOT NULL,
-  `sse_edit` varchar(1) NOT NULL,
-  `sse_system` varchar(1) NOT NULL
+  `zzzzsys_select_id` varchar(25) CHARACTER SET utf8 NOT NULL,
+  `sse_description` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
+  `sse_json` mediumtext CHARACTER SET utf8,
+  `sse_sql` mediumtext CHARACTER SET utf8,
+  `sse_edit` varchar(1) CHARACTER SET utf8 DEFAULT NULL,
+  `sse_system` varchar(1) CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -871,12 +871,12 @@ INSERT INTO `zzzzsys_select` (`zzzzsys_select_id`, `sse_description`, `sse_json`
 
 CREATE TABLE `zzzzsys_select_clause` (
   `zzzzsys_select_clause_id` varchar(25) NOT NULL,
-  `ssc_zzzzsys_select_id` varchar(25) NOT NULL,
-  `ssc_type` varchar(300) NOT NULL,
-  `ssc_field` varchar(500) NOT NULL,
-  `ssc_clause` varchar(500) NOT NULL,
-  `ssc_sort` varchar(10) NOT NULL,
-  `ssc_order` varchar(500) NOT NULL
+  `ssc_zzzzsys_select_id` varchar(25) DEFAULT NULL,
+  `ssc_type` varchar(300) DEFAULT NULL,
+  `ssc_field` varchar(500) DEFAULT NULL,
+  `ssc_clause` varchar(500) DEFAULT NULL,
+  `ssc_sort` varchar(10) DEFAULT NULL,
+  `ssc_order` varchar(500) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -887,7 +887,7 @@ CREATE TABLE `zzzzsys_select_clause` (
 
 CREATE TABLE `zzzzsys_session` (
   `zzzzsys_session_id` varchar(25) NOT NULL DEFAULT '',
-  `sss_access` mediumtext NOT NULL,
+  `sss_access` mediumtext,
   `sss_time` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -901,7 +901,7 @@ CREATE TABLE `zzzzsys_setup` (
   `zzzzsys_setup_id` varchar(25) NOT NULL DEFAULT '',
   `set_time_out_minutes` int(11) DEFAULT NULL,
   `set_zzzzsys_timezone_id` varchar(25) DEFAULT NULL,
-  `set_language` varchar(20) NOT NULL,
+  `set_language` varchar(20) DEFAULT NULL,
   `set_smtp_username` varchar(255) DEFAULT NULL,
   `set_smtp_password` varchar(255) DEFAULT NULL,
   `set_smtp_host` varchar(255) DEFAULT NULL,
@@ -909,9 +909,9 @@ CREATE TABLE `zzzzsys_setup` (
   `set_smtp_from_name` varchar(255) DEFAULT NULL,
   `set_smtp_port` int(4) DEFAULT NULL,
   `set_smtp_use_ssl` varchar(1) DEFAULT '1',
-  `set_smtp_use_authentication` varchar(1) NOT NULL,
-  `set_header` longtext NOT NULL,
-  `set_denied` varchar(1) NOT NULL,
+  `set_smtp_use_authentication` varchar(1) DEFAULT NULL,
+  `set_header` longtext,
+  `set_denied` varchar(1) DEFAULT NULL,
   `set_wp` char(1) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -930,10 +930,10 @@ INSERT INTO `zzzzsys_setup` (`zzzzsys_setup_id`, `set_time_out_minutes`, `set_zz
 
 CREATE TABLE `zzzzsys_tab` (
   `zzzzsys_tab_id` varchar(25) NOT NULL,
-  `syt_zzzzsys_form_id` varchar(25) NOT NULL,
-  `syt_title` varchar(250) NOT NULL,
-  `syt_order` int(11) NOT NULL,
-  `syt_help` varchar(3000) NOT NULL
+  `syt_zzzzsys_form_id` varchar(25) DEFAULT NULL,
+  `syt_title` varchar(250) DEFAULT NULL,
+  `syt_order` int(11) DEFAULT NULL,
+  `syt_help` varchar(3000) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1053,7 +1053,7 @@ INSERT INTO `zzzzsys_table` (`zzzzsys_table_id`) VALUES
 
 CREATE TABLE `zzzzsys_timezone` (
   `zzzzsys_timezone_id` varchar(25) NOT NULL,
-  `stz_timezone` mediumtext NOT NULL
+  `stz_timezone` mediumtext
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1649,9 +1649,9 @@ INSERT INTO `zzzzsys_timezone` (`zzzzsys_timezone_id`, `stz_timezone`) VALUES
 
 CREATE TABLE `zzzzsys_translate` (
   `zzzzsys_translate_id` varchar(25) NOT NULL,
-  `trl_language` varchar(20) NOT NULL,
-  `trl_english` varchar(500) NOT NULL,
-  `trl_translation` varchar(500) NOT NULL
+  `trl_language` varchar(20) DEFAULT NULL,
+  `trl_english` varchar(500) DEFAULT NULL,
+  `trl_translation` varchar(500) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -3476,8 +3476,8 @@ INSERT INTO `zzzzsys_translate` (`zzzzsys_translate_id`, `trl_language`, `trl_en
 
 CREATE TABLE `zzzzsys_user` (
   `zzzzsys_user_id` varchar(25) NOT NULL DEFAULT '',
-  `sus_zzzzsys_access_id` varchar(25) NOT NULL,
-  `sus_language` varchar(20) NOT NULL,
+  `sus_zzzzsys_access_id` varchar(25) DEFAULT NULL,
+  `sus_language` varchar(20) DEFAULT NULL,
   `sus_name` varchar(50) DEFAULT NULL,
   `sus_email` varchar(255) DEFAULT NULL,
   `sus_login_name` varchar(20) DEFAULT NULL,
