@@ -274,6 +274,7 @@ function nuSystemList(){
 	return $t;
 }
 
+
 function nuSetCollation(){
 	
 	$tbls   = nuRunQuery("SHOW FULL Tables WHERE Table_type = 'BASE TABLE'");
@@ -285,9 +286,17 @@ function nuSetCollation(){
 	while($row = db_fetch_row($tbls)){
 
 		$tab 	= $row[0];
-		nuRunQuery("ALTER TABLE $tab ENGINE = MyISAM");
-		nuRunQuery("ALTER TABLE $tab DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
-		nuRunQuery("ALTER TABLE $tab CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci");
+		
+		if(substr($tab, 0, 8) == 'zzzzsys_'){
+			
+			nuRunQuery("ALTER TABLE $tab ENGINE = MyISAM");
+			nuRunQuery("ALTER TABLE $tab DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+			nuRunQuery("ALTER TABLE $tab CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci");
+		
+		}
+		
 	}
+	
 }
+
 ?>
