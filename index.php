@@ -12,6 +12,9 @@
                 require_once('nuwordpresssetuplibs.php');
 		nuCheckWPUser();
         }
+
+	require_once('nusystemupdatelibs.php');
+	nuMigrateSQL();
 ?>
 <!DOCTYPE html>
 <html onclick="nuClick(event)">

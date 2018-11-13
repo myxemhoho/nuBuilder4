@@ -1927,6 +1927,7 @@ function nuEmbedObject(f, t){
         
 }
 
+function nuStartDatabaseAdmin() {
 
-
-
+	window.open("nupmalogin.php?sessid="+window.nuSESSION);
+}
