@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2018 at 01:46 AM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Generation Time: Nov 13, 2018 at 04:24 AM
+-- Server version: 10.1.33-MariaDB
+-- PHP Version: 7.2.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -32,7 +32,6 @@ CREATE TABLE `zzzzsys_access` (
   `zzzzsys_access_id` varchar(25) NOT NULL DEFAULT '',
   `sal_code` varchar(50) DEFAULT NULL,
   `sal_description` varchar(200) DEFAULT NULL,
-  `sal_anonymous` varchar(1) DEFAULT NULL,
   `sal_zzzzsys_form_id` varchar(25) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -514,7 +513,6 @@ INSERT INTO `zzzzsys_object` (`zzzzsys_object_id`, `sob_all_zzzzsys_form_id`, `s
 ('nu5bad6cb3313ae2f', 'nuhome', '', 'run', 'form_button', 'Forms', 'nu5bad6cb367c5125', 60, 43, 518, 194, 30, '1', 'center', '1', '0', '', '', 'nuform', '', 'b', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb3316ef87', 'nuevent', 'zzzzsys_event', 'input', 'sev_javascript', 'Javascript', 'nu5bad6cb36aaa539', 20, 1, 255, 292, 20, '1', 'left', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'sev_zzzsys_object_id', '1', '1', 'g', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb331a6d3e', 'nuevent', 'zzzzsys_event', 'input', 'sev_event', 'Event', 'nu5bad6cb36aaa539', 10, 1, 55, 150, 20, '1', 'left', '1', '0', '', '', '', '', '', '', '', '0', 'drag|drag|dragend|dragend|dragenter|dragenter|dragexit|dragexit|dragleave|dragleave|dragover|dragover|dragstart|dragstart|drop|drop|onclick|onclick|onblur|onblur|onchange|onchange|onfocus|onfocus|onkeydown|onkeydown', '', '', '', '', '', '', '', '', '', 'sev_zzzsys_object_id', '1', '1', 'g', '', 0, '', 'nuScroll', 'nuChooseEventList()', '', '', '', '', '', '', ''),
-('nu5bad6cb331f4bcc', 'nuaccess', 'zzzzsys_access', 'select', 'sal_anonymous', 'Anonymous Login', 'nu5bad6cb36ac903f', 30, 159, 161, 70, 18, '1', 'left', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb3351b6a4', 'nuaccess', 'zzzzsys_access', 'lookup', 'sal_zzzzsys_form_id', 'Home', 'nu5bad6cb36ac903f', 10, 57, 161, 100, 18, '1', 'left', '1', '0', '', '', '', '', '', '', '', '0', 'SELECT zzzzsys_form_id, CONCAT(sfo_code, \' - \', sfo_description)\nFROM zzzzsys_form\nORDER BY sfo_code', 'sfo_code', 'sfo_description', '200', '', 'nulaunchform', '', '', 'zzzzsys_form', 'nuform', '', '1', '', '', '', 0, '', '', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb3364460a', 'nuobject', 'zzzzsys_object', 'input', 'sob_all_zzzzsys_form_id', 'Form ID', 'nu5bad6cb3686cb0d', 150, 0, 0, 72, 18, '1', 'left', '0', '2', '', '', '', '', '', '', '', '', '', 'syt_title', 'sfo_description', '200', '0', 'nutab', '', '', 'zzzzsys_tab', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb336a9f96', 'nuaccess', 'zzzzsys_access', 'input', 'sal_code', 'Code', 'nu5bad6cb36ac903f', 20, 91, 161, 100, 18, '1', 'left', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
@@ -581,9 +579,9 @@ INSERT INTO `zzzzsys_object` (`zzzzsys_object_id`, `sob_all_zzzzsys_form_id`, `s
 ('nu5bad6cb34c005d7', 'nuform', 'zzzzsys_form', 'input', 'be_event', 'Before Edit', 'nu5bad6cb37026348', 140, 110, 79, 150, 29, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb34c4775c', 'nuform', 'zzzzsys_form', 'input', 'bs_event', 'Before Save', 'nu5bad6cb37026348', 150, 76, 253, 150, 29, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb34d23de5', 'nuform', 'zzzzsys_form', 'input', 'as_event', 'After Save', 'nu5bad6cb37026348', 160, 110, 253, 150, 29, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', ''),
-('nu5bad6cb34d7e1db', 'nuform', 'zzzzsys_form', 'input', 'bd_event', 'Before Delete', 'nu5bad6cb37026348', 170, 76, 427, 150, 29, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', '');
+('nu5bad6cb34d7e1db', 'nuform', 'zzzzsys_form', 'input', 'bd_event', 'Before Delete', 'nu5bad6cb37026348', 170, 76, 427, 150, 29, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', ''),
+('nu5bad6cb34e2eaec', 'nuform', 'zzzzsys_form', 'input', 'ad_event', 'After Delete', 'nu5bad6cb37026348', 180, 110, 427, 150, 29, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', '');
 INSERT INTO `zzzzsys_object` (`zzzzsys_object_id`, `sob_all_zzzzsys_form_id`, `sob_all_table`, `sob_all_type`, `sob_all_id`, `sob_all_label`, `sob_all_zzzzsys_tab_id`, `sob_all_order`, `sob_all_top`, `sob_all_left`, `sob_all_width`, `sob_all_height`, `sob_all_cloneable`, `sob_all_align`, `sob_all_validate`, `sob_all_access`, `sob_calc_formula`, `sob_calc_format`, `sob_run_zzzzsys_form_id`, `sob_run_filter`, `sob_run_method`, `sob_run_id`, `sob_display_sql`, `sob_select_multiple`, `sob_select_sql`, `sob_lookup_code`, `sob_lookup_description`, `sob_lookup_description_width`, `sob_lookup_autocomplete`, `sob_lookup_zzzzsys_form_id`, `sob_lookup_javascript`, `sob_lookup_php`, `sob_lookup_table`, `sob_subform_zzzzsys_form_id`, `sob_subform_foreign_key`, `sob_subform_add`, `sob_subform_delete`, `sob_subform_type`, `sob_subform_table`, `sob_input_count`, `sob_input_format`, `sob_input_type`, `sob_input_javascript`, `sob_html_code`, `sob_html_chart_type`, `sob_html_javascript`, `sob_html_title`, `sob_html_vertical_label`, `sob_html_horizontal_label`, `sob_image_zzzzsys_file_id`) VALUES
-('nu5bad6cb34e2eaec', 'nuform', 'zzzzsys_form', 'input', 'ad_event', 'After Delete', 'nu5bad6cb37026348', 180, 110, 427, 150, 29, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb34e5cc53', 'nuform', 'zzzzsys_form', 'input', 'previewedit', 'Preview Edit Form', 'nu5bad6cb37026348', 210, 24, 356, 222, 28, '1', 'center', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb34e80d7e', 'nuobject', 'zzzzsys_object', 'input', 'sob_lookup_table', 'Code', 'nu5bad6cb369d0088', 280, 3, 3, 50, 18, '1', 'left', '0', '2', '', '', '', '', '', '', '', '', '', 'syt_title', 'sfo_description', '200', '', 'nutab', '', '', 'zzzzsys_tab', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb34ea0b99', 'nuhome', '', 'run', 'run_fast_form', 'Fast Form', 'nu5bad6cb36efb50c', 120, 43, 84, 195, 30, '1', 'center', '0', '0', '', '', 'nufflaunch', '', 'b', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'button', '', '', '', '', '', '', '', ''),
@@ -699,9 +697,9 @@ INSERT INTO `zzzzsys_object` (`zzzzsys_object_id`, `sob_all_zzzzsys_form_id`, `s
 ('nu5bad6cb36334ee9', 'nufrlaunch', '', 'select', 'orderby', 'Order By', 'nu5bad6cb3737e773', 20, 51, 94, 256, 16, '1', 'left', '0', '0', '', '', '', '', '', '', '', '0', ' |', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb363bb5b7', 'nuobject', 'zzzzsys_object', 'select', 'sob_html_chart_type', 'Chart Type', 'nu5bad6cb36a71012', 450, 48, 96, 250, 18, '1', 'left', '0', '0', '', '', '', '', '', '', '', '0', 'p|Pie Graph|\nl|Line Graph|\nb|Bar Graph|\nbs|Bar Graph - Stacked|\nbh|Bar Graph - Horizontal|\nbhs|Bar Graph - Horizontal and Stacked\n\n\n\n', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb36459df5', 'nuchart', 'zzzzsys_chart', 'input', 'sch_array', 'JS Array', 'nu5a4169161229065', 30, 101, 115, 250, 20, '1', 'left', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
-('nu5bad6cb3647b4cb', 'nuobject', 'zzzzsys_object', 'input', 'sob_html_title', 'Title', 'nu5bad6cb36a71012', 470, 106, 96, 250, 20, '1', 'left', '0', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', '');
+('nu5bad6cb3647b4cb', 'nuobject', 'zzzzsys_object', 'input', 'sob_html_title', 'Title', 'nu5bad6cb36a71012', 470, 106, 96, 250, 20, '1', 'left', '0', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
+('nu5bad6cb364add63', 'nuobject', 'zzzzsys_object', 'input', 'sob_html_vertical_label', 'Vertical Label', 'nu5bad6cb36a71012', 480, 137, 96, 250, 19, '1', 'left', '0', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', '');
 INSERT INTO `zzzzsys_object` (`zzzzsys_object_id`, `sob_all_zzzzsys_form_id`, `sob_all_table`, `sob_all_type`, `sob_all_id`, `sob_all_label`, `sob_all_zzzzsys_tab_id`, `sob_all_order`, `sob_all_top`, `sob_all_left`, `sob_all_width`, `sob_all_height`, `sob_all_cloneable`, `sob_all_align`, `sob_all_validate`, `sob_all_access`, `sob_calc_formula`, `sob_calc_format`, `sob_run_zzzzsys_form_id`, `sob_run_filter`, `sob_run_method`, `sob_run_id`, `sob_display_sql`, `sob_select_multiple`, `sob_select_sql`, `sob_lookup_code`, `sob_lookup_description`, `sob_lookup_description_width`, `sob_lookup_autocomplete`, `sob_lookup_zzzzsys_form_id`, `sob_lookup_javascript`, `sob_lookup_php`, `sob_lookup_table`, `sob_subform_zzzzsys_form_id`, `sob_subform_foreign_key`, `sob_subform_add`, `sob_subform_delete`, `sob_subform_type`, `sob_subform_table`, `sob_input_count`, `sob_input_format`, `sob_input_type`, `sob_input_javascript`, `sob_html_code`, `sob_html_chart_type`, `sob_html_javascript`, `sob_html_title`, `sob_html_vertical_label`, `sob_html_horizontal_label`, `sob_image_zzzzsys_file_id`) VALUES
-('nu5bad6cb364add63', 'nuobject', 'zzzzsys_object', 'input', 'sob_html_vertical_label', 'Vertical Label', 'nu5bad6cb36a71012', 480, 137, 96, 250, 19, '1', 'left', '0', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb36568f2b', 'nuobject', 'zzzzsys_object', 'input', 'sob_html_horizontal_label', 'Horizontal Label', 'nu5bad6cb36a71012', 490, 167, 96, 250, 19, '1', 'left', '0', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb3658e2e6', 'nuobject', 'zzzzsys_object', 'input', 'sob_html_javascript', 'Javascript Array', 'nu5bad6cb36a71012', 460, 77, 96, 250, 18, '1', 'left', '0', '0', '', '', '', '', '', '', '', '0', '0|No|1|Yes', 'syt_title', 'sfo_description', '200', '', 'nutab', '', '', 'zzzzsys_tab', '', '', '', '', '', '', 0, '', 'text', '', '', '', '', '', '', '', ''),
 ('nu5bad6cb365aec3a', 'nuchart', 'zzzzsys_chart', 'html', 'chart_div', ' ', 'nu5a4169161229065', 70, 28, 581, 250, 194, '1', 'left', '0', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '', 'text', '', '<!- ->', '', '', '', '', '', ''),
@@ -731,7 +729,7 @@ CREATE TABLE `zzzzsys_php` (
   `sph_php` longtext,
   `sph_run` varchar(20) DEFAULT NULL,
   `sph_zzzzsys_form_id` varchar(25) DEFAULT NULL,
-  `sph_system` varchar(1) DEFAULT NULL,
+  `sph_system` varchar(1) DEFAULT '0',
   `sph_hide` varchar(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -911,16 +909,15 @@ CREATE TABLE `zzzzsys_setup` (
   `set_smtp_use_ssl` varchar(1) DEFAULT '1',
   `set_smtp_use_authentication` varchar(1) DEFAULT NULL,
   `set_header` longtext,
-  `set_denied` varchar(1) DEFAULT NULL,
-  `set_wp` char(1) NOT NULL DEFAULT '1'
+  `set_denied` varchar(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `zzzzsys_setup`
 --
 
-INSERT INTO `zzzzsys_setup` (`zzzzsys_setup_id`, `set_time_out_minutes`, `set_zzzzsys_timezone_id`, `set_language`, `set_smtp_username`, `set_smtp_password`, `set_smtp_host`, `set_smtp_from_address`, `set_smtp_from_name`, `set_smtp_port`, `set_smtp_use_ssl`, `set_smtp_use_authentication`, `set_header`, `set_denied`, `set_wp`) VALUES
-('1', 120, '52819fa94bc9a93', '', '1', '1', '1', '1', '1', 0, '0', '1', '	\r\n	function nuHeaderTest() {\r\n	    console.log(\'Functions placed here before a closing script tag are available anywhere in nuBuilder Forte\');\r\n	}\r\n	\r\n	</script>\r\n	<style>    \r\n//	.nuActionButton {background-color:#0073aa;}\r\n\r\n	</style>\r\n	<script>\r\n\r\n	', '0', '1');
+INSERT INTO `zzzzsys_setup` (`zzzzsys_setup_id`, `set_time_out_minutes`, `set_zzzzsys_timezone_id`, `set_language`, `set_smtp_username`, `set_smtp_password`, `set_smtp_host`, `set_smtp_from_address`, `set_smtp_from_name`, `set_smtp_port`, `set_smtp_use_ssl`, `set_smtp_use_authentication`, `set_header`, `set_denied`) VALUES
+('1', 120, '52819fa94bc9a93', '', '1', '1', '1', '1', '1', 0, '0', '1', '	\r\n	function nuHeaderTest() {\r\n	    console.log(\'Functions placed here before a closing script tag are available anywhere in nuBuilder Forte\');\r\n	}\r\n	\r\n	</script>\r\n	<style>    \r\n//	.nuActionButton {background-color:#0073aa;}\r\n\r\n	</style>\r\n	<script>\r\n\r\n	', '0');
 
 -- --------------------------------------------------------
 
