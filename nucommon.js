@@ -1906,11 +1906,12 @@ function nuDecendingSortNumberColumn(b, a) {
 }
 
 
-
-
-function nuEmbedObject(f, t){
+function nuEmbedObject(f, d, w, h){
     
 	if(f == ''){return;}
+
+	if(w === undefined){w = 300;}
+	if(h === undefined){h = 300;}
 	
 	var ob	= JSON.parse(f);
 	var ty	= ob.type;
@@ -1919,13 +1920,14 @@ function nuEmbedObject(f, t){
     
     x.setAttribute("type", ty);
     x.setAttribute("src", ur);
-    x.setAttribute("width", "300px");
-    x.setAttribute("height", "300px");
+    x.setAttribute("width", w + "px");
+    x.setAttribute("height", h + "px");
 
-    $('#' + t).html('');
-    document.getElementById(t).appendChild(x);
+    $('#' + d).html('');
+    document.getElementById(d).appendChild(x);
         
 }
+
 
 function nuStartDatabaseAdmin() {
 
